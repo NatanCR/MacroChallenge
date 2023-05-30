@@ -37,13 +37,13 @@ class IdeaSaver {
     }
     
     /**Save an photo idea in UserDefaults that stores all PhotoIdeas**/
-    public static func savePhotoIdea(idea: AudioIdeia) {
-        saveUniqueIdea(idea: idea, type: AudioIdeia.self, key: audioModelKey)
+    public static func savePhotoIdea(idea: PhotoModel) {
+        saveUniqueIdea(idea: idea, type: PhotoModel.self, key: photoModelKey)
     }
     
     /**Save a collection of photo ideas in UserDefaults that stores all PhotoIdeas**/
-    public static func savePhotoIdeas(ideas: [AudioIdeia]) {
-        saveMultipleIdeas(ideas: ideas, type: AudioIdeia.self, key: audioModelKey)
+    public static func savePhotoIdeas(ideas: [PhotoModel]) {
+        saveMultipleIdeas(ideas: ideas, type: PhotoModel.self, key: photoModelKey)
     }
     
     //MARK: - LOADS
@@ -62,7 +62,7 @@ class IdeaSaver {
         }
         
         if defaults.object(forKey: photoModelKey) != nil {
-            ideas.append(contentsOf: getSavedUniqueIdeasType(type: AudioIdeia.self, key: photoModelKey))
+            ideas.append(contentsOf: getSavedUniqueIdeasType(type: PhotoModel.self, key: photoModelKey))
         }
         
         return ideas
@@ -84,6 +84,12 @@ class IdeaSaver {
     public static func getSavedAudio(audio: AudioIdeia) -> AudioIdeia {
         let audio: [AudioIdeia] = getSavedUniqueIdeasType(type: AudioIdeia.self, key: audioModelKey)
         return audio[0] as AudioIdeia
+    }
+    
+    /**TEST POURPOSES. Receive an audio idea and get its value saved in user default.*/
+    public static func getSavedPhoto(photo: PhotoModel) -> PhotoModel {
+        let photo: [PhotoModel] = getSavedUniqueIdeasType(type: PhotoModel.self, key: photoModelKey)
+        return photo[0] as PhotoModel
     }
     
     //MARK: - GETTERS

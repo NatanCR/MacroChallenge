@@ -26,4 +26,11 @@ final class IdeaSaverTests: XCTestCase {
         XCTAssertEqual(IdeaSaver.getSavedAudio(audio: audioIdea), audioIdea)
     }
 
+    func testPhotoIdeaSavingInUserDeafults() {
+        let photoIdea = PhotoModel(name: "", creationDate: Date(), modifiedDate: Date(), capturedImages: [])
+        
+        IdeaSaver.savePhotoIdea(idea: photoIdea)
+        
+        XCTAssertEqual(IdeaSaver.getSavedPhoto(photo: photoIdea), photoIdea)
+    }
 }
