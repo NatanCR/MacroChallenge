@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct CellTemplate: View {
-    var model: Model
+    var model: ModelText
     
     var body: some View {
         HStack {
             VStack(alignment: .leading){
-                Text(model.title)
+                Text(model.name)
                     .font(.system(size: 19, weight: .bold, design: .rounded))
                 Text(model.text)
                     .font(.system(size: 17, weight: .regular, design: .rounded))
