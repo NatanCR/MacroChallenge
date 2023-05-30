@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FB32A268B3900F4FA87 /* AudioManager.swift */; };
+		916E0FBC2A268BAA00F4FA87 /* IdeaSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FBB2A268BAA00F4FA87 /* IdeaSaver.swift */; };
+		916E0FBE2A268BBE00F4FA87 /* Idea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FBD2A268BBE00F4FA87 /* Idea.swift */; };
+		916E0FC32A268BEA00F4FA87 /* AudioIdea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FC22A268BEA00F4FA87 /* AudioIdea.swift */; };
+		916E0FC52A268C0400F4FA87 /* RecordAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FC42A268C0400F4FA87 /* RecordAudio.swift */; };
+		916E0FC82A268C2000F4FA87 /* RecordAudioPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FC72A268C2000F4FA87 /* RecordAudioPrototype.swift */; };
+		916E0FCA2A268CAC00F4FA87 /* IdeaSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FC92A268CAC00F4FA87 /* IdeaSaverTests.swift */; };
 		D12495472A268A720063C634 /* MacroChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12495462A268A720063C634 /* MacroChallengeApp.swift */; };
 		D12495492A268A720063C634 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12495482A268A720063C634 /* ContentView.swift */; };
 		D124954B2A268A730063C634 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D124954A2A268A730063C634 /* Assets.xcassets */; };
@@ -34,6 +41,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		916E0FB32A268B3900F4FA87 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		916E0FBB2A268BAA00F4FA87 /* IdeaSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaSaver.swift; sourceTree = "<group>"; };
+		916E0FBD2A268BBE00F4FA87 /* Idea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idea.swift; sourceTree = "<group>"; };
+		916E0FC22A268BEA00F4FA87 /* AudioIdea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioIdea.swift; sourceTree = "<group>"; };
+		916E0FC42A268C0400F4FA87 /* RecordAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordAudio.swift; sourceTree = "<group>"; };
+		916E0FC72A268C2000F4FA87 /* RecordAudioPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordAudioPrototype.swift; sourceTree = "<group>"; };
+		916E0FC92A268CAC00F4FA87 /* IdeaSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaSaverTests.swift; sourceTree = "<group>"; };
 		D12495432A268A720063C634 /* MacroChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12495462A268A720063C634 /* MacroChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroChallengeApp.swift; sourceTree = "<group>"; };
 		D12495482A268A720063C634 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +85,99 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		916E0FB02A268B0B00F4FA87 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FB22A268B2C00F4FA87 /* ViewModel */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		916E0FB12A268B1700F4FA87 /* IdeaRegister */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FB52A268B5900F4FA87 /* Tests */,
+				916E0FB62A268B5E00F4FA87 /* ViewModel */,
+				916E0FB72A268B6300F4FA87 /* Model */,
+				916E0FB82A268B6B00F4FA87 /* AudioRegister */,
+			);
+			path = IdeaRegister;
+			sourceTree = "<group>";
+		};
+		916E0FB22A268B2C00F4FA87 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FB32A268B3900F4FA87 /* AudioManager.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		916E0FB52A268B5900F4FA87 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FC92A268CAC00F4FA87 /* IdeaSaverTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		916E0FB62A268B5E00F4FA87 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FBB2A268BAA00F4FA87 /* IdeaSaver.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		916E0FB72A268B6300F4FA87 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FBD2A268BBE00F4FA87 /* Idea.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		916E0FB82A268B6B00F4FA87 /* AudioRegister */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FC12A268BDD00F4FA87 /* View */,
+				916E0FC02A268BD700F4FA87 /* ViewModel */,
+				916E0FBF2A268BD100F4FA87 /* Model */,
+			);
+			path = AudioRegister;
+			sourceTree = "<group>";
+		};
+		916E0FBF2A268BD100F4FA87 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FC22A268BEA00F4FA87 /* AudioIdea.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		916E0FC02A268BD700F4FA87 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FC42A268C0400F4FA87 /* RecordAudio.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		916E0FC12A268BDD00F4FA87 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FC62A268C0E00F4FA87 /* Prototypes */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		916E0FC62A268C0E00F4FA87 /* Prototypes */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FC72A268C2000F4FA87 /* RecordAudioPrototype.swift */,
+			);
+			path = Prototypes;
+			sourceTree = "<group>";
+		};
 		D124953A2A268A720063C634 = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +201,8 @@
 		D12495452A268A720063C634 /* MacroChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				916E0FB02A268B0B00F4FA87 /* Audio */,
+				916E0FB12A268B1700F4FA87 /* IdeaRegister */,
 				D12495462A268A720063C634 /* MacroChallengeApp.swift */,
 				D12495482A268A720063C634 /* ContentView.swift */,
 				D124954A2A268A730063C634 /* Assets.xcassets */,
@@ -257,7 +366,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				916E0FC82A268C2000F4FA87 /* RecordAudioPrototype.swift in Sources */,
+				916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
+				916E0FBE2A268BBE00F4FA87 /* Idea.swift in Sources */,
+				916E0FC32A268BEA00F4FA87 /* AudioIdea.swift in Sources */,
+				916E0FC52A268C0400F4FA87 /* RecordAudio.swift in Sources */,
+				916E0FBC2A268BAA00F4FA87 /* IdeaSaver.swift in Sources */,
 				D12495472A268A720063C634 /* MacroChallengeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				916E0FCA2A268CAC00F4FA87 /* IdeaSaverTests.swift in Sources */,
 				D12495582A268A730063C634 /* MacroChallengeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
