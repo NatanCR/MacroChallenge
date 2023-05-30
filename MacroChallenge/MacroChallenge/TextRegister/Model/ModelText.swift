@@ -11,7 +11,7 @@ struct ModelText: Idea {
     var id: UUID = UUID()
     var name: String
     var text: String
-    var ideiaType: IdeaType
+    var ideiaType: IdeaType = .text
     var creationDate: Date
     var modifiedDate: Date
 }

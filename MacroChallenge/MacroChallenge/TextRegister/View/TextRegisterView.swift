@@ -53,7 +53,7 @@ struct TextRegisterView: View {
                         print("HORA DE REGISTRO - \(formatarData(currentDate))")
                         
 //                        let currentModel = ModelText(title: title, text: text, dateCreation: currentDate)
-                        let currentModel = ModelText(name: title, text: text, ideiaType: .text, creationDate: currentDate, modifiedDate: currentDate)
+                        let currentModel = ModelText(name: title, text: text, creationDate: currentDate, modifiedDate: currentDate)
                         self.modelData.model.append(currentModel)
                         userDefaultsManager.encoderModel(model: modelData.model)
                         dismiss()
