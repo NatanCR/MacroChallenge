@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailRegisterView: View {
     @State private var isEditing = false // Variável de estado para controlar se a tela de edição está sendo exibida
-    var model: Model
+    var model: ModelText
     @ObservedObject var modelData: ModelData
     @EnvironmentObject var appState: AppState
     
@@ -17,7 +17,7 @@ struct DetailRegisterView: View {
         VStack {
             List {
                 Section {
-                    Text("\(model.title)")
+                    Text("\(model.name)")
                 } header: {
                     Text("Title:")
                 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditRegisterView: View {
     private let height = UIScreen.main.bounds.size.height //trocar pelo geometry
-    @State var model: Model
+    @State var model: ModelText
     @Environment(\.dismiss) private var dismiss
     private let userDefaultsManager = UserDefaultsManager()
     @ObservedObject var modelData: ModelData
@@ -18,7 +18,7 @@ struct EditRegisterView: View {
     
     var body: some View {
         VStack {
-            TextField("Title", text: $model.title)
+            TextField("Title", text: $model.name)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             

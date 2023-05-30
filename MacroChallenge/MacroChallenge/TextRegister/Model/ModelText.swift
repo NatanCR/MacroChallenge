@@ -7,14 +7,16 @@
 
 import Foundation
 
-struct Model: Codable, Identifiable {
-    var id = UUID()
-    var title: String
+struct ModelText: Idea {
+    var id: UUID = UUID()
+    var name: String
     var text: String
-    var dateCreation: Date
+    var ideiaType: IdeaType
+    var creationDate: Date
+    var modifiedDate: Date
 }
 
 class ModelData: ObservableObject {
     //Objeto de acesso ao model
-    @Published var model: [Model] = []
+    @Published var model: [ModelText] = []
 }

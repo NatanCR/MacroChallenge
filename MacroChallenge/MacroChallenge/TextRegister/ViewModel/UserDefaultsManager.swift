@@ -11,7 +11,7 @@ class UserDefaultsManager {
     let defaults = Foundation.UserDefaults.standard
     
     /**Função para transformar a struct recebida em JSON para salvar no User Defaults**/
-    func encoderModel(model: [Model]) {
+    func encoderModel(model: [ModelText]) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(model) {
             defaults.set(encoded, forKey: "SavedModel")
@@ -19,10 +19,10 @@ class UserDefaultsManager {
     }
     
     /**Função para decodificar o JSON salvo e retornar em formato de array e conseguir ler em outra tela**/
-    func decoderModel() -> [Model]? {
+    func decoderModel() -> [ModelText]? {
         if let savedModel = defaults.object(forKey: "SavedModel") as? Data {
             let decoder = JSONDecoder()
-            if let loadedModel = try? decoder.decode([Model].self, from: savedModel) {
+            if let loadedModel = try? decoder.decode([ModelText].self, from: savedModel) {
                 return loadedModel
             }
         }
