@@ -11,7 +11,7 @@ import SwiftUI
 struct CameraRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = UIImagePickerController
 
-    @Binding var capturedImages: [UIImage]
+    @ObservedObject var viewModel: CameraViewModel
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
@@ -39,9 +39,7 @@ struct CameraRepresentable: UIViewControllerRepresentable {
         // Método chamado quando a imagem é capturada
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
-                parent.capturedImages.append(image) // Adicionando a imagem capturada ao array capturedImages
-                let photoModel = PhotoModel(title: "", creationDate: Date(), modifiedDate: Date(), capturedImages: parent.capturedImages)
-                IdeaSaver.savePhotoIdea(idea: photoModel)
+                parent.viewModel.captureImage(image: image) // Chama o método captureImage do ViewModel
             }
 
             picker.dismiss(animated: true) // Fechando a câmera
@@ -53,3 +51,4 @@ struct CameraRepresentable: UIViewControllerRepresentable {
         }
     }
 }
+

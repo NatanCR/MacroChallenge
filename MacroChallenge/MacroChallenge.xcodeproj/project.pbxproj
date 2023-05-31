@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		430A99852A27C1C100D2F773 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99842A27C1C100D2F773 /* CameraViewModel.swift */; };
+		430A99872A27C8DD00D2F773 /* PhotoSavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99862A27C8DD00D2F773 /* PhotoSavedView.swift */; };
+		430A99892A27CA0C00D2F773 /* PhotoHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99882A27CA0C00D2F773 /* PhotoHomeView.swift */; };
 		43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */; };
-		43211D3D2A268DCC005C85E5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43211D3C2A268DCC005C85E5 /* CameraView.swift */; };
+		43211D3D2A268DCC005C85E5 /* CapturePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43211D3C2A268DCC005C85E5 /* CapturePhotoView.swift */; };
 		438732F72A2694C000320451 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438732F62A2694C000320451 /* PhotoModel.swift */; };
 		916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FB32A268B3900F4FA87 /* AudioManager.swift */; };
 		916E0FBC2A268BAA00F4FA87 /* IdeaSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FBB2A268BAA00F4FA87 /* IdeaSaver.swift */; };
@@ -53,8 +56,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		430A99842A27C1C100D2F773 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		430A99862A27C8DD00D2F773 /* PhotoSavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSavedView.swift; sourceTree = "<group>"; };
+		430A99882A27CA0C00D2F773 /* PhotoHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoHomeView.swift; sourceTree = "<group>"; };
 		43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRepresentable.swift; sourceTree = "<group>"; };
-		43211D3C2A268DCC005C85E5 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		43211D3C2A268DCC005C85E5 /* CapturePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePhotoView.swift; sourceTree = "<group>"; };
 		438732F62A2694C000320451 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		916E0FB32A268B3900F4FA87 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		916E0FBB2A268BAA00F4FA87 /* IdeaSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaSaver.swift; sourceTree = "<group>"; };
@@ -109,14 +115,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		43211D392A268D92005C85E5 /* Foto */ = {
+		430A99822A27C17100D2F773 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				43211D3C2A268DCC005C85E5 /* CapturePhotoView.swift */,
+				430A99862A27C8DD00D2F773 /* PhotoSavedView.swift */,
+				430A99882A27CA0C00D2F773 /* PhotoHomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		430A99832A27C1A700D2F773 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				430A99842A27C1C100D2F773 /* CameraViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		43211D392A268D92005C85E5 /* PhotoRegister */ = {
+			isa = PBXGroup;
+			children = (
+				430A99832A27C1A700D2F773 /* ViewModel */,
+				430A99822A27C17100D2F773 /* View */,
 				438732F52A2694AC00320451 /* Model */,
 				43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */,
-				43211D3C2A268DCC005C85E5 /* CameraView.swift */,
 			);
-			path = Foto;
+			path = PhotoRegister;
 			sourceTree = "<group>";
 		};
 		438732F52A2694AC00320451 /* Model */ = {
@@ -141,7 +166,7 @@
 				9195EF242A27054200A839D8 /* Idea */,
 				D135A6BB2A268FB0009C1938 /* TextRegister */,
 				916E0FB82A268B6B00F4FA87 /* AudioRegister */,
-				43211D392A268D92005C85E5 /* Foto */,
+				43211D392A268D92005C85E5 /* PhotoRegister */,
 			);
 			path = IdeaRegister;
 			sourceTree = "<group>";
@@ -478,18 +503,21 @@
 				916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */,
 				D135A6C12A268FF7009C1938 /* UserDefaultsManager.swift in Sources */,
 				43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */,
-				43211D3D2A268DCC005C85E5 /* CameraView.swift in Sources */,
+				43211D3D2A268DCC005C85E5 /* CapturePhotoView.swift in Sources */,
 				D135A6CF2A2690DC009C1938 /* DetailRegisterView.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
+				430A99872A27C8DD00D2F773 /* PhotoSavedView.swift in Sources */,
 				916E0FBE2A268BBE00F4FA87 /* Idea.swift in Sources */,
 				916E0FC32A268BEA00F4FA87 /* AudioIdea.swift in Sources */,
 				916E0FC52A268C0400F4FA87 /* RecordAudio.swift in Sources */,
 				D135A6D12A2690F8009C1938 /* EditRegisterView.swift in Sources */,
+				430A99852A27C1C100D2F773 /* CameraViewModel.swift in Sources */,
 				D135A6BD2A268FC6009C1938 /* ModelText.swift in Sources */,
 				D135A6C62A269037009C1938 /* ListView.swift in Sources */,
 				D135A6C32A26900F009C1938 /* AppState.swift in Sources */,
+				430A99892A27CA0C00D2F773 /* PhotoHomeView.swift in Sources */,
 				916E0FBC2A268BAA00F4FA87 /* IdeaSaver.swift in Sources */,
 				D12495472A268A720063C634 /* MacroChallengeApp.swift in Sources */,
 				D135A6C92A269071009C1938 /* CellTemplate.swift in Sources */,
