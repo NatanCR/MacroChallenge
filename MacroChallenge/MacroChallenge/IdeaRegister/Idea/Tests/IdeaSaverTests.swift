@@ -19,7 +19,7 @@ final class IdeaSaverTests: XCTestCase {
     }
 
     func testAudioIdeaSavingInUserDeafults() {
-        let audioIdea = AudioIdeia(id: UUID(), name: "test", ideiaType: .audio, creationDate: Date(), modifiedDate: Date(), audioPath: URL(filePath: "testPath"))
+        let audioIdea = AudioIdeia(id: UUID(), title: "test", creationDate: Date(), modifiedDate: Date(), audioPath: URL(string: "testPath")!)
         
         IdeaSaver.saveAudioIdea(idea: audioIdea)
         
@@ -27,10 +27,18 @@ final class IdeaSaverTests: XCTestCase {
     }
 
     func testPhotoIdeaSavingInUserDeafults() {
-        let photoIdea = PhotoModel(name: "", creationDate: Date(), modifiedDate: Date(), capturedImages: [])
+        let photoIdea = PhotoModel(title: "", creationDate: Date(), modifiedDate: Date(), capturedImages: [])
         
         IdeaSaver.savePhotoIdea(idea: photoIdea)
         
         XCTAssertEqual(IdeaSaver.getSavedPhoto(photo: photoIdea), photoIdea)
+    }
+    
+    func testTextIdeaSavingInUserDeafults() {
+        let textIdea = ModelText(title: "", creationDate: Date(), modifiedDate: Date(), text: "")
+        
+        IdeaSaver.saveTextIdea(idea: textIdea)
+        
+        XCTAssertEqual(IdeaSaver.getSavedText(text: textIdea), textIdea)
     }
 }

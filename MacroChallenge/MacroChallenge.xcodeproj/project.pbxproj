@@ -138,10 +138,10 @@
 		916E0FB12A268B1700F4FA87 /* IdeaRegister */ = {
 			isa = PBXGroup;
 			children = (
-				916E0FB52A268B5900F4FA87 /* Tests */,
-				916E0FB62A268B5E00F4FA87 /* ViewModel */,
-				916E0FB72A268B6300F4FA87 /* Model */,
+				9195EF242A27054200A839D8 /* Idea */,
+				D135A6BB2A268FB0009C1938 /* TextRegister */,
 				916E0FB82A268B6B00F4FA87 /* AudioRegister */,
+				43211D392A268D92005C85E5 /* Foto */,
 			);
 			path = IdeaRegister;
 			sourceTree = "<group>";
@@ -220,6 +220,27 @@
 			path = Prototypes;
 			sourceTree = "<group>";
 		};
+		9195EF232A27049000A839D8 /* Essentials */ = {
+			isa = PBXGroup;
+			children = (
+				D12495462A268A720063C634 /* MacroChallengeApp.swift */,
+				D12495482A268A720063C634 /* ContentView.swift */,
+				D124954A2A268A730063C634 /* Assets.xcassets */,
+				D124954C2A268A730063C634 /* Preview Content */,
+			);
+			path = Essentials;
+			sourceTree = "<group>";
+		};
+		9195EF242A27054200A839D8 /* Idea */ = {
+			isa = PBXGroup;
+			children = (
+				916E0FB52A268B5900F4FA87 /* Tests */,
+				916E0FB62A268B5E00F4FA87 /* ViewModel */,
+				916E0FB72A268B6300F4FA87 /* Model */,
+			);
+			path = Idea;
+			sourceTree = "<group>";
+		};
 		D124953A2A268A720063C634 = {
 			isa = PBXGroup;
 			children = (
@@ -243,14 +264,9 @@
 		D12495452A268A720063C634 /* MacroChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				D135A6BB2A268FB0009C1938 /* TextRegister */,
-				43211D392A268D92005C85E5 /* Foto */,
+				9195EF232A27049000A839D8 /* Essentials */,
 				916E0FB02A268B0B00F4FA87 /* Audio */,
 				916E0FB12A268B1700F4FA87 /* IdeaRegister */,
-				D12495462A268A720063C634 /* MacroChallengeApp.swift */,
-				D12495482A268A720063C634 /* ContentView.swift */,
-				D124954A2A268A730063C634 /* Assets.xcassets */,
-				D124954C2A268A730063C634 /* Preview Content */,
 			);
 			path = MacroChallenge;
 			sourceTree = "<group>";
@@ -636,7 +652,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
 				DEVELOPMENT_TEAM = V32Q5HA7F8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -668,7 +684,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
 				DEVELOPMENT_TEAM = 3SWCGFCJF2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

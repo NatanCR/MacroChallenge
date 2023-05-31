@@ -14,7 +14,7 @@ class IdeaSaver {
     private static let textModelKey: String = "textIdeas"
     private static let photoModelKey: String = "photoIdeas"
     
-    //MARK: - SAVES
+    //MARK: - Audio Saves
     /**Save an audio idea in UserDefaults that stores all AudioIdeas**/
     public static func saveAudioIdea(idea: AudioIdeia) {
         saveUniqueIdea(idea: idea, type: AudioIdeia.self, key: audioModelKey)
@@ -25,17 +25,18 @@ class IdeaSaver {
         saveMultipleIdeas(ideas: ideas, type: AudioIdeia.self, key: audioModelKey)
     }
     
-    //TODO: CHANGE THE IDEAS BELOW
+    //MARK: Text Saves
     /**Save an text idea in UserDefaults that stores all TextIdeas**/
-    public static func saveTextIdea(idea: AudioIdeia) {
-        saveUniqueIdea(idea: idea, type: AudioIdeia.self, key: audioModelKey)
+    public static func saveTextIdea(idea: ModelText) {
+        saveUniqueIdea(idea: idea, type: ModelText.self, key: textModelKey)
     }
     
     /**Save a collection of text ideas in UserDefaults that stores all TextIdeas**/
-    public static func saveTextIdeas(ideas: [AudioIdeia]) {
-        saveMultipleIdeas(ideas: ideas, type: AudioIdeia.self, key: audioModelKey)
+    public static func saveTextIdeas(ideas: [ModelText]) {
+        saveMultipleIdeas(ideas: ideas, type: ModelText.self, key: textModelKey)
     }
     
+    //MARK: Photo Saves
     /**Save an photo idea in UserDefaults that stores all PhotoIdeas**/
     public static func savePhotoIdea(idea: PhotoModel) {
         saveUniqueIdea(idea: idea, type: PhotoModel.self, key: photoModelKey)
@@ -56,9 +57,8 @@ class IdeaSaver {
             ideas.append(contentsOf: getSavedUniqueIdeasType(type: AudioIdeia.self, key: audioModelKey))
         }
         
-        //TODO: CHANGE MODELS TYPE
         if defaults.object(forKey: textModelKey) != nil {
-            ideas.append(contentsOf: getSavedUniqueIdeasType(type: AudioIdeia.self, key: textModelKey))
+            ideas.append(contentsOf: getSavedUniqueIdeasType(type: ModelText.self, key: textModelKey))
         }
         
         if defaults.object(forKey: photoModelKey) != nil {
@@ -78,18 +78,6 @@ class IdeaSaver {
         
         print("error to GetSavedIdeas")
         return []
-    }
-    
-    /**TEST POURPOSES. Receive an audio idea and get its value saved in user default.*/
-    public static func getSavedAudio(audio: AudioIdeia) -> AudioIdeia {
-        let audio: [AudioIdeia] = getSavedUniqueIdeasType(type: AudioIdeia.self, key: audioModelKey)
-        return audio[0] as AudioIdeia
-    }
-    
-    /**TEST POURPOSES. Receive an audio idea and get its value saved in user default.*/
-    public static func getSavedPhoto(photo: PhotoModel) -> PhotoModel {
-        let photo: [PhotoModel] = getSavedUniqueIdeasType(type: PhotoModel.self, key: photoModelKey)
-        return photo[0] as PhotoModel
     }
     
     //MARK: - GETTERS
@@ -155,6 +143,25 @@ class IdeaSaver {
         if let encoded = try? encoder.encode(savedIdeas) {
             defaults.set(encoded, forKey: key)
         }
+    }
+    
+    //MARK: - TESTS
+    /**TEST POURPOSES. Receive an audio idea and get its value saved in user default.*/
+    public static func getSavedAudio(audio: AudioIdeia) -> AudioIdeia {
+        let audio: [AudioIdeia] = getSavedUniqueIdeasType(type: AudioIdeia.self, key: audioModelKey)
+        return audio.last! as AudioIdeia
+    }
+    
+    /**TEST POURPOSES. Receive a photo idea and get its value saved in user default.*/
+    public static func getSavedPhoto(photo: PhotoModel) -> PhotoModel {
+        let photo: [PhotoModel] = getSavedUniqueIdeasType(type: PhotoModel.self, key: photoModelKey)
+        return photo.last! as PhotoModel
+    }
+    
+    /**TEST POURPOSES. Receive a text idea and get its value saved in user default.*/
+    public static func getSavedText(text: ModelText) -> ModelText {
+        let text: [ModelText] = getSavedUniqueIdeasType(type: ModelText.self, key: textModelKey)
+        return text.last! as ModelText
     }
     
 }

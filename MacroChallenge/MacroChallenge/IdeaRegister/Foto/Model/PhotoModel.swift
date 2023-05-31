@@ -10,14 +10,14 @@ import SwiftUI
 
 struct PhotoModel: Idea {
     var id: UUID = UUID()
-    var name: String
     var ideiaType: IdeaType = .photo
+    var title: String
     var creationDate: Date
     var modifiedDate: Date
     var capturedImages: [Data]
     
-    init(name: String, creationDate: Date, modifiedDate: Date, capturedImages: [UIImage]) {
-        self.name = name
+    init(title: String, creationDate: Date, modifiedDate: Date, capturedImages: [UIImage]) {
+        self.title = title
         self.creationDate = creationDate
         self.modifiedDate = modifiedDate
         self.capturedImages = []

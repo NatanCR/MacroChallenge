@@ -9,8 +9,8 @@ import Foundation
 
 struct AudioIdeia : Idea {
     var id: UUID
-    var name: String
-    var ideiaType: IdeaType
+    var ideiaType: IdeaType = .audio
+    var title: String
     var creationDate: Date
     var modifiedDate: Date
     var audioPath: URL

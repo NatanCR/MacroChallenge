@@ -13,7 +13,7 @@ struct CellTemplate: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading){
-                Text(model.name)
+                Text(model.title)
                     .font(.system(size: 19, weight: .bold, design: .rounded))
                 Text(model.text)
                     .font(.system(size: 17, weight: .regular, design: .rounded))

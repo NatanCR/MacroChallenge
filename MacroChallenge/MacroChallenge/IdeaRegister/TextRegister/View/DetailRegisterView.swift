@@ -17,7 +17,7 @@ struct DetailRegisterView: View {
         VStack {
             List {
                 Section {
-                    Text("\(model.name)")
+                    Text("\(model.title)")
                 } header: {
                     Text("Title:")
                 }

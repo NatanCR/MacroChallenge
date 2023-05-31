@@ -40,7 +40,7 @@ struct CameraRepresentable: UIViewControllerRepresentable {
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.capturedImages.append(image) // Adicionando a imagem capturada ao array capturedImages
-                let photoModel = PhotoModel(name: "", creationDate: Date(), modifiedDate: Date(), capturedImages: parent.capturedImages)
+                let photoModel = PhotoModel(title: "", creationDate: Date(), modifiedDate: Date(), capturedImages: parent.capturedImages)
                 IdeaSaver.savePhotoIdea(idea: photoModel)
             }
 

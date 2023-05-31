@@ -18,7 +18,7 @@ struct EditRegisterView: View {
     
     var body: some View {
         VStack {
-            TextField("Title", text: $model.name)
+            TextField("Title", text: $model.title)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             

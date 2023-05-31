@@ -15,8 +15,8 @@ public enum IdeaType : String, CaseIterable, Codable {
 
 protocol Idea : Codable, Hashable, Identifiable {
     var id: UUID { get }
-    var name: String { get set }
     var ideiaType: IdeaType { get }
+    var title: String { get set }
     var creationDate: Date { get }
     var modifiedDate: Date { get set }
 }
