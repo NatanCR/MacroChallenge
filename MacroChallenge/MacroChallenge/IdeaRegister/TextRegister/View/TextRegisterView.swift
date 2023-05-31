@@ -48,24 +48,13 @@ struct TextRegisterView: View {
                     if textComplete.isEmpty {
                         self.isActive.toggle()
                     } else {
-                        //encontrar a primeira ocorrência de um caractere de nova linha no texto
-                        if let range = textComplete.rangeOfCharacter(from: .newlines) {
-                            //obtem a posição desse caractere
-                            let index = textComplete.distance(from: textComplete.startIndex, to: range.lowerBound)
-                            //para obter o String.Index correto correspondente à posição de onde o título termina.
-                            let titleIndex = textComplete.index(textComplete.startIndex, offsetBy: index)
-                            //para extrair a parte do texto anterior
-                            title = String(textComplete[..<titleIndex])
-                        } else {
-                            title = textComplete
-                        }
+                        title = TextViewModel.separateTitleFromText(textComplete: textComplete, title: title)!
+                        
                         //remover o título do texto original
                         self.idea = textComplete.replacingOccurrences(of: title, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
                         
                         //registra a data da ideia
                         let currentDate = Date()
-                        print("HORA DE REGISTRO - \(formatarData(currentDate))")
-                        
                         //coloca os dados no formato da estrutura
                         let currentModel = ModelText(title: title, creationDate: currentDate, modifiedDate: currentDate, text: idea, textComplete: textComplete)
                         //adiciona os dados no array do objeto

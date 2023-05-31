@@ -18,10 +18,6 @@ struct EditRegisterView: View {
     var body: some View {
         GeometryReader { geo in
             VStack {
-    //            TextField("Title", text: $modelText.title)
-    //                .textFieldStyle(RoundedBorderTextFieldStyle())
-    //                .padding()
-                
                 TextEditor(text: $modelText.textComplete)
                     .frame(height: geo.size.height * 0.2)
                     .padding()
@@ -31,13 +27,11 @@ struct EditRegisterView: View {
                     //verifica ID atual e localiza no array
                     if let index = modelData.model.firstIndex(where: { $0.id == modelText.id }) {
                         
-                        if let range = modelText.textComplete.rangeOfCharacter(from: .newlines) {
-                            let index = modelText.textComplete.distance(from: modelText.textComplete.startIndex, to: range.lowerBound)
-                            let titleIndex = modelText.textComplete.index(modelText.textComplete.startIndex, offsetBy: index)
-                            modelText.title = String(modelText.textComplete[..<titleIndex])
-                        }
+                        modelText.title = TextViewModel.separateTitleFromText(textComplete: modelText.textComplete, title: modelText.title) ?? String()
                         
+                        //remover o título do texto original
                         modelText.text = modelText.textComplete.replacingOccurrences(of: modelText.title, with: ("".trimmingCharacters(in: .whitespacesAndNewlines)))
+                                               
                         modelText = ModelText(title: modelText.title, creationDate: modelText.creationDate, modifiedDate: Date(), text: modelText.text, textComplete: modelText.textComplete)
                         //atualiza o dado na posição no indice
                         modelData.model[index] = modelText

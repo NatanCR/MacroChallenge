@@ -33,6 +33,7 @@
 		D135A6CF2A2690DC009C1938 /* DetailRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6CE2A2690DC009C1938 /* DetailRegisterView.swift */; };
 		D135A6D12A2690F8009C1938 /* EditRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6D02A2690F8009C1938 /* EditRegisterView.swift */; };
 		D135A6D32A269122009C1938 /* UserDefaultsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6D22A269122009C1938 /* UserDefaultsSpec.swift */; };
+		D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		D135A6CE2A2690DC009C1938 /* DetailRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRegisterView.swift; sourceTree = "<group>"; };
 		D135A6D02A2690F8009C1938 /* EditRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegisterView.swift; sourceTree = "<group>"; };
 		D135A6D22A269122009C1938 /* UserDefaultsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSpec.swift; sourceTree = "<group>"; };
+		D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +314,7 @@
 			children = (
 				D135A6C02A268FF7009C1938 /* UserDefaultsManager.swift */,
 				D135A6C22A26900F009C1938 /* AppState.swift */,
+				D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				916E0FC82A268C2000F4FA87 /* RecordAudioPrototype.swift in Sources */,
 				916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */,
 				D135A6C12A268FF7009C1938 /* UserDefaultsManager.swift in Sources */,
+				D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */,
 				43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */,
 				43211D3D2A268DCC005C85E5 /* CameraView.swift in Sources */,
 				D135A6CF2A2690DC009C1938 /* DetailRegisterView.swift in Sources */,
