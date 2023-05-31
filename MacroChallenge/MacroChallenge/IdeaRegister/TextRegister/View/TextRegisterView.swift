@@ -26,16 +26,17 @@ struct TextRegisterView: View {
                 .focused($isFocused)
             Spacer()
         }
+        .navigationTitle("Inserir texto")
         .onAppear {
             isFocused = true
         }
-        .alert("Put your Idea", isPresented: $isActive, actions: {
+        .alert("Escreva uma ideia", isPresented: $isActive, actions: {
             Button(role: .cancel) {
             } label: {
                 Text("OK")
             }
         }, message: {
-            Text("It's necessary insert any idea for save")
+            Text("É necessário escrever uma ideia para salvar.")
         })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
