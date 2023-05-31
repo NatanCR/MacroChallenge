@@ -14,23 +14,20 @@ struct TextRegisterView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var text: String = ""
     @State private var title: String = ""
+    @State private var idea: String = ""
     @State private var isActive: Bool = false //variável para ativar o alerta
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         VStack {
-            Section {
-                TextEditor(text: $text)
-                    .frame(height: height * 0.2)
-                    .padding()
-                    .background(Color.gray.opacity(0.2))
-            } header: {
-                Text("Put your idea here.")
-            }
-
-            TextField("Note a title.", text: $title)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+            TextEditor(text: $text)
+                .frame(height: height * 0.2)
                 .padding()
+                .focused($isFocused)
             Spacer()
+        }
+        .onAppear {
+            isFocused = true
         }
         .alert("Put your Idea", isPresented: $isActive, actions: {
             Button(role: .cancel) {
@@ -43,24 +40,43 @@ struct TextRegisterView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    //verifica se o campo de texto está em branco antes de salvar
+                    //tira espaços em brancos do texto
                     text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                    //verifica se o texto está vazio
                     if text.isEmpty {
                         self.isActive.toggle()
                     } else {
-                        //envia o dados registrados salvos
+                        //encontrar a primeira ocorrência de um caractere de nova linha no texto
+                        if let range = text.rangeOfCharacter(from: .newlines) {
+                            //obtem a posição desse caractere
+                            let index = text.distance(from: text.startIndex, to: range.lowerBound)
+                            //para obter o String.Index correto correspondente à posição de onde o título termina.
+                            let titleIndex = text.index(text.startIndex, offsetBy: index)
+                            //para extrair a parte do texto anterior
+                            title = String(text[..<titleIndex])
+                        } else {
+                            title = text
+                        }
+                        //remover o título do texto original
+                        self.idea = text.replacingOccurrences(of: title, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
+                        
+                        print("TITULO - \(self.title)")
+                        print("TEXTO - \(self.idea)")
+                        //registra a data da ideia
                         let currentDate = Date()
                         print("HORA DE REGISTRO - \(formatarData(currentDate))")
                         
-//                        let currentModel = ModelText(title: title, text: text, dateCreation: currentDate)
-                        let currentModel = ModelText(title: title, creationDate: currentDate, modifiedDate: currentDate, text: text)
+                        //coloca os dados no formato da estrutura
+                        let currentModel = ModelText(title: title, creationDate: currentDate, modifiedDate: currentDate, text: idea)
+                        //adiciona os dados no array do objeto
                         self.modelData.model.append(currentModel)
+                        //salva o dados registrados
                         userDefaultsManager.encoderModel(model: modelData.model)
                         dismiss()
                     }
                     
                 } label: {
-                    Text("Save")
+                    Text("OK")
                 }
             }
         }
@@ -68,12 +84,12 @@ struct TextRegisterView: View {
     
     //formata a data em string com o horario local do device
     func formatarData(_ data: Date) -> String {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .medium
-            formatter.locale = Locale.current
-            return formatter.string(from: data)
-        }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
+        formatter.locale = Locale.current
+        return formatter.string(from: data)
+    }
 }
 
 //struct TextRegisterView_Previews: PreviewProvider {

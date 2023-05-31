@@ -12,9 +12,9 @@ struct MacroChallengeApp: App {
     @ObservedObject var appState = AppState()
     var body: some Scene {
         WindowGroup {
-            ContentView()
-//            ListView()
-//                .environmentObject(appState)
+//            ContentView()
+            ListView()
+                .environmentObject(appState)
         }
     }
 }
