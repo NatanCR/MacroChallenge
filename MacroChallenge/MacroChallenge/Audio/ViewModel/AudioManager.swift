@@ -20,26 +20,71 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
         self.audioPlayer = audioPlayer
     }
     
-    //MARK: - PUBLIC METHODS
-    /**Plays the audio in the given URL.**/
-    public func playAudio(_ audioURL: URL) {
-        self.stopAudio()
-        
+    /**assign the AVAudioPlayer to the given URL.*/
+    public func assignAudio(_ audioURL: URL) {
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: audioURL)
             self.prepareAudioPlayer()
-            self.audioPlayer.play()
         }
         catch {
             print(error.localizedDescription)
         }
     }
     
-    /**Stops any audio that is reproducing.**/
+    //MARK: - REPRODUTION
+    /**Plays the audio in the given URL.*/
+    public func playAudio(_ audioURL: URL) {
+        self.stopAudio()
+        
+        if self.audioPlayer == AVAudioPlayer() { self.assignAudio(audioURL) }
+        self.audioPlayer.play()
+    }
+    
+    /**Pauses any audio that is reproducing.*/
+    public func pauseAudio() {
+        if !self.audioPlayer.isPlaying { return }
+        
+        self.audioPlayer.pause()
+    }
+    
+    /**Stops any audio that is reproducing.*/
     public func stopAudio() {
         if !self.audioPlayer.isPlaying {return}
         
         self.audioPlayer.stop()
+    }
+    
+    //MARK: - TIME
+    /**Get the current time of an audio that is playing as CGFloat.*/
+    public func getCurrentTimeCGFloat() -> CGFloat {
+        if !self.audioPlayer.isPlaying { return CGFloat(0) }
+        
+        return CGFloat(self.audioPlayer.currentTime)
+    }
+    
+    /**Get the current time of an audio that is playing as TimeInterval.*/
+    public func getCurrentTimeInterval() -> TimeInterval {
+        if !self.audioPlayer.isPlaying { return 0 }
+        
+        return self.audioPlayer.currentTime
+    }
+    
+    /**Get the current time of an audio that is playing as TimeInterval.*/
+    public func getCurrentTimeIntervalText() -> String {
+        if !self.audioPlayer.isPlaying { return "00:00" }
+        
+        let formatter = DateComponentsFormatter()
+        return formatter.string(from: self.audioPlayer.currentTime)!
+    }
+    
+    /**Set the current time of an audio that is playing.*/
+    public func setCurrentTime(_ value: TimeInterval){
+        self.audioPlayer.currentTime = value
+    }
+    
+    /**Get the total duration of the audio..*/
+    public func getDuration() -> CGFloat {
+        return CGFloat(self.audioPlayer.duration)
     }
     
     //MARK: - PRIVATE METHODS
