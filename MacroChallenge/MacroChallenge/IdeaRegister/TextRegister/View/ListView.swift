@@ -18,8 +18,8 @@ struct ListView: View {
             VStack {
                 List(modelData.model, id: \.id) { model in
                     NavigationLink {
-                        DetailRegisterView(model: model, modelData: modelData)
-                        
+//                        DetailRegisterView(modelText: model, modelData: modelData)
+                        EditRegisterView(modelText: model, modelData: modelData)
                     } label: {
                         CellTemplate(model: model)
                     }

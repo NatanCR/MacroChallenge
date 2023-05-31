@@ -14,6 +14,7 @@ struct ModelText: Idea {
     var creationDate: Date
     var modifiedDate: Date
     var text: String
+    var textComplete: String
 }
 
 class ModelData: ObservableObject {
