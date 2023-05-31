@@ -49,19 +49,23 @@ struct EditRegisterView: View {
                 }
                 .padding()
                 Spacer()
-                Button(role: .destructive) {
-                    self.isAlertActive.toggle()
-                } label: {
-                    Text("Delete")
-                        .foregroundColor(.red)
-                }
-                .padding()
                 .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
                     Button("Delete Idea", role: .destructive) {
                         userDefaultsManager.deleteModel(withID: modelText.id)
                         appState.rootViewId = UUID()
                     }
                 }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    self.isAlertActive.toggle()
+                } label: {
+                    Text(Image(systemName: "trash.fill"))
+                        .foregroundColor(.red)
+                }
+
             }
         }
     }

@@ -19,6 +19,7 @@ struct CellTemplate: View {
                     .font(.system(size: 17, weight: .regular, design: .rounded))
             }
         }
+
     }
 }
 //
