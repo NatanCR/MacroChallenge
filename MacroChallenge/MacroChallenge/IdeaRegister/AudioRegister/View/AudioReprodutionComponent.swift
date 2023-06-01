@@ -48,6 +48,10 @@ struct AudioReprodutionComponent: View {
                     if !isPlaying {return}
                     
                     self.audioCurrentTime = Float(self.audioManager.getCurrentTimeCGFloat())
+                    if !audioManager.getIsPlaying() {
+                        self.isPlaying = false
+                        self.audioCurrentTime = 0
+                    }
                 }
                 
                 AudioSliderView(value: $audioCurrentTime, isPlaying: $isPlaying, audioManager: self.audioManager)
@@ -97,6 +101,7 @@ struct AudioSliderView : UIViewRepresentable {
         @objc func sliderChange(_ sender: UISlider!) {
             self.sliderView.audioManager.setCurrentTime(TimeInterval(sender.value))
             self.sliderView.value = sender.value
+            print("value")
         }
     }
     
@@ -112,11 +117,14 @@ struct AudioSliderView : UIViewRepresentable {
         slider.maximumTrackTintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.32)
         slider.addTarget(context.coordinator, action: #selector(Coordinator.sliderChange(_:)), for: .valueChanged)
         slider.setThumbImage(thumbImage(size: CGSize(width: 9, height: 9)), for: .normal)
+        slider.value = value
         
         return slider
     }
     
-    func updateUIView(_ uiView: UISlider, context: Context) { }
+    func updateUIView(_ uiView: UISlider, context: Context) {
+        uiView.value = value
+    }
     
     func thumbImage(size: CGSize) -> UIImage {
         let thumb = UIImage(systemName: "circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)

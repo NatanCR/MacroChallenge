@@ -10,6 +10,8 @@
 		43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */; };
 		43211D3D2A268DCC005C85E5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43211D3C2A268DCC005C85E5 /* CameraView.swift */; };
 		438732F72A2694C000320451 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438732F62A2694C000320451 /* PhotoModel.swift */; };
+		912811EE2A291D1300010872 /* CheckAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912811ED2A291D1300010872 /* CheckAudioView.swift */; };
+		912811F02A29275400010872 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912811EF2A29275400010872 /* DateHelper.swift */; };
 		916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FB32A268B3900F4FA87 /* AudioManager.swift */; };
 		916E0FBC2A268BAA00F4FA87 /* IdeaSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FBB2A268BAA00F4FA87 /* IdeaSaver.swift */; };
 		916E0FBE2A268BBE00F4FA87 /* Idea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E0FBD2A268BBE00F4FA87 /* Idea.swift */; };
@@ -60,6 +62,8 @@
 		43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRepresentable.swift; sourceTree = "<group>"; };
 		43211D3C2A268DCC005C85E5 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		438732F62A2694C000320451 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		912811ED2A291D1300010872 /* CheckAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAudioView.swift; sourceTree = "<group>"; };
+		912811EF2A29275400010872 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		916E0FB32A268B3900F4FA87 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		916E0FBB2A268BAA00F4FA87 /* IdeaSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaSaver.swift; sourceTree = "<group>"; };
 		916E0FBD2A268BBE00F4FA87 /* Idea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idea.swift; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 				916E0FC62A268C0E00F4FA87 /* Prototypes */,
 				918C7DC22A27C29200C36A53 /* RecordAudioView.swift */,
 				918C7DC42A27D00900C36A53 /* AudioReprodutionComponent.swift */,
+				912811ED2A291D1300010872 /* CheckAudioView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				918C7DC72A27EDB000C36A53 /* ColorHelper.swift */,
+				912811EF2A29275400010872 /* DateHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -494,6 +500,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				912811F02A29275400010872 /* DateHelper.swift in Sources */,
 				916E0FC82A268C2000F4FA87 /* RecordAudioPrototype.swift in Sources */,
 				916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */,
 				D135A6C12A268FF7009C1938 /* UserDefaultsManager.swift in Sources */,
@@ -504,6 +511,7 @@
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
 				918C7DC82A27EDB000C36A53 /* ColorHelper.swift in Sources */,
+				912811EE2A291D1300010872 /* CheckAudioView.swift in Sources */,
 				916E0FBE2A268BBE00F4FA87 /* Idea.swift in Sources */,
 				916E0FC32A268BEA00F4FA87 /* AudioIdea.swift in Sources */,
 				916E0FC52A268C0400F4FA87 /* RecordAudio.swift in Sources */,
@@ -677,7 +685,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = V32Q5HA7F8;
+				DEVELOPMENT_TEAM = 66824UF4JS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -709,7 +717,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 3SWCGFCJF2;
+				DEVELOPMENT_TEAM = 66824UF4JS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";

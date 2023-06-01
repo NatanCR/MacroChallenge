@@ -9,6 +9,8 @@ import SwiftUI
 import AVFoundation
 
 struct RecordAudioView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     // states
     @StateObject var recordAudio: RecordAudio
     @State var isRecording: Bool = true
@@ -43,9 +45,10 @@ struct RecordAudioView: View {
                     
                     Button {
                         self.recorded = false
+                        self.audioManager.stopAudio()
                         self.recordAudio.deleteAllAudios()
                     } label: {
-                        Image(systemName: "trash")
+                        Image(systemName: "trash.fill")
                             .resizable()
                             .foregroundColor(.red)
                             .frame(width: 23, height: 23)
@@ -65,6 +68,7 @@ struct RecordAudioView: View {
                 } else { // if stop the record
                     self.recordAudio.stopRecordingAudio()
                     self.audioManager.assignAudio(self.recordAudio.recordedAudios.last!)
+                    self.audioUrl = self.recordAudio.recordedAudios.last!
                     self.recorded = true
                 }
             } label: {
@@ -80,8 +84,18 @@ struct RecordAudioView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Salvar") {
-                    //TODO: Save
-                    print("save")
+                    if isRecording {
+                        self.recordAudio.stopRecordingAudio()
+                        self.recordAudio.deleteAllAudios()
+                        self.recorded = false
+                    }
+                    
+                    if recorded {
+                        let idea = AudioIdeia(title: "test", creationDate: Date(), modifiedDate: Date(), audioPath: self.recordAudio.recordedAudios.last!)
+                        IdeaSaver.saveAudioIdea(idea: idea)
+                    }
+                    
+                    dismiss()
                 }
             }
         }.onAppear {

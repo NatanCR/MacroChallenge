@@ -37,6 +37,7 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
         self.stopAudio()
         
         if self.audioPlayer == AVAudioPlayer() { self.assignAudio(audioURL) }
+        print(audioPlayer == nil)
         self.audioPlayer.play()
     }
     
@@ -85,6 +86,11 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
     /**Get the total duration of the audio..*/
     public func getDuration() -> CGFloat {
         return CGFloat(self.audioPlayer.duration)
+    }
+    
+    /**Get the is plating of the current AudioPlayer.*/
+    public func getIsPlaying() -> Bool {
+        return self.audioPlayer.isPlaying
     }
     
     //MARK: - PRIVATE METHODS

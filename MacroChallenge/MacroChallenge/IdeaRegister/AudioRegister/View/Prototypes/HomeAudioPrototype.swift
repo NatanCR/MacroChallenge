@@ -10,8 +10,17 @@ import SwiftUI
 struct HomeAudioPrototype: View {
     var body: some View {
         NavigationView {
-            NavigationLink(destination: RecordAudioView()) {
-                Text("Record Audio")
+            VStack {
+                NavigationLink(destination: RecordAudioView()) {
+                    Text("Record Audio")
+                }
+                
+                if (!IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey()).isEmpty) {
+                    NavigationLink(destination: CheckAudioView(audioIdea: IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey()).first!)) {
+                        Text("See last Audio")
+                    
+                    }
+                }
             }
         }
     }
