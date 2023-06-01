@@ -17,7 +17,7 @@ struct ModelText: Idea {
     var textComplete: String
 }
 
-class ModelData: ObservableObject {
-    //Objeto de acesso ao model
-    @Published var model: [ModelText] = []
-}
+//class ModelData: ObservableObject {
+//    //Objeto de acesso ao model
+//    @Published var model: [ModelText] = []
+//}

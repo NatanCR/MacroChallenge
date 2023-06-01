@@ -10,8 +10,6 @@ import SwiftUI
 struct EditRegisterView: View {
     @State var modelText: ModelText
     @Environment(\.dismiss) private var dismiss
-    //private let userDefaultsManager = UserDefaultsManager()
-    //@ObservedObject var modelData: ModelData
     @State private var isAlertActive: Bool = false
     @EnvironmentObject var appState: AppState
     
@@ -46,7 +44,7 @@ struct EditRegisterView: View {
                 Spacer()
                 .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
                     Button("Delete Idea", role: .destructive) {
-                        userDefaultsManager.deleteModel(withID: modelText.id)
+                        //deletar
                         appState.rootViewId = UUID()
                     }
                 }
