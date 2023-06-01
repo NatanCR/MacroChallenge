@@ -35,7 +35,6 @@ struct ListView: View {
                 //carrega a lista toda vez que a tela é aberta
                 if let loadedModel = userDefaults.decoderModel() {
                     modelData.model = loadedModel
-                    print(loadedModel)
                 }
             }
         }

@@ -31,6 +31,10 @@ struct EditRegisterView: View {
                         
                         //remover o título do texto original
                         modelText.text = modelText.textComplete.replacingOccurrences(of: modelText.title, with: ("".trimmingCharacters(in: .whitespacesAndNewlines)))
+                        
+                        modelText.text = modelText.text.removeEmptyLines()
+                        modelText.title = modelText.title.removeEmptyLines()
+                        modelText.textComplete = modelText.textComplete.removeEmptyLines()
                                                
                         modelText = ModelText(title: modelText.title, creationDate: modelText.creationDate, modifiedDate: Date(), text: modelText.text, textComplete: modelText.textComplete)
                         //atualiza o dado na posição no indice

@@ -26,8 +26,12 @@ class TextViewModel {
         }
         
     }
-    
-//    static func extractTitleFromText(index: String.Index, separateText: String) -> String {
-//
-//    }
+}
+
+extension String {
+    func removeEmptyLines() -> String {
+        let lines = self.components(separatedBy: CharacterSet.newlines)
+        let nonEmptyLines = lines.filter { !$0.isEmpty }
+        return nonEmptyLines.joined(separator: "\n")
+    }
 }

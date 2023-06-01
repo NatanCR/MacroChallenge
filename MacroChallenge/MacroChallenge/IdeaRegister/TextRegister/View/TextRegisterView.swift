@@ -53,6 +53,10 @@ struct TextRegisterView: View {
                         //remover o título do texto original
                         self.idea = textComplete.replacingOccurrences(of: title, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
                         
+                        idea = idea.removeEmptyLines()
+                        title = title.removeEmptyLines()
+                        textComplete = textComplete.removeEmptyLines()
+                        
                         //registra a data da ideia
                         let currentDate = Date()
                         //coloca os dados no formato da estrutura
@@ -70,6 +74,7 @@ struct TextRegisterView: View {
             }
         }
     }
+
     
     //formata a data em string com o horario local do device
     func formatarData(_ data: Date) -> String {
@@ -80,6 +85,8 @@ struct TextRegisterView: View {
         return formatter.string(from: data)
     }
 }
+
+
 
 //struct TextRegisterView_Previews: PreviewProvider {
 //    static var previews: some View {
