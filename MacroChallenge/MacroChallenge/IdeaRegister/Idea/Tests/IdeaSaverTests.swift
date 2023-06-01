@@ -41,4 +41,25 @@ final class IdeaSaverTests: XCTestCase {
         
         XCTAssertEqual(IdeaSaver.getSavedText(text: textIdea), textIdea)
     }
+    
+    func testIdeaChangeInUserDeafults() {
+        let testId = UUID()
+        
+        IdeaSaver.clearUniqueTypeIdea(type: .audio)
+        
+        var array = [
+            AudioIdeia(title: "", creationDate: Date(), modifiedDate: Date(), audioPath: URL(string: "testPath")!),
+            AudioIdeia(id: testId, title: "", creationDate: Date(), modifiedDate: Date(), audioPath: URL(string: "testPath")!),
+            AudioIdeia(title: "", creationDate: Date(), modifiedDate: Date(), audioPath: URL(string: "testPath")!)
+        ]
+        
+        let audioFinder = AudioIdeia(id: testId, title: "TESTE", creationDate: Date(), modifiedDate: Date(), audioPath: URL(string: "testPath")!)
+        
+        IdeaSaver.saveAudioIdeas(ideas: array)
+        IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: audioFinder)
+        
+        array = IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey())
+        
+        XCTAssertEqual(audioFinder.title, array[1].title)
+    }
 }

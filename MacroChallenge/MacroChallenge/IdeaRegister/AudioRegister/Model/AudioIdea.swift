@@ -14,4 +14,12 @@ struct AudioIdeia : Idea {
     var creationDate: Date
     var modifiedDate: Date
     var audioPath: URL
+    
+    init(id: UUID = UUID(), title: String, creationDate: Date, modifiedDate: Date, audioPath: URL) {
+        self.id = id
+        self.title = title
+        self.creationDate = creationDate
+        self.modifiedDate = modifiedDate
+        self.audioPath = audioPath
+    }
 }

@@ -22,6 +22,8 @@ class IdeaSaver {
     
     /**Save a collection of audio ideas in UserDefaults that stores all AudioIdeas**/
     public static func saveAudioIdeas(ideas: [AudioIdeia]) {
+        if ideas.isEmpty { print("Ideas to save is empty."); return }
+        
         saveMultipleIdeas(ideas: ideas, type: AudioIdeia.self, key: audioModelKey)
     }
     
@@ -33,6 +35,8 @@ class IdeaSaver {
     
     /**Save a collection of text ideas in UserDefaults that stores all TextIdeas**/
     public static func saveTextIdeas(ideas: [ModelText]) {
+        if ideas.isEmpty { print("Ideas to save is empty."); return }
+        
         saveMultipleIdeas(ideas: ideas, type: ModelText.self, key: textModelKey)
     }
     
@@ -44,7 +48,35 @@ class IdeaSaver {
     
     /**Save a collection of photo ideas in UserDefaults that stores all PhotoIdeas**/
     public static func savePhotoIdeas(ideas: [PhotoModel]) {
+        if ideas.isEmpty { print("Ideas to save is empty."); return }
+        
         saveMultipleIdeas(ideas: ideas, type: PhotoModel.self, key: photoModelKey)
+    }
+    
+    //MARK: - CHANGERS
+    public static func changeSavedValue<T: Idea>(type: T.Type, idea: T) {
+        var key = ""
+        let ideaType: IdeaType
+        
+        if type == AudioIdeia.self { key = audioModelKey; ideaType = .audio }
+        else if type == ModelText.self { key = textModelKey; ideaType = .text }
+        else { key = photoModelKey; ideaType = .photo }
+        
+        if defaults.object(forKey: key) == nil {print("No saved Ideas"); return}
+        
+        var ideas: [T] = getSavedUniqueIdeasType(type: type, key: key)
+        
+        let ideaIndex: Int = ideas.firstIndex(where: { $0.id == idea.id }) ?? -1
+        
+        if ideaIndex == -1 { print("Idea not found"); return }
+        
+        ideas[ideaIndex] = idea
+        
+        switch ideaType {
+            case .audio: clearUniqueTypeIdea(type: .audio); saveAudioIdeas(ideas: (ideas as? [AudioIdeia] ?? []))
+            case .text: clearUniqueTypeIdea(type: .text); saveTextIdeas(ideas: ideas as? [ModelText] ?? [])
+            case .photo: clearUniqueTypeIdea(type: .photo); savePhotoIdeas(ideas: ideas as? [PhotoModel] ?? [])
+        }
     }
     
     //MARK: - LOADS
@@ -94,6 +126,61 @@ class IdeaSaver {
     /**Gets the key used for photo ideas saved in UserDefaults.**/
     public static func getPhotoModelKey() -> String {
         return photoModelKey
+    }
+    
+    //MARK: - CLEARS
+    /**Clears all user defaults ideas.*/
+    public static func clearAll() {
+        let emptyIdea: [any Idea] = []
+        
+        if defaults.object(forKey: audioModelKey) != nil {
+            defaults.set(emptyIdea, forKey: audioModelKey)
+        }
+        
+        if defaults.object(forKey: textModelKey) != nil {
+            defaults.set(emptyIdea, forKey: textModelKey)
+        }
+        
+        if defaults.object(forKey: photoModelKey) != nil {
+            defaults.set(emptyIdea, forKey: photoModelKey)
+        }
+    }
+    
+    /**Clears all user defaults ideas of an unique type.*/
+    public static func clearUniqueTypeIdea(type: IdeaType) {
+        let emptyIdea: [any Idea] = []
+        
+        switch type {
+            case .audio: if defaults.object(forKey: audioModelKey) != nil { defaults.set(emptyIdea, forKey: audioModelKey) }; break
+            case .text:  if defaults.object(forKey: textModelKey)  != nil { defaults.set(emptyIdea, forKey: textModelKey)  }; break
+            case .photo: if defaults.object(forKey: photoModelKey) != nil { defaults.set(emptyIdea, forKey: photoModelKey) }; break
+        }
+    }
+    
+    /**Clears one saved idea.*/
+    public static func clearOneIdea<T: Idea>(type: T.Type, idea: T) {
+        var key = ""
+        let ideaType: IdeaType
+        
+        if type == AudioIdeia.self { key = audioModelKey; ideaType = .audio }
+        else if type == ModelText.self { key = textModelKey; ideaType = .text }
+        else { key = photoModelKey; ideaType = .photo }
+        
+        if defaults.object(forKey: key) == nil {print("No saved Ideas"); return}
+        
+        var ideas: [T] = getSavedUniqueIdeasType(type: type, key: key)
+        
+        let ideaIndex: Int = ideas.firstIndex(where: { $0.id == idea.id }) ?? -1
+        
+        if ideaIndex == -1 { print("Idea not found"); return }
+        
+        ideas.remove(at: ideaIndex)
+        
+        switch ideaType {
+        case .audio: clearUniqueTypeIdea(type: .audio); saveAudioIdeas(ideas: (ideas as? [AudioIdeia] ?? []))
+        case .text: clearUniqueTypeIdea(type: .text); saveTextIdeas(ideas: ideas as? [ModelText] ?? [])
+        case .photo: clearUniqueTypeIdea(type: .photo); savePhotoIdeas(ideas: ideas as? [PhotoModel] ?? [])
+        }
     }
     
     // MARK: - PRIVATE STATICS

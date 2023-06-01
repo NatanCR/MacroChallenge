@@ -105,6 +105,10 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
         }
     }
     
+    public func hasAudioInDirectory() -> Bool {
+        return !fetchAudioURLs().isEmpty
+    }
+    
     //MARK: - PRIVATE METHODS
     /**Sets the category of the audio session to PlayAndRecord.**/
     private func trySetSessionCategory() {
