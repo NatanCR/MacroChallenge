@@ -23,30 +23,31 @@ struct EditRegisterView: View {
                 //salva e fecha a tela de edição
                 Button("Save") {
                     modelText.title = TextViewModel.separateTitleFromText(textComplete: modelText.textComplete, title: modelText.title) ?? String()
-                        
-                        //remover o título do texto original
-                        modelText.text = modelText.textComplete.replacingOccurrences(of: modelText.title, with: ("".trimmingCharacters(in: .whitespacesAndNewlines)))
-                        
-                        //remove as linhas vazias antes de salvar
-                        modelText.text = modelText.text.removeEmptyLines()
-                        modelText.title = modelText.title.removeEmptyLines()
-                        modelText.textComplete = modelText.textComplete.removeEmptyLines()
                     
-                        //salva novamente
+                    //remover o título do texto original
+                    modelText.text = modelText.textComplete.replacingOccurrences(of: modelText.title, with: ("".trimmingCharacters(in: .whitespacesAndNewlines)))
+                    
+                    //remove as linhas vazias antes de salvar
+                    modelText.text = modelText.text.removeEmptyLines()
+                    modelText.title = modelText.title.removeEmptyLines()
+                    modelText.textComplete = modelText.textComplete.removeEmptyLines()
+                    modelText.modifiedDate = Date()
+                    
+                    //salva novamente
                     IdeaSaver.changeSavedValue(type: ModelText.self, idea: modelText)
-                        
-                        //fecha a tela
-                        dismiss()
-                    }
+                    
+                    //fecha a tela
+                    dismiss()
+                }
                 .padding()
                 Spacer()
-                .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
-                    Button("Delete Idea", role: .destructive) {
-                        //deletar
-                        IdeaSaver.clearOneIdea(type: ModelText.self, idea: modelText)
-                        appState.rootViewId = UUID()
+                    .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
+                        Button("Delete Idea", role: .destructive) {
+                            //deletar
+                            IdeaSaver.clearOneIdea(type: ModelText.self, idea: modelText)
+                            appState.rootViewId = UUID()
+                        }
                     }
-                }
             }
         }
         .toolbar {
@@ -57,14 +58,14 @@ struct EditRegisterView: View {
                     Text(Image(systemName: "trash.fill"))
                         .foregroundColor(.red)
                 }
-
+                
             }
         }
     }
 }
-    
-    //struct EditRegisterView_Previews: PreviewProvider {
-    //    static var previews: some View {
-    //        EditRegisterView()
-    //    }
-    //}
+
+//struct EditRegisterView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EditRegisterView()
+//    }
+//}
