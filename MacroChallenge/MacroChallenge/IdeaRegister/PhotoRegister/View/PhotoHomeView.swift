@@ -16,7 +16,7 @@ struct PhotoHomeView: View {
                 }
                 .padding(10)
                 
-                NavigationLink(destination: PhotoSavedView()) {
+                NavigationLink(destination: PhotoIdeaView()) {
                     Text("Saved Photos")
                 }
             }
