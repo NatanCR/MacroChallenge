@@ -16,8 +16,3 @@ struct ModelText: Idea {
     var text: String
     var textComplete: String
 }
-
-//class ModelData: ObservableObject {
-//    //Objeto de acesso ao model
-//    @Published var model: [ModelText] = []
-//}

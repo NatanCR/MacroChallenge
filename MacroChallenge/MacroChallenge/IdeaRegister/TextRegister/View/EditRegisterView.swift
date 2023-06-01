@@ -37,6 +37,7 @@ struct EditRegisterView: View {
                     
                         //salva novamente
                         //TODO: Change IdeaSaver
+                    
                         //fecha a tela
                         dismiss()
                     }
@@ -45,6 +46,7 @@ struct EditRegisterView: View {
                 .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
                     Button("Delete Idea", role: .destructive) {
                         //deletar
+                        
                         appState.rootViewId = UUID()
                     }
                 }
