@@ -531,14 +531,13 @@
 				D135A6C12A268FF7009C1938 /* UserDefaultsManager.swift in Sources */,
 				D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */,
 				43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */,
-				43211D3D2A268DCC005C85E5 /* CameraView.swift in Sources */,
+				43211D3D2A268DCC005C85E5 /* CapturePhotoView.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
 				918C7DC82A27EDB000C36A53 /* ColorHelper.swift in Sources */,
 				912811EE2A291D1300010872 /* CheckAudioView.swift in Sources */,
 				43211D3D2A268DCC005C85E5 /* CapturePhotoView.swift in Sources */,
-				D135A6CF2A2690DC009C1938 /* DetailRegisterView.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
@@ -719,7 +718,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
 				DEVELOPMENT_TEAM = 3SWCGFCJF2;
-				DEVELOPMENT_TEAM = 66824UF4JS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -751,7 +749,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 66824UF4JS;
 				DEVELOPMENT_TEAM = V32Q5HA7F8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

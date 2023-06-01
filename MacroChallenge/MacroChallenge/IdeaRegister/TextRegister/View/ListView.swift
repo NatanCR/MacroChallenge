@@ -24,7 +24,7 @@ struct ListView: View {
                         ForEach(loadedData, id: \.id) { ideas in
                             NavigationLink {
                                 if ideas.ideiaType == .text {
-                                    //EditRegisterView(modelText: )
+                                    EditRegisterView(modelText: ideas as! ModelText)
                                 }
                             } label: {
                                 CellTemplate(idea: ideas)

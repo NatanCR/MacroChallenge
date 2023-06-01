@@ -31,13 +31,10 @@ struct EditRegisterView: View {
                         modelText.text = modelText.text.removeEmptyLines()
                         modelText.title = modelText.title.removeEmptyLines()
                         modelText.textComplete = modelText.textComplete.removeEmptyLines()
-                                
-                        //cria o modelo com os valores que serão salvos
-                        modelText = ModelText(title: modelText.title, creationDate: modelText.creationDate, modifiedDate: Date(), text: modelText.text, textComplete: modelText.textComplete)
                     
                         //salva novamente
-                        //TODO: Change IdeaSaver
-                    
+                    IdeaSaver.changeSavedValue(type: ModelText.self, idea: modelText)
+                        
                         //fecha a tela
                         dismiss()
                     }
@@ -46,7 +43,7 @@ struct EditRegisterView: View {
                 .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
                     Button("Delete Idea", role: .destructive) {
                         //deletar
-                        
+                        IdeaSaver.clearOneIdea(type: ModelText.self, idea: modelText)
                         appState.rootViewId = UUID()
                     }
                 }
