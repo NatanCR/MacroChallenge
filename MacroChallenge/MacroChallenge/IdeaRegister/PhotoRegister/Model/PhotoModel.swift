@@ -1,5 +1,5 @@
 //
-//  FotoModel.swift
+//  PhotoModel.swift
 //  MacroChallenge
 //
 //  Created by Rodrigo Ferreira Pereira on 30/05/23.
