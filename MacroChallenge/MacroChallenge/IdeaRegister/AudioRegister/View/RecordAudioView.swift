@@ -11,8 +11,9 @@ import AVFoundation
 struct RecordAudioView: View {
     // states
     @StateObject var recordAudio: RecordAudio
-    @State var isRecording: Bool
-    @State var recorded: Bool
+    @State var isRecording: Bool = true
+    @State var recorded: Bool = false
+    @State var audioUrl: URL?
     
     // audio
     private var audioPlayer: AVAudioPlayer?
@@ -20,8 +21,6 @@ struct RecordAudioView: View {
     
     //MARK: - INIT
     init() {
-        self.isRecording = true
-        self.recorded = false
         self._recordAudio = StateObject(wrappedValue: RecordAudio())
         self.audioPlayer = AVAudioPlayer()
         self.audioManager = AudioManager(audioPlayer: AVAudioPlayer())
@@ -36,6 +35,22 @@ struct RecordAudioView: View {
             if self.isRecording {
                 Text("Gravando")
                     .foregroundColor(.red)
+            } else if (self.recorded) {
+                HStack {
+                    AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.recordAudio.recordedAudios.last!)
+                        .frame(height: 10)
+                        .padding(.trailing, 30)
+                    
+                    Button {
+                        self.recorded = false
+                        self.recordAudio.deleteAllAudios()
+                    } label: {
+                        Image(systemName: "trash")
+                            .resizable()
+                            .foregroundColor(.red)
+                            .frame(width: 23, height: 23)
+                    }
+                }
             }
             
             Spacer(minLength: 600)
@@ -46,16 +61,18 @@ struct RecordAudioView: View {
 
                 // if started recording
                 if isRecording {
-                    print("gravando")
+                    self.recordAudio.startRecordingAudio()
                 } else { // if stop the record
-                    print("parou")
+                    self.recordAudio.stopRecordingAudio()
+                    self.audioManager.assignAudio(self.recordAudio.recordedAudios.last!)
+                    self.recorded = true
                 }
             } label: {
                 Image(systemName: self.isRecording ? "stop.fill" : "mic.badge.plus")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 23, height: 23)
-            }
+            }.disabled(self.recorded)
             
             Spacer()
         }
@@ -67,6 +84,8 @@ struct RecordAudioView: View {
                     print("save")
                 }
             }
+        }.onAppear {
+            self.recordAudio.startRecordingAudio()
         }
     }
 }

@@ -12,8 +12,8 @@ import AVFoundation
 struct AudioReprodutionComponent: View {
     @State var isPlaying: Bool = false
     @State var audioCurrentTime: Float = 0
-    @State var timeStamp: String = "00:00"
     
+    private let sliderTime = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
     private let audioManager: AudioManager
     private let audioURL: URL
     
@@ -44,31 +44,51 @@ struct AudioReprodutionComponent: View {
                 } label: {
                     Image(systemName: self.isPlaying ? "pause.fill" : "play.fill")
                         .foregroundColor(.white)
+                }.onReceive(sliderTime) { _ in
+                    if !isPlaying {return}
+                    
+                    self.audioCurrentTime = Float(self.audioManager.getCurrentTimeCGFloat())
                 }
                 
-                AudioSliderView(value: $audioCurrentTime, audioManager: self.audioManager)
+                AudioSliderView(value: $audioCurrentTime, isPlaying: $isPlaying, audioManager: self.audioManager)
                     .frame(width: 124)
                     .padding()
                 
-                Text(audioManager.getCurrentTimeIntervalText())
+                Text(self.convertCurrentTime())
                     .font(.system(size: 13))
                     .foregroundColor(.white)
             }
         }
     }
+    
+    //MARK: - FUNCs
+    private func convertCurrentTime() -> String {
+        let time = Int(self.audioManager.getCurrentTimeInterval())
+        let seconds = time % 60
+        let minutes = (time / 60) % 60
+        
+        return String(format: "%0.2d:%0.2d", minutes, seconds)
+    }
 }
 
+//MARK: - SLIDER
 struct AudioSliderView : UIViewRepresentable {
     @Binding var value : Float
+    @Binding var isPlaying: Bool
+    
+    let slider: UISlider = UISlider(frame: .zero)
     private let audioManager: AudioManager
     
-    public init(value: Binding<Float>, audioManager: AudioManager) {
+    public init(value: Binding<Float>, isPlaying: Binding<Bool>, audioManager: AudioManager) {
         self._value = value
+        self._isPlaying = isPlaying
         self.audioManager = audioManager
     }
     
+    //MARK: - COORDINATOR
     class Coordinator: NSObject {
         var sliderView: AudioSliderView
+        var sliderTimer: Timer?
         
         init(_ sliderView: AudioSliderView) {
             self.sliderView = sliderView
@@ -76,15 +96,16 @@ struct AudioSliderView : UIViewRepresentable {
         
         @objc func sliderChange(_ sender: UISlider!) {
             self.sliderView.audioManager.setCurrentTime(TimeInterval(sender.value))
+            self.sliderView.value = sender.value
         }
     }
     
+    //MARK: - SLIDER FUNCs
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
     func makeUIView(context: Context) -> UISlider {
-        let slider = UISlider(frame: .zero)
         slider.minimumValue = 0
         slider.maximumValue = Float(self.audioManager.getDuration())
         slider.minimumTrackTintColor = .white
