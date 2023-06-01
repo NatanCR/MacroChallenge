@@ -30,7 +30,6 @@
 		D135A6C62A269037009C1938 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6C52A269037009C1938 /* ListView.swift */; };
 		D135A6C92A269071009C1938 /* CellTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6C82A269071009C1938 /* CellTemplate.swift */; };
 		D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6CC2A2690B2009C1938 /* TextRegisterView.swift */; };
-		D135A6CF2A2690DC009C1938 /* DetailRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6CE2A2690DC009C1938 /* DetailRegisterView.swift */; };
 		D135A6D12A2690F8009C1938 /* EditRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6D02A2690F8009C1938 /* EditRegisterView.swift */; };
 		D135A6D32A269122009C1938 /* UserDefaultsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6D22A269122009C1938 /* UserDefaultsSpec.swift */; };
 		D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */; };
@@ -80,7 +79,6 @@
 		D135A6C52A269037009C1938 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		D135A6C82A269071009C1938 /* CellTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTemplate.swift; sourceTree = "<group>"; };
 		D135A6CC2A2690B2009C1938 /* TextRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRegisterView.swift; sourceTree = "<group>"; };
-		D135A6CE2A2690DC009C1938 /* DetailRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRegisterView.swift; sourceTree = "<group>"; };
 		D135A6D02A2690F8009C1938 /* EditRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegisterView.swift; sourceTree = "<group>"; };
 		D135A6D22A269122009C1938 /* UserDefaultsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSpec.swift; sourceTree = "<group>"; };
 		D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewModel.swift; sourceTree = "<group>"; };
@@ -333,7 +331,6 @@
 				D135A6C72A26905D009C1938 /* ViewTemplates */,
 				D135A6C52A269037009C1938 /* ListView.swift */,
 				D135A6CC2A2690B2009C1938 /* TextRegisterView.swift */,
-				D135A6CE2A2690DC009C1938 /* DetailRegisterView.swift */,
 				D135A6D02A2690F8009C1938 /* EditRegisterView.swift */,
 			);
 			path = View;
@@ -483,7 +480,6 @@
 				D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */,
 				43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */,
 				43211D3D2A268DCC005C85E5 /* CameraView.swift in Sources */,
-				D135A6CF2A2690DC009C1938 /* DetailRegisterView.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
