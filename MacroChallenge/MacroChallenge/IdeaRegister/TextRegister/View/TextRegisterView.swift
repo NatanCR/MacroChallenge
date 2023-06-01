@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct TextRegisterView: View {
-    @ObservedObject var modelData: ModelData //variável que passa os dados registrados à outra variável que acesso o objeto da estrutura
-    private let userDefaultsManager = UserDefaultsManager()
     @Environment(\.dismiss) private var dismiss
     @State private var textComplete: String = ""
     @State private var title: String = ""
@@ -48,23 +46,20 @@ struct TextRegisterView: View {
                     if textComplete.isEmpty {
                         self.isActive.toggle()
                     } else {
-                        title = TextViewModel.separateTitleFromText(textComplete: textComplete, title: title)!
+                        title = TextViewModel.separateTitleFromText(textComplete: textComplete, title: title) ?? String()
                         
                         //remover o título do texto original
                         self.idea = textComplete.replacingOccurrences(of: title, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
                         
+                        //remove as linhas vazias antes de salvar
                         idea = idea.removeEmptyLines()
                         title = title.removeEmptyLines()
                         textComplete = textComplete.removeEmptyLines()
                         
-                        //registra a data da ideia
-                        let currentDate = Date()
                         //coloca os dados no formato da estrutura
-                        let currentModel = ModelText(title: title, creationDate: currentDate, modifiedDate: currentDate, text: idea, textComplete: textComplete)
-                        //adiciona os dados no array do objeto
-                        self.modelData.model.append(currentModel)
+                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), text: idea, textComplete: textComplete)
                         //salva o dados registrados
-                        userDefaultsManager.encoderModel(model: modelData.model)
+                        IdeaSaver.saveTextIdea(idea: currentModel)
                         dismiss()
                     }
                     
@@ -73,16 +68,6 @@ struct TextRegisterView: View {
                 }
             }
         }
-    }
-
-    
-    //formata a data em string com o horario local do device
-    func formatarData(_ data: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .medium
-        formatter.locale = Locale.current
-        return formatter.string(from: data)
     }
 }
 

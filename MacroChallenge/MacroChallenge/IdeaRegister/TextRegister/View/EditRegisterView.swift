@@ -10,8 +10,8 @@ import SwiftUI
 struct EditRegisterView: View {
     @State var modelText: ModelText
     @Environment(\.dismiss) private var dismiss
-    private let userDefaultsManager = UserDefaultsManager()
-    @ObservedObject var modelData: ModelData
+    //private let userDefaultsManager = UserDefaultsManager()
+    //@ObservedObject var modelData: ModelData
     @State private var isAlertActive: Bool = false
     @EnvironmentObject var appState: AppState
     
@@ -24,27 +24,24 @@ struct EditRegisterView: View {
                 
                 //salva e fecha a tela de edição
                 Button("Save") {
-                    //verifica ID atual e localiza no array
-                    if let index = modelData.model.firstIndex(where: { $0.id == modelText.id }) {
-                        
-                        modelText.title = TextViewModel.separateTitleFromText(textComplete: modelText.textComplete, title: modelText.title) ?? String()
+                    modelText.title = TextViewModel.separateTitleFromText(textComplete: modelText.textComplete, title: modelText.title) ?? String()
                         
                         //remover o título do texto original
                         modelText.text = modelText.textComplete.replacingOccurrences(of: modelText.title, with: ("".trimmingCharacters(in: .whitespacesAndNewlines)))
                         
+                        //remove as linhas vazias antes de salvar
                         modelText.text = modelText.text.removeEmptyLines()
                         modelText.title = modelText.title.removeEmptyLines()
                         modelText.textComplete = modelText.textComplete.removeEmptyLines()
-                                               
+                                
+                        //cria o modelo com os valores que serão salvos
                         modelText = ModelText(title: modelText.title, creationDate: modelText.creationDate, modifiedDate: Date(), text: modelText.text, textComplete: modelText.textComplete)
-                        //atualiza o dado na posição no indice
-                        modelData.model[index] = modelText
+                    
                         //salva novamente
-                        userDefaultsManager.encoderModel(model: modelData.model)
+                        //TODO: Change IdeaSaver
                         //fecha a tela
                         dismiss()
                     }
-                }
                 .padding()
                 Spacer()
                 .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {

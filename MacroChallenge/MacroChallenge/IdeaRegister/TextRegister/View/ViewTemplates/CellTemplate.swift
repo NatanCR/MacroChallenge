@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct CellTemplate: View {
-    var model: ModelText
+    var idea: any Idea
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading){
-                Text(model.title)
-                    .font(.system(size: 19, weight: .bold, design: .rounded))
-                Text(model.text)
-                    .font(.system(size: 17, weight: .regular, design: .rounded))
-            }
+        VStack {
+            RoundedRectangle(cornerRadius: 10)
+                .frame(height: 100)
+                .foregroundColor(.gray)
+                .overlay(alignment: .center) {
+                    
+                }
+            VStack {
+                Text("\(idea.title)")
+                Text("\(TextViewModel.formatarData(idea.modifiedDate))")
+            }.padding()
         }
-
     }
 }
 //
