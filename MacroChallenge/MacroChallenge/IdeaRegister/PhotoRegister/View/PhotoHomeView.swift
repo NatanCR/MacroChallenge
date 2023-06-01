@@ -22,6 +22,9 @@ struct PhotoHomeView: View {
             }
             .navigationBarTitle("Photo Home")
         }
+//        .onAppear {
+//            dump(IdeaSaver.getSavedUniqueIdeasType(type: PhotoModel.self, key: IdeaSaver.getPhotoModelKey()))
+//        }
     }
 }
 
