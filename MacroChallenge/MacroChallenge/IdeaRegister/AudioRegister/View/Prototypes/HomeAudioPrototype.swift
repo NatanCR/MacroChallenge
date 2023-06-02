@@ -25,11 +25,7 @@ struct HomeAudioPrototype: View {
                 }
             }
         }.onAppear {
-            //IdeaSaver.clearAll()
             audioIdeas = IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey())
-//            print(try? FileManager.default.contentsOfDirectory(at: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0], includingPropertiesForKeys: nil, options: .producesRelativePathURLs))
-//            print("----")
-//            print(audioIdeas.map({ $0.audioPath }))
         }
     }
 }

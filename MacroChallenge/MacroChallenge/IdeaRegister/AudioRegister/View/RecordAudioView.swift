@@ -43,7 +43,10 @@ struct RecordAudioView: View {
                     Button {
                         self.recorded = false
                         self.audioManager.stopAudio()
-                        self.recordAudio.deleteAllAudios()
+                        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudios.last!.lastPathComponent)
+                        
+//                        self.recordAudio.deleteAllAudios()
+//                        IdeaSaver.clearAll()
                     } label: {
                         Image(systemName: "trash.fill")
                             .resizable()
@@ -66,7 +69,6 @@ struct RecordAudioView: View {
                     self.recordAudio.stopRecordingAudio()
                     self.audioManager.assignAudio(self.recordAudio.recordedAudios.last!)
                     self.audioUrl = self.recordAudio.recordedAudios.last!
-                    print(try? self.recordAudio.fileManager.contentsOfDirectory(at: self.recordAudio.documentDirectoryURL, includingPropertiesForKeys: nil, options: .producesRelativePathURLs))
                     self.recorded = true
                 }
             } label: {
@@ -89,7 +91,7 @@ struct RecordAudioView: View {
                     }
                     
                     if recorded {
-                        let idea = AudioIdeia(title: "test", creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl!)
+                        let idea = AudioIdeia(title: "test", creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
                         IdeaSaver.saveAudioIdea(idea: idea)
                     }
                     

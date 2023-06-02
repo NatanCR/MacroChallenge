@@ -48,13 +48,13 @@ struct AudioReprodutionComponent: View {
                     if !isPlaying {return}
                     
                     self.audioCurrentTime = Float(self.audioManager.getCurrentTimeCGFloat())
-                    if !audioManager.getIsPlaying() {
+                    if self.isPlaying && !self.audioManager.getIsPlaying() {
                         self.isPlaying = false
                         self.audioCurrentTime = 0
                     }
                 }
                 
-                AudioSliderView(value: $audioCurrentTime, isPlaying: $isPlaying, audioManager: self.audioManager)
+                AudioSliderView(value: $audioCurrentTime, audioManager: self.audioManager)
                     .frame(width: 124)
                     .padding()
                 
@@ -78,14 +78,12 @@ struct AudioReprodutionComponent: View {
 //MARK: - SLIDER
 struct AudioSliderView : UIViewRepresentable {
     @Binding var value : Float
-    @Binding var isPlaying: Bool
     
     let slider: UISlider = UISlider(frame: .zero)
     private let audioManager: AudioManager
     
-    public init(value: Binding<Float>, isPlaying: Binding<Bool>, audioManager: AudioManager) {
+    public init(value: Binding<Float>, audioManager: AudioManager) {
         self._value = value
-        self._isPlaying = isPlaying
         self.audioManager = audioManager
     }
     

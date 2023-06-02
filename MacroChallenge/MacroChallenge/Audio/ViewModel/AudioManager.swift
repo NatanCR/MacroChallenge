@@ -19,7 +19,6 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
     public func assignAudio(_ audioURL: URL) {
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: audioURL, fileTypeHint: AVFileType.m4a.rawValue)
-            print("assigned")
             self.prepareAudioPlayer()
         }
         catch {
@@ -33,7 +32,6 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
         self.stopAudio()
         
         //if self.audioPlayer == AVAudioPlayer() { self.assignAudio(audioURL) }
-        print("play")
         self.audioPlayer?.play()
     }
     

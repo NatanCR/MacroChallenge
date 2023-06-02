@@ -16,7 +16,7 @@ struct CheckAudioView: View {
     
     // audio
     private let audioManager: AudioManager
-    @State private var audioUrl: URL?
+    private let audioUrl: URL
     
     // date
     let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
@@ -24,6 +24,8 @@ struct CheckAudioView: View {
     init(audioIdea idea: AudioIdeia) {
         self.audioManager = AudioManager()
         self.idea = idea
+        self.audioUrl = AudioHelper.getAudioContent(audioPath: self.idea.audioPath)
+        self.audioManager.assignAudio(self.audioUrl)
     }
     
     //MARK: - BODY
@@ -34,19 +36,14 @@ struct CheckAudioView: View {
                 .fontWeight(.bold)
                 .multilineTextAlignment(.leading)
             
-            AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.idea.audioPath)
+            AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
                 .frame(height: 10)
                 .padding(.top, 30)
             
             Spacer()
-        }
-        .onAppear(perform: {
-            let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let contents = try? FileManager.default.contentsOfDirectory(at: documentDirectoryURL, includingPropertiesForKeys: nil, options: .producesRelativePathURLs)
-            let index = contents?.firstIndex(where: { $0.lastPathComponent == idea.audioPath.lastPathComponent}) ?? -1
-            print(index)
-            audioUrl = contents![index]
-            self.audioManager.assignAudio(contents![index])
+        }.onAppear(perform: {
+            print(AudioHelper.getAudioContent(audioPath: self.idea.audioPath))
+            print("path: \(self.idea.audioPath)")
         })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

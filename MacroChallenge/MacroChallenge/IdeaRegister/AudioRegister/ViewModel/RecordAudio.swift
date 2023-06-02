@@ -15,6 +15,8 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
     // audio vars
     var audioSession: AVAudioSession
     var audioRecorder: AVAudioRecorder? // needs to be optinal, will only be created when there's a recorded audio
+    var recordedAudioPath: String
+    var recordSuccess: Bool
     
     // directory
     let fileManager: FileManager
@@ -26,6 +28,8 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
         // audio vars
         self.audioSession = AVAudioSession.sharedInstance()
         self.audioRecorder = nil
+        self.recordedAudioPath = ""
+        self.recordSuccess = false
         
         // directory
         self.fileManager = FileManager.default
@@ -46,9 +50,11 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
     //MARK: - PUBLIC METHODS
     /**Starts to record an audio for audio ideias.**/
     public func startRecordingAudio() {
+        self.recordSuccess = false
         // setting the final path of the audio, creating the UUID of the audio idea
         let fileUUID = UUID()
         let fileURL = self.documentDirectoryURL.appendingPathComponent("\(self.fileName)-\(fileUUID).\(AudioManager.getRecordedAudioFormat())")
+        self.recordedAudioPath = fileURL.lastPathComponent
         
         // configuring the record settings
         let recordSettings = [
@@ -73,6 +79,7 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
     public func stopRecordingAudio() {
         if !self.getIsRecording() { return }
         
+        self.recordSuccess = true
         self.audioRecorder?.stop()
         self.audioRecorder = nil
         self.recordedAudios = self.fetchAudioURLs()
@@ -93,6 +100,22 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
     /**Deletes all audio files in user directory.**/
     public func deleteAllAudios() {
         for audio in recordedAudios {
+            do {
+                try fileManager.removeItem(at: audio)
+                self.recordedAudios = self.fetchAudioURLs()
+            }
+            
+            catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    /**Deletes the last audio file in user directory.**/
+    public func deleteAudio(audioPath: String) {
+        for audio in recordedAudios {
+            if audio.lastPathComponent != audioPath { continue }
+            
             do {
                 try fileManager.removeItem(at: audio)
                 self.recordedAudios = self.fetchAudioURLs()
@@ -139,6 +162,9 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
     // needs this delegate function in case of record stops for something unusual, like an phone incoming call for example.
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         //TODO: Handle a failure to record audio
-        self.stopRecordingAudio()
+        if self.recordedAudioPath != "" && !self.recordSuccess {
+            print("teste")
+            self.deleteAudio(audioPath: self.recordedAudioPath)
+        }
     }
 }
