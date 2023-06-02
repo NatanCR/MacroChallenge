@@ -93,7 +93,7 @@ struct ListView: View {
                                 case .audio:
                                     CheckAudioView(audioIdea: ideas as! AudioIdeia)
                                 case .photo:
-                                    PhotoSavedView()
+                                    PhotoIdeaView()
                                 }
                             } label: {
                                 CellTemplate(idea: ideas)
