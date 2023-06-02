@@ -1,5 +1,5 @@
 //
-//  PhotoSavedView.swift
+//  PhotoIdeaView.swift
 //  MacroChallenge
 //
 //  Created by Rodrigo Ferreira Pereira on 31/05/23.
@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct PhotoSavedView: View {
+struct PhotoIdeaView: View {
     @State private var savedPhotos = IdeaSaver.getSavedUniqueIdeasType(type: PhotoModel.self, key: IdeaSaver.getPhotoModelKey())
+    @Environment(\.presentationMode) var presentationMode
+    @State private var showAlert = false
     
     private let dateFormat: DateFormatter = {
         let formatter = DateFormatter()
@@ -19,14 +21,16 @@ struct PhotoSavedView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-//                Color.clear
-                
                 if let lastPhoto = savedPhotos.last {
                     if let uiImage = UIImage(data: lastPhoto.capturedImages.first ?? Data()) {
                         VStack {
-                            Text("Ideia do dia \(lastPhoto.creationDate, formatter: self.dateFormat)")
-                                .bold()
-                                .font(.system(size: 25))
+                            HStack {
+                                
+                                Text("Ideia do dia \(lastPhoto.creationDate, formatter: self.dateFormat)")
+                                    .bold()
+                                    .font(.system(size: 25))
+                                Spacer()
+                            }
                             
                             Image(uiImage: uiImage)
                                 .resizable()
@@ -39,6 +43,24 @@ struct PhotoSavedView: View {
                 }
             }
         }
+        .navigationBarItems(trailing: Button(action: {
+            if let lastPhoto = savedPhotos.last {
+                IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: lastPhoto)
+            }
+            showAlert = true
+        }) {
+            Image(systemName: "trash")
+                .foregroundColor(.red)
+        })
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Sucesso"),
+                message: Text("A ideia foi excluída com sucesso."),
+                dismissButton: .default(Text("OK")) {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+            )
+        }
         .onAppear {
             savedPhotos = IdeaSaver.getSavedUniqueIdeasType(type: PhotoModel.self, key: IdeaSaver.getPhotoModelKey())
         }
@@ -46,8 +68,8 @@ struct PhotoSavedView: View {
 }
 
 
-struct PhotoView_Previews: PreviewProvider {
-    static var previews: some View {
-        PhotoSavedView()
-    }
-}
+//struct PhotoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PhotoIdeaView()
+//    }
+//}

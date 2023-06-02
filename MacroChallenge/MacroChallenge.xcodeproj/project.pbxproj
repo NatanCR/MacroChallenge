@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		430A99852A27C1C100D2F773 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99842A27C1C100D2F773 /* CameraViewModel.swift */; };
-		430A99872A27C8DD00D2F773 /* PhotoSavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99862A27C8DD00D2F773 /* PhotoSavedView.swift */; };
+		430A99872A27C8DD00D2F773 /* PhotoIdeaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99862A27C8DD00D2F773 /* PhotoIdeaView.swift */; };
 		430A99892A27CA0C00D2F773 /* PhotoHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99882A27CA0C00D2F773 /* PhotoHomeView.swift */; };
 		43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */; };
 		43211D3D2A268DCC005C85E5 /* CapturePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43211D3C2A268DCC005C85E5 /* CapturePhotoView.swift */; };
@@ -63,7 +63,7 @@
 
 /* Begin PBXFileReference section */
 		430A99842A27C1C100D2F773 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
-		430A99862A27C8DD00D2F773 /* PhotoSavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSavedView.swift; sourceTree = "<group>"; };
+		430A99862A27C8DD00D2F773 /* PhotoIdeaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoIdeaView.swift; sourceTree = "<group>"; };
 		430A99882A27CA0C00D2F773 /* PhotoHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoHomeView.swift; sourceTree = "<group>"; };
 		43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRepresentable.swift; sourceTree = "<group>"; };
 		43211D3C2A268DCC005C85E5 /* CapturePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePhotoView.swift; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				43211D3C2A268DCC005C85E5 /* CapturePhotoView.swift */,
-				430A99862A27C8DD00D2F773 /* PhotoSavedView.swift */,
+				430A99862A27C8DD00D2F773 /* PhotoIdeaView.swift */,
 				430A99882A27CA0C00D2F773 /* PhotoHomeView.swift */,
 			);
 			path = View;
@@ -541,7 +541,7 @@
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
-				430A99872A27C8DD00D2F773 /* PhotoSavedView.swift in Sources */,
+				430A99872A27C8DD00D2F773 /* PhotoIdeaView.swift in Sources */,
 				916E0FBE2A268BBE00F4FA87 /* Idea.swift in Sources */,
 				916E0FC32A268BEA00F4FA87 /* AudioIdea.swift in Sources */,
 				916E0FC52A268C0400F4FA87 /* RecordAudio.swift in Sources */,
@@ -718,6 +718,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
 				DEVELOPMENT_TEAM = 3SWCGFCJF2;
+				DEVELOPMENT_TEAM = V32Q5HA7F8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -750,6 +751,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
 				DEVELOPMENT_TEAM = 3SWCGFCJF2;
+				DEVELOPMENT_TEAM = V32Q5HA7F8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
