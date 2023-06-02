@@ -87,8 +87,13 @@ struct ListView: View {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(disposedData, id: \.id) { ideas in
                             NavigationLink {
-                                if ideas.ideiaType == .text {
+                                switch ideas.ideiaType {
+                                case .text:
                                     EditRegisterView(modelText: ideas as! ModelText)
+                                case .audio:
+                                    CheckAudioView(audioIdea: ideas as! AudioIdeia)
+                                case .photo:
+                                    PhotoSavedView()
                                 }
                             } label: {
                                 CellTemplate(idea: ideas)
