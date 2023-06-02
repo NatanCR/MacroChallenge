@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeAudioPrototype: View {
+    @State var audioIdeas: [AudioIdeia] = IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey())
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -16,12 +18,14 @@ struct HomeAudioPrototype: View {
                 }
                 
                 if (!IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey()).isEmpty) {
-                    NavigationLink(destination: CheckAudioView(audioIdea: IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey()).first!)) {
+                    NavigationLink(destination: CheckAudioView(audioIdea: audioIdeas.last!)) {
                         Text("See last Audio")
                     
                     }
                 }
             }
+        }.onAppear {
+            audioIdeas = IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey())
         }
     }
 }

@@ -16,16 +16,13 @@ struct RecordAudioView: View {
     @State var isRecording: Bool = true
     @State var recorded: Bool = false
     @State var audioUrl: URL?
-    
     // audio
-    private var audioPlayer: AVAudioPlayer?
     private let audioManager: AudioManager
     
     //MARK: - INIT
     init() {
         self._recordAudio = StateObject(wrappedValue: RecordAudio())
-        self.audioPlayer = AVAudioPlayer()
-        self.audioManager = AudioManager(audioPlayer: AVAudioPlayer())
+        self.audioManager = AudioManager()
     }
     
     //MARK: - BODY
@@ -46,7 +43,10 @@ struct RecordAudioView: View {
                     Button {
                         self.recorded = false
                         self.audioManager.stopAudio()
-                        self.recordAudio.deleteAllAudios()
+                        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudios.last!.lastPathComponent)
+                        
+//                        self.recordAudio.deleteAllAudios()
+//                        IdeaSaver.clearAll()
                     } label: {
                         Image(systemName: "trash.fill")
                             .resizable()
@@ -91,7 +91,7 @@ struct RecordAudioView: View {
                     }
                     
                     if recorded {
-                        let idea = AudioIdeia(title: "test", creationDate: Date(), modifiedDate: Date(), audioPath: self.recordAudio.recordedAudios.last!)
+                        let idea = AudioIdeia(title: "test", creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
                         IdeaSaver.saveAudioIdea(idea: idea)
                     }
                     
@@ -100,6 +100,7 @@ struct RecordAudioView: View {
             }
         }.onAppear {
             self.recordAudio.startRecordingAudio()
+            print(try? self.recordAudio.fileManager.contentsOfDirectory(at: self.recordAudio.documentDirectoryURL, includingPropertiesForKeys: nil, options: .producesRelativePathURLs))
         }
     }
 }

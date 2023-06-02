@@ -15,16 +15,17 @@ struct CheckAudioView: View {
     private let idea: AudioIdeia
     
     // audio
-    private var audioPlayer: AVAudioPlayer?
     private let audioManager: AudioManager
+    private let audioUrl: URL
     
     // date
     let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     
     init(audioIdea idea: AudioIdeia) {
-        self.audioPlayer = AVAudioPlayer()
-        self.audioManager = AudioManager(audioPlayer: AVAudioPlayer())
+        self.audioManager = AudioManager()
         self.idea = idea
+        self.audioUrl = AudioHelper.getAudioContent(audioPath: self.idea.audioPath)
+        self.audioManager.assignAudio(self.audioUrl)
     }
     
     //MARK: - BODY
@@ -35,15 +36,14 @@ struct CheckAudioView: View {
                 .fontWeight(.bold)
                 .multilineTextAlignment(.leading)
             
-            AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.idea.audioPath)
+            AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
                 .frame(height: 10)
                 .padding(.top, 30)
             
             Spacer()
-        }
-        .onAppear(perform: {
-            self.audioManager.assignAudio(self.idea.audioPath)
-            print(idea.audioPath)
+        }.onAppear(perform: {
+            print(AudioHelper.getAudioContent(audioPath: self.idea.audioPath))
+            print("path: \(self.idea.audioPath)")
         })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
