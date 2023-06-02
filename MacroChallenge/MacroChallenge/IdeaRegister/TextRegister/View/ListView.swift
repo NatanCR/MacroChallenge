@@ -12,6 +12,9 @@ struct ListView: View {
     @State private var loadedData = IdeaSaver.getAllSavedIdeas()
     @State private var sortedByDescendent: Bool = true
     @State private var byCreation: Bool = true
+    @State private var disposedData: [any Idea] = []
+    @State private var filterType: IdeaType = .text
+    @State private var isFiltered: Bool = false
     
     let columns = [
         GridItem(.flexible()),
@@ -21,10 +24,22 @@ struct ListView: View {
     
     func orderBy() {
         if byCreation {
-            sortedByDescendent ? loadedData.sort(by: { $0.creationDate > $1.creationDate }) : loadedData.sort(by: { $0.creationDate < $1.creationDate })
+            sortedByDescendent ? disposedData.sort(by: { $0.creationDate > $1.creationDate }) : disposedData.sort(by: { $0.creationDate < $1.creationDate })
         } else {
-            sortedByDescendent ? loadedData.sort(by: { $0.modifiedDate > $1.modifiedDate }) : loadedData.sort(by: { $0.modifiedDate < $1.modifiedDate })
+            sortedByDescendent ? disposedData.sort(by: { $0.modifiedDate > $1.modifiedDate }) : disposedData.sort(by: { $0.modifiedDate < $1.modifiedDate })
         }
+    }
+    
+    func filterBy(_ type: IdeaType) {
+        if (!isFiltered || (isFiltered && filterType != type)) {
+            filterType = type
+            isFiltered = true
+            disposedData = loadedData.filter({ $0.ideiaType == type })
+            return
+        }
+        
+        self.disposedData = self.loadedData
+        self.isFiltered = false
     }
     
     var body: some View {
@@ -54,24 +69,23 @@ struct ListView: View {
                         }
                         Menu("Filtrar por") {
                             Button("Imagem") {
-                                
+                                filterBy(.photo)
                             }
                             Button("Texto") {
-                                
+                                filterBy(.text)
                             }
                             Button("Áudio") {
-                                
+                                filterBy(.audio)
                             }
                         }
                     } label: {
                         Text(Image(systemName: "line.3.horizontal.decrease.circle"))
-                        
                     }
 
                 }
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(loadedData, id: \.id) { ideas in
+                        ForEach(disposedData, id: \.id) { ideas in
                             NavigationLink {
                                 if ideas.ideiaType == .text {
                                     EditRegisterView(modelText: ideas as! ModelText)
@@ -82,17 +96,40 @@ struct ListView: View {
                         }
                     }
                 }
-                Spacer()
-                NavigationLink {
-                    TextRegisterView()
-                } label: {
-                    Text("Register Idea")
-                }
             }
             .padding()
             .onAppear {
                 let reloadedModel = IdeaSaver.getAllSavedIdeas()
                 self.loadedData = reloadedModel
+                self.disposedData = self.loadedData
+            }
+            .toolbar {
+                ToolbarItemGroup(placement: .bottomBar) {
+                    NavigationLink {
+                        CapturePhotoView()
+                    } label: {
+                        Image(systemName: "camera.fill")
+                            .foregroundColor(.blue)
+                    }
+                    
+                    Spacer()
+                    
+                    NavigationLink {
+                        RecordAudioView()
+                    } label: {
+                        Image(systemName: "mic.fill")
+                            .foregroundColor(.blue)
+                    }
+                    
+                    Spacer()
+                    
+                    NavigationLink {
+                        TextRegisterView()
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                            .foregroundColor(.blue)
+                    }
+                }
             }
         }
         //aciona o comportamento popToRootView
