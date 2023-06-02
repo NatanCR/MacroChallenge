@@ -20,7 +20,7 @@ struct RecordAudioPrototype: View {
     public init() {
         self._recordAudio = StateObject(wrappedValue: RecordAudio())
         self.audioPlayer = AVAudioPlayer()
-        self.audioManager = AudioManager(audioPlayer: self.audioPlayer)
+        self.audioManager = AudioManager()
     }
     
     //MARK: - BODY
@@ -29,7 +29,6 @@ struct RecordAudioPrototype: View {
             List(self.recordAudio.recordedAudios, id: \.self) { audioURL in
                 Text(audioURL.relativeString)
                     .onTapGesture {
-                        print("reproduzindo")
                         self.audioManager.playAudio(audioURL)
                     }
             }.background {
@@ -43,10 +42,8 @@ struct RecordAudioPrototype: View {
                     self.isRecording = self.recordAudio.getIsRecording()
                     
                     if !isRecording {
-                        print("recording")
                         self.recordAudio.startRecordingAudio()
                     } else {
-                        print("stop record")
                         self.recordAudio.stopRecordingAudio()
                     }
                 } label: {

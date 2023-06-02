@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeAudioPrototype: View {
+    @State var audioIdeas: [AudioIdeia] = IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey())
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -16,12 +18,18 @@ struct HomeAudioPrototype: View {
                 }
                 
                 if (!IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey()).isEmpty) {
-                    NavigationLink(destination: CheckAudioView(audioIdea: IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey()).first!)) {
+                    NavigationLink(destination: CheckAudioView(audioIdea: audioIdeas.last!)) {
                         Text("See last Audio")
                     
                     }
                 }
             }
+        }.onAppear {
+            //IdeaSaver.clearAll()
+            audioIdeas = IdeaSaver.getSavedUniqueIdeasType(type: AudioIdeia.self, key: IdeaSaver.getAudioModelKey())
+//            print(try? FileManager.default.contentsOfDirectory(at: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0], includingPropertiesForKeys: nil, options: .producesRelativePathURLs))
+//            print("----")
+//            print(audioIdeas.map({ $0.audioPath }))
         }
     }
 }

@@ -47,7 +47,6 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
     /**Starts to record an audio for audio ideias.**/
     public func startRecordingAudio() {
         // setting the final path of the audio, creating the UUID of the audio idea
-        //TODO: this will be the idea UUID
         let fileUUID = UUID()
         let fileURL = self.documentDirectoryURL.appendingPathComponent("\(self.fileName)-\(fileUUID).\(AudioManager.getRecordedAudioFormat())")
         

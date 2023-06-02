@@ -15,15 +15,14 @@ struct CheckAudioView: View {
     private let idea: AudioIdeia
     
     // audio
-    private var audioPlayer: AVAudioPlayer?
     private let audioManager: AudioManager
+    @State private var audioUrl: URL?
     
     // date
     let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     
     init(audioIdea idea: AudioIdeia) {
-        self.audioPlayer = AVAudioPlayer()
-        self.audioManager = AudioManager(audioPlayer: AVAudioPlayer())
+        self.audioManager = AudioManager()
         self.idea = idea
     }
     
@@ -42,8 +41,12 @@ struct CheckAudioView: View {
             Spacer()
         }
         .onAppear(perform: {
-            self.audioManager.assignAudio(self.idea.audioPath)
-            print(idea.audioPath)
+            let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let contents = try? FileManager.default.contentsOfDirectory(at: documentDirectoryURL, includingPropertiesForKeys: nil, options: .producesRelativePathURLs)
+            let index = contents?.firstIndex(where: { $0.lastPathComponent == idea.audioPath.lastPathComponent}) ?? -1
+            print(index)
+            audioUrl = contents![index]
+            self.audioManager.assignAudio(contents![index])
         })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

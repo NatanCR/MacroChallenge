@@ -101,7 +101,6 @@ struct AudioSliderView : UIViewRepresentable {
         @objc func sliderChange(_ sender: UISlider!) {
             self.sliderView.audioManager.setCurrentTime(TimeInterval(sender.value))
             self.sliderView.value = sender.value
-            print("value")
         }
     }
     
@@ -139,6 +138,6 @@ struct AudioSliderView : UIViewRepresentable {
 
 struct AudioReprodutionComponent_Previews: PreviewProvider {
     static var previews: some View {
-        AudioReprodutionComponent(audioManager: AudioManager(audioPlayer: AVAudioPlayer()), audioURL: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])
+        AudioReprodutionComponent(audioManager: AudioManager(), audioURL: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])
     }
 }
