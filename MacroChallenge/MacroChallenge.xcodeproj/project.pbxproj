@@ -7,6 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4097FDED2A2FC28A001EAB03 /* TextPreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */; };
+		4097FDF22A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */; };
+		4097FDF32A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */; };
+		4097FDF42A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */; };
+		4097FDF52A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */; };
+		4097FDF62A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */; };
+		4097FDF72A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */; };
+		4097FDF82A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF12A2FC5C8001EAB03 /* Sen-ExtraBold.ttf */; };
+		4097FDF92A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF12A2FC5C8001EAB03 /* Sen-ExtraBold.ttf */; };
+		4097FDFA2A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF12A2FC5C8001EAB03 /* Sen-ExtraBold.ttf */; };
+		4097FDFD2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */; };
+		4097FDFE2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */; };
+		4097FDFF2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */; };
+		4097FE012A2FCC15001EAB03 /* AudioPreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */; };
+		4097FE022A2FCC15001EAB03 /* AudioPreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */; };
+		4097FE032A2FCC15001EAB03 /* AudioPreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */; };
+		4097FE052A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
+		4097FE062A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
+		4097FE072A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
 		430A99852A27C1C100D2F773 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99842A27C1C100D2F773 /* CameraViewModel.swift */; };
 		430A99872A27C8DD00D2F773 /* PhotoIdeaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99862A27C8DD00D2F773 /* PhotoIdeaView.swift */; };
 		43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */; };
@@ -62,6 +81,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPreviewComponent.swift; sourceTree = "<group>"; };
+		4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Regular.ttf"; path = "../../../../../../../Downloads/Sen/Sen-Regular.ttf"; sourceTree = "<group>"; };
+		4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Bold.ttf"; path = "../../../../../../../Downloads/Sen/Sen-Bold.ttf"; sourceTree = "<group>"; };
+		4097FDF12A2FC5C8001EAB03 /* Sen-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-ExtraBold.ttf"; path = "../../../../../../../Downloads/Sen/Sen-ExtraBold.ttf"; sourceTree = "<group>"; };
+		4097FDFB2A2FC5F2001EAB03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewComponent.swift; sourceTree = "<group>"; };
+		4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreviewComponent.swift; sourceTree = "<group>"; };
+		4097FE042A2FD3B3001EAB03 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		430A99842A27C1C100D2F773 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		430A99862A27C8DD00D2F773 /* PhotoIdeaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoIdeaView.swift; sourceTree = "<group>"; };
 		43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRepresentable.swift; sourceTree = "<group>"; };
@@ -127,6 +154,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4097FDEA2A2FC229001EAB03 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4097FDEB2A2FC239001EAB03 /* Components */,
+				4097FE042A2FD3B3001EAB03 /* HomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4097FDEB2A2FC239001EAB03 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */,
+				4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */,
+				4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		4097FDEE2A2FC59F001EAB03 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */,
+				4097FDF12A2FC5C8001EAB03 /* Sen-ExtraBold.ttf */,
+				4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		430A99822A27C17100D2F773 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +336,7 @@
 		9195EF232A27049000A839D8 /* Essentials */ = {
 			isa = PBXGroup;
 			children = (
+				4097FDEE2A2FC59F001EAB03 /* fonts */,
 				D12495462A268A720063C634 /* MacroChallengeApp.swift */,
 				D12495482A268A720063C634 /* ContentView.swift */,
 				D124954A2A268A730063C634 /* Assets.xcassets */,
@@ -291,6 +348,7 @@
 		9195EF242A27054200A839D8 /* Idea */ = {
 			isa = PBXGroup;
 			children = (
+				4097FDEA2A2FC229001EAB03 /* View */,
 				916E0FB52A268B5900F4FA87 /* Tests */,
 				916E0FB62A268B5E00F4FA87 /* ViewModel */,
 				916E0FB72A268B6300F4FA87 /* Model */,
@@ -321,6 +379,7 @@
 		D12495452A268A720063C634 /* MacroChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				4097FDFB2A2FC5F2001EAB03 /* Info.plist */,
 				918C7DC62A27EDA100C36A53 /* Helpers */,
 				9195EF232A27049000A839D8 /* Essentials */,
 				916E0FB02A268B0B00F4FA87 /* Audio */,
@@ -507,6 +566,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4097FDF52A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */,
+				4097FDF22A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */,
+				4097FDF82A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */,
 				D124954E2A268A730063C634 /* Preview Assets.xcassets in Resources */,
 				D124954B2A268A730063C634 /* Assets.xcassets in Resources */,
 			);
@@ -516,6 +578,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4097FDF62A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */,
+				4097FDF32A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */,
+				4097FDF92A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +588,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4097FDF72A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */,
+				4097FDF42A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */,
+				4097FDFA2A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +602,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91DB2B4E2A2A5FA300EC8176 /* AudioHelper.swift in Sources */,
+				4097FE012A2FCC15001EAB03 /* AudioPreviewComponent.swift in Sources */,
 				912811F02A29275400010872 /* DateHelper.swift in Sources */,
 				916E0FC82A268C2000F4FA87 /* RecordAudioPrototype.swift in Sources */,
 				916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */,
@@ -541,13 +610,16 @@
 				D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */,
 				43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
+				4097FE052A2FD3B3001EAB03 /* HomeView.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
+				4097FDFD2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */,
 				918C7DC82A27EDB000C36A53 /* ColorHelper.swift in Sources */,
 				912811EE2A291D1300010872 /* CheckAudioView.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
+				4097FDED2A2FC28A001EAB03 /* TextPreviewComponent.swift in Sources */,
 				430A99872A27C8DD00D2F773 /* PhotoIdeaView.swift in Sources */,
 				916E0FBE2A268BBE00F4FA87 /* Idea.swift in Sources */,
 				916E0FC32A268BEA00F4FA87 /* AudioIdea.swift in Sources */,
@@ -570,7 +642,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D135A6D32A269122009C1938 /* UserDefaultsSpec.swift in Sources */,
+				4097FE022A2FCC15001EAB03 /* AudioPreviewComponent.swift in Sources */,
 				916E0FCA2A268CAC00F4FA87 /* IdeaSaverTests.swift in Sources */,
+				4097FE062A2FD3B3001EAB03 /* HomeView.swift in Sources */,
+				4097FDFE2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */,
 				D12495582A268A730063C634 /* MacroChallengeTests.swift in Sources */,
 				D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */,
 				91761CBC2A31231400BD1417 /* TextViewModelTests.swift in Sources */,
@@ -581,7 +657,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4097FDFF2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */,
+				4097FE032A2FCC15001EAB03 /* AudioPreviewComponent.swift in Sources */,
 				D12495622A268A730063C634 /* MacroChallengeUITests.swift in Sources */,
+				4097FE072A2FD3B3001EAB03 /* HomeView.swift in Sources */,
 				D12495642A268A730063C634 /* MacroChallengeUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -727,6 +806,7 @@
 				DEVELOPMENT_TEAM = 66824UF4JS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MacroChallenge/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -759,6 +839,7 @@
 				DEVELOPMENT_TEAM = 66824UF4JS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MacroChallenge/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
