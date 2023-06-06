@@ -25,10 +25,10 @@ struct EditRegisterView: View {
                     modelText.title = TextViewModel.separateTitleFromText(textComplete: modelText.textComplete, title: modelText.title) ?? String()
                     
                     //remover o título do texto original
-                    modelText.text = modelText.textComplete.replacingOccurrences(of: modelText.title, with: ("".trimmingCharacters(in: .whitespacesAndNewlines)))
+                    modelText.description = modelText.textComplete.replacingOccurrences(of: modelText.title, with: ("".trimmingCharacters(in: .whitespacesAndNewlines)))
                     
                     //remove as linhas vazias antes de salvar
-                    modelText.text = modelText.text.removeEmptyLines()
+                    modelText.description = modelText.description.removeEmptyLines()
                     modelText.title = modelText.title.removeEmptyLines()
                     modelText.textComplete = modelText.textComplete.removeEmptyLines()
                     modelText.modifiedDate = Date()

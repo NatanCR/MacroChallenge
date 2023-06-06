@@ -91,7 +91,7 @@ struct RecordAudioView: View {
                     }
                     
                     if recorded {
-                        let idea = AudioIdeia(title: "test", creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
+                        let idea = AudioIdeia(title: "test", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
                         IdeaSaver.saveAudioIdea(idea: idea)
                     }
                     

@@ -17,6 +17,9 @@ protocol Idea : Codable, Hashable, Identifiable {
     var id: UUID { get }
     var ideiaType: IdeaType { get }
     var title: String { get set }
+    var description: String { get set }
+    var textComplete: String { get set }
     var creationDate: Date { get }
     var modifiedDate: Date { get set }
+    var isFavorite: Bool { get set }
 }

@@ -42,7 +42,7 @@ final class UserDefaultsSpec: XCTestCase {
         if let decodedModel = try? decoder.decode([ModelText].self, from: savedData!) {
             XCTAssertEqual(decodedModel.count, 1, "Deve haver um único elemento decodificado!")
             XCTAssertEqual(decodedModel[0].title,"Title test", "O título decodificado deve ser igual ao original." )
-            XCTAssertEqual(decodedModel[0].text, "Idea test", "O texto decodificado deve ser igual ao original.")
+            XCTAssertEqual(decodedModel[0].description, "Idea test", "O texto decodificado deve ser igual ao original.")
         } else {
             XCTFail("Falha na decodificação dos dados salvos.")
         }
@@ -60,6 +60,6 @@ final class UserDefaultsSpec: XCTestCase {
         XCTAssertNotNil(decodedModel, "Os dados salvos não devem ser nulos")
         XCTAssertEqual(decodedModel?.count, 1, "Deve haver um único elemento decodificado!")
         XCTAssertEqual(decodedModel?[0].title,"Title test", "O título decodificado deve ser igual ao original." )
-        XCTAssertEqual(decodedModel?[0].text, "Idea test", "O texto decodificado deve ser igual ao original.")
+        XCTAssertEqual(decodedModel?[0].description, "Idea test", "O texto decodificado deve ser igual ao original.")
     }
 }

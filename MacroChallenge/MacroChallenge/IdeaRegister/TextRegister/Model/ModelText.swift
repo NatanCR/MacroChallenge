@@ -11,8 +11,9 @@ struct ModelText: Idea {
     var id: UUID = UUID()
     var ideiaType: IdeaType = .text
     var title: String
+    var isFavorite: Bool = false
     var creationDate: Date
     var modifiedDate: Date
-    var text: String
+    var description: String
     var textComplete: String
 }

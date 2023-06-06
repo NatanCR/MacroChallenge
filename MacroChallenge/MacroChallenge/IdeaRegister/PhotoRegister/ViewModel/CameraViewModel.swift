@@ -13,7 +13,7 @@ class CameraViewModel: ObservableObject {
 
     func captureImage(image: UIImage) {
         capturedImages.append(image)
-        let photoModel = PhotoModel(title: "", creationDate: Date(), modifiedDate: Date(), capturedImages: capturedImages)
+        let photoModel = PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImages: capturedImages)
         IdeaSaver.savePhotoIdea(idea: photoModel)
     }
 }
