@@ -17,6 +17,7 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
     var audioRecorder: AVAudioRecorder? // needs to be optinal, will only be created when there's a recorded audio
     var recordedAudioPath: String
     var recordSuccess: Bool
+    var currentRecordedAudioURL: URL?
     
     // directory
     let fileManager: FileManager
@@ -163,7 +164,6 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         //TODO: Handle a failure to record audio
         if self.recordedAudioPath != "" && !self.recordSuccess {
-            print("teste")
             self.deleteAudio(audioPath: self.recordedAudioPath)
         }
     }

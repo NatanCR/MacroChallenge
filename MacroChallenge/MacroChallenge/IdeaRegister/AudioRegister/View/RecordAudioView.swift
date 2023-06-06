@@ -16,6 +16,7 @@ struct RecordAudioView: View {
     @State var isRecording: Bool = true
     @State var recorded: Bool = false
     @State var audioUrl: URL?
+    
     // audio
     private let audioManager: AudioManager
     
@@ -36,14 +37,14 @@ struct RecordAudioView: View {
                     .foregroundColor(.red)
             } else if (self.recorded) {
                 HStack {
-                    AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.recordAudio.recordedAudios.last!)
+                    AudioReprodutionComponent(audioManager: self.audioManager, audioURL: AudioHelper.getAudioContent(audioPath: self.audioUrl!.lastPathComponent))
                         .frame(height: 10)
                         .padding(.trailing, 30)
                     
                     Button {
                         self.recorded = false
                         self.audioManager.stopAudio()
-                        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudios.last!.lastPathComponent)
+                        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
                         
 //                        self.recordAudio.deleteAllAudios()
 //                        IdeaSaver.clearAll()
@@ -57,7 +58,7 @@ struct RecordAudioView: View {
             }
             
             Spacer(minLength: 600)
-            
+
             // record and stop button
             Button {
                 self.isRecording.toggle()
@@ -67,8 +68,8 @@ struct RecordAudioView: View {
                     self.recordAudio.startRecordingAudio()
                 } else { // if stop the record
                     self.recordAudio.stopRecordingAudio()
-                    self.audioManager.assignAudio(self.recordAudio.recordedAudios.last!)
-                    self.audioUrl = self.recordAudio.recordedAudios.last!
+                    self.audioUrl = AudioHelper.getAudioContent(audioPath: self.recordAudio.recordedAudioPath)
+                    self.audioManager.assignAudio(self.audioUrl!)
                     self.recorded = true
                 }
             } label: {
@@ -86,7 +87,7 @@ struct RecordAudioView: View {
                 Button("Salvar") {
                     if isRecording {
                         self.recordAudio.stopRecordingAudio()
-                        self.recordAudio.deleteAllAudios()
+                        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
                         self.recorded = false
                     }
                     
@@ -99,8 +100,9 @@ struct RecordAudioView: View {
                 }
             }
         }.onAppear {
+            self.audioUrl = nil
             self.recordAudio.startRecordingAudio()
-            print(try? self.recordAudio.fileManager.contentsOfDirectory(at: self.recordAudio.documentDirectoryURL, includingPropertiesForKeys: nil, options: .producesRelativePathURLs))
+            //print(try? self.recordAudio.fileManager.contentsOfDirectory(at: self.recordAudio.documentDirectoryURL, includingPropertiesForKeys: nil, options: .producesRelativePathURLs))
         }
     }
 }

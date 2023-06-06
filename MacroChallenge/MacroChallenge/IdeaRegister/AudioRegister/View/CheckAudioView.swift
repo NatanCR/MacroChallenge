@@ -41,14 +41,12 @@ struct CheckAudioView: View {
                 .padding(.top, 30)
             
             Spacer()
-        }.onAppear(perform: {
-            print(AudioHelper.getAudioContent(audioPath: self.idea.audioPath))
-            print("path: \(self.idea.audioPath)")
-        })
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     IdeaSaver.clearOneIdea(type: AudioIdeia.self, idea: self.idea)
+                    AudioHelper.deleteAudioFromDirectory(audioPath: self.idea.audioPath)
                     dismiss()
                 } label: {
                     Image(systemName: "trash.fill")

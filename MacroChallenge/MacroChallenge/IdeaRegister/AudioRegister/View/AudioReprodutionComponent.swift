@@ -21,6 +21,7 @@ struct AudioReprodutionComponent: View {
     init(audioManager: AudioManager, audioURL: URL) {
         self.audioManager = audioManager
         self.audioURL = audioURL
+        print("component assigned: \(audioURL.lastPathComponent)")
     }
     
     //MARK: - BODY
