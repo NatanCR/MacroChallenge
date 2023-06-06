@@ -24,8 +24,10 @@ struct ListView: View {
     
     func orderBy() {
         if byCreation {
+            //se true ordena do mais recente ao mais antigo - data de criação
             sortedByDescendent ? disposedData.sort(by: { $0.creationDate > $1.creationDate }) : disposedData.sort(by: { $0.creationDate < $1.creationDate })
         } else {
+            //se true ordena do mais recente ao mais antigo - data de edição
             sortedByDescendent ? disposedData.sort(by: { $0.modifiedDate > $1.modifiedDate }) : disposedData.sort(by: { $0.modifiedDate < $1.modifiedDate })
         }
     }
@@ -107,6 +109,7 @@ struct ListView: View {
                 let reloadedModel = IdeaSaver.getAllSavedIdeas()
                 self.loadedData = reloadedModel
                 self.disposedData = self.loadedData
+                orderBy()
             }
             .toolbar {
                 ToolbarItemGroup(placement: .bottomBar) {
@@ -116,18 +119,14 @@ struct ListView: View {
                         Image(systemName: "camera.fill")
                             .foregroundColor(.blue)
                     }
-                    
                     Spacer()
-                    
                     NavigationLink {
                         RecordAudioView()
                     } label: {
                         Image(systemName: "mic.fill")
                             .foregroundColor(.blue)
                     }
-                    
                     Spacer()
-                    
                     NavigationLink {
                         TextRegisterView()
                     } label: {
