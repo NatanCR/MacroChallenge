@@ -31,7 +31,7 @@ struct CellTemplate: View {
                         }
                     } label: {
                         //if ternario que verifica o valor booleano pra trocar a cor do favorito
-                        idea.isFavorite ? Circle().fill().foregroundColor(.red).frame(width: 20, height: 20) : Circle().fill().foregroundColor(.white).frame(width: 20, height: 20)
+                        idea.isFavorite ? Circle().fill().foregroundColor(.red).frame(width: 25, height: 25) : Circle().fill().foregroundColor(.white).frame(width: 25, height: 25)
                     }
                 }
             VStack {
