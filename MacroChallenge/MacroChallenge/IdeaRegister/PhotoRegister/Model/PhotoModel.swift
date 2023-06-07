@@ -17,10 +17,8 @@ struct PhotoModel: Idea {
     var isFavorite: Bool = false
     var creationDate: Date
     var modifiedDate: Date
-//    var capturedImages: [Data]
     var capturedImages: Data
     
-//    init(title: String, description: String, textComplete: String, creationDate: Date, modifiedDate: Date, capturedImages: [UIImage]) {
     init(title: String, description: String, textComplete: String, creationDate: Date, modifiedDate: Date, capturedImages: UIImage) {
         self.title = title
         self.description = description
@@ -28,10 +26,5 @@ struct PhotoModel: Idea {
         self.creationDate = creationDate
         self.modifiedDate = modifiedDate
         self.capturedImages = capturedImages.pngData()!
-//        self.capturedImages = []
-        
-//        for image in capturedImages {
-//            self.capturedImages.append(image.pngData()!)
-//        }
     }
 }
