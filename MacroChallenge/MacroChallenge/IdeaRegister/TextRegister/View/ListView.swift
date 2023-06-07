@@ -15,6 +15,7 @@ struct ListView: View {
     @State private var disposedData: [any Idea] = []
     @State private var filterType: IdeaType = .text
     @State private var isFiltered: Bool = false
+    @State private var searchText: String = ""
     
     let columns = [
         GridItem(.flexible()),
@@ -42,6 +43,14 @@ struct ListView: View {
         
         self.disposedData = self.loadedData
         self.isFiltered = false
+    }
+    
+    var filteredIdeas: [any Idea] {
+        if searchText.isEmpty {
+            return disposedData
+        } else {
+            return disposedData.filter { $0.title.localizedCaseInsensitiveContains(searchText)}
+        }
     }
     
     var body: some View {
@@ -84,10 +93,10 @@ struct ListView: View {
                         Text(Image(systemName: "line.3.horizontal.decrease.circle"))
                     }
 
-                }
+                }.searchable(text: $searchText)
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(disposedData, id: \.id) { ideas in
+                        ForEach(filteredIdeas, id: \.id) { ideas in
                             NavigationLink {
                                 switch ideas.ideiaType {
                                 case .text:
