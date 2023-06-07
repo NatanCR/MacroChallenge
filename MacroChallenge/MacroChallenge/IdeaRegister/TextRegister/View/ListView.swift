@@ -16,6 +16,7 @@ struct ListView: View {
     @State private var filterType: IdeaType = .text
     @State private var isFiltered: Bool = false
     @State private var searchText: String = ""
+    @State private var isList: Bool = false
     
     let columns = [
         GridItem(.flexible()),
@@ -90,6 +91,7 @@ struct ListView: View {
         NavigationView {
             VStack {
                 HStack {
+                    Toggle("Change view", isOn: $isList)
                     Spacer()
                     Menu {
                         Menu("Ordenar por") {
@@ -127,24 +129,42 @@ struct ListView: View {
                     }
 
                 }
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(filteredIdeas, id: \.id) { ideas in
-                            NavigationLink {
-                                switch ideas.ideiaType {
-                                case .text:
-                                    EditRegisterView(modelText: ideas as! ModelText)
-                                case .audio:
-                                    CheckAudioView(audioIdea: ideas as! AudioIdeia)
-                                case .photo:
-                                    PhotoIdeaView()
+                if isList {
+                    List(filteredIdeas, id: \.id) { ideas in
+                        NavigationLink {
+                            switch ideas.ideiaType {
+                            case .text:
+                                EditRegisterView(modelText: ideas as! ModelText)
+                            case .audio:
+                                CheckAudioView(audioIdea: ideas as! AudioIdeia)
+                            case .photo:
+                                PhotoIdeaView()
+                            }
+                        } label: {
+                            ListTemplate(idea: ideas)
+                        }
+                    }
+                } else {
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(filteredIdeas, id: \.id) { ideas in
+                                NavigationLink {
+                                    switch ideas.ideiaType {
+                                    case .text:
+                                        EditRegisterView(modelText: ideas as! ModelText)
+                                    case .audio:
+                                        CheckAudioView(audioIdea: ideas as! AudioIdeia)
+                                    case .photo:
+                                        PhotoIdeaView()
+                                    }
+                                } label: {
+                                    CellTemplate(idea: ideas)
                                 }
-                            } label: {
-                                CellTemplate(idea: ideas)
                             }
                         }
                     }
                 }
+                
             }
             .searchable(text: $searchText)
             .padding()

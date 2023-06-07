@@ -42,6 +42,7 @@
 		D135A6D12A2690F8009C1938 /* EditRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6D02A2690F8009C1938 /* EditRegisterView.swift */; };
 		D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */; };
 		D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */; };
+		D1D409562A31183900F0B99B /* ListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409552A31183900F0B99B /* ListTemplate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		D135A6D02A2690F8009C1938 /* EditRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegisterView.swift; sourceTree = "<group>"; };
 		D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewModel.swift; sourceTree = "<group>"; };
 		D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteIdeaSpec.swift; sourceTree = "<group>"; };
+		D1D409552A31183900F0B99B /* ListTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTemplate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,6 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				D135A6C82A269071009C1938 /* CellTemplate.swift */,
+				D1D409552A31183900F0B99B /* ListTemplate.swift */,
 			);
 			path = ViewTemplates;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				912811F02A29275400010872 /* DateHelper.swift in Sources */,
 				916E0FC82A268C2000F4FA87 /* RecordAudioPrototype.swift in Sources */,
 				916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */,
+				D1D409562A31183900F0B99B /* ListTemplate.swift in Sources */,
 				D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */,
 				43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */,
 				43211D3D2A268DCC005C85E5 /* CapturePhotoView.swift in Sources */,
