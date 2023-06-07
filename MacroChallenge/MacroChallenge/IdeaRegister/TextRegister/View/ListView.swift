@@ -16,6 +16,10 @@ struct ListView: View {
     @State private var filterType: IdeaType = .text
     @State private var isFiltered: Bool = false
     
+    //camera
+    @StateObject private var viewModel = CameraViewModel()
+    @State private var isShowingCamera = false
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -108,13 +112,23 @@ struct ListView: View {
                 self.loadedData = reloadedModel
                 self.disposedData = self.loadedData
             }
+            //atualizando a view quando fechar a camera
+            .onChange(of: isShowingCamera) { newValue in
+                if !newValue {
+                    loadedData = IdeaSaver.getAllSavedIdeas()
+                    disposedData = loadedData
+                }
+            }
             .toolbar {
                 ToolbarItemGroup(placement: .bottomBar) {
-                    NavigationLink {
-                        CapturePhotoView()
+                    Button {
+                        isShowingCamera = true
                     } label: {
                         Image(systemName: "camera.fill")
                             .foregroundColor(.blue)
+                    }
+                    .sheet(isPresented: $isShowingCamera) {
+                        CameraRepresentable(viewModel: viewModel)
                     }
                     
                     Spacer()

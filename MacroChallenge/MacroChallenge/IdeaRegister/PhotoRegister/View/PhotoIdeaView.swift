@@ -21,7 +21,8 @@ struct PhotoIdeaView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                    if let uiImage = UIImage(data: photoModel.capturedImages.first ?? Data()) {
+//                    if let uiImage = UIImage(data: photoModel.capturedImages.first ?? Data()) {
+                if let uiImage = UIImage(data: photoModel.capturedImages) {
                         VStack {
                             HStack {
                                 Text("Ideia do dia \(photoModel.creationDate, formatter: self.dateFormat)")
