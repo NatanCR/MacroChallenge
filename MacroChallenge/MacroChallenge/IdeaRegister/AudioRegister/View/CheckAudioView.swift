@@ -10,9 +10,10 @@ import AVFoundation
 
 struct CheckAudioView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.screenSize) private var screenSize
     
     //idea
-    private let idea: AudioIdeia
+    @State var idea: AudioIdeia
     
     // audio
     private let audioManager: AudioManager
@@ -21,11 +22,15 @@ struct CheckAudioView: View {
     // date
     let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     
+    // text
+    @FocusState var isFocused: Bool
+    
     init(audioIdea idea: AudioIdeia) {
         self.audioManager = AudioManager()
-        self.idea = idea
-        self.audioUrl = AudioHelper.getAudioContent(audioPath: self.idea.audioPath)
+        self._idea = State(initialValue: idea)
+        self.audioUrl = AudioHelper.getAudioContent(audioPath: idea.audioPath)
         self.audioManager.assignAudio(self.audioUrl)
+        self.isFocused = false
     }
     
     //MARK: - BODY
@@ -39,9 +44,29 @@ struct CheckAudioView: View {
             AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
                 .frame(height: 10)
                 .padding(.top, 30)
+                .padding(.bottom, 30)
+            
+            Text("Notas")
+                .fontWeight(.bold)
+                .multilineTextAlignment(.leading)
+                .frame(width: screenSize.width * 0.9, alignment: .topLeading)
+            
+            TextEditor(text: $idea.textComplete)
+                .multilineTextAlignment(.leading)
+                .frame(width: screenSize.width * 0.8, alignment: .topLeading)
+                .overlay {
+                    Text(self.idea.textComplete.isEmpty ? "Digite sua nota." : "")
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .foregroundColor(.gray)
+                        .onTapGesture {
+                            self.isFocused = true
+                        }
+                }
             
             Spacer()
         }
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -53,6 +78,18 @@ struct CheckAudioView: View {
                         .foregroundColor(.red)
                 }
 
+            }
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.backward")
+                        Text("Voltar")
+                    }
+                }
             }
         }
     }

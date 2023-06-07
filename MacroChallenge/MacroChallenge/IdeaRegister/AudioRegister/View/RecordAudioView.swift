@@ -10,12 +10,19 @@ import AVFoundation
 
 struct RecordAudioView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.screenSize) private var screenSize
     
-    // states
+    // audio states
     @StateObject var recordAudio: RecordAudio
     @State var isRecording: Bool = true
     @State var recorded: Bool = false
     @State var audioUrl: URL?
+    
+    // text states
+    @State var textComplete: String = ""
+    @State var textTitle: String = ""
+    @State var textDescription: String = ""
+    @FocusState var isFocused: Bool
     
     // audio
     private let audioManager: AudioManager
@@ -57,7 +64,22 @@ struct RecordAudioView: View {
                 }
             }
             
-            Spacer(minLength: 600)
+            Spacer()
+            
+            TextEditor(text: $textComplete)
+                .frame(width: screenSize.width * 0.8, height: screenSize.height * 0.2)
+                .focused($isFocused)
+                .overlay {
+                    Text(self.textComplete.isEmpty ? "Digite sua nota." : "")
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .foregroundColor(.gray)
+                        .onTapGesture {
+                            self.isFocused = true
+                        }
+                }
+            
+            Spacer(minLength: 400)
 
             // record and stop button
             Button {
@@ -92,7 +114,9 @@ struct RecordAudioView: View {
                     }
                     
                     if recorded {
-                        let idea = AudioIdeia(title: "test", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
+                        self.textSeparator()
+                        
+                        let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
                         IdeaSaver.saveAudioIdea(idea: idea)
                     }
                     
@@ -100,10 +124,20 @@ struct RecordAudioView: View {
                 }
             }
         }.onAppear {
+            self.isFocused = false
             self.audioUrl = nil
             self.recordAudio.startRecordingAudio()
-            //print(try? self.recordAudio.fileManager.contentsOfDirectory(at: self.recordAudio.documentDirectoryURL, includingPropertiesForKeys: nil, options: .producesRelativePathURLs))
         }
+    }
+    
+    private func textSeparator() {
+        self.textTitle = TextViewModel.separateTitleFromText(textComplete: self.textComplete, title: self.textTitle) ?? String()
+        
+        self.textDescription = self.textComplete.replacingOccurrences(of: self.textTitle, with: String()).trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        self.textDescription = self.textDescription.removeEmptyLines()
+        self.textTitle = self.textTitle.removeEmptyLines()
+        self.textComplete = self.textComplete.removeEmptyLines()
     }
 }
 
