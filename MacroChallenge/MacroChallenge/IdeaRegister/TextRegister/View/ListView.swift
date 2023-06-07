@@ -93,7 +93,7 @@ struct ListView: View {
                                 case .audio:
                                     CheckAudioView(audioIdea: ideas as! AudioIdeia)
                                 case .photo:
-                                    PhotoIdeaView()
+                                    PhotoIdeaView(photoModel: ideas as! PhotoModel)
                                 }
                             } label: {
                                 CellTemplate(idea: ideas)
@@ -142,8 +142,8 @@ struct ListView: View {
     }
 }
 
-struct ListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ListView()
-    }
-}
+//struct ListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ListView()
+//    }
+//}

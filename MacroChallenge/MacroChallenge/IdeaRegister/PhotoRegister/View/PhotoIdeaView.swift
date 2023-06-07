@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PhotoIdeaView: View {
-    @State private var savedPhotos = IdeaSaver.getSavedUniqueIdeasType(type: PhotoModel.self, key: IdeaSaver.getPhotoModelKey())
+    @State var photoModel: PhotoModel
     @Environment(\.presentationMode) var presentationMode
     @State private var showAlert = false
     
@@ -21,12 +21,10 @@ struct PhotoIdeaView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                if let lastPhoto = savedPhotos.last {
-                    if let uiImage = UIImage(data: lastPhoto.capturedImages.first ?? Data()) {
+                    if let uiImage = UIImage(data: photoModel.capturedImages.first ?? Data()) {
                         VStack {
                             HStack {
-                                
-                                Text("Ideia do dia \(lastPhoto.creationDate, formatter: self.dateFormat)")
+                                Text("Ideia do dia \(photoModel.creationDate, formatter: self.dateFormat)")
                                     .bold()
                                     .font(.system(size: 25))
                                 Spacer()
@@ -40,13 +38,10 @@ struct PhotoIdeaView: View {
                                 .position(x: geometry.size.width/2, y: geometry.size.height/2.5)
                         }
                     }
-                }
             }
         }
         .navigationBarItems(trailing: Button(action: {
-            if let lastPhoto = savedPhotos.last {
-                IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: lastPhoto)
-            }
+            IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: photoModel)
             showAlert = true
         }) {
             Image(systemName: "trash")
@@ -60,9 +55,6 @@ struct PhotoIdeaView: View {
                     self.presentationMode.wrappedValue.dismiss()
                 }
             )
-        }
-        .onAppear {
-            savedPhotos = IdeaSaver.getSavedUniqueIdeasType(type: PhotoModel.self, key: IdeaSaver.getPhotoModelKey())
         }
     }
 }

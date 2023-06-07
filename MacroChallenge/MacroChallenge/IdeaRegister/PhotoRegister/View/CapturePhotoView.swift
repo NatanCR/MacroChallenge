@@ -24,8 +24,8 @@ struct CapturePhotoView: View {
 }
 
 
-struct CameraView_Previews: PreviewProvider {
-    static var previews: some View {
-        CapturePhotoView()
-    }
-}
+//struct CameraView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CapturePhotoView()
+//    }
+//}

@@ -16,9 +16,9 @@ struct PhotoHomeView: View {
                 }
                 .padding(10)
                 
-                NavigationLink(destination: PhotoIdeaView()) {
-                    Text("Saved Photos")
-                }
+//                NavigationLink(destination: PhotoIdeaView()) {
+//                    Text("Saved Photos")
+//                }
             }
             .navigationBarTitle("Photo Home")
         }
@@ -28,8 +28,8 @@ struct PhotoHomeView: View {
     }
 }
 
-struct PhotoHomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        PhotoHomeView()
-    }
-}
+//struct PhotoHomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PhotoHomeView()
+//    }
+//}
