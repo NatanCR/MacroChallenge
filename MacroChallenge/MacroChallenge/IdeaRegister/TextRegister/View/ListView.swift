@@ -45,14 +45,6 @@ struct ListView: View {
         self.isFiltered = false
     }
     
-//    var filteredIdeas: [any Idea] {
-//        if searchText.isEmpty {
-//            return disposedData
-//        } else {
-//            return disposedData.filter { $0.title.localizedCaseInsensitiveContains(searchText)}
-//        }
-//    }
-    
     var filteredIdeas: [any Idea] {
         if searchText.isEmpty {
             return disposedData
@@ -64,7 +56,8 @@ struct ListView: View {
 //                let isMatchingTag = idea.tag.localizedCaseInsensitiveContains(searchText)
 
                 return isMatchingTitle || isMatchingDescription //|| isMatchingTag
-                //ordena na ordem de prioridade 
+                
+                //ordena na ordem de prioridade
             }.sorted { idea1, idea2 in
                 let titleMatch1 = idea1.title.localizedCaseInsensitiveContains(searchText)
                 let titleMatch2 = idea2.title.localizedCaseInsensitiveContains(searchText)
@@ -73,6 +66,7 @@ struct ListView: View {
 //                let tagMatch1 = idea1.tag.localizedCaseInsensitiveContains(searchText)
 //                let tagMatch2 = idea2.tag.localizedCaseInsensitiveContains(searchText)
 
+                //compara pra saber qual ideia vem antes da outra
                 if titleMatch1 && !titleMatch2 {
                     return true
                 } else if !titleMatch1 && titleMatch2 {
