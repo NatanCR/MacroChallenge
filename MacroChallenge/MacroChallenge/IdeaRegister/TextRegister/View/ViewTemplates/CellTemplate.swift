@@ -38,8 +38,6 @@ struct CellTemplate: View {
                 Text("\(idea.title)")
                 Text("\(idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)")
             }.padding()
-        }.onAppear{
-            print(idea.isFavorite)
         }
     }
 }
