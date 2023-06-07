@@ -114,7 +114,7 @@ struct RecordAudioView: View {
                     }
                     
                     if recorded {
-                        self.textSeparator()
+                        TextViewModel.setTitleDescriptionAndCompleteText(title: &self.textTitle, description: &self.textDescription, complete: &self.textComplete)
                         
                         let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
                         IdeaSaver.saveAudioIdea(idea: idea)
@@ -128,16 +128,6 @@ struct RecordAudioView: View {
             self.audioUrl = nil
             self.recordAudio.startRecordingAudio()
         }
-    }
-    
-    private func textSeparator() {
-        self.textTitle = TextViewModel.separateTitleFromText(textComplete: self.textComplete, title: self.textTitle) ?? String()
-        
-        self.textDescription = self.textComplete.replacingOccurrences(of: self.textTitle, with: String()).trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        self.textDescription = self.textDescription.removeEmptyLines()
-        self.textTitle = self.textTitle.removeEmptyLines()
-        self.textComplete = self.textComplete.removeEmptyLines()
     }
 }
 

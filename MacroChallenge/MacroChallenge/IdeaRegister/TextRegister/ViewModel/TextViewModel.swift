@@ -26,6 +26,16 @@ class TextViewModel {
         }
     }
     
+    public static func setTitleDescriptionAndCompleteText(title: inout String, description: inout String, complete: inout String) {
+        title = separateTitleFromText(textComplete: complete, title: title) ?? String()
+        
+        description = complete.replacingOccurrences(of: title, with: String()).trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        description = description.removeEmptyLines()
+        title = title.removeEmptyLines()
+        complete = complete.removeEmptyLines()
+    }
+    
     /**Formata a data em string com o horario local do device**/
     static func formatarData(_ data: Date) -> String {
         let formatter = DateFormatter()

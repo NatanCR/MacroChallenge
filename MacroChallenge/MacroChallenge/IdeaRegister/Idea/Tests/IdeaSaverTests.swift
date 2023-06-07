@@ -19,7 +19,7 @@ final class IdeaSaverTests: XCTestCase {
     }
 
     func testAudioIdeaSavingInUserDeafults() {
-        let audioIdea = AudioIdeia(id: UUID(), title: "test", creationDate: Date(), modifiedDate: Date(), audioPath: URL(string: "testPath")!)
+        let audioIdea = AudioIdeia(title: "testT", description: "testD", textComplete: "testC", creationDate: Date(), modifiedDate: Date(), audioPath: "testP")
         
         IdeaSaver.saveAudioIdea(idea: audioIdea)
         
@@ -27,7 +27,7 @@ final class IdeaSaverTests: XCTestCase {
     }
 
     func testPhotoIdeaSavingInUserDeafults() {
-        let photoIdea = PhotoModel(title: "", creationDate: Date(), modifiedDate: Date(), capturedImages: [])
+      let photoIdea = PhotoModel(title: "testT", description: "testD", textComplete: "testC", creationDate: Date(), modifiedDate: Date(), capturedImages: [])
         
         IdeaSaver.savePhotoIdea(idea: photoIdea)
         
@@ -35,7 +35,7 @@ final class IdeaSaverTests: XCTestCase {
     }
     
     func testTextIdeaSavingInUserDeafults() {
-        let textIdea = ModelText(title: "", creationDate: Date(), modifiedDate: Date(), text: "")
+        let textIdea = ModelText(title: "testT", creationDate: Date(), modifiedDate: Date(), description: "testD", textComplete: "testC")
         
         IdeaSaver.saveTextIdea(idea: textIdea)
         
@@ -48,12 +48,12 @@ final class IdeaSaverTests: XCTestCase {
         IdeaSaver.clearUniqueTypeIdea(type: .audio)
         
         var array = [
-            AudioIdeia(title: "", creationDate: Date(), modifiedDate: Date(), audioPath: URL(string: "testPath")!),
-            AudioIdeia(id: testId, title: "", creationDate: Date(), modifiedDate: Date(), audioPath: URL(string: "testPath")!),
-            AudioIdeia(title: "", creationDate: Date(), modifiedDate: Date(), audioPath: URL(string: "testPath")!)
+            AudioIdeia(title: "testT", description: "testD", textComplete: "testC", creationDate: Date(), modifiedDate: Date(), audioPath: "testP"),
+            AudioIdeia(id: testId, title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), audioPath: ""),
+            AudioIdeia(title: "testT", description: "testD", textComplete: "testC", creationDate: Date(), modifiedDate: Date(), audioPath: "testP")
         ]
         
-        let audioFinder = AudioIdeia(id: testId, title: "TESTE", creationDate: Date(), modifiedDate: Date(), audioPath: URL(string: "testPath")!)
+        let audioFinder = AudioIdeia(id: testId, title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), audioPath: "")
         
         IdeaSaver.saveAudioIdeas(ideas: array)
         IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: audioFinder)

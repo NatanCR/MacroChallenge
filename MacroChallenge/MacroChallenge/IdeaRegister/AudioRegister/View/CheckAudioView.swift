@@ -82,6 +82,7 @@ struct CheckAudioView: View {
             
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
+                    //TextViewModel.setTitleDescriptionAndCompleteText(title: &self.idea.title, description: &self.idea.description, complete: &self.idea.textComplete)
                     IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
                     dismiss()
                 } label: {
