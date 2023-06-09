@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40497BAA2A31259900E6D3B5 /* ListRowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BA92A31259900E6D3B5 /* ListRowComponent.swift */; };
+		40497BAC2A32E5F600E6D3B5 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BAB2A32E5F600E6D3B5 /* InfoView.swift */; };
+		40497BAE2A32E68500E6D3B5 /* ButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */; };
+		4085CBAB2A30106A00DAC6CA /* ToolbarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */; };
+		4085CBAD2A30207200DAC6CA /* SearchBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */; };
+		4085CBAF2A302B9000DAC6CA /* FilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */; };
 		4097FDED2A2FC28A001EAB03 /* TextPreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */; };
 		4097FDF22A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */; };
 		4097FDF32A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */; };
@@ -26,6 +32,7 @@
 		4097FE052A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
 		4097FE062A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
 		4097FE072A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
+		40AAA7ED2A3103DE00943CBF /* SegmentedPickerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */; };
 		430A99852A27C1C100D2F773 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99842A27C1C100D2F773 /* CameraViewModel.swift */; };
 		430A99872A27C8DD00D2F773 /* PhotoIdeaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99862A27C8DD00D2F773 /* PhotoIdeaView.swift */; };
 		43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */; };
@@ -81,6 +88,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40497BA92A31259900E6D3B5 /* ListRowComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowComponent.swift; sourceTree = "<group>"; };
+		40497BAB2A32E5F600E6D3B5 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonComponent.swift; sourceTree = "<group>"; };
+		4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarComponent.swift; sourceTree = "<group>"; };
+		4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarComponent.swift; sourceTree = "<group>"; };
+		4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterComponent.swift; sourceTree = "<group>"; };
 		4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPreviewComponent.swift; sourceTree = "<group>"; };
 		4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Regular.ttf"; path = "../../../../../../../Downloads/Sen/Sen-Regular.ttf"; sourceTree = "<group>"; };
 		4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Bold.ttf"; path = "../../../../../../../Downloads/Sen/Sen-Bold.ttf"; sourceTree = "<group>"; };
@@ -89,6 +102,7 @@
 		4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewComponent.swift; sourceTree = "<group>"; };
 		4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreviewComponent.swift; sourceTree = "<group>"; };
 		4097FE042A2FD3B3001EAB03 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPickerComponent.swift; sourceTree = "<group>"; };
 		430A99842A27C1C100D2F773 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		430A99862A27C8DD00D2F773 /* PhotoIdeaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoIdeaView.swift; sourceTree = "<group>"; };
 		43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRepresentable.swift; sourceTree = "<group>"; };
@@ -159,6 +173,7 @@
 			children = (
 				4097FDEB2A2FC239001EAB03 /* Components */,
 				4097FE042A2FD3B3001EAB03 /* HomeView.swift */,
+				40497BAB2A32E5F600E6D3B5 /* InfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -169,6 +184,12 @@
 				4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */,
 				4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */,
 				4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */,
+				4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */,
+				4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */,
+				4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */,
+				40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */,
+				40497BA92A31259900E6D3B5 /* ListRowComponent.swift */,
+				40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -615,13 +636,17 @@
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
 				4097FDFD2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */,
 				918C7DC82A27EDB000C36A53 /* ColorHelper.swift in Sources */,
+				40AAA7ED2A3103DE00943CBF /* SegmentedPickerComponent.swift in Sources */,
 				912811EE2A291D1300010872 /* CheckAudioView.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
+				4085CBAB2A30106A00DAC6CA /* ToolbarComponent.swift in Sources */,
+				40497BAE2A32E68500E6D3B5 /* ButtonComponent.swift in Sources */,
 				4097FDED2A2FC28A001EAB03 /* TextPreviewComponent.swift in Sources */,
 				430A99872A27C8DD00D2F773 /* PhotoIdeaView.swift in Sources */,
 				916E0FBE2A268BBE00F4FA87 /* Idea.swift in Sources */,
+				4085CBAF2A302B9000DAC6CA /* FilterComponent.swift in Sources */,
 				916E0FC32A268BEA00F4FA87 /* AudioIdea.swift in Sources */,
 				916E0FC52A268C0400F4FA87 /* RecordAudio.swift in Sources */,
 				918C7DC52A27D00900C36A53 /* AudioReprodutionComponent.swift in Sources */,
@@ -631,10 +656,14 @@
 				D135A6C62A269037009C1938 /* ListView.swift in Sources */,
 				918C7DC32A27C29200C36A53 /* RecordAudioView.swift in Sources */,
 				D135A6C32A26900F009C1938 /* AppState.swift in Sources */,
+				40497BAC2A32E5F600E6D3B5 /* InfoView.swift in Sources */,
 				918C7DC12A27C1A700C36A53 /* HomeAudioPrototype.swift in Sources */,
+				40497BAA2A31259900E6D3B5 /* ListRowComponent.swift in Sources */,
+				430A99892A27CA0C00D2F773 /* PhotoHomeView.swift in Sources */,
 				916E0FBC2A268BAA00F4FA87 /* IdeaSaver.swift in Sources */,
 				D12495472A268A720063C634 /* MacroChallengeApp.swift in Sources */,
 				D135A6C92A269071009C1938 /* CellTemplate.swift in Sources */,
+				4085CBAD2A30207200DAC6CA /* SearchBarComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,7 +832,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 66824UF4JS;
+				DEVELOPMENT_TEAM = 7UT3KQHPCK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
@@ -837,6 +866,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
 				DEVELOPMENT_TEAM = 66824UF4JS;
+				DEVELOPMENT_TEAM = 7UT3KQHPCK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;

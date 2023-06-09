@@ -9,17 +9,23 @@ import SwiftUI
 
 struct AudioPreviewComponent: View {
     var body: some View {
-        ZStack{
-            RoundedRectangle(cornerRadius: 20)
-                .foregroundColor(Color("backgroundItem"))
-                .frame(width: 100, height: 100)
-            VStack{
-                Image(systemName: "waveform.and.mic")
-                    .font(.system(size: 30, design: .rounded))
-                    .foregroundColor(Color("labelColor"))
-                
-                PlayPreviewComponent()
+        VStack{
+            ZStack{
+                RoundedRectangle(cornerRadius: 20)
+                    .foregroundColor(Color("backgroundItem"))
+                    .frame(width: 100, height: 100)
+                VStack{
+                    Image(systemName: "waveform.and.mic")
+                        .font(.system(size: 30, design: .rounded))
+                        .foregroundColor(Color("labelColor"))
+                    
+                    PlayPreviewComponent()
+                }
             }
+            Text("Title")
+                .font(.custom("Sen-Regular", size: 20))
+            Text("Description")
+                .font(.custom("Sen-Regular", size: 15))
         }
     }
 }

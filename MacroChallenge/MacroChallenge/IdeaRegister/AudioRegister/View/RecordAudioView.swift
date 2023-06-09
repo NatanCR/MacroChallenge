@@ -104,6 +104,7 @@ struct RecordAudioView: View {
             Spacer()
         }
         .navigationTitle("Inserir áudio")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Salvar") {

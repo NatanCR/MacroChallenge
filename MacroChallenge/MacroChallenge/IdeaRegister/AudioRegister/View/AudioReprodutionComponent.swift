@@ -28,7 +28,7 @@ struct AudioReprodutionComponent: View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
                 .frame(width: 270, height: 40)
-                .foregroundColor(Color(hex: "1857C1"))
+                .foregroundColor(Color("backgroundItem"))
                 .opacity(0.6)
             
             HStack {
@@ -43,7 +43,7 @@ struct AudioReprodutionComponent: View {
                     
                 } label: {
                     Image(systemName: self.isPlaying ? "pause.fill" : "play.fill")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color("labelColor"))
                 }.onReceive(sliderTime) { _ in
                     if !isPlaying {return}
                     
@@ -60,7 +60,7 @@ struct AudioReprodutionComponent: View {
                 
                 Text(self.convertCurrentTime())
                     .font(.system(size: 13))
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("labelColor"))
             }
         }
     }
@@ -110,8 +110,8 @@ struct AudioSliderView : UIViewRepresentable {
     func makeUIView(context: Context) -> UISlider {
         slider.minimumValue = 0
         slider.maximumValue = Float(self.audioManager.getDuration())
-        slider.minimumTrackTintColor = .white
-        slider.maximumTrackTintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.32)
+        slider.minimumTrackTintColor = UIColor(Color("labelColor"))
+        slider.maximumTrackTintColor = UIColor(Color("backgroundColor"))
         slider.addTarget(context.coordinator, action: #selector(Coordinator.sliderChange(_:)), for: .valueChanged)
         slider.setThumbImage(thumbImage(size: CGSize(width: 9, height: 9)), for: .normal)
         slider.value = value
@@ -124,7 +124,7 @@ struct AudioSliderView : UIViewRepresentable {
     }
     
     func thumbImage(size: CGSize) -> UIImage {
-        let thumb = UIImage(systemName: "circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        let thumb = UIImage(systemName: "circle.fill")?.withTintColor(UIColor(Color("labelColor")), renderingMode: .alwaysOriginal)
         
         let resized = UIGraphicsImageRenderer(size: size).image { _ in
             thumb?.draw(in: CGRect(origin: .zero, size: size))

@@ -26,6 +26,7 @@ struct TextRegisterView: View {
             }
         }
         .navigationTitle("Inserir texto")
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             isFocused = true
         }
@@ -59,7 +60,7 @@ struct TextRegisterView: View {
                     Text("OK")
                 }
             }
-        }
+        }.font(Font.custom("Sen-Regular", size: 17))
     }
 }
 
