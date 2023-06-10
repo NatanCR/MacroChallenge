@@ -36,4 +36,33 @@ final class TextViewModelTests: XCTestCase {
         XCTAssertEqual(complete, completeComparison)
     }
 
+    func testSetTextsFromIdea() {
+        var complete = """
+                        Titulo
+                        Descricao
+                        """
+        
+        var audioIdea = AudioIdeia(title: "", description: "", textComplete: complete, creationDate: Date(), modifiedDate: Date(), audioPath: "")
+        var textIdea = ModelText(title: "", creationDate: Date(), modifiedDate: Date(), description: "", textComplete: complete)
+        var photoIdea = PhotoModel(title: "", description: "", textComplete: complete, creationDate: Date(), modifiedDate: Date(), capturedImages: [])
+        
+        TextViewModel.setTextsFromIdea(idea: &audioIdea)
+        TextViewModel.setTextsFromIdea(idea: &textIdea)
+        TextViewModel.setTextsFromIdea(idea: &photoIdea)
+        
+        // audio
+        XCTAssertEqual(audioIdea.title, "Titulo")
+        XCTAssertEqual(audioIdea.description, "Descricao")
+        XCTAssertEqual(audioIdea.textComplete, complete)
+        
+        // text
+        XCTAssertEqual(textIdea.title, "Titulo")
+        XCTAssertEqual(textIdea.description, "Descricao")
+        XCTAssertEqual(textIdea.textComplete, complete)
+        
+        // photo
+        XCTAssertEqual(photoIdea.title, "Titulo")
+        XCTAssertEqual(photoIdea.description, "Descricao")
+        XCTAssertEqual(photoIdea.textComplete, complete)
+    }
 }

@@ -54,6 +54,7 @@ class IdeaSaver {
     }
     
     //MARK: - CHANGERS
+    /**Changes an already saved idea in user default to a new idea value.**/
     public static func changeSavedValue<T: Idea>(type: T.Type, idea: T) {
         var key = ""
         let ideaType: IdeaType
@@ -108,7 +109,7 @@ class IdeaSaver {
             }
         }
         
-        print("error to GetSavedIdeas")
+        print("error to GetSavedIdeas, or no saved ideas of specified type exists in UserDefault")
         return []
     }
     

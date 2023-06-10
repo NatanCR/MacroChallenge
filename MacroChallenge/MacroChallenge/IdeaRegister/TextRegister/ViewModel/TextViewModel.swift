@@ -9,31 +9,51 @@ import Foundation
 
 class TextViewModel {
     /**Função para separar o titulo do resto do texto vindo de um text Editor**/
-    static func separateTitleFromText(textComplete: String, title: String) -> String? {
-        var titleAux = title
-        //encontrar a primeira ocorrência de um caractere de nova linha no texto
-        if let range = textComplete.rangeOfCharacter(from: .newlines) {
-            //obtem a posição desse caractere
-            let index = textComplete.distance(from: textComplete.startIndex, to: range.lowerBound)
-            //para obter o String.Index correto correspondente à posição de onde o título termina.
-            let titleIndex = textComplete.index(textComplete.startIndex, offsetBy: index)
-            //para extrair a parte do texto anterior
-            titleAux = String(textComplete[..<titleIndex])
+    public static func separateTitleFromText(textComplete: String, title: String) -> String {
+        // pega o texto completo sem quebras de linha e pega o intervalo da primeira linha como titulo
+        let textWithoutBreakLines = textComplete.trimmingCharacters(in: .whitespacesAndNewlines)
+        let titleRange = textWithoutBreakLines.rangeOfCharacter(from: .newlines)
+        
+        if let range = titleRange {
+            // pega a distancia do texto de titulo, partindo do texto completo sem quebras de linha até o range do titulo
+            let completeTitleDistance = textWithoutBreakLines.distance(from: textWithoutBreakLines.startIndex, to: range.lowerBound)
+            
+            // pega o index representando a distancia total entre o primeiro caracter do texto ate a distancia total do titulo
+            let titleIndex = textWithoutBreakLines.index(textWithoutBreakLines.startIndex, offsetBy: completeTitleDistance)
+            
+            // pega o texto do titulo, retornando o texto total do inicio até o indice de termino do titulo
+            let titleAux = String(textWithoutBreakLines[..<titleIndex])
+            
             return titleAux
         } else {
-            titleAux = textComplete
-            return nil
+            return textWithoutBreakLines
         }
     }
     
+    /**Sets and convert the title, description and complete text of an idea, passing each individual text as reference.**/
     public static func setTitleDescriptionAndCompleteText(title: inout String, description: inout String, complete: inout String) {
-        title = separateTitleFromText(textComplete: complete, title: title) ?? String()
+        title = separateTitleFromText(textComplete: complete, title: title)
+        let titleRange = complete.range(of: title)
         
-        description = complete.replacingOccurrences(of: title, with: String()).trimmingCharacters(in: .whitespacesAndNewlines)
+        // description parte do index final do titulo
+        let descriptionStartIndex = titleRange?.upperBound ?? complete.startIndex
+        description = String(complete[descriptionStartIndex...]).trimmingCharacters(in: .whitespacesAndNewlines)
         
-        description = description.removeEmptyLines()
-        title = title.removeEmptyLines()
-        complete = complete.removeEmptyLines()
+        title = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        complete = complete.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    /**Sets and convert the title, description and complete text of an idea, passing an entire idea as reference.**/
+    public static func setTextsFromIdea<T: Idea>(idea: inout T) {
+        var title = idea.title
+        var description = idea.description
+        var complete = idea.textComplete
+        
+        setTitleDescriptionAndCompleteText(title: &title, description: &description, complete: &complete)
+        
+        idea.title = title
+        idea.description = description
+        idea.textComplete = complete
     }
     
     /**Formata a data em string com o horario local do device**/
