@@ -46,15 +46,7 @@ struct TextRegisterView: View {
                     if textComplete.isEmpty {
                         self.isActive.toggle()
                     } else {
-                        title = TextViewModel.separateTitleFromText(textComplete: textComplete, title: title) ?? String()
-                        
-                        //remover o título do texto original
-                        self.idea = textComplete.replacingOccurrences(of: title, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
-                        
-                        //remove as linhas vazias antes de salvar
-                        idea = idea.removeEmptyLines()
-                        title = title.removeEmptyLines()
-                        textComplete = textComplete.removeEmptyLines()
+                        TextViewModel.setTitleDescriptionAndCompleteText(title: &title, description: &idea, complete: &textComplete)
                         
                         //coloca os dados no formato da estrutura
                         let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: idea, textComplete: textComplete)

@@ -23,15 +23,6 @@ struct EditRegisterView: View {
                 //salva e fecha a tela de edição
                 Button("Save") {
                     TextViewModel.setTextsFromIdea(idea: &modelText)
-//                    modelText.title = TextViewModel.separateTitleFromText(textComplete: modelText.textComplete, title: modelText.title)
-//
-//                    //remover o título do texto original
-//                    modelText.description = modelText.textComplete.replacingOccurrences(of: modelText.title, with: ("".trimmingCharacters(in: .whitespacesAndNewlines)))
-//
-//                    //remove as linhas vazias antes de salvar
-//                    modelText.description = modelText.description.removeEmptyLines()
-//                    modelText.title = modelText.title.removeEmptyLines()
-//                    modelText.textComplete = modelText.textComplete.removeEmptyLines()
                     modelText.modifiedDate = Date()
                     
                     //salva novamente
