@@ -31,10 +31,25 @@ class AudioHelper {
         let index: Int = contents.firstIndex(where: { $0.lastPathComponent == audioPath }) ?? -1
         
         if index == -1 {
-            print("AUDIOHELPER: audio not found")
+            print("AUDIOHELPER: audio not found while getting.")
             return getDocumentDirectory()
         }
         
         return contents[index]
+    }
+    
+    public static func deleteAudioFromDirectory(audioPath: String) {
+        let audioURL: URL = getAudioContent(audioPath: audioPath)
+        
+        if audioURL == getDocumentDirectory() {
+            print("AUDIOHELPER: Error while deletig the audio.")
+            return
+        }
+        
+        do {
+            try FileManager.default.removeItem(at: audioURL)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

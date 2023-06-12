@@ -10,12 +10,20 @@ import AVFoundation
 
 struct RecordAudioView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.screenSize) private var screenSize
     
-    // states
+    // audio states
     @StateObject var recordAudio: RecordAudio
     @State var isRecording: Bool = true
     @State var recorded: Bool = false
     @State var audioUrl: URL?
+    
+    // text states
+    @State var textComplete: String = ""
+    @State var textTitle: String = ""
+    @State var textDescription: String = ""
+    @FocusState var isFocused: Bool
+    
     // audio
     private let audioManager: AudioManager
     
@@ -36,14 +44,14 @@ struct RecordAudioView: View {
                     .foregroundColor(.red)
             } else if (self.recorded) {
                 HStack {
-                    AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.recordAudio.recordedAudios.last!)
+                    AudioReprodutionComponent(audioManager: self.audioManager, audioURL: AudioHelper.getAudioContent(audioPath: self.audioUrl!.lastPathComponent))
                         .frame(height: 10)
                         .padding(.trailing, 30)
                     
                     Button {
                         self.recorded = false
                         self.audioManager.stopAudio()
-                        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudios.last!.lastPathComponent)
+                        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
                         
 //                        self.recordAudio.deleteAllAudios()
 //                        IdeaSaver.clearAll()
@@ -56,8 +64,23 @@ struct RecordAudioView: View {
                 }
             }
             
-            Spacer(minLength: 600)
+            Spacer()
             
+            TextEditor(text: $textComplete)
+                .frame(width: screenSize.width * 0.8, height: screenSize.height * 0.2)
+                .focused($isFocused)
+                .overlay {
+                    Text(self.textComplete.isEmpty ? "Digite sua nota." : "")
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .foregroundColor(.gray)
+                        .onTapGesture {
+                            self.isFocused = true
+                        }
+                }
+            
+            Spacer(minLength: 400)
+
             // record and stop button
             Button {
                 self.isRecording.toggle()
@@ -67,8 +90,8 @@ struct RecordAudioView: View {
                     self.recordAudio.startRecordingAudio()
                 } else { // if stop the record
                     self.recordAudio.stopRecordingAudio()
-                    self.audioManager.assignAudio(self.recordAudio.recordedAudios.last!)
-                    self.audioUrl = self.recordAudio.recordedAudios.last!
+                    self.audioUrl = AudioHelper.getAudioContent(audioPath: self.recordAudio.recordedAudioPath)
+                    self.audioManager.assignAudio(self.audioUrl!)
                     self.recorded = true
                 }
             } label: {
@@ -86,12 +109,14 @@ struct RecordAudioView: View {
                 Button("Salvar") {
                     if isRecording {
                         self.recordAudio.stopRecordingAudio()
-                        self.recordAudio.deleteAllAudios()
+                        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
                         self.recorded = false
                     }
                     
                     if recorded {
-                        let idea = AudioIdeia(title: "test", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
+                        TextViewModel.setTitleDescriptionAndCompleteText(title: &self.textTitle, description: &self.textDescription, complete: &self.textComplete)
+                        
+                        let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
                         IdeaSaver.saveAudioIdea(idea: idea)
                     }
                     
@@ -99,8 +124,9 @@ struct RecordAudioView: View {
                 }
             }
         }.onAppear {
+            self.isFocused = false
+            self.audioUrl = nil
             self.recordAudio.startRecordingAudio()
-            print(try? self.recordAudio.fileManager.contentsOfDirectory(at: self.recordAudio.documentDirectoryURL, includingPropertiesForKeys: nil, options: .producesRelativePathURLs))
         }
     }
 }
