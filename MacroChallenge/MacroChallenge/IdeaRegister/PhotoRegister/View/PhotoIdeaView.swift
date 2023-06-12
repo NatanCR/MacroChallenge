@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PhotoIdeaView: View {
     @State var photoModel: PhotoModel
+    @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     @State private var showAlert = false
     
@@ -35,11 +36,7 @@ struct PhotoIdeaView: View {
                             .frame(width: geometry.size.width * 1.1)
                             .position(x: geometry.size.width/2.2, y: geometry.size.height/3.1)
                         
-                        TextField("Notas", text: $photoModel.description, onEditingChanged: { isEditing in
-                            if !isEditing {
-                                    IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: photoModel)
-                            }
-                        })
+                        TextEditor(text: $photoModel.textComplete)
                             .padding()
                             .position(x:geometry.size.width/2, y: geometry.size.height/4)
                             .onAppear {
@@ -50,6 +47,21 @@ struct PhotoIdeaView: View {
                                     }
                                 }
                             }
+                    }
+                }
+            }
+        }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    TextViewModel.setTextsFromIdea(idea: &self.photoModel)
+                    IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: self.photoModel)
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.backward")
+                        Text("Voltar")
                     }
                 }
             }
