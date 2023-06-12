@@ -18,6 +18,10 @@ struct ListView: View {
     @State private var searchText: String = ""
     @State private var isList: Bool = false
     
+    //camera
+    @StateObject private var viewModel = CameraViewModel()
+    @State private var isShowingCamera = false
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -129,6 +133,7 @@ struct ListView: View {
                     }
 
                 }
+
                 if isList {
                     List(filteredIdeas, id: \.id) { ideas in
                         NavigationLink {
@@ -138,7 +143,7 @@ struct ListView: View {
                             case .audio:
                                 CheckAudioView(audioIdea: ideas as! AudioIdeia)
                             case .photo:
-                                PhotoIdeaView()
+                                PhotoIdeaView(photoModel: ideas as! PhotoModel)
                             }
                         } label: {
                             ListTemplate(idea: ideas)
@@ -155,7 +160,7 @@ struct ListView: View {
                                     case .audio:
                                         CheckAudioView(audioIdea: ideas as! AudioIdeia)
                                     case .photo:
-                                        PhotoIdeaView()
+                                        PhotoIdeaView(photoModel: ideas as! PhotoModel)
                                     }
                                 } label: {
                                     CellTemplate(idea: ideas)
@@ -164,7 +169,6 @@ struct ListView: View {
                         }
                     }
                 }
-                
             }
             .searchable(text: $searchText)
             .padding()
@@ -174,14 +178,25 @@ struct ListView: View {
                 self.disposedData = self.loadedData
                 orderBy()
             }
+            //atualizando a view quando fechar a camera
+            .onChange(of: isShowingCamera) { newValue in
+                if !newValue {
+                    loadedData = IdeaSaver.getAllSavedIdeas()
+                    disposedData = loadedData
+                }
+            }
             .toolbar {
                 ToolbarItemGroup(placement: .bottomBar) {
-                    NavigationLink {
-                        CapturePhotoView()
+                    Button {
+                        isShowingCamera = true
                     } label: {
                         Image(systemName: "camera.fill")
                             .foregroundColor(.blue)
                     }
+                    .sheet(isPresented: $isShowingCamera) {
+                        CameraRepresentable(viewModel: viewModel)
+                    }
+                    
                     Spacer()
                     NavigationLink {
                         RecordAudioView()
@@ -204,8 +219,8 @@ struct ListView: View {
     }
 }
 
-struct ListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ListView()
-    }
-}
+//struct ListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ListView()
+//    }
+//}
