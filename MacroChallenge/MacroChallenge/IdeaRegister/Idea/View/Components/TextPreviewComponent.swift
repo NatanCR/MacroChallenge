@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TextPreviewComponent: View {
     var text: String
+    var title: String
+    var description: String
     var body: some View {
         VStack{
             ZStack{
@@ -21,9 +23,9 @@ struct TextPreviewComponent: View {
                     .frame(width: 80, height: 80)
                 
             }
-            Text("Title")
+            Text(title)
                 .font(.custom("Sen-Regular", size: 20))
-            Text("Description")
+            Text(description)
                 .font(.custom("Sen-Regular", size: 15))
         }
     }
@@ -31,6 +33,6 @@ struct TextPreviewComponent: View {
 
 struct TextPreviewComponent_Previews: PreviewProvider {
     static var previews: some View {
-        TextPreviewComponent(text: "")
+        TextPreviewComponent(text: "", title: "", description: "")
     }
 }

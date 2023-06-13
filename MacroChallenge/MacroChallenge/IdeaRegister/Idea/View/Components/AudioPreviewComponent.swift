@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AudioPreviewComponent: View {
+    var title: String
+    var description: String
     var body: some View {
         VStack{
             ZStack{
@@ -22,9 +24,9 @@ struct AudioPreviewComponent: View {
                     PlayPreviewComponent()
                 }
             }
-            Text("Title")
+            Text(title)
                 .font(.custom("Sen-Regular", size: 20))
-            Text("Description")
+            Text(description)
                 .font(.custom("Sen-Regular", size: 15))
         }
     }
@@ -53,6 +55,6 @@ struct PlayPreviewComponent: View {
 
 struct AudioPreviewComponent_Previews: PreviewProvider {
     static var previews: some View {
-        AudioPreviewComponent()
+        AudioPreviewComponent(title: "", description: "")
     }
 }

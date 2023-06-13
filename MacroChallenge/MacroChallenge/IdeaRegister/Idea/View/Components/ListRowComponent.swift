@@ -10,8 +10,10 @@ import SwiftUI
 struct ListRowComponent: View {
     
     var title: String
-    var info: String
-    var image: UIImage
+    var infoDate: Date
+    var typeIdea: IdeaType
+    var imageIdea: UIImage
+    private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     
     var body: some View {
         HStack{
@@ -20,18 +22,27 @@ struct ListRowComponent: View {
                 Text(title)
                     .font(Font.custom("Sen-Regular", size: 20))
                     .foregroundColor(Color("labelColor"))
-                Text(info)
+                Text(infoDate.toString(dateFormatter: self.dateFormatter)!)
                     .font(Font.custom("Sen-Regular", size: 15))
                     .foregroundColor(Color("labelColor"))
                     .opacity(0.5)
             }
             
             Spacer()
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 30, height: 30)
-                .cornerRadius(5)
+            if typeIdea == .audio {
+                Image(uiImage: UIImage(systemName: "waveform.and.mic") ?? UIImage())
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 30, height: 30)
+                    .cornerRadius(5)
+            } else {
+                //colocar foto
+                Image(uiImage: UIImage(systemName: "waveform.and.mic") ?? UIImage())
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 30, height: 30)
+                    .cornerRadius(5)
+            }
 
         }
             .padding()
@@ -42,6 +53,6 @@ struct ListRowComponent: View {
 struct ListRowComponent_Previews: PreviewProvider {
     static var previews: some View {
         
-        ListRowComponent(title: "teste", info: "data de adição ou edição", image: UIImage(systemName: "rectangle.fill") ?? UIImage())
+        ListRowComponent(title: "teste", infoDate: Date(), typeIdea: IdeaType.text, imageIdea: UIImage())
     }
 }
