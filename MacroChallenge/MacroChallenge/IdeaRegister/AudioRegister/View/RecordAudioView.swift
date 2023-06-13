@@ -41,7 +41,7 @@ struct RecordAudioView: View {
             // recording indicator
             if self.isRecording {
                 Text("Gravando")
-                    .foregroundColor(.red)
+                    .foregroundColor(Color("deleteColor"))
             } else if (self.recorded) {
                 HStack {
                     AudioReprodutionComponent(audioManager: self.audioManager, audioURL: AudioHelper.getAudioContent(audioPath: self.audioUrl!.lastPathComponent))
@@ -58,7 +58,7 @@ struct RecordAudioView: View {
                     } label: {
                         Image(systemName: "trash.fill")
                             .resizable()
-                            .foregroundColor(.red)
+                            .foregroundColor(Color("deleteColor"))
                             .frame(width: 23, height: 23)
                     }
                 }
@@ -102,7 +102,7 @@ struct RecordAudioView: View {
             }.disabled(self.recorded)
             
             Spacer()
-        }
+        }.font(.custom("Sen-Regular", size: 20))
         .navigationTitle("Inserir áudio")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

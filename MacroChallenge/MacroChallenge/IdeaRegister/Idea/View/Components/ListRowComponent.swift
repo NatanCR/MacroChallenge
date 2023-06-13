@@ -33,7 +33,8 @@ struct ListRowComponent: View {
                 .frame(width: 30, height: 30)
                 .cornerRadius(5)
 
-        }.padding()
+        }
+            .padding()
         
     }
 }

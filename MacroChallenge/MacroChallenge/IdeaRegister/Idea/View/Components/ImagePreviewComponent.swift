@@ -17,10 +17,14 @@ struct ImagePreviewComponent: View {
                 .scaledToFill()
                 .frame(width: 100, height: 100)
                 .cornerRadius(20)
+            
             Text("Title")
                 .font(.custom("Sen-Regular", size: 20))
+                .frame(width: 95, height: 20)
+            
             Text("Description")
                 .font(.custom("Sen-Regular", size: 15))
+                .frame(width: 95, height: 20)
         }
     }
 }

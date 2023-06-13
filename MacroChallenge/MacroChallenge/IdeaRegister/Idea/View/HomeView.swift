@@ -31,7 +31,7 @@ struct HomeView: View {
                     ToolbarItemGroup(placement: .navigationBarTrailing){
                       
                         NavigationLink{
-                            InfoView(infoTitle: "", infoText: "")
+                            InfoView(infoText: "Porem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar.")
                         } label: {
                             Image(systemName: "info.circle.fill")
                                 .font(.system(size: 20))
@@ -48,9 +48,9 @@ struct HomeView: View {
                 }
                 
             }.navigationTitle("Ideas")
-                
+             .background(Color("backgroundColor"))
+       
         }
-        .background(Color("backgroundColor"))
         .navigationViewStyle(StackNavigationViewStyle())
 
     }
@@ -123,9 +123,8 @@ struct HomeListView: View {
                 }
                 
             }
+            .listRowBackground(Color("backgroundItem"))
         }
-        .listRowBackground(hidden())
-    
     }
 }
 

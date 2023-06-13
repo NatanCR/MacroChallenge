@@ -18,7 +18,7 @@ struct FilterComponent: View {
                             print("ordenar por adição")
                         } label: {
                             Text("Data de adição (Padrão)")
-                            Image(systemName: "")
+                            Image(systemName: "checkmark")
                         }
                         Button {
                             print("ordenar por edição")
@@ -34,7 +34,7 @@ struct FilterComponent: View {
                             print("ordenar por mais recente")
                         } label: {
                             Text("Mais recente")
-                            Image(systemName: "")
+                            Image(systemName: "checkmark")
                         }
                         Button {
                             print("ordenar por mais antigo")
@@ -65,7 +65,7 @@ struct FilterComponent: View {
                     }
                 } label: {
                     Text(Image(systemName: "line.3.horizontal.decrease.circle"))
-                        .font(.system(size: 20))
+                        .font(.system(size: 25))
         }
     }
 }
