@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct ToolbarComponent: View {
+    @StateObject private var viewModel = CameraViewModel()
+    
     var body: some View {
         HStack{
             NavigationLink {
-                CapturePhotoView()
+                CameraRepresentable(viewModel: viewModel)
             } label: {
                 Image(systemName: "camera.fill")
             }
