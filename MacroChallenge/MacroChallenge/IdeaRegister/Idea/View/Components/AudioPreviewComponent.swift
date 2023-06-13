@@ -10,6 +10,8 @@ import SwiftUI
 struct AudioPreviewComponent: View {
     @Environment(\.screenSize) var screenSize
 
+    var title: String
+    var description: String
     var body: some View {
         VStack{
             ZStack{
@@ -71,6 +73,6 @@ struct PlayPreviewComponent: View {
 
 struct AudioPreviewComponent_Previews: PreviewProvider {
     static var previews: some View {
-        AudioPreviewComponent()
+        AudioPreviewComponent(title: "", description: "")
     }
 }

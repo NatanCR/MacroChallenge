@@ -10,6 +10,8 @@ import SwiftUI
 struct ImagePreviewComponent: View {
     @Environment(\.screenSize) var screenSize
     var image: UIImage
+    var title: String
+    var description: String
     
     var body: some View {
         VStack{
@@ -43,6 +45,6 @@ struct ImagePreviewComponent: View {
 
 struct ImagePreviewComponent_Previews: PreviewProvider {
     static var previews: some View {
-        ImagePreviewComponent(image: UIImage())
+        ImagePreviewComponent(image: UIImage(), title: "", description: "")
     }
 }

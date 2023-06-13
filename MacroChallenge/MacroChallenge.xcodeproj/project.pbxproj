@@ -14,15 +14,6 @@
 		4085CBAD2A30207200DAC6CA /* SearchBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */; };
 		4085CBAF2A302B9000DAC6CA /* FilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */; };
 		4097FDED2A2FC28A001EAB03 /* TextPreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */; };
-		4097FDF22A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */; };
-		4097FDF32A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */; };
-		4097FDF42A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */; };
-		4097FDF52A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */; };
-		4097FDF62A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */; };
-		4097FDF72A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */; };
-		4097FDF82A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF12A2FC5C8001EAB03 /* Sen-ExtraBold.ttf */; };
-		4097FDF92A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF12A2FC5C8001EAB03 /* Sen-ExtraBold.ttf */; };
-		4097FDFA2A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4097FDF12A2FC5C8001EAB03 /* Sen-ExtraBold.ttf */; };
 		4097FDFD2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */; };
 		4097FDFE2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */; };
 		4097FDFF2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */; };
@@ -69,6 +60,9 @@
 		D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6CC2A2690B2009C1938 /* TextRegisterView.swift */; };
 		D135A6D12A2690F8009C1938 /* EditRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D135A6D02A2690F8009C1938 /* EditRegisterView.swift */; };
 		D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */; };
+		D153ACCB2A38ED4D00DE9A79 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D153ACC72A38ED4D00DE9A79 /* Sen-Bold.ttf */; };
+		D153ACCD2A38ED4D00DE9A79 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D153ACC92A38ED4D00DE9A79 /* Sen-Regular.ttf */; };
+		D153ACCE2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D153ACCA2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf */; };
 		D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */; };
 		D1D409562A31183900F0B99B /* ListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409552A31183900F0B99B /* ListTemplate.swift */; };
 /* End PBXBuildFile section */
@@ -98,9 +92,6 @@
 		4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarComponent.swift; sourceTree = "<group>"; };
 		4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterComponent.swift; sourceTree = "<group>"; };
 		4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPreviewComponent.swift; sourceTree = "<group>"; };
-		4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Regular.ttf"; path = "../../../../../../../Downloads/Sen/Sen-Regular.ttf"; sourceTree = "<group>"; };
-		4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Bold.ttf"; path = "../../../../../../../Downloads/Sen/Sen-Bold.ttf"; sourceTree = "<group>"; };
-		4097FDF12A2FC5C8001EAB03 /* Sen-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-ExtraBold.ttf"; path = "../../../../../../../Downloads/Sen/Sen-ExtraBold.ttf"; sourceTree = "<group>"; };
 		4097FDFB2A2FC5F2001EAB03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewComponent.swift; sourceTree = "<group>"; };
 		4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreviewComponent.swift; sourceTree = "<group>"; };
@@ -145,6 +136,9 @@
 		D135A6CC2A2690B2009C1938 /* TextRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRegisterView.swift; sourceTree = "<group>"; };
 		D135A6D02A2690F8009C1938 /* EditRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegisterView.swift; sourceTree = "<group>"; };
 		D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewModel.swift; sourceTree = "<group>"; };
+		D153ACC72A38ED4D00DE9A79 /* Sen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-Bold.ttf"; sourceTree = "<group>"; };
+		D153ACC92A38ED4D00DE9A79 /* Sen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-Regular.ttf"; sourceTree = "<group>"; };
+		D153ACCA2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-ExtraBold.ttf"; sourceTree = "<group>"; };
 		D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteIdeaSpec.swift; sourceTree = "<group>"; };
 		D1D409552A31183900F0B99B /* ListTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTemplate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -206,9 +200,9 @@
 		4097FDEE2A2FC59F001EAB03 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				4097FDF02A2FC5C8001EAB03 /* Sen-Bold.ttf */,
-				4097FDF12A2FC5C8001EAB03 /* Sen-ExtraBold.ttf */,
-				4097FDEF2A2FC5C8001EAB03 /* Sen-Regular.ttf */,
+				D153ACC72A38ED4D00DE9A79 /* Sen-Bold.ttf */,
+				D153ACCA2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf */,
+				D153ACC92A38ED4D00DE9A79 /* Sen-Regular.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -596,11 +590,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4097FDF52A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */,
-				4097FDF22A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */,
-				4097FDF82A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */,
+				D153ACCD2A38ED4D00DE9A79 /* Sen-Regular.ttf in Resources */,
 				D124954E2A268A730063C634 /* Preview Assets.xcassets in Resources */,
+				D153ACCB2A38ED4D00DE9A79 /* Sen-Bold.ttf in Resources */,
 				D124954B2A268A730063C634 /* Assets.xcassets in Resources */,
+				D153ACCE2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,9 +602,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4097FDF62A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */,
-				4097FDF32A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */,
-				4097FDF92A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,9 +609,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4097FDF72A2FC5C8001EAB03 /* Sen-Bold.ttf in Resources */,
-				4097FDF42A2FC5C8001EAB03 /* Sen-Regular.ttf in Resources */,
-				4097FDFA2A2FC5C8001EAB03 /* Sen-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -844,6 +832,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
 				DEVELOPMENT_TEAM = 7UT3KQHPCK;
+				DEVELOPMENT_TEAM = V32Q5HA7F8;
+				DEVELOPMENT_TEAM = 3SWCGFCJF2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
@@ -877,6 +867,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
 				DEVELOPMENT_TEAM = 7UT3KQHPCK;
+				DEVELOPMENT_TEAM = V32Q5HA7F8;
+				DEVELOPMENT_TEAM = 3SWCGFCJF2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;

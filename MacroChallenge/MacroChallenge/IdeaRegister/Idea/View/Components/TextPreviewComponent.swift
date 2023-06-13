@@ -10,7 +10,8 @@ import SwiftUI
 struct TextPreviewComponent: View {
     @Environment(\.screenSize) var screenSize
     var text: String
-    
+    var title: String
+    var description: String
     var body: some View {
         VStack{
             ZStack{
@@ -47,6 +48,6 @@ struct TextPreviewComponent: View {
 
 struct TextPreviewComponent_Previews: PreviewProvider {
     static var previews: some View {
-        TextPreviewComponent(text: "")
+        TextPreviewComponent(text: "", title: "", description: "")
     }
 }
