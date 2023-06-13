@@ -9,13 +9,16 @@ import SwiftUI
 
 struct ToolbarComponent: View {
     @StateObject private var viewModel = CameraViewModel()
-    
+    @State var isShowingCamera: Bool = false
     var body: some View {
         HStack{
-            NavigationLink {
-                CameraRepresentable(viewModel: viewModel)
+            Button {
+                isShowingCamera = true
             } label: {
                 Image(systemName: "camera.fill")
+            }
+            .sheet(isPresented: $isShowingCamera) {
+                CameraRepresentable(viewModel: viewModel)
             }
             .padding()
             
