@@ -50,8 +50,8 @@ struct InfoText: View {
                     .foregroundColor(Color("labelColor"))
             }.padding()
             .navigationTitle(infoTitle)
-            
         }
+        .background(Color("backgroundColor"))
     }
 }
 

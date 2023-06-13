@@ -17,6 +17,14 @@ struct ImagePreviewComponent: View {
                 .scaledToFill()
                 .frame(width: 100, height: 100)
                 .cornerRadius(20)
+                .overlay(alignment: .topTrailing){
+                    Button{
+                        
+                    } label: {
+                        Image(systemName: "heart")
+                    }
+                    .padding(8)
+                }
             
             Text("Title")
                 .font(.custom("Sen-Regular", size: 20))

@@ -14,6 +14,14 @@ struct AudioPreviewComponent: View {
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundColor(Color("backgroundItem"))
                     .frame(width: 100, height: 100)
+                    .overlay(alignment: .topTrailing){
+                        Button{
+                            
+                        } label: {
+                            Image(systemName: "heart")
+                        }
+                        .padding(8)
+                    }
                 VStack{
                     Image(systemName: "waveform.and.mic")
                         .font(.system(size: 30, design: .rounded))

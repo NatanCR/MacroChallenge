@@ -15,10 +15,18 @@ struct TextPreviewComponent: View {
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundColor(Color("backgroundItem"))
                     .frame(width: 100, height: 100)
+                    .overlay(alignment: .topTrailing){
+                        Button{
+                            
+                        } label: {
+                            Image(systemName: "heart.fill")
+                        }
+                        .padding(8)
+                    }
                 Text(text)
                     .foregroundColor(Color("labelColor"))
                     .font(Font.custom("Sen-Regular", size: 17))
-                    .frame(width: 80, height: 80)
+                    .frame(width: 80, height: 60)
                 
             }
             Text("Title")

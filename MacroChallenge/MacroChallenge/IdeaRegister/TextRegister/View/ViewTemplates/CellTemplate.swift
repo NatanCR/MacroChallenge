@@ -14,7 +14,7 @@ struct CellTemplate: View {
     var body: some View {
         VStack {
             RoundedRectangle(cornerRadius: 10)
-                .frame(height: 100)
+                .frame(width: 100,height: 100)
                 .foregroundColor(.gray)
                 .overlay(alignment: .topTrailing) {
                     Button {

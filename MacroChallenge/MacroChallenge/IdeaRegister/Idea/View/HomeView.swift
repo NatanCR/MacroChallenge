@@ -107,11 +107,7 @@ struct HomeListView: View {
                 // teste para audio
                 else if i >= 4 && i < 7 {
                     HStack{
-                        ListRowComponent(title: "audio", info: "data de adição ou edição", image: UIImage())
-                        Image(systemName: "waveform.and.mic")
-                            .font(.system(size: 25))
-                            .foregroundColor(Color("labelColor"))
-                            .padding(.trailing)
+                        ListRowComponent(title: "audio", info: "data de adição ou edição", image: UIImage(systemName: "waveform.and.mic") ?? UIImage())
                     }
 
                 }

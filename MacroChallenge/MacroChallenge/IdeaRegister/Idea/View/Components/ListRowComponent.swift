@@ -15,6 +15,12 @@ struct ListRowComponent: View {
     
     var body: some View {
         HStack{
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 30, height: 30)
+                .cornerRadius(5)
+                .padding(.trailing)
             
             VStack(alignment: .leading){
                 Text(title)
@@ -25,13 +31,14 @@ struct ListRowComponent: View {
                     .foregroundColor(Color("labelColor"))
                     .opacity(0.5)
             }
+
+                        Spacer()
             
-            Spacer()
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 30, height: 30)
-                .cornerRadius(5)
+            Button{
+                print("ta funcionando hihi")
+            } label: {
+                Image(systemName: "heart.fill")
+            }
 
         }
             .padding()

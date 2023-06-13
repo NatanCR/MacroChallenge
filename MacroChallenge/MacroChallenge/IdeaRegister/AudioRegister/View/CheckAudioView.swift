@@ -66,7 +66,7 @@ struct CheckAudioView: View {
             
             Spacer()
         }
-        .navigationBarBackButtonHidden()
+//        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -79,19 +79,28 @@ struct CheckAudioView: View {
                 }
 
             }
-            
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .navigationBarTrailing){
                 Button {
                     TextViewModel.setTextsFromIdea(idea: &self.idea)
                     IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
                     dismiss()
                 } label: {
-                    HStack {
-                        Image(systemName: "chevron.backward")
-                        Text("Voltar")
-                    }
+                        Text("Salvar")
                 }
             }
+            
+//            ToolbarItem(placement: .navigationBarLeading) {
+//                Button {
+//                    TextViewModel.setTextsFromIdea(idea: &self.idea)
+//                    IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
+//                    dismiss()
+//                } label: {
+//                    HStack {
+//                        Image(systemName: "chevron.backward")
+//                        Text("Voltar")
+//                    }
+//                }
+//            }
         }
     }
 }
