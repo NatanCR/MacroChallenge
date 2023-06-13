@@ -10,16 +10,16 @@ import SwiftUI
 
 struct CameraRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = UIImagePickerController
-
+    
     @ObservedObject var viewModel: CameraViewModel
-
+    
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .camera
         imagePicker.delegate = context.coordinator // Definindo o delegate
         return imagePicker
     }
-
+    
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
         
     }
@@ -28,23 +28,31 @@ struct CameraRepresentable: UIViewControllerRepresentable {
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent: self)
     }
-
+    
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         let parent: CameraRepresentable
-
+        
         init(parent: CameraRepresentable) {
             self.parent = parent
         }
-
+        
         // Método chamado quando a imagem é capturada
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let image = info[.originalImage] as? UIImage {
-                parent.viewModel.captureImage(image: image) // Chama o método captureImage do ViewModel
+            guard let image = info[.originalImage] as? UIImage else {
+                picker.dismiss(animated: true) // Fechando a câmera
+                return
             }
-
+            
+            do {
+                try parent.viewModel.captureImage(image: image) // Chama o método captureImage do ViewModel
+                
+            } catch {
+                print(error.localizedDescription)
+            }
+            
             picker.dismiss(animated: true) // Fechando a câmera
         }
-
+        
         // Método chamado quando o usuário cancela a captura
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             picker.dismiss(animated: true) // Fechando a câmera

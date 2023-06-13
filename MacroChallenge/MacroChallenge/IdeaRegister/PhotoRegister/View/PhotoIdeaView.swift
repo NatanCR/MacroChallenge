@@ -11,43 +11,63 @@ struct PhotoIdeaView: View {
     @State var photoModel: PhotoModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.screenSize) var screenSize
     @State private var showAlert = false
     
     let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
+    var photoURL: URL? = nil
+    
+    @FocusState var isFocused: Bool
+    
+    init(photoModel: PhotoModel) {
+        self._photoModel = State(initialValue: photoModel)
+        
+        self.photoURL = ContentDirectoryHelper.getDirectoryContent(contentPath: photoModel.capturedImages)
+    }
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                if let uiImage = UIImage(data: photoModel.capturedImages) {
-                    VStack {
-                        HStack {
-                            Text("Ideia do dia \(photoModel.creationDate, formatter: self.dateFormatter)")
-                                .bold()
-                                .font(.system(size: 25))
-                            Spacer()
-                        }
+        ZStack {
+            if let uiImage = UIImage(contentsOfFile: photoURL!.path) {
+                VStack {
+                    HStack {
+                        Text("Ideia do dia \(photoModel.creationDate, formatter: self.dateFormatter)")
+                            .bold()
+                            .font(.system(size: 25))
+                        Spacer()
+                    }
+                    .padding()
+                    
+                    Spacer()
+                    
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .cornerRadius(25)
+                        .aspectRatio(contentMode: .fit)
+                        .rotationEffect(.degrees(90))
+                        .frame(width: screenSize.width)
+                    
+                    Spacer()
+                    
+                    TextEditor(text: $photoModel.textComplete)
                         .padding()
-                        
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .cornerRadius(25)
-                            .aspectRatio(contentMode: .fit)
-                            .rotationEffect(.degrees(90))
-                            .frame(width: geometry.size.width * 1.1)
-                            .position(x: geometry.size.width/2.2, y: geometry.size.height/3.1)
-                        
-                        TextEditor(text: $photoModel.textComplete)
-                            .padding()
-                            .position(x:geometry.size.width/2, y: geometry.size.height/4)
-                            .onAppear {
-                                if !photoModel.description.isEmpty {
-                                    DispatchQueue.main.async {
-                                        // Atualizar a view para exibir o conteúdo existente da variável description
-                                        self.photoModel.description = photoModel.description
-                                    }
+                        .frame(maxHeight: 100)
+                        .overlay {
+                            Text(self.photoModel.textComplete.isEmpty ? "Digite sua nota." : "")
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                                .foregroundColor(.gray)
+                                .onTapGesture {
+                                    self.isFocused = true
+                                }
+                        }
+                        .onAppear {
+                            if !photoModel.textComplete.isEmpty {
+                                DispatchQueue.main.async {
+                                    // Atualizar a view para exibir o conteúdo existente da variável description
+                                    self.photoModel.textComplete = photoModel.textComplete
                                 }
                             }
-                    }
+                        }
                 }
             }
         }
@@ -55,7 +75,7 @@ struct PhotoIdeaView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    TextViewModel.setTextsFromIdea(idea: &self.photoModel)
+                    TextViewModel.setTextsFromIdea(idea: &photoModel)
                     IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: self.photoModel)
                     dismiss()
                 } label: {

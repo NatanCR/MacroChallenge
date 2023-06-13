@@ -44,7 +44,7 @@ struct RecordAudioView: View {
                     .foregroundColor(Color("deleteColor"))
             } else if (self.recorded) {
                 HStack {
-                    AudioReprodutionComponent(audioManager: self.audioManager, audioURL: AudioHelper.getAudioContent(audioPath: self.audioUrl!.lastPathComponent))
+                    AudioReprodutionComponent(audioManager: self.audioManager, audioURL: ContentDirectoryHelper.getDirectoryContent(contentPath: self.audioUrl!.lastPathComponent))
                         .frame(height: 10)
                         .padding(.trailing, 30)
                     
@@ -90,7 +90,7 @@ struct RecordAudioView: View {
                     self.recordAudio.startRecordingAudio()
                 } else { // if stop the record
                     self.recordAudio.stopRecordingAudio()
-                    self.audioUrl = AudioHelper.getAudioContent(audioPath: self.recordAudio.recordedAudioPath)
+                    self.audioUrl = ContentDirectoryHelper.getDirectoryContent(contentPath: self.recordAudio.recordedAudioPath)
                     self.audioManager.assignAudio(self.audioUrl!)
                     self.recorded = true
                 }

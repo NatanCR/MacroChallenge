@@ -17,14 +17,19 @@ struct PhotoModel: Idea {
     var isFavorite: Bool = false
     var creationDate: Date
     var modifiedDate: Date
-    var capturedImages: Data
+    var capturedImages: String
     
-    init(title: String, description: String, textComplete: String, creationDate: Date, modifiedDate: Date, capturedImages: UIImage) {
+    init(title: String, description: String, textComplete: String, creationDate: Date, modifiedDate: Date, capturedImage: String) {
         self.title = title
         self.description = description
         self.textComplete = textComplete
         self.creationDate = creationDate
         self.modifiedDate = modifiedDate
-        self.capturedImages = capturedImages.pngData()!
+        self.capturedImages = capturedImage
     }
+}
+
+enum PhotoModelError: Error {
+    case imageSaveError(Error)
+    case invalidImageData
 }

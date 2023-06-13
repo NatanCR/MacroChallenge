@@ -28,7 +28,7 @@ struct CheckAudioView: View {
     init(audioIdea idea: AudioIdeia) {
         self.audioManager = AudioManager()
         self._idea = State(initialValue: idea)
-        self.audioUrl = AudioHelper.getAudioContent(audioPath: idea.audioPath)
+        self.audioUrl = ContentDirectoryHelper.getDirectoryContent(contentPath: idea.audioPath)
         self.audioManager.assignAudio(self.audioUrl)
         self.isFocused = false
     }
@@ -71,7 +71,7 @@ struct CheckAudioView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     IdeaSaver.clearOneIdea(type: AudioIdeia.self, idea: self.idea)
-                    AudioHelper.deleteAudioFromDirectory(audioPath: self.idea.audioPath)
+                    ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: self.idea.audioPath)
                     dismiss()
                 } label: {
                     Image(systemName: "trash.fill")

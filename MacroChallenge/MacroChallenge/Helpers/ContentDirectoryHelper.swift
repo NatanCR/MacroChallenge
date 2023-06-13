@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AudioHelper {
+class ContentDirectoryHelper {
     public static func getDocumentDirectoryContents() -> [URL] {
         do {
             let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -25,10 +25,10 @@ class AudioHelper {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
     
-    public static func getAudioContent(audioPath: String) -> URL {
+    public static func getDirectoryContent(contentPath: String) -> URL {
         let contents = getDocumentDirectoryContents()
         
-        let index: Int = contents.firstIndex(where: { $0.lastPathComponent == audioPath }) ?? -1
+        let index: Int = contents.firstIndex(where: { $0.lastPathComponent == contentPath }) ?? -1
         
         if index == -1 {
             print("AUDIOHELPER: audio not found while getting.")
@@ -39,7 +39,7 @@ class AudioHelper {
     }
     
     public static func deleteAudioFromDirectory(audioPath: String) {
-        let audioURL: URL = getAudioContent(audioPath: audioPath)
+        let audioURL: URL = getDirectoryContent(contentPath: audioPath)
         
         if audioURL == getDocumentDirectory() {
             print("AUDIOHELPER: Error while deletig the audio.")

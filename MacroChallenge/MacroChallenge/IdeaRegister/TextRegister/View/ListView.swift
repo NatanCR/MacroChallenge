@@ -20,6 +20,7 @@ struct ListView: View {
     
     //camera
     @StateObject private var viewModel = CameraViewModel()
+
     @State private var isShowingCamera = false
     
     let columns = [
