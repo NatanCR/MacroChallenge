@@ -18,7 +18,7 @@ struct ToolbarComponent: View {
             } label: {
                 Image(systemName: "camera.fill")
             }
-            .sheet(isPresented: $isShowingCamera) {
+            .fullScreenCover(isPresented: $isShowingCamera) {
                 CameraRepresentable(viewModel: viewModel)
             }
             .padding()

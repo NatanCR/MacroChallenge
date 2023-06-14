@@ -19,6 +19,7 @@ struct ImagePreviewComponent: View {
                 .scaledToFill()
                 .frame(width: 100, height: 100)
                 .cornerRadius(20)
+                .rotationEffect(.degrees(90))
             
             Text(title)
                 .font(.custom("Sen-Regular", size: 20))

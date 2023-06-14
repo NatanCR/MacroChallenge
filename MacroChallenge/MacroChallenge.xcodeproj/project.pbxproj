@@ -610,7 +610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91DB2B4E2A2A5FA300EC8176 /* AudioHelper.swift in Sources */,
+				91DB2B4E2A2A5FA300EC8176 /* ContentDirectoryHelper.swift in Sources */,
 				4097FE012A2FCC15001EAB03 /* AudioPreviewComponent.swift in Sources */,
 				91DB2B4E2A2A5FA300EC8176 /* ContentDirectoryHelper.swift in Sources */,
 				912811F02A29275400010872 /* DateHelper.swift in Sources */,
@@ -819,9 +819,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 7UT3KQHPCK;
 				DEVELOPMENT_TEAM = V32Q5HA7F8;
-				DEVELOPMENT_TEAM = 3SWCGFCJF2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
@@ -854,10 +852,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 66824UF4JS;
-				DEVELOPMENT_TEAM = 7UT3KQHPCK;
 				DEVELOPMENT_TEAM = V32Q5HA7F8;
-				DEVELOPMENT_TEAM = 3SWCGFCJF2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;

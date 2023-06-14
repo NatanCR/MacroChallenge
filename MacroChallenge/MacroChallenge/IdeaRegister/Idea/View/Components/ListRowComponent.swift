@@ -37,11 +37,12 @@ struct ListRowComponent: View {
                     .cornerRadius(5)
             } else if typeIdea == .photo {
                 //colocar foto
-                Image(uiImage: UIImage(systemName: "rectangle.fill") ?? UIImage())
+                Image(uiImage: imageIdea)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 30, height: 30)
                     .cornerRadius(5)
+                    .rotationEffect(.degrees(90))
             } else {
                 
             }

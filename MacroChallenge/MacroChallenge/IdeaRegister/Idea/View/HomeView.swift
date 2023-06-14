@@ -116,7 +116,8 @@ struct HomeGridView: View {
                         case .audio:
                             AudioPreviewComponent(title: ideas.title, description: ideas.description)
                         case .photo:
-                            ImagePreviewComponent(image: UIImage(systemName: "rectangle.fill") ?? UIImage(), title: ideas.title, description: ideas.description)
+                            let photoIdea = ideas as! PhotoModel
+                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, description: ideas.description)
                         }
                     }
                 }
@@ -144,7 +145,8 @@ struct HomeListView: View {
                         PhotoIdeaView(photoModel: ideas as! PhotoModel)
                     }
                 } label: {
-                    ListRowComponent(title: ideas.title, infoDate: ideas.modifiedDate, typeIdea: ideas.ideiaType, imageIdea: UIImage(systemName: "rectangle.fill") ?? UIImage())
+                    let photoIdea = ideas as! PhotoModel
+                    ListRowComponent(title: ideas.title, infoDate: ideas.modifiedDate, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
                 }
             }
             .listRowBackground(Color("backgroundItem"))
