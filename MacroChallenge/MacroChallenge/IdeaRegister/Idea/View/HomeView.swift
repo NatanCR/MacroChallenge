@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State static var loadedData = IdeaSaver.getAllSavedIdeas()
-    @State static var sortedByDescendent: Bool = true
-    @State static var byCreation: Bool = true
-    @State static var disposedData: [any Idea] = []
-    @State static var filterType: IdeaType = .text
-    @State static var isFiltered: Bool = false
-    @State static var searchText: String = ""
-    @State static var isList: Bool = false
+    @State var loadedData = IdeaSaver.getAllSavedIdeas()
+    @State var sortedByDescendent: Bool = true
+    @State var byCreation: Bool = true
+    @State var disposedData: [any Idea] = []
+    @State var filterType: IdeaType = .text
+    @State var isFiltered: Bool = false
+    @State var searchText: String = ""
+    @State var isList: Bool = false
     
     //camera
-    @StateObject static var viewModel = CameraViewModel()
-    @State static var isShowingCamera = false
+    @StateObject var viewModel = CameraViewModel()
+    @State var isShowingCamera = false
     
     //alteração da fonte dos títulos
     init(){
@@ -36,7 +36,7 @@ struct HomeView: View {
                     .font(Font.custom("Sen-Regular", size: 17))
                     .padding(.trailing)
                 
-                SegmentedPickerComponent()
+                SegmentedPickerComponent(loadedData: loadedData, disposedData: disposedData, filtertType: filterType, isShowingCamera: isShowingCamera)
   
                 //navigation bar
                 .toolbar{
@@ -61,7 +61,6 @@ struct HomeView: View {
                 
             }.navigationTitle("Ideas")
              .background(Color("backgroundColor"))
-       
         }
         .navigationViewStyle(StackNavigationViewStyle())
 
@@ -70,6 +69,10 @@ struct HomeView: View {
 
 // view em forma de grid
 struct HomeGridView: View {
+    @State var loadedData: [any Idea]
+    @State var disposedData: [any Idea]
+    @State var filterType: IdeaType
+    @State var isShowingCamera: Bool
     
     let columns = [
         GridItem(.flexible()),
@@ -83,7 +86,7 @@ struct HomeGridView: View {
             //TODO: fazer for each dos arquivos salvos
             
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(SearchBarComponent.filteredIdeas, id: \.id) { ideas in
+                ForEach(self.disposedData, id: \.id) { ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
@@ -121,19 +124,18 @@ struct HomeGridView: View {
 //                    }
 //                }
             }.padding()
-            
         }
         .onAppear {
             let reloadedModel = IdeaSaver.getAllSavedIdeas()
-            HomeView.loadedData = reloadedModel
-            HomeView.disposedData = HomeView.loadedData
+            self.loadedData = reloadedModel
+            self.disposedData = loadedData
             // orderBy
         }
         //atualizando a view quando fechar a camera
-        .onChange(of: HomeView.isShowingCamera) { newValue in
+        .onChange(of: self.isShowingCamera) { newValue in
             if !newValue {
-                HomeView.loadedData = IdeaSaver.getAllSavedIdeas()
-                HomeView.disposedData = HomeView.loadedData
+                self.loadedData = IdeaSaver.getAllSavedIdeas()
+                self.disposedData = loadedData
             }
         }
     }
@@ -141,6 +143,11 @@ struct HomeGridView: View {
 
 //view em forma de lista
 struct HomeListView: View {
+    @State var loadedData: [any Idea]
+    @State var disposedData: [any Idea]
+    @State var filterType: IdeaType
+    @State var isShowingCamera: Bool
+    
     var body: some View{
         
         if #available(iOS 16.0, *){
@@ -197,7 +204,7 @@ struct HomeListView: View {
                 .listRowBackground(Color("backgroundItem"))
             }
         List {
-            ForEach(SearchBarComponent.filteredIdeas, id: \.id) { ideas in
+            ForEach(self.disposedData, id: \.id) { ideas in
                 NavigationLink {
                     switch ideas.ideiaType {
                     case .text:
@@ -210,7 +217,6 @@ struct HomeListView: View {
                 } label: {
                     ListRowComponent(title: ideas.title, infoDate: ideas.modifiedDate, typeIdea: ideas.ideiaType, imageIdea: UIImage(systemName: "rectangle.fill") ?? UIImage())
                 }
-
             }
 //            ForEach((1...9), id: \.self) { i in
 //
@@ -242,15 +248,15 @@ struct HomeListView: View {
         }
         .onAppear {
             let reloadedModel = IdeaSaver.getAllSavedIdeas()
-            HomeView.loadedData = reloadedModel
-            HomeView.disposedData = HomeView.loadedData
+            self.loadedData = reloadedModel
+            self.disposedData = loadedData
             // orderBy
         }
         //atualizando a view quando fechar a camera
-        .onChange(of: HomeView.isShowingCamera) { newValue in
+        .onChange(of: self.isShowingCamera) { newValue in
             if !newValue {
-                HomeView.loadedData = IdeaSaver.getAllSavedIdeas()
-                HomeView.disposedData = HomeView.loadedData
+                self.loadedData = IdeaSaver.getAllSavedIdeas()
+                self.disposedData = loadedData
             }
         }
     }

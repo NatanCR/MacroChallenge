@@ -9,10 +9,18 @@ import SwiftUI
 import UIKit
 
 struct SegmentedPickerComponent: View {
+    @State var loadedData: [any Idea]
+    @State var disposedData: [any Idea]
+    @State var filterType: IdeaType
+    @State var isShowingCamera: Bool
     @State var index = 1
     
     //altera as cores do segmented picker
-    init(){
+    init(loadedData: [any Idea], disposedData: [any Idea], filtertType: IdeaType, isShowingCamera: Bool){
+        self.loadedData = loadedData
+        self.disposedData = disposedData
+        self.filterType = filtertType
+        self.isShowingCamera = isShowingCamera
             UISegmentedControl.appearance().backgroundColor = UIColor(Color("AccentColor")).withAlphaComponent(0.19)
             UISegmentedControl.appearance().setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
             UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color("labelColor"))
@@ -34,16 +42,16 @@ struct SegmentedPickerComponent: View {
             }
                 //define o tipo de visualização
             if index == 0{
-                HomeListView()
+                HomeListView(loadedData: loadedData, disposedData: disposedData, filterType: filterType, isShowingCamera: isShowingCamera)
             } else{
-                HomeGridView()
+                HomeGridView(loadedData: loadedData, disposedData: disposedData, filterType: filterType, isShowingCamera: isShowingCamera)
             }
         }
     }
 }
 
-struct SegmentedPickerComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        SegmentedPickerComponent()
-    }
-}
+//struct SegmentedPickerComponent_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SegmentedPickerComponent(loadedData: [Idea], disposedData: [any Idea], filtertType: IdeaType.text, isShowingCamera: false)
+//    }
+//}
