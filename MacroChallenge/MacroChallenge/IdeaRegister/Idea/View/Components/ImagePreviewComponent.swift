@@ -34,6 +34,9 @@ struct ImagePreviewComponent: View {
                 .padding(.bottom, 5)
             Text("Título Grande para Testes")
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
+                .rotationEffect(.degrees(90))
+            
+            Text(title)
                 .font(.custom("Sen-Regular", size: 20))
             
             Text("12/03/2023")
