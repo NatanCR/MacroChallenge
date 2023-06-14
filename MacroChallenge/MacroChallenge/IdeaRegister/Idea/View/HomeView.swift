@@ -38,7 +38,7 @@ struct HomeView: View {
                     FilterComponent(sortedByDescendent: sortedByDescendent, byCreation: byCreation, disposedData: $disposedData, filteredData: $filteredIdeas, loadedData: loadedData, isFiltered: isFiltered, filterType: filterType)
                 }
                 
-                SegmentedPickerComponent(loadedData: loadedData, filteredIdeas: $filteredIdeas, filtertType: filterType, isShowingCamera: isShowingCamera)
+                SegmentedPickerComponent(loadedData: loadedData, filteredIdeas: $filteredIdeas, filtertType: filterType)
   
                 //navigation bar
                 .toolbar{
@@ -57,7 +57,7 @@ struct HomeView: View {
                 //toolbar para adicionar ideias
                 .toolbar {
                     ToolbarItemGroup(placement: .bottomBar) {
-                        ToolbarComponent(isShowingCamera: isShowingCamera)
+                        ToolbarComponent(isShowingCamera: $isShowingCamera)
                     }
                 }
                 
@@ -74,6 +74,7 @@ struct HomeView: View {
                     self.loadedData = IdeaSaver.getAllSavedIdeas()
                     self.filteredIdeas = loadedData
                 }
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
 
@@ -85,7 +86,6 @@ struct HomeGridView: View {
     @State var loadedData: [any Idea]
     @Binding var filteredIdeas: [any Idea]
     @State var filterType: IdeaType
-    @State var isShowingCamera: Bool
     
     let columns = [
         GridItem(.flexible()),
@@ -122,8 +122,6 @@ struct HomeGridView: View {
                 }
             }.padding()
         }
-        
-        }
     }
 }
 
@@ -132,7 +130,6 @@ struct HomeListView: View {
     @State var loadedData: [any Idea]
     @Binding var filteredIdeas: [any Idea]
     @State var filterType: IdeaType
-    @State var isShowingCamera: Bool
     
     var body: some View{
         List {
@@ -152,6 +149,8 @@ struct HomeListView: View {
             }
             .listRowBackground(Color("backgroundItem"))
         }
+       
+        
     }
 }
 
