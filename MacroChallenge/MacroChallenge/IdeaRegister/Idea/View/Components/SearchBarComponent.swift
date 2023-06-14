@@ -68,6 +68,7 @@ struct SearchBarComponent: View {
                     .foregroundColor(Color("labelColor"))
                     .keyboardType(.default)
                     .disabled(self.textFieldEstaEditando)
+                
                     .onChange(of: searchText) { _ in
                         print(filteredIdeas)
                         self.receiveFilteredIdeas = filteredIdeas

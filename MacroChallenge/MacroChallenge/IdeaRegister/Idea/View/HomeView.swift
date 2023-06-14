@@ -30,12 +30,12 @@ struct HomeView: View {
     var body: some View {
         
         NavigationView {
-            VStack{
+            VStack {
                 HStack {
                     SearchBarComponent(disposedData: $disposedData, receiveFilteredIdeas: $filteredIdeas)
                         .font(Font.custom("Sen-Regular", size: 17))
-                        .padding(.trailing)
                     FilterComponent(sortedByDescendent: sortedByDescendent, byCreation: byCreation, disposedData: $disposedData, filteredData: $filteredIdeas, loadedData: loadedData, isFiltered: isFiltered, filterType: filterType)
+                        .padding(.trailing)
                 }
                 
                 SegmentedPickerComponent(loadedData: loadedData, filteredIdeas: $filteredIdeas, filtertType: filterType)
