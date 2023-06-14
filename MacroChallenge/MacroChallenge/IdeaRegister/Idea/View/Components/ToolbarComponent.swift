@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ToolbarComponent: View {
     @StateObject private var viewModel = CameraViewModel()
-    @State var isShowingCamera: Bool = false
+    @State var isShowingCamera: Bool
+    
     var body: some View {
         HStack{
             Button {
@@ -45,6 +46,6 @@ struct ToolbarComponent: View {
 
 struct ToolbarComponent_Previews: PreviewProvider {
     static var previews: some View {
-        ToolbarComponent()
+        ToolbarComponent(isShowingCamera: false)
     }
 }

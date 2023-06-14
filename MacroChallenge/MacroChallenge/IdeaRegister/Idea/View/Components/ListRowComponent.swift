@@ -46,13 +46,15 @@ struct ListRowComponent: View {
                     .scaledToFill()
                     .frame(width: 30, height: 30)
                     .cornerRadius(5)
-            } else {
+            } else if typeIdea == .photo {
                 //colocar foto
-                Image(uiImage: UIImage(systemName: "waveform.and.mic") ?? UIImage())
+                Image(uiImage: UIImage(systemName: "rectangle.fill") ?? UIImage())
                     .resizable()
                     .scaledToFill()
                     .frame(width: 30, height: 30)
                     .cornerRadius(5)
+            } else {
+                
             }
 
         }
