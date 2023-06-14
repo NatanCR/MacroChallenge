@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ListView: View {
-    @EnvironmentObject var appState: AppState    
     @State private var loadedData = IdeaSaver.getAllSavedIdeas()
     @State private var sortedByDescendent: Bool = true
     @State private var byCreation: Bool = true
@@ -22,6 +21,10 @@ struct ListView: View {
     @StateObject private var viewModel = CameraViewModel()
 
     @State private var isShowingCamera = false
+    
+    init(){
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "Sen-Bold", size: 30)!]
+    }
     
     let columns = [
         GridItem(.flexible()),
@@ -214,9 +217,9 @@ struct ListView: View {
                     }
                 }
             }
-        }
-        //aciona o comportamento popToRootView
-        .id(appState.rootViewId)
+        }.navigationTitle("adsjfal;ksdjlf")
+//        //aciona o comportamento popToRootView
+//        .id(appState.rootViewId)
     }
 }
 

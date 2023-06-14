@@ -26,40 +26,42 @@ struct PhotoIdeaView: View {
     }
     
     var body: some View {
-        ZStack {
             if let uiImage = UIImage(contentsOfFile: photoURL!.path) {
-                VStack {
-                    HStack {
-                        Text("Ideia do dia \(photoModel.creationDate, formatter: self.dateFormatter)")
-                            .bold()
-                            .font(.system(size: 25))
-                        Spacer()
-                    }
-                    .padding()
+                
+                VStack (alignment: .center){
                     
-                    Spacer()
-                    
+//                    Text("Ideia do dia \(photoModel.creationDate, formatter: self.dateFormatter)")
+//                            .font(.custom("Sen-Bold", size: 23))
+//                            .multilineTextAlignment(.leading)
+                                        
                     Image(uiImage: uiImage)
                         .resizable()
                         .cornerRadius(25)
-                        .aspectRatio(contentMode: .fit)
+                        .scaledToFill()
                         .rotationEffect(.degrees(90))
-                        .frame(width: screenSize.width)
-                    
-                    Spacer()
+                        .frame(maxWidth: screenSize.width * 0.5, alignment: .top)
+                        .padding([.top, .bottom], 50)
                     
                     TextEditor(text: $photoModel.textComplete)
+                        .font(.custom("Sen-Regular", size: 17))
+                        .multilineTextAlignment(.leading)
+                        .frame(alignment: .topLeading)
                         .padding()
-                        .frame(maxHeight: 100)
                         .overlay {
                             Text(self.photoModel.textComplete.isEmpty ? "Digite sua nota." : "")
+                                .font(.custom("Sen-Regular", size: 17))
                                 .multilineTextAlignment(.leading)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                                .foregroundColor(.gray)
+                                .padding(8)
+                                .foregroundColor(Color("labelColor"))
+                                .opacity(0.6)
                                 .onTapGesture {
                                     self.isFocused = true
                                 }
                         }
+                    
+//                        Spacer()
+                    
                         .onAppear {
                             if !photoModel.textComplete.isEmpty {
                                 DispatchQueue.main.async {
@@ -69,8 +71,8 @@ struct PhotoIdeaView: View {
                             }
                         }
                 }
-            }
-        }
+        .navigationTitle("Ideia do dia \(photoModel.creationDate, formatter: self.dateFormatter)")
+        .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -85,14 +87,24 @@ struct PhotoIdeaView: View {
                     }
                 }
             }
+            ToolbarItem (placement: .navigationBarTrailing){
+                Button{
+                    IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: photoModel)
+                    showAlert = true
+                } label: {
+                    Image(systemName: "trash")
+                        .foregroundColor(.red)
+                }
+            }
         }
-        .navigationBarItems(trailing: Button(action: {
-            IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: photoModel)
-            showAlert = true
-        }) {
-            Image(systemName: "trash")
-                .foregroundColor(.red)
-        })
+//        .navigationBarItems(trailing: Button(action: {
+//            IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: photoModel)
+//            showAlert = true
+//        }) {
+//            Image(systemName: "trash")
+//                .foregroundColor(.red)
+//        })
+                
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Sucesso"),
@@ -102,6 +114,7 @@ struct PhotoIdeaView: View {
                 }
             )
         }
+            }
     }
 }
 

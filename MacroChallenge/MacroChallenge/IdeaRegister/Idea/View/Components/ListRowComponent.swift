@@ -32,13 +32,13 @@ struct ListRowComponent: View {
                     .opacity(0.5)
             }
 
-                        Spacer()
+            Spacer()
             
-            Button{
-                print("ta funcionando hihi")
-            } label: {
-                Image(systemName: "heart.fill")
-            }
+//            Button{
+//                print("ta funcionando hihi")
+//            } label: {
+//                Image(systemName: "heart.fill")
+//            }
 
         }
             .padding()

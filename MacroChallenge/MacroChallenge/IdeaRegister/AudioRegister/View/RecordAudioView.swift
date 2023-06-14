@@ -36,12 +36,13 @@ struct RecordAudioView: View {
     //MARK: - BODY
     var body: some View {
         VStack {
-            Spacer()
+//            Spacer()
             
             // recording indicator
             if self.isRecording {
                 Text("Gravando")
-                    .foregroundColor(Color("deleteColor"))
+                    .foregroundColor(Color("AccentColor"))
+                    .padding()
             } else if (self.recorded) {
                 HStack {
                     AudioReprodutionComponent(audioManager: self.audioManager, audioURL: ContentDirectoryHelper.getDirectoryContent(contentPath: self.audioUrl!.lastPathComponent))
@@ -61,30 +62,14 @@ struct RecordAudioView: View {
                             .foregroundColor(Color("deleteColor"))
                             .frame(width: 23, height: 23)
                     }
-                }
+                }.padding()
             }
             
             Spacer()
-            
-            TextEditor(text: $textComplete)
-                .frame(width: screenSize.width * 0.8, height: screenSize.height * 0.2)
-                .focused($isFocused)
-                .overlay {
-                    Text(self.textComplete.isEmpty ? "Digite sua nota." : "")
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                        .foregroundColor(.gray)
-                        .onTapGesture {
-                            self.isFocused = true
-                        }
-                }
-            
-            Spacer(minLength: 400)
-
             // record and stop button
             Button {
                 self.isRecording.toggle()
-
+                
                 // if started recording
                 if isRecording {
                     self.recordAudio.startRecordingAudio()
@@ -102,6 +87,23 @@ struct RecordAudioView: View {
             }.disabled(self.recorded)
             
             Spacer()
+            
+            TextEditor(text: $textComplete)
+                .frame(width: screenSize.width * 0.8, height: screenSize.height * 0.8)
+                .focused($isFocused)
+                .overlay {
+                    Text(self.textComplete.isEmpty ? "Digite sua nota." : "")
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .padding(8)
+                        .foregroundColor(.gray)
+                        .onTapGesture {
+                            self.isFocused = true
+                        }
+                }
+                .padding()
+//            Spacer(minLength: 400)
+
         }.font(.custom("Sen-Regular", size: 20))
         .navigationTitle("Inserir áudio")
         .navigationBarTitleDisplayMode(.inline)

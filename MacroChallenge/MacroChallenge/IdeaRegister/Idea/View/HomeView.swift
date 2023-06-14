@@ -96,30 +96,60 @@ struct HomeGridView: View {
 //view em forma de lista
 struct HomeListView: View {
     var body: some View{
-        List {
-            ForEach((1...9), id: \.self) { i in
-                
-                // teste para texto
-                if i < 4 {
-                    ListRowComponent(title: "texto", info: "data de adição ou edição", image: UIImage())
-                }
-                
-                // teste para audio
-                else if i >= 4 && i < 7 {
-                    HStack{
-                        ListRowComponent(title: "audio", info: "data de adição ou edição", image: UIImage(systemName: "waveform.and.mic") ?? UIImage())
+        
+        if #available(iOS 16.0, *){
+            List {
+                ForEach((1...9), id: \.self) { i in
+                    
+                    // teste para texto
+                    if i < 4 {
+                        ListRowComponent(title: "texto", info: "data de adição ou edição", image: UIImage(systemName: "doc.text") ?? UIImage())
                     }
-
-                }
-                
-                // teste para foto
-                else {
-                    ListRowComponent(title: "foto", info: "data de adição ou edição", image: UIImage(systemName: "photo.fill") ?? UIImage())
+                    
+                    // teste para audio
+                    else if i >= 4 && i < 7 {
+                        HStack{
+                            ListRowComponent(title: "audio", info: "data de adição ou edição", image: UIImage(systemName: "waveform.and.mic") ?? UIImage())
+                        }
+                        
+                    }
+                    
+                    // teste para foto
+                    else {
+                        ListRowComponent(title: "foto", info: "data de adição ou edição", image: UIImage(systemName: "photo.fill") ?? UIImage())
+                        
+                    }
                     
                 }
-                
+                .listRowBackground(Color("backgroundItem"))
             }
-            .listRowBackground(Color("backgroundItem"))
+            .scrollContentBackground(.hidden)
+        } else {
+            List {
+                ForEach((1...9), id: \.self) { i in
+                    
+                    // teste para texto
+                    if i < 4 {
+                        ListRowComponent(title: "texto", info: "data de adição ou edição", image: UIImage(systemName: "textformat.alt") ?? UIImage())
+                    }
+                    
+                    // teste para audio
+                    else if i >= 4 && i < 7 {
+                        HStack{
+                            ListRowComponent(title: "audio", info: "data de adição ou edição", image: UIImage(systemName: "waveform.and.mic") ?? UIImage())
+                        }
+                        
+                    }
+                    
+                    // teste para foto
+                    else {
+                        ListRowComponent(title: "foto", info: "data de adição ou edição", image: UIImage(systemName: "photo.fill") ?? UIImage())
+                        
+                    }
+                    
+                }
+                .listRowBackground(Color("backgroundItem"))
+            }
         }
     }
 }

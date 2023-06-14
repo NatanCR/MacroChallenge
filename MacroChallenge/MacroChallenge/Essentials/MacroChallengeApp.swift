@@ -9,12 +9,10 @@ import SwiftUI
 
 @main
 struct MacroChallengeApp: App {
-    @ObservedObject var appState = AppState()
     var body: some Scene {
         WindowGroup {
             GeometryReader { geo in
                 ListView()
-                    .environmentObject(appState)
                     .environment(\.screenSize, geo.size)
             }
         }

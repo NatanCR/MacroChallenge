@@ -35,60 +35,90 @@ struct CheckAudioView: View {
     
     //MARK: - BODY
     var body: some View {
-        VStack {
-            Text("Ideia do dia \(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
-                .font(.system(size: 23))
-                .fontWeight(.bold)
-                .multilineTextAlignment(.leading)
+        
+        VStack (alignment: .leading){
+//            Text("Ideia do dia \(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
+//                .font(.custom("Sen-Bold", size: 23))
+//                .multilineTextAlignment(.leading)
             
             AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
                 .frame(height: 10)
-                .padding(.top, 30)
+                .padding(.top, 70)
                 .padding(.bottom, 30)
             
             Text("Notas")
-                .fontWeight(.bold)
+                .font(.custom("Sen-Bold", size: 17))
                 .multilineTextAlignment(.leading)
                 .frame(width: screenSize.width * 0.9, alignment: .topLeading)
             
             TextEditor(text: $idea.textComplete)
+                .font(.custom("Sen-Regular", size: 17))
                 .multilineTextAlignment(.leading)
-                .frame(width: screenSize.width * 0.8, alignment: .topLeading)
+                .frame(width: screenSize.width, height: screenSize.height * 0.8, alignment: .topLeading)
                 .overlay {
                     Text(self.idea.textComplete.isEmpty ? "Digite sua nota." : "")
+                        .font(.custom("Sen-Regular", size: 17))
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                        .foregroundColor(.gray)
+                        .padding(8)
+                        .foregroundColor(Color("labelColor"))
+                        .opacity(0.6)
                         .onTapGesture {
                             self.isFocused = true
                         }
                 }
-            
+ 
             Spacer()
         }
-//        .navigationBarBackButtonHidden()
+        .navigationTitle("Ideia do dia \(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
+        .navigationBarTitleDisplayMode(.large)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    IdeaSaver.clearOneIdea(type: AudioIdeia.self, idea: self.idea)
-                    ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: self.idea.audioPath)
-                    dismiss()
-                } label: {
-                    Image(systemName: "trash.fill")
-                        .foregroundColor(.red)
-                }
 
-            }
             ToolbarItem(placement: .navigationBarTrailing){
-                Button {
-                    TextViewModel.setTextsFromIdea(idea: &self.idea)
-                    IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
-                    dismiss()
+                
+                Menu{
+                    //TODO: aplicar ação de favoritar e trocar o ícone para "heart.fill" quando estiver favoritado
+                    Button{
+                        print("ok")
+                    } label: {
+                        HStack{
+                            Text("Favorite")
+                            Image(systemName: "heart")
+                        }
+                    }
+                    
+                    Divider()
+                    
+                    Button(role: .destructive){
+                        IdeaSaver.clearOneIdea(type: AudioIdeia.self, idea: self.idea)
+                        ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: self.idea.audioPath)
+                        dismiss()
+                    } label: {
+                        HStack{
+                            Text("Delete")
+                            Image(systemName: "trash")
+                        }
+                    }
                 } label: {
-                        Text("Salvar")
+                    Image(systemName: "ellipsis.circle")
                 }
             }
             
+            
+            ToolbarItem (placement: .navigationBarTrailing){
+                
+                //TODO: fazer botão de OK aparecer apenas quando estiver editando
+                    Button {
+                        TextViewModel.setTextsFromIdea(idea: &self.idea)
+                        IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
+                        dismiss()
+                    } label: {
+                        Text("OK")
+                    }
+            }
+
+            
+            //back button personalizado
 //            ToolbarItem(placement: .navigationBarLeading) {
 //                Button {
 //                    TextViewModel.setTextsFromIdea(idea: &self.idea)
