@@ -60,7 +60,7 @@ struct TextRegisterView: View {
                     Text("OK")
                 }
             }
-        }.font(Font.custom("Sen-Regular", size: 17))
+        }.font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
     }
 }
 

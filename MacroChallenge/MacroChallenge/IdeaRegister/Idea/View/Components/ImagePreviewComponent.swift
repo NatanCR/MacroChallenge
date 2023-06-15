@@ -22,11 +22,11 @@ struct ImagePreviewComponent: View {
                 .rotationEffect(.degrees(90))
             
             Text(title)
-                .font(.custom("Sen-Regular", size: 20))
+                .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
                 .frame(width: 95, height: 20)
             
             Text(description)
-                .font(.custom("Sen-Regular", size: 15))
+                .font(.custom("Sen-Regular", size: 15, relativeTo: .headline))
                 .frame(width: 95, height: 20)
         }
     }

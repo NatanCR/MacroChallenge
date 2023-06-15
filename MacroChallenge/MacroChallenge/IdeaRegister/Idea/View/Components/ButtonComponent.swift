@@ -18,7 +18,7 @@ struct ButtonComponent: View {
                 .foregroundColor(Color("AccentColor"))
             HStack{
                 Text(title)
-                    .font(Font.custom("Sen-Regular", size: 20))
+                    .font(Font.custom("Sen-Regular", size: 20, relativeTo: .headline))
                     .foregroundColor(Color("backgroundColor"))
                 Spacer()
             }.padding(.leading, 30)

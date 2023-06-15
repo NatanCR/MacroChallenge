@@ -22,7 +22,7 @@ struct HomeView: View {
             VStack {
                 HStack {
                     SearchBarComponent(ideasViewModel: ideasViewModel)
-                        .font(Font.custom("Sen-Regular", size: 17))
+                        .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
                     FilterComponent(ideasViewModel: ideasViewModel)
                         .padding(.trailing)
                 }

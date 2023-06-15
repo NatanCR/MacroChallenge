@@ -19,14 +19,14 @@ struct TextPreviewComponent: View {
                     .frame(width: 100, height: 100)
                 Text(text)
                     .foregroundColor(Color("labelColor"))
-                    .font(Font.custom("Sen-Regular", size: 17))
+                    .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
                     .frame(width: 80, height: 80)
                 
             }
             Text(title)
-                .font(.custom("Sen-Regular", size: 20))
+                .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
             Text(description)
-                .font(.custom("Sen-Regular", size: 15))
+                .font(.custom("Sen-Regular", size: 15, relativeTo: .headline))
         }
     }
 }

@@ -102,7 +102,7 @@ struct RecordAudioView: View {
             }.disabled(self.recorded)
             
             Spacer()
-        }.font(.custom("Sen-Regular", size: 20))
+        }.font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
         .navigationTitle("Inserir áudio")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

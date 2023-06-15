@@ -25,9 +25,9 @@ struct AudioPreviewComponent: View {
                 }
             }
             Text(title)
-                .font(.custom("Sen-Regular", size: 20))
+                .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
             Text(description)
-                .font(.custom("Sen-Regular", size: 15))
+                .font(.custom("Sen-Regular", size: 15, relativeTo: .headline))
         }
     }
 }
