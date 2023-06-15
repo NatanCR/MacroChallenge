@@ -145,8 +145,12 @@ struct HomeListView: View {
                         PhotoIdeaView(photoModel: ideas as! PhotoModel)
                     }
                 } label: {
-                    let photoIdea = ideas as! PhotoModel
-                    ListRowComponent(title: ideas.title, infoDate: ideas.modifiedDate, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
+                    if let photoIdea = ideas as? PhotoModel {
+                        ListRowComponent(title: ideas.title, infoDate: ideas.modifiedDate, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
+                    }
+                    else {
+                        ListRowComponent(title: ideas.title, infoDate: ideas.modifiedDate, typeIdea: ideas.ideiaType, imageIdea: UIImage())
+                    }
                 }
             }
             .listRowBackground(Color("backgroundItem"))
