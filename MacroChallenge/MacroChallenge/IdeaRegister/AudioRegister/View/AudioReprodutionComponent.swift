@@ -12,9 +12,8 @@ import AVFoundation
 struct AudioReprodutionComponent: View {
     @State var isPlaying: Bool = false
     @State var audioCurrentTime: Float = 0
-    @State var reachedMaxValue: Bool = false
     
-    private let sliderTime = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
+    private let sliderTime = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     private let finishedAudioNotification = NotificationCenter.default.publisher(for: NSNotification.Name("FinishedAudio"))
     private let audioManager: AudioManager
     private let audioURL: URL
@@ -61,7 +60,6 @@ struct AudioReprodutionComponent: View {
                 .onReceive(finishedAudioNotification) { _ in
                     self.isPlaying = false
                     self.audioCurrentTime = 0
-                    print("notification")
                 }
                 
                 AudioSliderView(value: $audioCurrentTime, audioManager: self.audioManager)
@@ -132,7 +130,7 @@ struct AudioSliderView : UIViewRepresentable {
     
     func updateUIView(_ uiView: UISlider, context: Context) {
         uiView.value = value
-        if value == 0 {
+        if value >= self.audioManager.getDuration() - 0.04 {
             NotificationCenter.default.post(name: Notification.Name("FinishedAudio"), object: self)
         }
     }
