@@ -9,16 +9,12 @@ import SwiftUI
 import UIKit
 
 struct SegmentedPickerComponent: View {
-    @State var loadedData: [any Idea]
-    @Binding var filteredIdeas: [any Idea]
-    @State var filterType: IdeaType
     @State var index = 1
+    @ObservedObject var ideasViewModel: IdeasViewModel
     
     //altera as cores do segmented picker
-    init(loadedData: [any Idea], filteredIdeas: Binding<[any Idea]>, filtertType: IdeaType){
-        self.loadedData = loadedData
-        self._filteredIdeas = filteredIdeas
-        self.filterType = filtertType
+    init(ideasViewModel: IdeasViewModel){
+        self.ideasViewModel = ideasViewModel
             UISegmentedControl.appearance().backgroundColor = UIColor(Color("AccentColor")).withAlphaComponent(0.19)
             UISegmentedControl.appearance().setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
             UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color("labelColor"))
@@ -40,9 +36,9 @@ struct SegmentedPickerComponent: View {
             }
                 //define o tipo de visualização
             if index == 0{
-                HomeListView(loadedData: loadedData, filteredIdeas: $filteredIdeas, filterType: filterType)
+                HomeListView(ideasViewModel: ideasViewModel)
             } else{
-                HomeGridView(loadedData: loadedData, filteredIdeas: $filteredIdeas, filterType: filterType)
+                HomeGridView(ideasViewModel: ideasViewModel)
             }
         }
     }

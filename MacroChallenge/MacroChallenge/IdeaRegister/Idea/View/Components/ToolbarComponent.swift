@@ -8,40 +8,34 @@
 import SwiftUI
 
 struct ToolbarComponent: View {
-    @StateObject private var viewModel = CameraViewModel()
-    @Binding var isShowingCamera: Bool
+    @ObservedObject var ideasViewModel: IdeasViewModel
+//    @State var isShowingCamera = false
     
     var body: some View {
         HStack{
             Button {
-                isShowingCamera = true
+                ideasViewModel.isShowingCamera = true
             } label: {
                 Image(systemName: "camera.fill")
             }
-            .fullScreenCover(isPresented: $isShowingCamera) {
-                CameraRepresentable(viewModel: viewModel)
+            .fullScreenCover(isPresented: $ideasViewModel.isShowingCamera) {
+                CameraRepresentable(viewModel: ideasViewModel.cameraViewModel)
             }
             .padding()
-            
             Spacer()
-            
             NavigationLink {
                 RecordAudioView()
             } label: {
                 Image(systemName: "mic.fill")
             }
-            
             Spacer()
-            
             NavigationLink {
                 TextRegisterView()
             } label: {
                 Image(systemName: "square.and.pencil")
             }.padding()
-        
-    }
         }
-            
+    }
 }
 
 //struct ToolbarComponent_Previews: PreviewProvider {

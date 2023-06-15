@@ -66,7 +66,6 @@ struct ListRowComponent: View {
 
 struct ListRowComponent_Previews: PreviewProvider {
     static var previews: some View {
-        
         ListRowComponent(title: "teste", infoDate: Date(), typeIdea: IdeaType.text, imageIdea: UIImage())
     }
 }

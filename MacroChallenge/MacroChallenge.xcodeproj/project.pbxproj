@@ -63,6 +63,7 @@
 		D153ACCB2A38ED4D00DE9A79 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D153ACC72A38ED4D00DE9A79 /* Sen-Bold.ttf */; };
 		D153ACCD2A38ED4D00DE9A79 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D153ACC92A38ED4D00DE9A79 /* Sen-Regular.ttf */; };
 		D153ACCE2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D153ACCA2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf */; };
+		D153ACD02A3B82D500DE9A79 /* IdeasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D153ACCF2A3B82D500DE9A79 /* IdeasViewModel.swift */; };
 		D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */; };
 		D1D409562A31183900F0B99B /* ListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409552A31183900F0B99B /* ListTemplate.swift */; };
 /* End PBXBuildFile section */
@@ -139,6 +140,7 @@
 		D153ACC72A38ED4D00DE9A79 /* Sen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-Bold.ttf"; sourceTree = "<group>"; };
 		D153ACC92A38ED4D00DE9A79 /* Sen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-Regular.ttf"; sourceTree = "<group>"; };
 		D153ACCA2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-ExtraBold.ttf"; sourceTree = "<group>"; };
+		D153ACCF2A3B82D500DE9A79 /* IdeasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeasViewModel.swift; sourceTree = "<group>"; };
 		D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteIdeaSpec.swift; sourceTree = "<group>"; };
 		D1D409552A31183900F0B99B /* ListTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTemplate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -281,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				916E0FBB2A268BAA00F4FA87 /* IdeaSaver.swift */,
+				D153ACCF2A3B82D500DE9A79 /* IdeasViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 				40497BAC2A32E5F600E6D3B5 /* InfoView.swift in Sources */,
 				918C7DC12A27C1A700C36A53 /* HomeAudioPrototype.swift in Sources */,
 				40497BAA2A31259900E6D3B5 /* ListRowComponent.swift in Sources */,
+				D153ACD02A3B82D500DE9A79 /* IdeasViewModel.swift in Sources */,
 				916E0FBC2A268BAA00F4FA87 /* IdeaSaver.swift in Sources */,
 				D12495472A268A720063C634 /* MacroChallengeApp.swift in Sources */,
 				40E8595A2A3BAD2900F2BC0E /* CustomBackButtonComponent.swift in Sources */,
@@ -831,7 +835,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = V32Q5HA7F8;
+				DEVELOPMENT_TEAM = 3SWCGFCJF2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
