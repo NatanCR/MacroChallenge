@@ -42,6 +42,12 @@ struct ImagePreviewComponent: View {
             Text("12/03/2023")
                 .font(.custom("Sen-Regular", size: 17))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
+                .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
+                .frame(width: 95, height: 20)
+            
+            Text(description)
+                .font(.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                .frame(width: 95, height: 20)
         }
     }
 }

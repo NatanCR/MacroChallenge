@@ -42,6 +42,14 @@ struct TextPreviewComponent: View {
             Text("Description")
                 .font(.custom("Sen-Regular", size: 17))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
+                    .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                    .frame(width: 80, height: 80)
+                
+            }
+            Text(title)
+                .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
+            Text(description)
+                .font(.custom("Sen-Regular", size: 15, relativeTo: .headline))
         }
     }
 }

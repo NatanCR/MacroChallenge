@@ -20,13 +20,13 @@ struct ListRowComponent: View {
             
             VStack(alignment: .leading){
                 Text(title)
-                    .font(Font.custom("Sen-Regular", size: 20))
+                    .font(Font.custom("Sen-Regular", size: 20, relativeTo: .headline))
                     .foregroundColor(Color("labelColor"))
                     .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.01, alignment: .leading)
                     .padding(.bottom, 5)
                 Text(info)
                 Text(infoDate.toString(dateFormatter: self.dateFormatter)!)
-                    .font(Font.custom("Sen-Regular", size: 15))
+                    .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
                     .foregroundColor(Color("labelColor"))
                     .opacity(0.5)
                     .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.01, alignment: .leading)

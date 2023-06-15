@@ -56,7 +56,7 @@ struct TextRegisterView: View {
                     Text("Salvar")
                 }
             }
-        }.font(Font.custom("Sen-Regular", size: 17))
+        }.font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
     }
 }
 

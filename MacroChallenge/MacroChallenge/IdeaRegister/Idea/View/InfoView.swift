@@ -46,7 +46,7 @@ struct InfoText: View {
         ScrollView{
             VStack (alignment: .leading){
                 Text(infoText)
-                    .font(.custom("Sen-Regular", size: 17))
+                    .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
                     .foregroundColor(Color("labelColor"))
             }.padding()
             .navigationTitle(infoTitle)
