@@ -78,8 +78,8 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
     }
     
     /**Get the total duration of the audio..*/
-    public func getDuration() -> CGFloat {
-        return CGFloat(self.audioPlayer?.duration ?? 0)
+    public func getDuration() -> Float {
+        return Float(self.audioPlayer?.duration ?? 0)
     }
     
     /**Get the is plating of the current AudioPlayer.*/

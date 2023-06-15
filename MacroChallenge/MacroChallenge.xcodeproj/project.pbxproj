@@ -42,6 +42,15 @@
 		918C7DC32A27C29200C36A53 /* RecordAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918C7DC22A27C29200C36A53 /* RecordAudioView.swift */; };
 		918C7DC52A27D00900C36A53 /* AudioReprodutionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918C7DC42A27D00900C36A53 /* AudioReprodutionComponent.swift */; };
 		918C7DC82A27EDB000C36A53 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918C7DC72A27EDB000C36A53 /* ColorHelper.swift */; };
+		91D090F82A3B85A300ED2258 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91D090F52A3B85A300ED2258 /* Sen-Regular.ttf */; };
+		91D090F92A3B85A300ED2258 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91D090F52A3B85A300ED2258 /* Sen-Regular.ttf */; };
+		91D090FA2A3B85A300ED2258 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91D090F52A3B85A300ED2258 /* Sen-Regular.ttf */; };
+		91D090FB2A3B85A300ED2258 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91D090F62A3B85A300ED2258 /* Sen-ExtraBold.ttf */; };
+		91D090FC2A3B85A300ED2258 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91D090F62A3B85A300ED2258 /* Sen-ExtraBold.ttf */; };
+		91D090FD2A3B85A300ED2258 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91D090F62A3B85A300ED2258 /* Sen-ExtraBold.ttf */; };
+		91D090FE2A3B85A300ED2258 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91D090F72A3B85A300ED2258 /* Sen-Bold.ttf */; };
+		91D090FF2A3B85A300ED2258 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91D090F72A3B85A300ED2258 /* Sen-Bold.ttf */; };
+		91D091002A3B85A300ED2258 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91D090F72A3B85A300ED2258 /* Sen-Bold.ttf */; };
 		91DB2B4E2A2A5FA300EC8176 /* ContentDirectoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DB2B4D2A2A5FA300EC8176 /* ContentDirectoryHelper.swift */; };
 		D12495472A268A720063C634 /* MacroChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12495462A268A720063C634 /* MacroChallengeApp.swift */; };
 		D12495492A268A720063C634 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12495482A268A720063C634 /* ContentView.swift */; };
@@ -113,6 +122,9 @@
 		918C7DC22A27C29200C36A53 /* RecordAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordAudioView.swift; sourceTree = "<group>"; };
 		918C7DC42A27D00900C36A53 /* AudioReprodutionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioReprodutionComponent.swift; sourceTree = "<group>"; };
 		918C7DC72A27EDB000C36A53 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
+		91D090F52A3B85A300ED2258 /* Sen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Regular.ttf"; path = "../../../../../../../Sen/Sen-Regular.ttf"; sourceTree = "<group>"; };
+		91D090F62A3B85A300ED2258 /* Sen-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-ExtraBold.ttf"; path = "../../../../../../../Sen/Sen-ExtraBold.ttf"; sourceTree = "<group>"; };
+		91D090F72A3B85A300ED2258 /* Sen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Bold.ttf"; path = "../../../../../../../Sen/Sen-Bold.ttf"; sourceTree = "<group>"; };
 		91DB2B4D2A2A5FA300EC8176 /* ContentDirectoryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDirectoryHelper.swift; sourceTree = "<group>"; };
 		D12495432A268A720063C634 /* MacroChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12495462A268A720063C634 /* MacroChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroChallengeApp.swift; sourceTree = "<group>"; };
@@ -196,6 +208,9 @@
 				D153ACC72A38ED4D00DE9A79 /* Sen-Bold.ttf */,
 				D153ACCA2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf */,
 				D153ACC92A38ED4D00DE9A79 /* Sen-Regular.ttf */,
+				91D090F72A3B85A300ED2258 /* Sen-Bold.ttf */,
+				91D090F62A3B85A300ED2258 /* Sen-ExtraBold.ttf */,
+				91D090F52A3B85A300ED2258 /* Sen-Regular.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -585,6 +600,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D153ACCD2A38ED4D00DE9A79 /* Sen-Regular.ttf in Resources */,
+				91D090F82A3B85A300ED2258 /* Sen-Regular.ttf in Resources */,
+				91D090FB2A3B85A300ED2258 /* Sen-ExtraBold.ttf in Resources */,
+				91D090FE2A3B85A300ED2258 /* Sen-Bold.ttf in Resources */,
 				D124954E2A268A730063C634 /* Preview Assets.xcassets in Resources */,
 				D153ACCB2A38ED4D00DE9A79 /* Sen-Bold.ttf in Resources */,
 				D124954B2A268A730063C634 /* Assets.xcassets in Resources */,
@@ -596,6 +614,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91D090F92A3B85A300ED2258 /* Sen-Regular.ttf in Resources */,
+				91D090FF2A3B85A300ED2258 /* Sen-Bold.ttf in Resources */,
+				91D090FC2A3B85A300ED2258 /* Sen-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +624,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91D090FA2A3B85A300ED2258 /* Sen-Regular.ttf in Resources */,
+				91D091002A3B85A300ED2258 /* Sen-Bold.ttf in Resources */,
+				91D090FD2A3B85A300ED2258 /* Sen-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,6 +848,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
 				DEVELOPMENT_TEAM = 3SWCGFCJF2;
+				DEVELOPMENT_TEAM = V32Q5HA7F8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;

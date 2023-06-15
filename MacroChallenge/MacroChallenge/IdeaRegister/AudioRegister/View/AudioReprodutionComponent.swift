@@ -12,8 +12,10 @@ import AVFoundation
 struct AudioReprodutionComponent: View {
     @State var isPlaying: Bool = false
     @State var audioCurrentTime: Float = 0
+    @State var reachedMaxValue: Bool = false
     
     private let sliderTime = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
+    private let finishedAudioNotification = NotificationCenter.default.publisher(for: NSNotification.Name("FinishedAudio"))
     private let audioManager: AudioManager
     private let audioURL: URL
     
@@ -44,14 +46,22 @@ struct AudioReprodutionComponent: View {
                 } label: {
                     Image(systemName: self.isPlaying ? "pause.fill" : "play.fill")
                         .foregroundColor(Color("labelColor"))
-                }.onReceive(sliderTime) { _ in
+                }
+                .onReceive(sliderTime) { _ in
                     if !isPlaying {return}
-                    
+
                     self.audioCurrentTime = Float(self.audioManager.getCurrentTimeCGFloat())
-                    if self.isPlaying && !self.audioManager.getIsPlaying() {
+                    if self.audioCurrentTime >= self.audioManager.getDuration() && self.isPlaying {
                         self.isPlaying = false
                         self.audioCurrentTime = 0
+                        print("finish")
                     }
+                }
+                
+                .onReceive(finishedAudioNotification) { _ in
+                    self.isPlaying = false
+                    self.audioCurrentTime = 0
+                    print("notification")
                 }
                 
                 AudioSliderView(value: $audioCurrentTime, audioManager: self.audioManager)
@@ -77,7 +87,7 @@ struct AudioReprodutionComponent: View {
 
 //MARK: - SLIDER
 struct AudioSliderView : UIViewRepresentable {
-    @Binding var value : Float
+    @Binding var value: Float
     
     let slider: UISlider = UISlider(frame: .zero)
     private let audioManager: AudioManager
@@ -96,6 +106,7 @@ struct AudioSliderView : UIViewRepresentable {
             self.sliderView = sliderView
         }
         
+        // func that is called when user changes the slider value manually
         @objc func sliderChange(_ sender: UISlider!) {
             self.sliderView.audioManager.setCurrentTime(TimeInterval(sender.value))
             self.sliderView.value = sender.value
@@ -121,6 +132,9 @@ struct AudioSliderView : UIViewRepresentable {
     
     func updateUIView(_ uiView: UISlider, context: Context) {
         uiView.value = value
+        if value == 0 {
+            NotificationCenter.default.post(name: Notification.Name("FinishedAudio"), object: self)
+        }
     }
     
     func thumbImage(size: CGSize) -> UIImage {
