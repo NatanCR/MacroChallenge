@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
+    
+    let audioManager = AudioManager()
 
     //alteração da fonte dos títulos
     init(){
@@ -27,7 +29,7 @@ struct HomeView: View {
                         .padding(.trailing)
                 }
                 
-                SegmentedPickerComponent(ideasViewModel: ideasViewModel)
+                SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager)
   
                 //navigation bar
                 .toolbar{
@@ -74,6 +76,8 @@ struct HomeView: View {
 struct HomeGridView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     
+    let audioManager: AudioManager
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -101,7 +105,7 @@ struct HomeGridView: View {
                         case .text:
                             TextPreviewComponent(text: ideas.textComplete, title: ideas.title, description: ideas.description)
                         case .audio:
-                            AudioPreviewComponent(title: ideas.title, description: ideas.description)
+                            AudioPreviewComponent(title: ideas.title, description: ideas.description, audioManager: self.audioManager, idea: ideas as! AudioIdeia)
                         case .photo:
                             let photoIdea = ideas as! PhotoModel
                             ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, description: ideas.description)

@@ -14,6 +14,7 @@ struct AudioReprodutionComponent: View {
     @State var audioCurrentTime: Float = 0
     @State var finishedAudio: Bool = false
     @State var audioTimeText: String = "00:00"
+    @State var isCurrentSlider: Bool = true
     
     private let sliderTime = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
     private let finishedAudioNotification = NotificationCenter.default.publisher(for: NSNotification.Name("FinishedAudio"))
@@ -38,7 +39,7 @@ struct AudioReprodutionComponent: View {
                 Button {
                     self.isPlaying.toggle()
                     if isPlaying {
-                        audioManager.playAudio(self.audioURL)
+                        audioManager.playAudio()
                     } else {
                         self.audioCurrentTime = Float(self.audioManager.getCurrentTimeCGFloat())
                         audioManager.pauseAudio()
@@ -179,7 +180,10 @@ struct AudioSliderView : UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        uiView.value = value
+        DispatchQueue.main.async {
+            uiView.value = value
+        }
+        //print("value: \(value) / uiview: \(uiView.value)")
         
         // se o slider for maior ou igual ao tempo total do audio, ativa a notificacao de termino de audio
         if value >= audioManager.getDuration() {
