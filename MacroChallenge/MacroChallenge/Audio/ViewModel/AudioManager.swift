@@ -82,9 +82,14 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
         return Float(self.audioPlayer?.duration ?? 0)
     }
     
-    /**Get the is plating of the current AudioPlayer.*/
+    /**Get the is playing of the current AudioPlayer.*/
     public func getIsPlaying() -> Bool {
         return ((self.audioPlayer?.isPlaying) != nil)
+    }
+    
+    /**Get if the current AudioPlayer is stoped.*/
+    public func getIsStoped() -> Bool {
+        return !(self.audioPlayer?.isPlaying ?? false) && self.getCurrentTimeCGFloat() == 0
     }
     
     //MARK: - PRIVATE METHODS

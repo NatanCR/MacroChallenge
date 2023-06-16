@@ -12,8 +12,10 @@ import AVFoundation
 struct AudioReprodutionComponent: View {
     @State var isPlaying: Bool = false
     @State var audioCurrentTime: Float = 0
+    @State var finishedAudio: Bool = false
+    @State var audioTimeText: String = "00:00"
     
-    private let sliderTime = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
+    private let sliderTime = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
     private let finishedAudioNotification = NotificationCenter.default.publisher(for: NSNotification.Name("FinishedAudio"))
     private let audioManager: AudioManager
     private let audioURL: URL
@@ -35,10 +37,10 @@ struct AudioReprodutionComponent: View {
             HStack {
                 Button {
                     self.isPlaying.toggle()
-                    
                     if isPlaying {
                         audioManager.playAudio(self.audioURL)
                     } else {
+                        self.audioCurrentTime = Float(self.audioManager.getCurrentTimeCGFloat())
                         audioManager.pauseAudio()
                     }
                     
@@ -46,27 +48,31 @@ struct AudioReprodutionComponent: View {
                     Image(systemName: self.isPlaying ? "pause.fill" : "play.fill")
                         .foregroundColor(Color("labelColor"))
                 }
+                // notification recebida com o timer
                 .onReceive(sliderTime) { _ in
                     if !isPlaying {return}
-
-                    self.audioCurrentTime = Float(self.audioManager.getCurrentTimeCGFloat())
-                    if self.audioCurrentTime >= self.audioManager.getDuration() && self.isPlaying {
-                        self.isPlaying = false
-                        self.audioCurrentTime = 0
-                        print("finish")
+                    
+                    // se o audio foi reproduzido por completo, seta o valor do slider pra duracao maxima do audio
+                    if self.audioManager.getIsStoped() && self.isPlaying {
+                        self.audioCurrentTime = self.audioManager.getDuration()
+                        return
                     }
+                    
+                    self.audioCurrentTime = Float(self.audioManager.getCurrentTimeCGFloat())
+                    self.audioTimeText = self.convertCurrentTime()
                 }
-                
+                // notification ativada quando verifica que o audio terminou de ser reproduzido por completo
                 .onReceive(finishedAudioNotification) { _ in
                     self.isPlaying = false
                     self.audioCurrentTime = 0
+                    self.audioTimeText = self.convertCurrentTime()
                 }
                 
-                AudioSliderView(value: $audioCurrentTime, audioManager: self.audioManager)
+                AudioSliderView(value: $audioCurrentTime, audioTimeText: $audioTimeText, audioManager: self.audioManager)
                     .frame(width: 124)
                     .padding()
                 
-                Text(self.convertCurrentTime())
+                Text(self.audioTimeText)
                     .font(.system(size: 13))
                     .foregroundColor(Color("labelColor"))
             }
@@ -86,12 +92,14 @@ struct AudioReprodutionComponent: View {
 //MARK: - SLIDER
 struct AudioSliderView : UIViewRepresentable {
     @Binding var value: Float
+    @Binding var audioTimeText: String
     
     let slider: UISlider = UISlider(frame: .zero)
     private let audioManager: AudioManager
     
-    public init(value: Binding<Float>, audioManager: AudioManager) {
+    public init(value: Binding<Float>, audioTimeText: Binding<String>, audioManager: AudioManager) {
         self._value = value
+        self._audioTimeText = audioTimeText
         self.audioManager = audioManager
     }
     
@@ -104,10 +112,45 @@ struct AudioSliderView : UIViewRepresentable {
             self.sliderView = sliderView
         }
         
+        //MARK: OBJC FUNCs
         // func that is called when user changes the slider value manually
         @objc func sliderChange(_ sender: UISlider!) {
             self.sliderView.audioManager.setCurrentTime(TimeInterval(sender.value))
             self.sliderView.value = sender.value
+            self.sliderView.audioTimeText = self.convertCurrentTime()
+        }
+        
+        // called when the user drags the finger along the slider bar
+        @objc func sliderDragged(_ gestureRecognizer: UIPanGestureRecognizer) {
+            let point = gestureRecognizer.location(in: self.sliderView.slider)
+            let width = self.sliderView.slider.bounds.width
+            let value = point.x / width * CGFloat(self.sliderView.slider.maximumValue)
+            
+            switch gestureRecognizer.state {
+            case .began, .changed:
+                self.sliderView.slider.value = Float(value)
+                self.sliderChange(self.sliderView.slider)
+            default:
+                break
+            }
+        }
+        
+        // called when the user tap the slider bar
+        @objc func sliderTapped(_ gestureRecognizer: UITapGestureRecognizer) {
+            let point = gestureRecognizer.location(in: self.sliderView.slider)
+            let width = self.sliderView.slider.bounds.width
+            let value = point.x / width * CGFloat(self.sliderView.slider.maximumValue)
+            self.sliderView.slider.value = Float(value)
+            self.sliderChange(self.sliderView.slider)
+        }
+        
+        //MARK: PRIVATE FUNCs
+        private func convertCurrentTime() -> String {
+            let time = Int(self.sliderView.value)
+            let seconds = time % 60
+            let minutes = (time / 60) % 60
+            
+            return String(format: "%0.2d:%0.2d", minutes, seconds)
         }
     }
     
@@ -125,12 +168,21 @@ struct AudioSliderView : UIViewRepresentable {
         slider.setThumbImage(thumbImage(size: CGSize(width: 9, height: 9)), for: .normal)
         slider.value = value
         
+        // add tap and drag gestures to the slider
+        let panGestureRecognizer = UIPanGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.sliderDragged(_:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.sliderTapped(_:)))
+        
+        slider.addGestureRecognizer(panGestureRecognizer)
+        slider.addGestureRecognizer(tapGestureRecognizer)
+        
         return slider
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
         uiView.value = value
-        if value >= self.audioManager.getDuration() - 0.04 {
+        
+        // se o slider for maior ou igual ao tempo total do audio, ativa a notificacao de termino de audio
+        if value >= audioManager.getDuration() {
             NotificationCenter.default.post(name: Notification.Name("FinishedAudio"), object: self)
         }
     }
@@ -143,11 +195,5 @@ struct AudioSliderView : UIViewRepresentable {
         }
         
         return resized.withRenderingMode(.alwaysOriginal)
-    }
-}
-
-struct AudioReprodutionComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        AudioReprodutionComponent(audioManager: AudioManager(), audioURL: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])
     }
 }
