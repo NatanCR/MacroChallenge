@@ -64,6 +64,23 @@ struct RecordAudioView: View {
                 .padding()
             }
             
+            Spacer()
+            
+            TextEditor(text: $textComplete)
+                .frame(width: screenSize.width * 0.8, height: screenSize.height * 0.2)
+                .focused($isFocused)
+                .overlay {
+                    Text(self.textComplete.isEmpty ? "typeNote" : "")
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .foregroundColor(.gray)
+                        .onTapGesture {
+                            self.isFocused = true
+                        }
+                }
+            
+            Spacer(minLength: 400)
+
             // record and stop button
             Button {
                 self.isRecording.toggle()
@@ -102,10 +119,14 @@ struct RecordAudioView: View {
         }
         .font(.custom("Sen-Regular", size: 20))
         .navigationTitle("Inserir áudio")
+            
+            Spacer()
+        }.font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
+        .navigationTitle("insertAud")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Salvar") {
+                Button("save") {
                     if isRecording {
                         self.recordAudio.stopRecordingAudio()
                         self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)

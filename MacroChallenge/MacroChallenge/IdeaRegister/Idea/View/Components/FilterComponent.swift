@@ -14,62 +14,56 @@ struct FilterComponent: View {
     
     var body: some View {        
                 Menu{
-                    Menu("Ordenar por:"){
+                    Menu("order"){
                         Button{
-                            print("ordenar por adição")
                             byCreation = true
                             ideasViewModel.orderBy(byCreation: byCreation, sortedByDescendent: sortedByDescendent)
                         } label: {
-                            Text("Data de adição (Padrão)")
+                            Text("addDate)")
                             Image(systemName: "checkmark")
                         }
                         Button {
                             byCreation = false
                             ideasViewModel.orderBy(byCreation: byCreation, sortedByDescendent: sortedByDescendent)
                         } label: {
-                            Text("Data de edição")
+                            Text("editDate")
                             Image(systemName: "")
                         }
                         
                         Divider()
                         
                         Button{
-                            print("ordenar por mais recente")
                             sortedByDescendent = true
                             ideasViewModel.orderBy(byCreation: byCreation, sortedByDescendent: sortedByDescendent)
                         } label: {
-                            Text("Mais recente")
+                            Text("recent")
                             Image(systemName: "checkmark")
                         }
                         Button {
-                            print("ordenar por mais antigo")
                             sortedByDescendent = false
                             ideasViewModel.orderBy(byCreation: byCreation, sortedByDescendent: sortedByDescendent)
                         } label: {
-                            Text("Mais antigo")
+                            Text("old")
                             Image(systemName: "")
                         }
                     }
-                    Menu("Filtrar por") {
+                    Menu("filter") {
                         Button{
-                           print("imagem")
                             ideasViewModel.filterBy(.photo)
                         } label: {
-                            Text("Imagem")
+                            Text("img")
                             Image(systemName: "")
                         }
                         Button {
-                            print("texto")
                             ideasViewModel.filterBy(.text)
                         } label: {
-                            Text("Texto")
+                            Text("txt")
                             Image(systemName: "")
                         }
                         Button {
-                            print("áudio")
                             ideasViewModel.filterBy(.audio)
                         } label: {
-                            Text("Áudio")
+                            Text("aud")
                             Image(systemName: "")
                         }
                     }

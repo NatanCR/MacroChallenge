@@ -21,7 +21,8 @@ struct TextRegisterView: View {
                     .padding()
                     .focused($isFocused)
             }
-        .navigationTitle("Inserir texto")
+        }
+        .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             isFocused = true

@@ -1,0 +1,69 @@
+/* 
+  Localizable.strings
+  MacroChallenge
+
+  Created by Natan de Camargo Rodrigues on 16/06/23.
+  
+*/
+
+//MARK: Buttons
+
+"back" = "Back";
+
+"save" = "Save";
+
+//MARK: Info page
+
+"info" = "Info";
+
+"about" = "About";
+
+"aboutText" = "";
+
+"privacy" = "Privacy policy";
+
+"privacyText"= "";
+
+"terms" = "User terms of service";
+
+"termsText" = "";
+
+//MARK: Search, Order and Filter
+
+"search" = "Search";
+
+//MARK: Order
+"order" = "Order by:";
+
+"addDate" = "Add date (default)";
+
+"editDate" = "Edit date";
+
+"recent" = "Most recent";
+
+"old" = "Most old";
+
+//MARK: Filter
+"filter" = "Filter by:";
+
+"img" = "Image";
+
+"txt" = "Text";
+
+"aud" = "Audio";
+
+//MARK: Titles
+
+"insertAud" = "Insert audio";
+
+"insertTxt" = "Insert text";
+
+"ideaDay" = "Idea of the day";
+
+"note" = "Notes";
+
+"typeNote" = "Type your notes.";
+
+"record" = "Recording";
+
+//MARK: Alerts

@@ -37,12 +37,28 @@ struct CheckAudioView: View {
     var body: some View {
         
         VStack (alignment: .center){
+        VStack {
+            HStack {
+                Text("ideaDay")
+                    .font(.system(size: 23))
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.leading)
+                Text("\(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
+                    .font(.system(size: 23))
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.leading)
+            }
+            
             
             AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
                 .frame(maxHeight: screenSize.height * 0.05)
                 .padding(.top, 70)
                 .padding(.bottom, 30)
             
+            Text("note")
+                .fontWeight(.bold)
+                .multilineTextAlignment(.leading)
+                .frame(width: screenSize.width * 0.9, alignment: .topLeading)
             
             TextEditor(text: $idea.textComplete)
                 .font(.custom("Sen-Regular", size: 17))

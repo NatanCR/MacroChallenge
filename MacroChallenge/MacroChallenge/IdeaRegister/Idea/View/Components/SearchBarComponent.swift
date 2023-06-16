@@ -18,7 +18,7 @@ struct SearchBarComponent: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(Color("labelColor"))
                     .opacity(0.5)
-                TextField("Pesquise aqui", text: $searchText)
+                TextField("search", text: $searchText)
                     .foregroundColor(Color("labelColor"))
                     .keyboardType(.default)
                     .disabled(self.textFieldEstaEditando)

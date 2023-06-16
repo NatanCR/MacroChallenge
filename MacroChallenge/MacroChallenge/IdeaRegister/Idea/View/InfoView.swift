@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InfoView: View {
     //variável que recebe o título do botão
-    var infoTitle: [String] = ["Sobre", "Política de privacidade", "Termos de uso"]
+    var infoTitle: [String] = ["about", "privacy", "terms"]
     
     var infoText: String
     
@@ -29,7 +29,7 @@ struct InfoView: View {
             Spacer()
             
         }   .padding()
-            .navigationTitle("Info")
+            .navigationTitle("info")
             .background(Color("backgroundColor"))
     }
 }

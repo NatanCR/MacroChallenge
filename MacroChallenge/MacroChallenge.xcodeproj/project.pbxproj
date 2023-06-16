@@ -64,6 +64,7 @@
 		D153ACCD2A38ED4D00DE9A79 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D153ACC92A38ED4D00DE9A79 /* Sen-Regular.ttf */; };
 		D153ACCE2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D153ACCA2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf */; };
 		D153ACD02A3B82D500DE9A79 /* IdeasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D153ACCF2A3B82D500DE9A79 /* IdeasViewModel.swift */; };
+		D153ACD32A3CDE9600DE9A79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D153ACD52A3CDE9600DE9A79 /* Localizable.strings */; };
 		D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */; };
 		D1D409562A31183900F0B99B /* ListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409552A31183900F0B99B /* ListTemplate.swift */; };
 /* End PBXBuildFile section */
@@ -141,6 +142,8 @@
 		D153ACC92A38ED4D00DE9A79 /* Sen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-Regular.ttf"; sourceTree = "<group>"; };
 		D153ACCA2A38ED4D00DE9A79 /* Sen-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-ExtraBold.ttf"; sourceTree = "<group>"; };
 		D153ACCF2A3B82D500DE9A79 /* IdeasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeasViewModel.swift; sourceTree = "<group>"; };
+		D153ACD42A3CDE9600DE9A79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D153ACD62A3CDED200DE9A79 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteIdeaSpec.swift; sourceTree = "<group>"; };
 		D1D409552A31183900F0B99B /* ListTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTemplate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -411,6 +414,7 @@
 				9195EF232A27049000A839D8 /* Essentials */,
 				916E0FB02A268B0B00F4FA87 /* Audio */,
 				916E0FB12A268B1700F4FA87 /* IdeaRegister */,
+				D153ACD52A3CDE9600DE9A79 /* Localizable.strings */,
 			);
 			path = MacroChallenge;
 			sourceTree = "<group>";
@@ -575,6 +579,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = D124953A2A268A720063C634;
 			productRefGroup = D12495442A268A720063C634 /* Products */;
@@ -594,6 +599,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D153ACCD2A38ED4D00DE9A79 /* Sen-Regular.ttf in Resources */,
+				D153ACD32A3CDE9600DE9A79 /* Localizable.strings in Resources */,
 				D124954E2A268A730063C634 /* Preview Assets.xcassets in Resources */,
 				D153ACCB2A38ED4D00DE9A79 /* Sen-Bold.ttf in Resources */,
 				D124954B2A268A730063C634 /* Assets.xcassets in Resources */,
@@ -712,11 +718,24 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		D153ACD52A3CDE9600DE9A79 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D153ACD42A3CDE9600DE9A79 /* en */,
+				D153ACD62A3CDED200DE9A79 /* pt-BR */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		D12495652A268A730063C634 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -777,6 +796,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
