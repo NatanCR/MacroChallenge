@@ -10,6 +10,8 @@
 
 "back" = "Voltar";
 
+"save" = "Salvar";
+
 //MARK: Info page
 
 "info" = "Info";
@@ -30,6 +32,7 @@
 
 "search" = "Pesquise";
 
+//MARK: Order
 "order" = "Ordenar por:";
 
 "addDate" = "Data de adição (Padrão)";
@@ -40,6 +43,7 @@
 
 "old" = "Mais antigo";
 
+//MARK: Filter
 "filter" = "Filtrar por:";
 
 "img" = "Imagem";
@@ -53,3 +57,13 @@
 "insertAud" = "Inserir áudio";
 
 "insertTxt" = "Inserir texto";
+
+"ideaDay" = "Ideia do dia";
+
+"note" = "Notas";
+
+"typeNote" = "Digite sua nota.";
+
+"record" = "Gravando";
+
+//MARK: Alerts
