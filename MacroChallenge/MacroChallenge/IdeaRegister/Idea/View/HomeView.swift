@@ -74,7 +74,7 @@ struct HomeGridView: View {
                 ForEach((1...9), id: \.self) { i in
                     // teste para texto
                     if i < 4 {
-                            TextPreviewComponent(text: "oioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioi")
+                            TextPreviewComponent(text: "oioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioi")
                     }
                     
                     // teste para audio
@@ -103,7 +103,7 @@ struct HomeListView: View {
                     
                     // teste para texto
                     if i < 4 {
-                        ListRowComponent(title: "texto", info: "data de adição ou edição", image: UIImage(systemName: "doc.text") ?? UIImage())
+                        ListRowComponent(title: "Texto grande pra testar se ta okdafklj;aldskjf;lajsd;lfkjasdl;kjfalkdsjaflsdjfalkjsflkajdslfjasd;ljfld", info: "data de adição ou edição", image: UIImage())
                     }
                     
                     // teste para audio

@@ -16,15 +16,11 @@ struct TextRegisterView: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        GeometryReader { geo in
             VStack {
                 TextEditor(text: $textComplete)
-                    .frame(height: geo.size.height * 0.2)
                     .padding()
                     .focused($isFocused)
-                Spacer()
             }
-        }
         .navigationTitle("Inserir texto")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -57,7 +53,7 @@ struct TextRegisterView: View {
                     }
                     
                 } label: {
-                    Text("OK")
+                    Text("Salvar")
                 }
             }
         }.font(Font.custom("Sen-Regular", size: 17))

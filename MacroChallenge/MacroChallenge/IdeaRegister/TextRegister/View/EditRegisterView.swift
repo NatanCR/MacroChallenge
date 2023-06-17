@@ -10,49 +10,45 @@ import SwiftUI
 struct EditRegisterView: View {
     @State var modelText: ModelText
     @Environment(\.dismiss) private var dismiss
-    @State private var isAlertActive: Bool = false
+    @Environment(\.screenSize) private var screenSize
+    
     @EnvironmentObject var appState: AppState
     
+    // text
+    @FocusState var isFocused: Bool
+        
+    // date
+    let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
+    
     var body: some View {
-        GeometryReader { geo in
             VStack {
                 TextEditor(text: $modelText.textComplete)
-                    .frame(height: geo.size.height * 0.2)
-                    .padding()
-                
-                //salva e fecha a tela de edição
-                Button("Save") {
-                    TextViewModel.setTextsFromIdea(idea: &modelText)
-                    modelText.modifiedDate = Date()
-                    
-                    //salva novamente
-                    IdeaSaver.changeSavedValue(type: ModelText.self, idea: modelText)
-                    
-                    //fecha a tela
-                    dismiss()
-                }
-                .padding()
-                Spacer()
-                    .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
-                        Button("Delete Idea", role: .destructive) {
-                            //deletar
-                            IdeaSaver.clearOneIdea(type: ModelText.self, idea: modelText)
-                            appState.rootViewId = UUID()
-                        }
+                    .frame(width: screenSize.width ,height: screenSize.height * 0.8, alignment: .topLeading)
+                    .focused($isFocused)
+                    .overlay{
+                        PlaceholderComponent(idea: modelText)
                     }
             }
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    self.isAlertActive.toggle()
-                } label: {
-                    Text(Image(systemName: "trash.fill"))
-                        .foregroundColor(.red)
+            .navigationBarBackButtonHidden()
+            .navigationTitle("Ideia do dia \(modelText.creationDate.toString(dateFormatter: self.dateFormatter)!)")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    MenuEditComponent(type: ModelText.self, idea: modelText)
                 }
-                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if isFocused{
+                        Button{
+                            isFocused = false
+                        } label: {
+                            Text("OK")
+                        }
+                    }
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    CustomBackButtonComponent(type: ModelText.self, idea: $modelText)
+                }
             }
-        }
     }
 }
 

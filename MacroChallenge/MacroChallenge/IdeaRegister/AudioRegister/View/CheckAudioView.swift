@@ -36,101 +36,53 @@ struct CheckAudioView: View {
     //MARK: - BODY
     var body: some View {
         
-        VStack (alignment: .leading){
-//            Text("Ideia do dia \(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
-//                .font(.custom("Sen-Bold", size: 23))
-//                .multilineTextAlignment(.leading)
+        VStack (alignment: .center){
             
             AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
-                .frame(height: 10)
+                .frame(maxHeight: screenSize.height * 0.05)
                 .padding(.top, 70)
                 .padding(.bottom, 30)
             
-            Text("Notas")
-                .font(.custom("Sen-Bold", size: 17))
-                .multilineTextAlignment(.leading)
-                .frame(width: screenSize.width * 0.9, alignment: .topLeading)
             
             TextEditor(text: $idea.textComplete)
                 .font(.custom("Sen-Regular", size: 17))
                 .multilineTextAlignment(.leading)
-                .frame(width: screenSize.width, height: screenSize.height * 0.8, alignment: .topLeading)
+                .frame(maxWidth: screenSize.width, maxHeight: screenSize.height * 0.8)
+                .focused($isFocused)
                 .overlay {
-                    Text(self.idea.textComplete.isEmpty ? "Digite sua nota." : "")
-                        .font(.custom("Sen-Regular", size: 17))
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                        .padding(8)
-                        .foregroundColor(Color("labelColor"))
-                        .opacity(0.6)
-                        .onTapGesture {
-                            self.isFocused = true
-                        }
+                    PlaceholderComponent(idea: idea)
                 }
  
             Spacer()
         }
         .navigationTitle("Ideia do dia \(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
         .navigationBarTitleDisplayMode(.large)
+        .navigationBarBackButtonHidden()
+        
         .toolbar {
 
+            //menu de favoritar e excluir
             ToolbarItem(placement: .navigationBarTrailing){
-                
-                Menu{
-                    //TODO: aplicar ação de favoritar e trocar o ícone para "heart.fill" quando estiver favoritado
-                    Button{
-                        print("ok")
-                    } label: {
-                        HStack{
-                            Text("Favorite")
-                            Image(systemName: "heart")
-                        }
-                    }
-                    
-                    Divider()
-                    
-                    Button(role: .destructive){
-                        IdeaSaver.clearOneIdea(type: AudioIdeia.self, idea: self.idea)
-                        ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: self.idea.audioPath)
-                        dismiss()
-                    } label: {
-                        HStack{
-                            Text("Delete")
-                            Image(systemName: "trash")
-                        }
-                    }
-                } label: {
-                    Image(systemName: "ellipsis.circle")
-                }
+                MenuEditComponent(type: AudioIdeia.self, idea: self.idea)
             }
             
-            
+            //botão que dá dismiss no teclado após edição
             ToolbarItem (placement: .navigationBarTrailing){
-                
-                //TODO: fazer botão de OK aparecer apenas quando estiver editando
-                    Button {
-                        TextViewModel.setTextsFromIdea(idea: &self.idea)
-                        IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
-                        dismiss()
+                if isFocused{
+                    Button{
+                        isFocused = false
                     } label: {
                         Text("OK")
                     }
+                }
             }
 
             
             //back button personalizado
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                Button {
-//                    TextViewModel.setTextsFromIdea(idea: &self.idea)
-//                    IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
-//                    dismiss()
-//                } label: {
-//                    HStack {
-//                        Image(systemName: "chevron.backward")
-//                        Text("Voltar")
-//                    }
-//                }
-//            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomBackButtonComponent(type: AudioIdeia.self, idea: $idea)
+
+            }
         }
     }
 }

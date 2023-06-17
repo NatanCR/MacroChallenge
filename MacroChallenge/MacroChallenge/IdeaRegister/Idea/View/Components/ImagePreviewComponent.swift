@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ImagePreviewComponent: View {
+    @Environment(\.screenSize) var screenSize
     var image: UIImage
     
     var body: some View {
@@ -15,24 +16,25 @@ struct ImagePreviewComponent: View {
             Image(uiImage: image)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 100, height: 100)
+                .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
                 .cornerRadius(20)
                 .overlay(alignment: .topTrailing){
                     Button{
                         
                     } label: {
                         Image(systemName: "heart")
+                            .font(.system(size: 20))
                     }
                     .padding(8)
                 }
-            
-            Text("Title")
+                .padding(.bottom, 5)
+            Text("Título Grande para Testes")
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
                 .font(.custom("Sen-Regular", size: 20))
-                .frame(width: 95, height: 20)
             
-            Text("Description")
-                .font(.custom("Sen-Regular", size: 15))
-                .frame(width: 95, height: 20)
+            Text("12/03/2023")
+                .font(.custom("Sen-Regular", size: 17))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
         }
     }
 }

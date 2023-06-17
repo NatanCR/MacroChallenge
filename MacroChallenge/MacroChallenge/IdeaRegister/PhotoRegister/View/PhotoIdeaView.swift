@@ -19,6 +19,7 @@ struct PhotoIdeaView: View {
     
     @FocusState var isFocused: Bool
     
+    
     init(photoModel: PhotoModel) {
         self._photoModel = State(initialValue: photoModel)
         
@@ -30,9 +31,6 @@ struct PhotoIdeaView: View {
                 
                 VStack (alignment: .center){
                     
-//                    Text("Ideia do dia \(photoModel.creationDate, formatter: self.dateFormatter)")
-//                            .font(.custom("Sen-Bold", size: 23))
-//                            .multilineTextAlignment(.leading)
                                         
                     Image(uiImage: uiImage)
                         .resizable()
@@ -46,22 +44,10 @@ struct PhotoIdeaView: View {
                         .font(.custom("Sen-Regular", size: 17))
                         .multilineTextAlignment(.leading)
                         .frame(alignment: .topLeading)
-                        .padding()
+                        .focused($isFocused)
                         .overlay {
-                            Text(self.photoModel.textComplete.isEmpty ? "Digite sua nota." : "")
-                                .font(.custom("Sen-Regular", size: 17))
-                                .multilineTextAlignment(.leading)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                                .padding(8)
-                                .foregroundColor(Color("labelColor"))
-                                .opacity(0.6)
-                                .onTapGesture {
-                                    self.isFocused = true
-                                }
+                            PlaceholderComponent(idea: photoModel)
                         }
-                    
-//                        Spacer()
-                    
                         .onAppear {
                             if !photoModel.textComplete.isEmpty {
                                 DispatchQueue.main.async {
@@ -75,46 +61,35 @@ struct PhotoIdeaView: View {
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    TextViewModel.setTextsFromIdea(idea: &photoModel)
-                    IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: self.photoModel)
-                    dismiss()
-                } label: {
-                    HStack {
-                        Image(systemName: "chevron.backward")
-                        Text("Voltar")
+            ToolbarItem (placement: .navigationBarTrailing){
+                MenuEditComponent(type: PhotoModel.self, idea: self.photoModel)
+            }
+            
+            ToolbarItem (placement: .navigationBarTrailing){
+                if isFocused{
+                    Button{
+                        isFocused = false
+                    } label: {
+                        Text("OK")
                     }
                 }
             }
-            ToolbarItem (placement: .navigationBarTrailing){
-                Button{
-                    IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: photoModel)
-                    showAlert = true
-                } label: {
-                    Image(systemName: "trash")
-                        .foregroundColor(.red)
-                }
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomBackButtonComponent(type: PhotoModel.self, idea: $photoModel)
             }
         }
-//        .navigationBarItems(trailing: Button(action: {
-//            IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: photoModel)
-//            showAlert = true
-//        }) {
-//            Image(systemName: "trash")
-//                .foregroundColor(.red)
-//        })
+
                 
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("Sucesso"),
-                message: Text("A ideia foi excluída com sucesso."),
-                dismissButton: .default(Text("OK")) {
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            )
-        }
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("Sucesso"),
+                    message: Text("A ideia foi excluída com sucesso."),
+                    dismissButton: .default(Text("OK")) {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                )
             }
+        }
     }
 }
 

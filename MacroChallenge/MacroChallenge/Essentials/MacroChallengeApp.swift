@@ -12,7 +12,7 @@ struct MacroChallengeApp: App {
     var body: some Scene {
         WindowGroup {
             GeometryReader { geo in
-                ListView()
+                HomeView()
                     .environment(\.screenSize, geo.size)
             }
         }

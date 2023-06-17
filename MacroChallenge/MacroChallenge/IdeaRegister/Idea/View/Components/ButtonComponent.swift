@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ButtonComponent: View {
-    
+    @Environment(\.screenSize) var screenSize
     var title: String
     
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 30)
-                .frame(width: 350, height: 70)
+                .frame(width: screenSize.width * 0.9, height: screenSize.height * 0.1)
                 .foregroundColor(Color("AccentColor"))
             HStack{
                 Text(title)
