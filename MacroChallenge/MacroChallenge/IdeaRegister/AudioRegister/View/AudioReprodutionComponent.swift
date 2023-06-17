@@ -16,7 +16,7 @@ struct AudioReprodutionComponent: View {
     @State var audioTimeText: String = "00:00"
     @State var isCurrentSlider: Bool = true
     
-    private let sliderTime = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
+    private let sliderTime = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     private let finishedAudioNotification = NotificationCenter.default.publisher(for: NSNotification.Name("FinishedAudio"))
     private let audioManager: AudioManager
     private let audioURL: URL
@@ -97,11 +97,13 @@ struct AudioSliderView : UIViewRepresentable {
     
     let slider: UISlider = UISlider(frame: .zero)
     private let audioManager: AudioManager
+    let isFromAudioCheck: Bool
     
-    public init(value: Binding<Float>, audioTimeText: Binding<String>, audioManager: AudioManager) {
+    public init(value: Binding<Float>, audioTimeText: Binding<String>, audioManager: AudioManager, isFromAudioCheck: Bool = true) {
         self._value = value
         self._audioTimeText = audioTimeText
         self.audioManager = audioManager
+        self.isFromAudioCheck = isFromAudioCheck
     }
     
     //MARK: - COORDINATOR
@@ -173,8 +175,10 @@ struct AudioSliderView : UIViewRepresentable {
         let panGestureRecognizer = UIPanGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.sliderDragged(_:)))
         let tapGestureRecognizer = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.sliderTapped(_:)))
         
-        slider.addGestureRecognizer(panGestureRecognizer)
-        slider.addGestureRecognizer(tapGestureRecognizer)
+        if isFromAudioCheck {
+            slider.addGestureRecognizer(panGestureRecognizer)
+            slider.addGestureRecognizer(tapGestureRecognizer)
+        }
         
         return slider
     }
@@ -183,7 +187,6 @@ struct AudioSliderView : UIViewRepresentable {
         DispatchQueue.main.async {
             uiView.value = value
         }
-        //print("value: \(value) / uiview: \(uiView.value)")
         
         // se o slider for maior ou igual ao tempo total do audio, ativa a notificacao de termino de audio
         if value >= audioManager.getDuration() {
@@ -192,10 +195,15 @@ struct AudioSliderView : UIViewRepresentable {
     }
     
     func thumbImage(size: CGSize) -> UIImage {
-        let thumb = UIImage(systemName: "circle.fill")?.withTintColor(UIColor(Color("labelColor")), renderingMode: .alwaysOriginal)
+        var thumb = UIImage()
+        var resized = UIImage()
         
-        let resized = UIGraphicsImageRenderer(size: size).image { _ in
-            thumb?.draw(in: CGRect(origin: .zero, size: size))
+        if isFromAudioCheck {
+            thumb = UIImage(systemName: "circle.fill")?.withTintColor(UIColor(Color("labelColor")), renderingMode: .alwaysOriginal) ?? UIImage()
+            
+            resized = UIGraphicsImageRenderer(size: size).image { _ in
+                thumb.draw(in: CGRect(origin: .zero, size: size))
+            }
         }
         
         return resized.withRenderingMode(.alwaysOriginal)

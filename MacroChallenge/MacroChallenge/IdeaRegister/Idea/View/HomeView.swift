@@ -97,6 +97,7 @@ struct HomeGridView: View {
                             EditRegisterView(modelText: ideas as! ModelText)
                         case .audio:
                             CheckAudioView(audioIdea: ideas as! AudioIdeia)
+                                .onAppear { self.audioManager.stopAudio() }
                         case .photo:
                             PhotoIdeaView(photoModel: ideas as! PhotoModel)
                         }
