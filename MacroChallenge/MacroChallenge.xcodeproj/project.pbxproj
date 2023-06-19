@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		401292872A40F155006DB4CF /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401292862A40F155006DB4CF /* SplashScreenView.swift */; };
 		40497BAA2A31259900E6D3B5 /* ListRowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BA92A31259900E6D3B5 /* ListRowComponent.swift */; };
 		40497BAC2A32E5F600E6D3B5 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BAB2A32E5F600E6D3B5 /* InfoView.swift */; };
 		40497BAE2A32E68500E6D3B5 /* ButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */; };
@@ -91,6 +92,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		401292862A40F155006DB4CF /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		40497BA92A31259900E6D3B5 /* ListRowComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowComponent.swift; sourceTree = "<group>"; };
 		40497BAB2A32E5F600E6D3B5 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonComponent.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				4097FDEB2A2FC239001EAB03 /* Components */,
 				4097FE042A2FD3B3001EAB03 /* HomeView.swift */,
 				40497BAB2A32E5F600E6D3B5 /* InfoView.swift */,
+				401292862A40F155006DB4CF /* SplashScreenView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				916E0FC82A268C2000F4FA87 /* RecordAudioPrototype.swift in Sources */,
 				916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */,
 				D1D409562A31183900F0B99B /* ListTemplate.swift in Sources */,
+				401292872A40F155006DB4CF /* SplashScreenView.swift in Sources */,
 				D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */,
 				43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
