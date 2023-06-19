@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ToolbarComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
-//    @State var isShowingCamera = false
     
     var body: some View {
         HStack{
