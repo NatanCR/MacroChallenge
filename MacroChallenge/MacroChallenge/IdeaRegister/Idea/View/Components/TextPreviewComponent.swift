@@ -23,6 +23,7 @@ struct TextPreviewComponent: View {
                         } label: {
                             Image(systemName: "heart.fill")
                                 .font(.system(size: 20))
+                                .foregroundColor(Color("deleteColor"))
                         }
                         .padding(8)
                     }

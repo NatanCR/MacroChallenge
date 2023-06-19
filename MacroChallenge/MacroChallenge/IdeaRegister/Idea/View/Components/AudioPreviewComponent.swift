@@ -22,6 +22,8 @@ struct AudioPreviewComponent: View {
                         } label: {
                             Image(systemName: "heart")
                                 .font(.system(size: 20))
+                                .foregroundColor(Color("deleteColor"))
+
                         }
                         .padding(8)
                     }
