@@ -63,8 +63,15 @@ struct CheckAudioView: View {
                             self.isFocused = true
                         }
                 }
+                .onChange(of: idea.textComplete) { newValue in
+                    saveIdea()
+                }
             
             Spacer()
+        }
+        .onSwipeBack {
+            saveIdea()
+            dismiss()
         }
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -82,8 +89,7 @@ struct CheckAudioView: View {
             
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    TextViewModel.setTextsFromIdea(idea: &self.idea)
-                    IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
+                    saveIdea()
                     dismiss()
                 } label: {
                     HStack {
@@ -93,5 +99,11 @@ struct CheckAudioView: View {
                 }
             }
         }
+    }
+    
+    //MARK: - FUNCs
+    private func saveIdea() {
+        TextViewModel.setTextsFromIdea(idea: &self.idea)
+        IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
     }
 }
