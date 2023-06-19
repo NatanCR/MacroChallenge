@@ -7,6 +7,8 @@
 
 import AVFoundation
 import SwiftUI
+import Combine
+import Foundation
 
 struct CameraRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = UIImagePickerController
@@ -14,7 +16,17 @@ struct CameraRepresentable: UIViewControllerRepresentable {
     @ObservedObject var viewModel: CameraViewModel
     @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
     @Environment(\.dismiss) var dismiss
-    @State var firstPermission: Bool = true
+    @State var firstPermission: Bool = {
+        if let value = UserDefaults.standard.object(forKey: "FirstPermission") as? Bool {
+            return value
+        } else {
+            return true
+        }
+    }()
+    
+    init(viewModel: CameraViewModel) {
+        self.viewModel = viewModel
+    }
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
@@ -27,13 +39,14 @@ struct CameraRepresentable: UIViewControllerRepresentable {
                     ideasViewModel.isShowingCamera = true
                 }
             } else {
-//                print(firstPermission)
-//                if firstPermission {
-//                    DispatchQueue.main.async {
-//                        dismiss()
-//                        firstPermission = false
-//                    }
-//                } else {
+                print(firstPermission)
+                if firstPermission {
+                    DispatchQueue.main.async {
+                        UserDefaults.standard.set(false, forKey: "FirstPermission")
+                        self.dismiss()
+                    }
+                    
+                } else {
                     if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
                         let alert = UIAlertController(title: "Permissão negada", message: "Você negou permissão para acessar a câmera. Deseja abrir as configurações para conceder permissão?", preferredStyle: .alert)
                         
@@ -56,7 +69,7 @@ struct CameraRepresentable: UIViewControllerRepresentable {
                         }
                     }
                 }
-//            }
+            }
         }
         
         return imagePicker
