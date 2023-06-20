@@ -12,6 +12,10 @@
 
 "save" = "Save";
 
+"del" = "Delete";
+
+"fav" = "Favorite";
+
 //MARK: Info page
 
 "info" = "Info";

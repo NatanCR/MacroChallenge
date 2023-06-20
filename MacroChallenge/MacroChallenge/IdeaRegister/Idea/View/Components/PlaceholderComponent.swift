@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct PlaceholderComponent<T: Idea>: View {
-    
     var idea: T
-
     var body: some View {
         
-        Text(self.idea.textComplete.isEmpty ? "Digite sua nota." : "")
+        Text(self.idea.textComplete.isEmpty ? "typeNote" : "")
             .font(.custom("Sen-Regular", size: 17))
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

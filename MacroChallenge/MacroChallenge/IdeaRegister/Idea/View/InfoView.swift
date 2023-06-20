@@ -10,7 +10,6 @@ import SwiftUI
 struct InfoView: View {
     //variável que recebe o título do botão
     var infoTitle: [String] = ["about", "privacy", "terms"]
-    
     var infoText: String
     
     var body: some View {
@@ -23,7 +22,6 @@ struct InfoView: View {
                 } label: {
                     ButtonComponent(title: title)
                 }.padding(5)
-                
             }
             
             Spacer()
@@ -47,6 +45,7 @@ struct InfoText: View {
             VStack (alignment: .leading){
                 Text(infoText)
                     .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                //TODO: colocar frame 
                     .foregroundColor(Color("labelColor"))
             }.padding()
             .navigationTitle(infoTitle)

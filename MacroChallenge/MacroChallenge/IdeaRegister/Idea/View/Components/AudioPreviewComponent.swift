@@ -9,9 +9,11 @@ import SwiftUI
 
 struct AudioPreviewComponent: View {
     @Environment(\.screenSize) var screenSize
-
+    private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var title: String
-    var description: String
+    var editDate: Date
+    @State var idea: any Idea
+    
     var body: some View {
         VStack{
             ZStack{
@@ -20,12 +22,17 @@ struct AudioPreviewComponent: View {
                     .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
                     .overlay(alignment: .topTrailing){
                         Button{
-                            
+                            idea.isFavorite.toggle()
+                            switch idea.ideiaType {
+                            case .audio:
+                                IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: idea as! AudioIdeia)
+                            case .text:
+                                IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
+                            case .photo:
+                                IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
+                            }
                         } label: {
-                            Image(systemName: "heart")
-                                .font(.system(size: 20))
-                                .foregroundColor(Color("deleteColor"))
-
+                            idea.isFavorite ? Image(systemName: "heart.fill").font(.system(size: 20)) : Image(systemName: "heart").font(.system(size: 20))
                         }
                         .padding(8)
                     }
@@ -39,11 +46,11 @@ struct AudioPreviewComponent: View {
             }
             .padding(.bottom, 5)
 
-            Text("Titulo grande para testar essa merda")
-                .font(.custom("Sen-Regular", size: 20))
+            Text(title)
+                .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
-            Text("14/02/2004")
-                .font(.custom("Sen-Regular", size: 17))
+            Text(editDate.toString(dateFormatter: self.dateFormatter)!)
+                .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
         }
     }
@@ -71,8 +78,8 @@ struct PlayPreviewComponent: View {
     }
 }
 
-struct AudioPreviewComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        AudioPreviewComponent(title: "", description: "")
-    }
-}
+//struct AudioPreviewComponent_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AudioPreviewComponent(title: "", editDate: Date())
+//    }
+//}

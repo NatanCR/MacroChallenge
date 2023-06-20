@@ -9,9 +9,19 @@ import SwiftUI
 
 struct TextPreviewComponent: View {
     @Environment(\.screenSize) var screenSize
+    private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var text: String
     var title: String
-    var description: String
+    var editDate: Date
+    @Binding var idea: any Idea
+    
+    init(text: String, title: String, editDate: Date, idea: Binding<any Idea>) {
+        self.text = text
+        self.title = title
+        self.editDate = editDate
+        self._idea = idea
+    }
+    
     var body: some View {
         VStack{
             ZStack{
@@ -19,43 +29,31 @@ struct TextPreviewComponent: View {
                     .foregroundColor(Color("backgroundItem"))
                     .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
                     .overlay(alignment: .topTrailing){
-                        Button{
-                            
-                        } label: {
-                            Image(systemName: "heart.fill")
-                                .font(.system(size: 20))
-                                .foregroundColor(Color("deleteColor"))
-                        }
+                        ButtonFavoriteComponent(type: ModelText.self, idea: $idea.wrappedValue as! ModelText)
                         .padding(8)
                     }
                 Text(text)
                     .foregroundColor(Color("labelColor"))
-                    .font(Font.custom("Sen-Regular", size: 17))
+                    .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
                     .frame(width: screenSize.width * 0.25, height: screenSize.width * 0.15)
                 
             }
             .padding(.bottom, 5)
-
-            Text("Titulo grande para testar")
-                .font(.custom("Sen-Regular", size: 20))
-                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
-            Text("Description")
-                .font(.custom("Sen-Regular", size: 17))
-                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
-                    .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                    .frame(width: 80, height: 80)
-                
-            }
+            
             Text(title)
                 .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
-            Text(description)
-                .font(.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
+            Text(editDate.toString(dateFormatter: self.dateFormatter)!)
+                .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
+            
+            
         }
     }
 }
 
-struct TextPreviewComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        TextPreviewComponent(text: "", title: "", description: "")
-    }
-}
+//struct TextPreviewComponent_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TextPreviewComponent(text: "", title: "", editDate: Date(), idea: )
+//    }
+//}

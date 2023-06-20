@@ -37,18 +37,6 @@ struct CheckAudioView: View {
     var body: some View {
         
         VStack (alignment: .center){
-        VStack {
-            HStack {
-                Text("ideaDay")
-                    .font(.system(size: 23))
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.leading)
-                Text("\(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
-                    .font(.system(size: 23))
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.leading)
-            }
-            
             
             AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
                 .frame(maxHeight: screenSize.height * 0.05)
@@ -69,9 +57,8 @@ struct CheckAudioView: View {
                     PlaceholderComponent(idea: idea)
                 }
  
-            Spacer()
         }
-        .navigationTitle("Ideia do dia \(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
+        .navigationTitle("ideaDay" + "\(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden()
         
@@ -79,7 +66,7 @@ struct CheckAudioView: View {
 
             //menu de favoritar e excluir
             ToolbarItem(placement: .navigationBarTrailing){
-                MenuEditComponent(type: AudioIdeia.self, idea: self.idea)
+                MenuEditComponent(type: AudioIdeia.self, idea: self.$idea)
             }
             
             //botão que dá dismiss no teclado após edição
@@ -92,7 +79,6 @@ struct CheckAudioView: View {
                     }
                 }
             }
-
             
             //back button personalizado
             ToolbarItem(placement: .navigationBarLeading) {

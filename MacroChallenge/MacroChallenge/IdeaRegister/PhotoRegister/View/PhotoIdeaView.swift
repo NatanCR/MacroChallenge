@@ -57,12 +57,12 @@ struct PhotoIdeaView: View {
                             }
                         }
                 }
-        .navigationTitle("Ideia do dia \(photoModel.creationDate, formatter: self.dateFormatter)")
+        .navigationTitle("ideaDay" + "\(photoModel.creationDate.toString(dateFormatter: self.dateFormatter)!)")
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem (placement: .navigationBarTrailing){
-                MenuEditComponent(type: PhotoModel.self, idea: self.photoModel)
+                MenuEditComponent(type: PhotoModel.self, idea: self.$photoModel)
             }
             
             ToolbarItem (placement: .navigationBarTrailing){
@@ -79,7 +79,7 @@ struct PhotoIdeaView: View {
             }
         }
 
-                
+                //TODO: traduzir alerta
             .alert(isPresented: $showAlert) {
                 Alert(
                     title: Text("Sucesso"),

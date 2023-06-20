@@ -16,17 +16,17 @@ struct TextRegisterView: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-            VStack {
-                TextEditor(text: $textComplete)
-                    .padding()
-                    .focused($isFocused)
-            }
+        VStack {
+            TextEditor(text: $textComplete)
+                .padding()
+                .focused($isFocused)
         }
         .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             isFocused = true
         }
+        //TODO: traduzir alerta
         .alert("Escreva uma ideia", isPresented: $isActive, actions: {
             Button(role: .cancel) {
             } label: {
@@ -52,12 +52,12 @@ struct TextRegisterView: View {
                         IdeaSaver.saveTextIdea(idea: currentModel)
                         dismiss()
                     }
-                    
                 } label: {
-                    Text("Salvar")
+                    Text("save")
                 }
             }
         }.font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
+        //TODO: colocar frame
     }
 }
 

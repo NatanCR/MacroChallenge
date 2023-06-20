@@ -39,7 +39,7 @@ struct RecordAudioView: View {
             
             // recording indicator
             if self.isRecording {
-                Text("Gravando")
+                Text("record")
                     .foregroundColor(Color("AccentColor"))
                     .padding()
             } else if (self.recorded) {
@@ -52,8 +52,8 @@ struct RecordAudioView: View {
                         self.audioManager.stopAudio()
                         self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
                         
-//                        self.recordAudio.deleteAllAudios()
-//                        IdeaSaver.clearAll()
+                        //                        self.recordAudio.deleteAllAudios()
+                        //                        IdeaSaver.clearAll()
                     } label: {
                         Image(systemName: "trash.fill")
                             .resizable()
@@ -64,23 +64,6 @@ struct RecordAudioView: View {
                 .padding()
             }
             
-            Spacer()
-            
-            TextEditor(text: $textComplete)
-                .frame(width: screenSize.width * 0.8, height: screenSize.height * 0.2)
-                .focused($isFocused)
-                .overlay {
-                    Text(self.textComplete.isEmpty ? "typeNote" : "")
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                        .foregroundColor(.gray)
-                        .onTapGesture {
-                            self.isFocused = true
-                        }
-                }
-            
-            Spacer(minLength: 400)
-
             // record and stop button
             Button {
                 self.isRecording.toggle()
@@ -100,12 +83,12 @@ struct RecordAudioView: View {
                     .scaledToFit()
                     .frame(width: 23, height: 23)
             }.disabled(self.recorded)
-                        
+            
             TextEditor(text: $textComplete)
                 .frame(maxWidth: screenSize.width, maxHeight: screenSize.height * 0.8, alignment: .topLeading)
                 .focused($isFocused)
                 .overlay {
-                    Text(self.textComplete.isEmpty ? "Digite sua nota." : "")
+                    Text(self.textComplete.isEmpty ? "typeNote" : "")
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                         .padding(8)
@@ -115,39 +98,37 @@ struct RecordAudioView: View {
                         }
                 }
                 .padding()
-
-        }
-        .font(.custom("Sen-Regular", size: 20))
-        .navigationTitle("Inserir áudio")
             
-            Spacer()
-        }.font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
-        .navigationTitle("insertAud")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("save") {
-                    if isRecording {
-                        self.recordAudio.stopRecordingAudio()
-                        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
-                        self.recorded = false
-                    }
-                    
-                    if recorded {
-                        TextViewModel.setTitleDescriptionAndCompleteText(title: &self.textTitle, description: &self.textDescription, complete: &self.textComplete)
-                        
-                        let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
-                        IdeaSaver.saveAudioIdea(idea: idea)
-                    }
-                    
-                    dismiss()
-                }
-            }
-        }.onAppear {
-            self.isFocused = false
-            self.audioUrl = nil
-            self.recordAudio.startRecordingAudio()
         }
+        .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
+        .navigationTitle("insertAud")
+        
+        Spacer()
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("save") {
+                        if isRecording {
+                            self.recordAudio.stopRecordingAudio()
+                            self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
+                            self.recorded = false
+                        }
+                        
+                        if recorded {
+                            TextViewModel.setTitleDescriptionAndCompleteText(title: &self.textTitle, description: &self.textDescription, complete: &self.textComplete)
+                            
+                            let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
+                            IdeaSaver.saveAudioIdea(idea: idea)
+                        }
+                        
+                        dismiss()
+                    }
+                }
+            }.onAppear {
+                self.isFocused = false
+                self.audioUrl = nil
+                self.recordAudio.startRecordingAudio()
+            }
     }
 }
 

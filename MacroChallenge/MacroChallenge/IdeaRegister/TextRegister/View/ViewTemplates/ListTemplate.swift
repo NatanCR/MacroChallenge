@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListTemplate: View {
     @State var idea: any Idea
-    private let dateFormatter = DateFormatter(format: "dd/MM/yyyy hh:mm:ss")
+    private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     
     var body: some View {
         HStack {

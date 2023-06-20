@@ -10,21 +10,14 @@ import SwiftUI
 struct MenuEditComponent<T: Idea>: View {
     @Environment(\.dismiss) var dismiss
     var type: T.Type
-    var idea: T
+    @Binding var idea: T
     @State private var isAlertActive: Bool = false
     
     var body: some View {
         
         Menu{
             //TODO: aplicar ação de favoritar e trocar o ícone para "heart.fill" quando estiver favoritado
-            Button{
-                print("ok")
-            } label: {
-                HStack{
-                    Text("Favorite")
-                    Image(systemName: "heart")
-                }
-            }
+            ButtonFavoriteComponent(type: type, idea: $idea.wrappedValue)
             
             Divider()
             
@@ -32,7 +25,7 @@ struct MenuEditComponent<T: Idea>: View {
                 isAlertActive = true
             } label: {
                 HStack{
-                    Text("Delete")
+                    Text("del")
                     Image(systemName: "trash")
                 }
             }
@@ -40,6 +33,7 @@ struct MenuEditComponent<T: Idea>: View {
             Image(systemName: "ellipsis.circle")
         }
         
+        //TODO: fazer a tradução do alerta
         .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
             Button("Delete Idea", role: .destructive) {
                 //deletar
