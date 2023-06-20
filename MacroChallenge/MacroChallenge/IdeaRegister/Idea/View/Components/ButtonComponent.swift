@@ -18,7 +18,7 @@ struct ButtonComponent: View {
                 .foregroundColor(Color("AccentColor"))
             
             HStack{
-                Text(title)
+                Text(LocalizedStringKey(title))
                     .font(Font.custom("Sen-Regular", size: 20, relativeTo: .headline))
                     .frame(maxWidth: screenSize.width * 0.7, maxHeight: screenSize.height * 0.01, alignment: .leading)
                     .foregroundColor(Color("backgroundColor"))

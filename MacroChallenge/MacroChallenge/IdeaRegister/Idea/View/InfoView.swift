@@ -10,17 +10,17 @@ import SwiftUI
 struct InfoView: View {
     //variável que recebe o título do botão
     var infoTitle: [String] = ["about", "privacy", "terms"]
-    var infoText: String
+    var infoText: [String] = ["hhhhhhh", "llllllll", "ttttttt"]
     
     var body: some View {
         
         VStack{
             //botões da tela de info
-            ForEach(infoTitle, id: \.self) { title in
+            ForEach(0..<infoText.count, id: \.self) { i in
                 NavigationLink{
-                    InfoText(infoText: infoText, infoTitle: title)
+                    InfoText(infoText: infoText[i], infoTitle: infoTitle[i])
                 } label: {
-                    ButtonComponent(title: title)
+                    ButtonComponent(title: infoTitle[i])
                 }.padding(5)
             }
             
@@ -43,12 +43,12 @@ struct InfoText: View {
         //formatação de texto da tela de informações
         ScrollView{
             VStack (alignment: .leading){
-                Text(infoText)
+                Text(LocalizedStringKey(infoText))
                     .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 //TODO: colocar frame 
                     .foregroundColor(Color("labelColor"))
             }.padding()
-            .navigationTitle(infoTitle)
+            .navigationTitle(LocalizedStringKey(infoTitle))
         }
         .background(Color("backgroundColor"))
     }
@@ -57,6 +57,6 @@ struct InfoText: View {
 struct InfoView_Previews: PreviewProvider {
     static var previews: some View {
         
-        InfoView(infoText: "")
+        InfoView(infoTitle: [""])
     }
 }

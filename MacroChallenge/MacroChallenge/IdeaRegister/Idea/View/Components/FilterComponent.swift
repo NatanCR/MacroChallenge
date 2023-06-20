@@ -19,7 +19,7 @@ struct FilterComponent: View {
                             byCreation = true
                             ideasViewModel.orderBy(byCreation: byCreation, sortedByDescendent: sortedByDescendent)
                         } label: {
-                            Text("addDate)")
+                            Text("addDate")
                             Image(systemName: "checkmark")
                         }
                         Button {
