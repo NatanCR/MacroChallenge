@@ -12,13 +12,17 @@ struct SegmentedPickerComponent: View {
     @State var index = 1
     @ObservedObject var ideasViewModel: IdeasViewModel
     
+    let audioManager: AudioManager
+    
     //altera as cores do segmented picker
-    init(ideasViewModel: IdeasViewModel){
+    init(ideasViewModel: IdeasViewModel, audioManager: AudioManager){
         self.ideasViewModel = ideasViewModel
-            UISegmentedControl.appearance().backgroundColor = UIColor(Color("AccentColor")).withAlphaComponent(0.19)
-            UISegmentedControl.appearance().setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
-            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color("labelColor"))
-            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color("backgroundColor"))], for: .selected)
+        self.audioManager = audioManager
+        
+        UISegmentedControl.appearance().backgroundColor = UIColor(Color("AccentColor")).withAlphaComponent(0.19)
+        UISegmentedControl.appearance().setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color("labelColor"))
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color("backgroundColor"))], for: .selected)
     }
     
     var body: some View {
@@ -38,7 +42,7 @@ struct SegmentedPickerComponent: View {
             if index == 0{
                 HomeListView(ideasViewModel: ideasViewModel)
             } else{
-                HomeGridView(ideasViewModel: ideasViewModel)
+                HomeGridView(ideasViewModel: ideasViewModel, audioManager: self.audioManager)
             }
         }
     }

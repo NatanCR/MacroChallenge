@@ -29,7 +29,7 @@ struct RecordAudioPrototype: View {
             List(self.recordAudio.recordedAudios, id: \.self) { audioURL in
                 Text(audioURL.relativeString)
                     .onTapGesture {
-                        self.audioManager.playAudio(audioURL)
+                        self.audioManager.playAudio()
                     }
             }.background {
                 Color(.systemGray4)

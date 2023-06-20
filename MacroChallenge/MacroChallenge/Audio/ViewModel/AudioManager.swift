@@ -17,6 +17,8 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
     
     /**assign the AVAudioPlayer to the given URL.*/
     public func assignAudio(_ audioURL: URL) {
+        self.stopAudio()
+        
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: audioURL, fileTypeHint: AVFileType.m4a.rawValue)
             self.prepareAudioPlayer()
@@ -27,11 +29,9 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
     }
     
     //MARK: - REPRODUTION
-    /**Plays the audio in the given URL.*/
-    public func playAudio(_ audioURL: URL) {
+    /**Plays the audio that has been assigned previously.*/
+    public func playAudio() {
         self.stopAudio()
-        
-        //if self.audioPlayer == AVAudioPlayer() { self.assignAudio(audioURL) }
         self.audioPlayer?.play()
     }
     
@@ -47,6 +47,16 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
         if !(self.audioPlayer?.isPlaying ?? false) {return}
         
         self.audioPlayer?.stop()
+    }
+    
+    /**Tells if the given audio URL by parameter is the same that is currently assigned in AudioManager.*/
+    public func isCurrentSameAudio(_ audioURL: URL) -> Bool {
+        do {
+            let givenAudio = try AVAudioPlayer(contentsOf: audioURL, fileTypeHint: AVFileType.m4a.rawValue)
+            return self.audioPlayer == givenAudio
+        } catch {
+            return false
+        }
     }
     
     //MARK: - TIME
@@ -78,13 +88,18 @@ class AudioManager : NSObject, AVAudioPlayerDelegate {
     }
     
     /**Get the total duration of the audio..*/
-    public func getDuration() -> CGFloat {
-        return CGFloat(self.audioPlayer?.duration ?? 0)
+    public func getDuration() -> Float {
+        return Float(self.audioPlayer?.duration ?? 0)
     }
     
-    /**Get the is plating of the current AudioPlayer.*/
+    /**Get the is playing of the current AudioPlayer.*/
     public func getIsPlaying() -> Bool {
         return ((self.audioPlayer?.isPlaying) != nil)
+    }
+    
+    /**Get if the current AudioPlayer is stoped.*/
+    public func getIsStoped() -> Bool {
+        return !(self.audioPlayer?.isPlaying ?? false) && self.getCurrentTimeCGFloat() == 0
     }
     
     //MARK: - PRIVATE METHODS

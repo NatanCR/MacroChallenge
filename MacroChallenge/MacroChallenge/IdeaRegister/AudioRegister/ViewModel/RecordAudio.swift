@@ -92,10 +92,23 @@ class RecordAudio : NSObject, ObservableObject, AVAudioRecorderDelegate {
     }
     
     /**Request the user the permission to access the dispositive recorder. Completion is called after user input, giving if he aloowed or not.**/
-    public func requestPermission(completion: @escaping (Bool) -> Void){
-        self.audioSession.requestRecordPermission { isAllowed in
-            completion(isAllowed)
+    func requestPermission(completion: @escaping (Bool) -> Void){
+        switch self.audioSession.recordPermission {
+        case .granted:
+            completion(true)
+            
+        case .undetermined:
+            self.audioSession.requestRecordPermission { isAllowed in
+                completion(isAllowed)
+            }
+            
+        case .denied:
+            completion(false)
+            
+        @unknown default:
+            completion(false)
         }
+        
     }
     
     /**Deletes all audio files in user directory.**/

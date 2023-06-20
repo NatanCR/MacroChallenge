@@ -56,10 +56,17 @@ struct CheckAudioView: View {
                 .overlay {
                     PlaceholderComponent(idea: idea)
                 }
- 
         }
         .navigationTitle("ideaDay" + "\(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
         .navigationBarTitleDisplayMode(.large)
+        .onChange(of: idea.textComplete) { newValue in
+            saveIdea()
+        }
+            
+        .onSwipeBack {
+            saveIdea()
+            dismiss()
+        }
         .navigationBarBackButtonHidden()
         
         .toolbar {
@@ -86,5 +93,11 @@ struct CheckAudioView: View {
 
             }
         }
+    }
+    
+    //MARK: - FUNCs
+    private func saveIdea() {
+        TextViewModel.setTextsFromIdea(idea: &self.idea)
+        IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
     }
 }
