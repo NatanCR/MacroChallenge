@@ -56,6 +56,9 @@ struct PhotoIdeaView: View {
                                 }
                             }
                         }
+                        .onChange(of: photoModel.textComplete) { newValue in
+                            saveIdea()
+                        }
                 }
         .navigationTitle("ideaDay" + "\(photoModel.creationDate.toString(dateFormatter: self.dateFormatter)!)")
         .navigationBarTitleDisplayMode(.large)
@@ -90,6 +93,13 @@ struct PhotoIdeaView: View {
                 )
             }
         }
+    }
+    
+    //MARK: - FUNCs
+    private func saveIdea() {
+        self.photoModel.modifiedDate = Date()
+        TextViewModel.setTextsFromIdea(idea: &self.photoModel)
+        IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: self.photoModel)
     }
 }
 

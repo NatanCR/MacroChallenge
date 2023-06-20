@@ -62,11 +62,6 @@ struct CheckAudioView: View {
         .onChange(of: idea.textComplete) { newValue in
             saveIdea()
         }
-            
-        .onSwipeBack {
-            saveIdea()
-            dismiss()
-        }
         .navigationBarBackButtonHidden()
         
         .toolbar {
@@ -81,6 +76,7 @@ struct CheckAudioView: View {
                 if isFocused{
                     Button{
                         isFocused = false
+                        saveIdea()
                     } label: {
                         Text("OK")
                     }
@@ -97,6 +93,7 @@ struct CheckAudioView: View {
     
     //MARK: - FUNCs
     private func saveIdea() {
+        self.idea.modifiedDate = Date()
         TextViewModel.setTextsFromIdea(idea: &self.idea)
         IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
     }
