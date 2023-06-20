@@ -7,16 +7,71 @@
 
 import AVFoundation
 import SwiftUI
+import Combine
+import Foundation
 
 struct CameraRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = UIImagePickerController
     
     @ObservedObject var viewModel: CameraViewModel
+    @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
+    @Environment(\.dismiss) var dismiss
+    @State var firstPermission: Bool = {
+        if let value = UserDefaults.standard.object(forKey: "FirstPermission") as? Bool {
+            return value
+        } else {
+            return true
+        }
+    }()
+    
+    init(viewModel: CameraViewModel) {
+        self.viewModel = viewModel
+    }
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .camera
         imagePicker.delegate = context.coordinator // Definindo o delegate
+        
+        viewModel.checkCameraPermission { granted in
+            if granted {
+                DispatchQueue.main.async {
+                    ideasViewModel.isShowingCamera = true
+                }
+            } else {
+                print(firstPermission)
+                if firstPermission {
+                    DispatchQueue.main.async {
+                        UserDefaults.standard.set(false, forKey: "FirstPermission")
+                        self.dismiss()
+                    }
+                    
+                } else {
+                    if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+                        let alert = UIAlertController(title: "Permissão negada", message: "Você negou permissão para acessar a câmera. Deseja abrir as configurações para conceder permissão?", preferredStyle: .alert)
+                        
+                        //Obtém a cena de janela ativa
+                        if let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                            let window = UIWindow(windowScene: windowScene)
+                            window.rootViewController = UIViewController()
+                            window.windowLevel = UIWindow.Level.alert + 1
+                            window.makeKeyAndVisible()
+                            window.rootViewController?.present(alert, animated: true, completion: nil)
+                            
+                            alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: { _ in
+                                window.rootViewController?.dismiss(animated: true, completion: nil)
+                                dismiss()
+                            }))
+                            alert.addAction(UIAlertAction(title: "Abrir configurações", style: .cancel, handler: { _ in
+                                window.rootViewController?.dismiss(animated: true, completion: nil)
+                                UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
+                            }))
+                        }
+                    }
+                }
+            }
+        }
+        
         return imagePicker
     }
     

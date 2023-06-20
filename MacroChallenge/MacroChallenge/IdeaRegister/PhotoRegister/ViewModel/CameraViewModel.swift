@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import AVFoundation
 
 class CameraViewModel: ObservableObject {
     
@@ -35,6 +36,24 @@ class CameraViewModel: ObservableObject {
             print("Dados de imagem inválidos")
         } catch {
             print("Erro desconhecido: \(error)")
+        }
+    }
+    
+    func checkCameraPermission(completion: @escaping (Bool) -> Void) {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            // Permissão já concedida
+            completion(true)
+        case .notDetermined:
+            // Solicitar permissão
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                completion(granted)
+            }
+        case .denied, .restricted:
+            // Permissão negada ou restrita
+            completion(false)
+        @unknown default:
+            completion(false)
         }
     }
 }
