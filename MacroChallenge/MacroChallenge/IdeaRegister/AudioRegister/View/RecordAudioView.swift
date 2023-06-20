@@ -188,6 +188,7 @@ struct RecordAudioView: View {
                 }))
             }
         }
+    }
 }
 
 struct RecordAudioView_Previews: PreviewProvider {
