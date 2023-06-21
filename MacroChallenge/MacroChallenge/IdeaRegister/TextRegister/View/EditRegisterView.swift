@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditRegisterView: View {
+    private var text: LocalizedStringKey = "ideaDay"
     @State var modelText: ModelText
     @Environment(\.dismiss) private var dismiss
     @Environment(\.screenSize) private var screenSize
@@ -23,14 +24,14 @@ struct EditRegisterView: View {
     var body: some View {
             VStack {
                 TextEditor(text: $modelText.textComplete)
-                    .frame(width: screenSize.width ,height: screenSize.height * 0.8, alignment: .topLeading)
+                    .frame(width: screenSize.width * 0.95 ,height: screenSize.height * 0.8)
                     .focused($isFocused)
                     .overlay{
                         PlaceholderComponent(idea: modelText)
                     }
             }
             .navigationBarBackButtonHidden()
-            .navigationTitle("ideaDay" + "\(modelText.creationDate.toString(dateFormatter: self.dateFormatter)!)")
+            .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: self.dateFormatter)!))
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

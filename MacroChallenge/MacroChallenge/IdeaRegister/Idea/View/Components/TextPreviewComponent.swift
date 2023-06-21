@@ -29,7 +29,7 @@ struct TextPreviewComponent: View {
                     .foregroundColor(Color("backgroundItem"))
                     .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
                     .overlay(alignment: .topTrailing){
-                        ButtonFavoriteComponent(type: ModelText.self, idea: $idea.wrappedValue as! ModelText)
+                        ButtonFavoriteComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText)
                         .padding(8)
                     }
                 Text(text)

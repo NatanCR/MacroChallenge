@@ -12,6 +12,9 @@ struct CheckAudioView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.screenSize) private var screenSize
     
+    //título traduzido
+    private var text: LocalizedStringKey = "ideaDay"
+    
     //idea
     @State var idea: AudioIdeia
     
@@ -51,13 +54,13 @@ struct CheckAudioView: View {
             TextEditor(text: $idea.textComplete)
                 .font(.custom("Sen-Regular", size: 17))
                 .multilineTextAlignment(.leading)
-                .frame(maxWidth: screenSize.width, maxHeight: screenSize.height * 0.8)
+                .frame(maxWidth: screenSize.width * 0.95, maxHeight: screenSize.height * 0.8)
                 .focused($isFocused)
                 .overlay {
                     PlaceholderComponent(idea: idea)
                 }
         }
-        .navigationTitle("ideaDay" + "\(idea.creationDate.toString(dateFormatter: self.dateFormatter)!)")
+        .navigationTitle(Text(text) + Text(idea.creationDate.toString(dateFormatter: self.dateFormatter)!))
         .navigationBarTitleDisplayMode(.large)
         .onChange(of: idea.textComplete) { newValue in
             saveIdea()

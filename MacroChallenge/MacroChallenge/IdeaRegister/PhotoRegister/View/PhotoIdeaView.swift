@@ -14,6 +14,9 @@ struct PhotoIdeaView: View {
     @Environment(\.screenSize) var screenSize
     @State private var showAlert = false
     
+    //título traduzido
+    private var text: LocalizedStringKey = "ideaDay"
+    
     let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var photoURL: URL? = nil
     
@@ -48,6 +51,7 @@ struct PhotoIdeaView: View {
                         .overlay {
                             PlaceholderComponent(idea: photoModel)
                         }
+                        .padding(9)
                         .onAppear {
                             if !photoModel.textComplete.isEmpty {
                                 DispatchQueue.main.async {
@@ -60,7 +64,7 @@ struct PhotoIdeaView: View {
                             saveIdea()
                         }
                 }
-        .navigationTitle("ideaDay" + "\(photoModel.creationDate.toString(dateFormatter: self.dateFormatter)!)")
+        .navigationTitle(Text(text) + Text(photoModel.creationDate.toString(dateFormatter: self.dateFormatter)!))
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden()
         .toolbar {

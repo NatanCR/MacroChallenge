@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ButtonFavoriteComponent<T: Idea>: View {
     var type: T.Type
+    var text: String
     @State var idea: T
     //@ObservedObject var ideaViewModel: IdeasViewModel
     
@@ -19,7 +20,7 @@ struct ButtonFavoriteComponent<T: Idea>: View {
             print("saved: \(idea)")
         } label: {
             HStack {
-                Text("fav")
+                Text(LocalizedStringKey(text))
                 idea.isFavorite ? Image(systemName: "heart.fill") : Image(systemName: "heart")
             }
         }
