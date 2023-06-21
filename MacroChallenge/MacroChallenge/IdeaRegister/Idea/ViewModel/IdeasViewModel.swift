@@ -56,6 +56,11 @@ class IdeasViewModel: ObservableObject {
         
     }
     
+    func reloadLoadedData() {
+        self.loadedData = IdeaSaver.getAllSavedIdeas()
+        self.disposedData = loadedData
+    }
+    
 //    func searchFilter(searchText: String) -> any Idea {
         var filteringIdeas: [any Idea] {
             if searchText.isEmpty {

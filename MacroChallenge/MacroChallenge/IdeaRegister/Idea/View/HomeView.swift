@@ -54,8 +54,7 @@ struct HomeView: View {
             }.navigationTitle("Ideas")
              .background(Color("backgroundColor"))
              .onAppear {
-                 let reloadedModel = IdeaSaver.getAllSavedIdeas()
-                 self.ideasViewModel.loadedData = reloadedModel
+                 self.ideasViewModel.reloadLoadedData()
                  self.ideasViewModel.filteredIdeas = ideasViewModel.loadedData
                  self.ideasViewModel.orderBy(byCreation: false, sortedByAscendent: false)
              }
