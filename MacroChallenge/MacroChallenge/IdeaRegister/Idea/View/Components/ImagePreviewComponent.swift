@@ -12,8 +12,8 @@ struct ImagePreviewComponent: View {
     private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var image: UIImage
     var title: String
-    var editDate: Date
     @State var idea: any Idea
+    @ObservedObject var ideasViewModel: IdeasViewModel
     
     var body: some View {
         VStack{
@@ -45,7 +45,7 @@ struct ImagePreviewComponent: View {
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
                 
             
-            Text(editDate.toString(dateFormatter: self.dateFormatter)!)
+            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
                 .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
         }

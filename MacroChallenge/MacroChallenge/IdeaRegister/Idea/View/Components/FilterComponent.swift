@@ -8,63 +8,79 @@
 import SwiftUI
 
 struct FilterComponent: View {
+    private enum FilterType {
+        case audio, text, photo, none
+    }
+    
     @ObservedObject var ideasViewModel: IdeasViewModel
-    @State var sortedByDescendent: Bool = true
-    @State var byCreation: Bool = true 
+    @State var sortedByAscendent: Bool = false
+    @State var byCreation: Bool = false
+    @State private var filterType: FilterType = .none
     
     var body: some View {        
                 Menu{
                     Menu("order"){
-                        Button{
-                            byCreation = true
-                            ideasViewModel.orderBy(byCreation: byCreation, sortedByDescendent: sortedByDescendent)
-                        } label: {
-                            Text("addDate")
-                            Image(systemName: "checkmark")
-                        }
+                        // ordenacao por data de modificacao
                         Button {
                             byCreation = false
-                            ideasViewModel.orderBy(byCreation: byCreation, sortedByDescendent: sortedByDescendent)
+                            ideasViewModel.orderBy(byCreation: byCreation, sortedByAscendent: sortedByAscendent)
                         } label: {
                             Text("editDate")
-                            Image(systemName: "")
+                            Image(systemName: byCreation ? "" : "checkmark")
+                        }
+                        
+                        // ordenacao por data de criacao
+                        Button{
+                            byCreation = true
+                            ideasViewModel.orderBy(byCreation: byCreation, sortedByAscendent: sortedByAscendent)
+                        } label: {
+                            Text("addDate")
+                            Image( systemName: byCreation ? "checkmark" : "")
                         }
                         
                         Divider()
                         
+                        // ordenacao por ordem decrescente
                         Button{
-                            sortedByDescendent = true
-                            ideasViewModel.orderBy(byCreation: byCreation, sortedByDescendent: sortedByDescendent)
+                            sortedByAscendent = false
+                            ideasViewModel.orderBy(byCreation: byCreation, sortedByAscendent: sortedByAscendent)
                         } label: {
                             Text("recent")
-                            Image(systemName: "checkmark")
+                            Image(systemName: sortedByAscendent ? "" : "checkmark")
                         }
+                        // ordenacao por ordem crescente
                         Button {
-                            sortedByDescendent = false
-                            ideasViewModel.orderBy(byCreation: byCreation, sortedByDescendent: sortedByDescendent)
+                            sortedByAscendent = true
+                            ideasViewModel.orderBy(byCreation: byCreation, sortedByAscendent: sortedByAscendent)
                         } label: {
                             Text("old")
-                            Image(systemName: "")
+                            Image(systemName: sortedByAscendent ? "checkmark" : "")
                         }
                     }
                     Menu("filter") {
                         Button{
                             ideasViewModel.filterBy(.photo)
+                            ideasViewModel.orderBy(byCreation: byCreation, sortedByAscendent: sortedByAscendent)
+                            self.setFilterType(.photo)
                         } label: {
                             Text("img")
-                            Image(systemName: "")
+                            Image(systemName: self.filterType == .photo ? "checkmark" : "")
                         }
                         Button {
                             ideasViewModel.filterBy(.text)
+                            ideasViewModel.orderBy(byCreation: byCreation, sortedByAscendent: sortedByAscendent)
+                            self.setFilterType(.text)
                         } label: {
                             Text("txt")
-                            Image(systemName: "")
+                            Image(systemName: self.filterType == .text ? "checkmark" : "")
                         }
                         Button {
                             ideasViewModel.filterBy(.audio)
+                            ideasViewModel.orderBy(byCreation: byCreation, sortedByAscendent: sortedByAscendent)
+                            self.setFilterType(.audio)
                         } label: {
                             Text("aud")
-                            Image(systemName: "")
+                            Image(systemName: self.filterType == .audio ? "checkmark" : "")
                         }
                     }
                 } label: {
@@ -72,10 +88,13 @@ struct FilterComponent: View {
                         .font(.system(size: 25))
         }
     }
+    
+    private func setFilterType(_ filter: FilterType) {
+        if !self.ideasViewModel.isFiltered {
+            self.filterType = .none
+            return
+        }
+        
+        self.filterType = filter
+    }
 }
-
-//struct FilterComponent_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FilterComponent(sortedByDescendent: <#Bool#>, byCreation: <#Bool#>, disposedData: <#[Idea]#>, loadedData: <#[Idea]#>, isFiltered: <#Bool#>, filterType: <#IdeaType#>)
-//    }
-//}

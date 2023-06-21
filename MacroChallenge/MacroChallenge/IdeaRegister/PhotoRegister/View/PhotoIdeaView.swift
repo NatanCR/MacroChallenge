@@ -97,6 +97,9 @@ struct PhotoIdeaView: View {
     
     //MARK: - FUNCs
     private func saveIdea() {
+        let text = self.photoModel.textComplete
+        if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
+        
         self.photoModel.modifiedDate = Date()
         TextViewModel.setTextsFromIdea(idea: &self.photoModel)
         IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: self.photoModel)

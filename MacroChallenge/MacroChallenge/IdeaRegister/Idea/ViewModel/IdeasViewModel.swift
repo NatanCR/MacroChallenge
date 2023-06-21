@@ -14,28 +14,36 @@ class IdeasViewModel: ObservableObject {
     @Published var filteredIdeas: [any Idea] = IdeaSaver.getAllSavedIdeas()
     @Published var filterType: IdeaType = .text
     @Published var isFiltered: Bool = false
+    @Published var isSortedByAscendent: Bool = false
+    @Published var isSortedByCreation: Bool = false
     @Published var isShowingCamera = false
     @StateObject var cameraViewModel = CameraViewModel()
     @Published var searchText: String = ""
     
     
-    func orderBy(byCreation: Bool, sortedByDescendent: Bool) {
+    func orderBy(byCreation: Bool, sortedByAscendent: Bool) {
         DispatchQueue.main.async { [self] in
+            self.isSortedByAscendent = sortedByAscendent
+            self.isSortedByCreation = byCreation
+            
             if byCreation {
                 //se true ordena do mais recente ao mais antigo - data de criação
-                sortedByDescendent ? disposedData.sort(by: { $0.creationDate > $1.creationDate }) : disposedData.sort(by: { $0.creationDate < $1.creationDate })
+                sortedByAscendent ? disposedData.sort(by: { $0.creationDate < $1.creationDate }) : disposedData.sort(by: { $0.creationDate > $1.creationDate })
                 
-                sortedByDescendent ? filteredIdeas.sort(by: { $0.creationDate > $1.creationDate }) : disposedData.sort(by: { $0.creationDate < $1.creationDate })
+                sortedByAscendent ? filteredIdeas.sort(by: { $0.creationDate < $1.creationDate }) : filteredIdeas.sort(by: { $0.creationDate > $1.creationDate })
             } else {
                 //se true ordena do mais recente ao mais antigo - data de edição
-                sortedByDescendent ? disposedData.sort(by: { $0.modifiedDate > $1.modifiedDate }) : disposedData.sort(by: { $0.modifiedDate < $1.modifiedDate })
+                sortedByAscendent ? disposedData.sort(by: { $0.modifiedDate < $1.modifiedDate }) : disposedData.sort(by: { $0.modifiedDate > $1.modifiedDate })
                 
-                sortedByDescendent ? filteredIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate }) : disposedData.sort(by: { $0.modifiedDate < $1.modifiedDate })
+                sortedByAscendent ? filteredIdeas.sort(by: { $0.modifiedDate < $1.modifiedDate }) : filteredIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate })
             }
         }
     }
     
     func filterBy(_ type: IdeaType) {
+        self.disposedData = self.loadedData
+        self.filteredIdeas = self.filteringIdeas
+        
         if (!isFiltered || (isFiltered && filterType != type)) {
             filterType = type
             isFiltered = true
@@ -44,9 +52,8 @@ class IdeasViewModel: ObservableObject {
             return
         }
         
-        self.disposedData = self.loadedData
-        self.filteredIdeas = self.filteringIdeas
         self.isFiltered = false
+        
     }
     
 //    func searchFilter(searchText: String) -> any Idea {
