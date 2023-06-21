@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ListRowComponent: View {
     @Environment(\.screenSize) var screenSize
+    @ObservedObject var ideasViewModel: IdeasViewModel
+    @State var idea: any Idea
     var title: String
-    var infoDate: Date
     var typeIdea: IdeaType
     var imageIdea: UIImage
     private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
@@ -24,7 +25,7 @@ struct ListRowComponent: View {
                     .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.01, alignment: .leading)
                     .padding(.bottom, 5)
                 
-                Text(infoDate.toString(dateFormatter: self.dateFormatter)!)
+                Text(ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
                     .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
                     .foregroundColor(Color("labelColor"))
                     .opacity(0.5)
@@ -51,11 +52,5 @@ struct ListRowComponent: View {
             }
         }
         .padding([.top, .bottom])
-    }
-}
-
-struct ListRowComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        ListRowComponent(title: "teste", infoDate: Date(), typeIdea: IdeaType.text, imageIdea: UIImage())
     }
 }

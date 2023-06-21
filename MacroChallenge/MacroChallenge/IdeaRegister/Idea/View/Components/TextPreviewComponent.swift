@@ -12,14 +12,14 @@ struct TextPreviewComponent: View {
     private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var text: String
     var title: String
-    var editDate: Date
     @Binding var idea: any Idea
+    @ObservedObject var ideasViewModel: IdeasViewModel
     
-    init(text: String, title: String, editDate: Date, idea: Binding<any Idea>) {
+    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel) {
         self.text = text
         self.title = title
-        self.editDate = editDate
         self._idea = idea
+        self.ideasViewModel = ideasViewModel
     }
     
     var body: some View {
@@ -43,7 +43,7 @@ struct TextPreviewComponent: View {
             Text(title)
                 .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
-            Text(editDate.toString(dateFormatter: self.dateFormatter)!)
+            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
                 .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
             

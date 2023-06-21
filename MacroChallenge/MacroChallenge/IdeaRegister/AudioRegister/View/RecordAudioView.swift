@@ -145,7 +145,6 @@ struct RecordAudioView: View {
                     if recordPermission {
                         DispatchQueue.main.async {
                             UserDefaults.standard.set(false, forKey: "AudioPermission")
-                            print("garai")
                             dismiss()
                         }
                     }

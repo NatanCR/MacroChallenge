@@ -39,9 +39,9 @@
 //MARK: Order
 "order" = "Ordenar por:";
 
-"addDate" = "Data de adição (Padrão)";
+"addDate" = "Data de adição";
 
-"editDate" = "Data de edição";
+"editDate" = "Data de modificação";
 
 "recent" = "Mais recente";
 

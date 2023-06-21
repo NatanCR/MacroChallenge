@@ -12,8 +12,8 @@ struct AudioPreviewComponent: View {
     @Environment(\.screenSize) var screenSize
     private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var title: String
-    var editDate: Date
     @State var idea: any Idea
+    @ObservedObject var ideasViewModel: IdeasViewModel
     let audioManager: AudioManager
     
     var body: some View {
@@ -52,7 +52,7 @@ struct AudioPreviewComponent: View {
             Text(title)
                 .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
-            Text(editDate.toString(dateFormatter: self.dateFormatter)!)
+            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
                 .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
         }
@@ -156,7 +156,6 @@ struct PlayPreviewComponent: View {
             return
         }
         self.sliderValue = Float(self.audioManager.getCurrentTimeCGFloat())
-        print(sliderValue)
         self.audioTimeText = self.convertCurrentTime()
     }
     

@@ -17,7 +17,6 @@ struct ButtonFavoriteComponent<T: Idea>: View {
         Button{
             idea.isFavorite.toggle()
             IdeaSaver.changeSavedValue(type: type, idea: idea)
-            print("saved: \(idea)")
         } label: {
             HStack {
                 Text(LocalizedStringKey(text))
@@ -27,7 +26,6 @@ struct ButtonFavoriteComponent<T: Idea>: View {
         .onAppear {
             if IdeaSaver.getAllSavedIdeas().contains(where: { $0.id == idea.id }) {
                 idea = IdeaSaver.getAllSavedIdeas().first(where: { $0.id == idea.id }) as! T
-                print(idea)
             }
         }
     }

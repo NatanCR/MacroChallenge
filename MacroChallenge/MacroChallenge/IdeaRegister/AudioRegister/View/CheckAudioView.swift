@@ -96,8 +96,12 @@ struct CheckAudioView: View {
     
     //MARK: - FUNCs
     private func saveIdea() {
+        let text = self.idea.textComplete
+        if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
+        
         self.idea.modifiedDate = Date()
         TextViewModel.setTextsFromIdea(idea: &self.idea)
         IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
+        print("save")
     }
 }

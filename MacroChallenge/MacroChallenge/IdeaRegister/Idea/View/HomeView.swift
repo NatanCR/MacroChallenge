@@ -57,6 +57,7 @@ struct HomeView: View {
                  let reloadedModel = IdeaSaver.getAllSavedIdeas()
                  self.ideasViewModel.loadedData = reloadedModel
                  self.ideasViewModel.filteredIdeas = ideasViewModel.loadedData
+                 self.ideasViewModel.orderBy(byCreation: false, sortedByAscendent: false)
              }
             //atualizando a view quando fechar a camera
              .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
@@ -102,12 +103,12 @@ struct HomeGridView: View {
                     } label: {
                         switch ideas.ideiaType {
                         case .text:
-                            TextPreviewComponent(text: ideas.textComplete, title: ideas.title, editDate: ideas.modifiedDate, idea: $ideas)
+                            TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel)
                         case .audio:
-                            AudioPreviewComponent(title: ideas.title, editDate: ideas.modifiedDate, idea: ideas, audioManager: self.audioManager)
+                            AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager)
                         case .photo:
                             let photoIdea = ideas as! PhotoModel
-                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, editDate: ideas.modifiedDate, idea: ideas)
+                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel)
                         }
                     }.onAppear {
                         //dump(ideas)
@@ -138,10 +139,10 @@ struct HomeListView: View {
                         }
                     } label: {
                         if let photoIdea = ideas as? PhotoModel {
-                            ListRowComponent(title: ideas.title, infoDate: ideas.modifiedDate, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
                         }
                         else {
-                            ListRowComponent(title: ideas.title, infoDate: ideas.modifiedDate, typeIdea: ideas.ideiaType, imageIdea: UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
                 }
@@ -162,10 +163,10 @@ struct HomeListView: View {
                         }
                     } label: {
                         if let photoIdea = ideas as? PhotoModel {
-                            ListRowComponent(title: ideas.title, infoDate: ideas.modifiedDate, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
                         }
                         else {
-                            ListRowComponent(title: ideas.title, infoDate: ideas.modifiedDate, typeIdea: ideas.ideiaType, imageIdea: UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
                 }
