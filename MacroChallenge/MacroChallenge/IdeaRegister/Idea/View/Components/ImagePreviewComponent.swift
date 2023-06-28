@@ -20,9 +20,17 @@ struct ImagePreviewComponent: View {
             Image(uiImage: image)
                 .resizable()
                 .scaledToFill()
+                .opacity(0.8)
                 .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
                 .cornerRadius(20)
                 .rotationEffect(.degrees(90))
+                .overlay(content: {
+                    Rectangle()
+                        .cornerRadius(20)
+                        .foregroundColor(Color("backgroundColor"))
+                        .opacity(0.35)
+                        .blur(radius: 2)
+                })
                 .overlay(alignment: .topTrailing){
                     Button{
                         idea.isFavorite.toggle()
