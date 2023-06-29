@@ -161,6 +161,10 @@ d) Use the application fraudulently or for illegal or unauthorized purposes.
 
 "camDenyMessage" = "You have denied the permission to access the camera. Do you want to open the configurations to grant permisison?";
 
+"writeIdea" = "Write an idea";
+
+"msgIdea" = "You are required to write an idea to save.";
+
 //MARK: General
 
 "cancel" = "Cancel";

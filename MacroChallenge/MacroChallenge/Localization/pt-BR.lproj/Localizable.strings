@@ -161,6 +161,10 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 
 "camDenyMessage" = "Você negou permissão para acessar a câmera. Deseja abrir as configurações para conceder permissão?";
 
+"writeIdea" = "Escreva uma idea";
+
+"msgIdea" = "É necessário que você escreva uma ideia para salvar.";
+
 //MARK: General
 
 "cancel" = "Cancelar";

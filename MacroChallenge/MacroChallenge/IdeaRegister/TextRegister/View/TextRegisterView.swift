@@ -26,14 +26,13 @@ struct TextRegisterView: View {
         .onAppear {
             isFocused = true
         }
-        //TODO: traduzir alerta
-        .alert("Escreva uma ideia", isPresented: $isActive, actions: {
+        .alert("writeIdea", isPresented: $isActive, actions: {
             Button(role: .cancel) {
             } label: {
                 Text("OK")
             }
         }, message: {
-            Text("É necessário escrever uma ideia para salvar.")
+            Text("msgIdea")
         })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

@@ -56,14 +56,6 @@ class TextViewModel {
         idea.textComplete = complete
     }
     
-    /**Formata a data em string com o horario local do device**/
-    static func formatarData(_ data: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .medium
-        formatter.locale = Locale.current
-        return formatter.string(from: data)
-    }
 }
 
 extension String {
