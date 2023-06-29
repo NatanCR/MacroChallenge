@@ -98,7 +98,7 @@ struct RecordAudioView: View {
                     .padding()
             }
         }
-        .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
+        .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
         .navigationTitle("Inserir áudio")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()

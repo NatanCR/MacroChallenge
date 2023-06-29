@@ -50,7 +50,7 @@ struct AudioPreviewComponent: View {
             .padding(.bottom, 5)
 
             Text(title)
-                .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
+                .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
             Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
                 .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
