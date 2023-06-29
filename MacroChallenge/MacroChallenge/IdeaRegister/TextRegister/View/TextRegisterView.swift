@@ -56,7 +56,6 @@ struct TextRegisterView: View {
                 }
             }
         }.font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
-        //TODO: colocar frame
     }
 }
 

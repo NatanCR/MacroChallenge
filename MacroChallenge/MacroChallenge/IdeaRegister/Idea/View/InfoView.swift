@@ -35,6 +35,7 @@ struct InfoView: View {
 
 struct InfoText: View {
     @Environment(\.screenSize) var screenSize
+    @Environment(\.dismiss) var dismiss
     //variáveis que recebem o texto e título
     var infoText: String
     var infoTitle: String
@@ -52,6 +53,21 @@ struct InfoText: View {
                         .foregroundColor(Color("labelColor"))
                 }
                 .navigationTitle(LocalizedStringKey(infoTitle))
+                .navigationBarBackButtonHidden()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            HStack {
+                                Image(systemName: "chevron.backward")
+                                Text("back")
+                                    .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                            }
+                        }
+
+                    }
+                }
             }
             .frame(width: screenSize.width)
             .background(Color("backgroundColor"))
