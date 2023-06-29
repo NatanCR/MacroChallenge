@@ -18,8 +18,11 @@ struct CustomBackButtonComponent<T: Idea>: View {
             if let ideaSaved = IdeaSaver.getAllSavedIdeas().first(where: { $0.id == idea.id }) as? T {
                 TextViewModel.setTextsFromIdea(idea: &self.idea)
                 self.idea.isFavorite = ideaSaved.isFavorite
-                self.idea.modifiedDate = Date()
-                IdeaSaver.changeSavedValue(type: self.type, idea: self.idea)
+                
+                if self.idea.textComplete != ideaSaved.textComplete {
+                    self.idea.modifiedDate = Date()
+                    IdeaSaver.changeSavedValue(type: self.type, idea: self.idea)
+                }
             }
             
             dismiss()
@@ -28,7 +31,6 @@ struct CustomBackButtonComponent<T: Idea>: View {
                 Image(systemName: "chevron.backward")
                 Text("back")
                     .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                //TODO: colocar frame 
             }
         }
     }
@@ -48,7 +50,6 @@ struct CustomActionBackButtonComponent : View {
                 Image(systemName: "chevron.backward")
                 Text("back")
                     .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                //TODO: colocar frame
             }
         }
     }

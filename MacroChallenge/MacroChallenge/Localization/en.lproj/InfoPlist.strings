@@ -7,6 +7,6 @@
 */
 
 //MARK: Permissions
-"NSMicrophoneUsageDescription" = "The Ideeo app would like to use your device's microphone to record audio for capturing your ideas.";
+"NSMicrophoneUsageDescription" = "The Ideeo app would like to use your device's microphone only for recording audio of your ideas that will be stored for you in the app.";
 
 "NSCameraUsageDescription" = "The Ideeo app would like to use your device's camera to capture photos of your ideas.";
