@@ -34,6 +34,26 @@ struct CustomBackButtonComponent<T: Idea>: View {
     }
 }
 
+struct CustomActionBackButtonComponent : View {
+    @Environment(\.dismiss) var dismiss
+    let action: () -> Void
+    
+    var body: some View {
+        
+        Button {
+            action()
+            dismiss()
+        } label: {
+            HStack {
+                Image(systemName: "chevron.backward")
+                Text("back")
+                    .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                //TODO: colocar frame
+            }
+        }
+    }
+}
+
 //struct CustomBackButtonComponent_Previews: PreviewProvider {
 //    static var previews: some View {
 //        CustomBackButtonComponent()

@@ -1,0 +1,168 @@
+/* 
+  Localizable.strings
+  MacroChallenge
+
+  Created by Natan de Camargo Rodrigues on 16/06/23.
+  
+*/
+
+//MARK: Buttons
+
+"back" = "Voltar";
+
+"save" = "Salvar";
+
+"del" = "Deletar"; 
+
+"fav" = "Favoritar";
+
+//MARK: Info page
+
+"info" = "Info";
+
+"about" = "Sobre";
+
+"aboutText"= "
+    Bem-vindo ao Ideeo! O seu espaço para capturar e organizar todas as suas ideias brilhantes!
+
+    O Ideeo foi criado com o propósito de ajudá-lo a transformar suas ideias em realidade. Sabemos que as melhores ideias muitas vezes surgem quando menos esperamos, e é por isso que criamos essa ferramenta intuitiva e fácil de usar para que você nunca perca uma única ideia.
+             
+    Com o Ideeo, você pode registrar suas ideias em qualquer lugar e a qualquer momento. Seja um conceito de negócio, uma inspiração para um projeto, ou até mesmo uma ideia para um livro, o Ideeo é o seu companheiro confiável para armazenar tudo em um único lugar.
+             
+    Sabemos que a inspiração pode vir de várias formas, então criamos uma ferramenta versátil que permite que você capture suas ideias em áudio, foto e texto, com a opção de adicionar descrições detalhadas.
+             
+    Contato:
+    Se você tiver alguma dúvida ou sugestão, entre em contato conosco através do seguinte e-mail: ideeoapp@gmail.com
+
+    Obrigado por usar nosso aplicativo Ideeo.
+             ";
+
+"privacy" = "Política de privacidade";
+
+"privacyText"= "
+    Esta Política de Privacidade descreve como o nosso aplicativo iOS para registro de ideias coleta, usa, armazena e protege as informações dos usuários. Ao utilizar nosso aplicativo, você concorda com as práticas descritas nesta política.
+               
+    Coleta de Informações:
+* Nosso aplicativo permite que você registre suas ideias por meio de texto, áudio e fotos.
+* Para registrar áudio, solicitamos permissão para acessar o gravador de áudio do seu dispositivo.
+* Para registrar fotos, solicitamos permissão para acessar a câmera do seu dispositivo.
+* No entanto, queremos esclarecer que não coletamos, armazenamos ou transmitimos nenhum dado pessoal identificável do usuário.
+* Todas as gravações de áudio e fotos são armazenadas exclusivamente no dispositivo do usuário, sob o controle total do usuário.
+               
+    Uso das Informações:
+* As informações registradas, como texto, áudio e fotos, são utilizadas apenas dentro do aplicativo para permitir que você visualize e gerencie suas ideias.
+* Não utilizamos essas informações para fins de identificação pessoal, marketing ou compartilhamento com terceiros.
+               
+    Segurança das Informações:
+* Levamos a segurança dos seus dados muito a sério.
+* Todas as gravações de áudio e fotos permanecem armazenadas localmente no seu dispositivo.
+* Recomendamos que você mantenha seu dispositivo protegido por senha ou usando recursos de autenticação para garantir a segurança das informações armazenadas nele.
+               
+    Compartilhamento de Informações:
+* Não compartilhamos nenhuma informação presente dentro do aplicativo com terceiros.
+* Todas as suas ideias, incluindo texto, áudio e fotos, são estritamente confidenciais e só podem ser acessadas por você no seu dispositivo.
+               
+    Alterações na Política de Privacidade:
+    Esta Política de Privacidade pode ser atualizada de tempos em tempos. Qualquer alteração nesta política será refletida nesta página, e a data da última atualização será atualizada no topo desta página. Se o usuário continuar a usar o aplicativo Ideeo após quaisquer alterações na Política de Privacidade, isso indicará que o usuário aceita as alterações.
+               
+    Contato:
+    Se você tiver alguma dúvida ou sugestão sobre nossa Política de Privacidade, entre em contato conosco através do seguinte e-mail: ideeoapp@gmail.com
+
+    Obrigado por usar nosso aplicativo Ideeo.
+               ";
+
+"terms" = "Termos de uso";
+
+"termsText" = "
+    Bem-vindo ao aplicativo Ideeo App. Ao utilizar nosso aplicativo, você concorda em cumprir estes Termos de Uso. Por favor, leia-os atentamente antes de utilizar o aplicativo.
+              
+1 Uso do Aplicativo:
+1.1 O aplicativo Ideeo App destina-se exclusivamente ao registro de ideias por meio de texto, áudio e fotos.
+1.2 Você é responsável por todas as atividades realizadas em sua conta do Ideeo App.
+1.3 Você concorda em utilizar o aplicativo de acordo com todas as leis e regulamentos aplicáveis.
+              
+2 Propriedade Intelectual:
+2.1 Todo o conteúdo e recursos disponibilizados no aplicativo Ideeo App, incluindo mas não se limitando a textos, imagens, gráficos, logotipos, ícones, áudios e vídeos, são de propriedade exclusiva do Ideeo App ou de seus licenciadores.
+2.2 Você não tem permissão para copiar, modificar, distribuir, transmitir, exibir, reproduzir, publicar, licenciar, criar obras derivadas, transferir ou vender qualquer conteúdo do aplicativo sem autorização prévia por escrito.
+              
+3 Responsabilidade do Usuário:
+3.1 Ao utilizar o Ideeo App, você concorda em não:
+a) Violar qualquer lei ou regulamento aplicável;
+b) Realizar atividades que possam prejudicar a segurança ou o funcionamento adequado do aplicativo;
+c) Acessar ou tentar acessar informações ou contas de outros usuários sem permissão;
+d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autorizados.
+              
+4 Limitação de Responsabilidade:
+4.1 O Ideeo App é fornecido \"no estado em que se encontra\" e não oferece garantias de qualquer tipo, expressas ou implícitas.
+4.2 Em nenhuma circunstância o Ideeo App será responsável por quaisquer danos diretos, indiretos, incidentais, especiais, consequenciais ou punitivos decorrentes do uso ou da impossibilidade de uso do aplicativo.
+              
+5 Modificações nos Termos de Uso:
+5.1 Reservamo-nos o direito de modificar estes Termos de Uso a qualquer momento, mediante aviso prévio.
+5.2 Ao continuar a usar o aplicativo após quaisquer alterações nos Termos de Uso, você concorda em estar vinculado à versão atualizada dos mesmos.
+              
+6 Disposições Gerais:
+6.1 Estes Termos de Uso constituem o acordo completo entre você e o Ideeo App em relação ao uso do aplicativo e substituem quaisquer acordos anteriores.
+6.2 Caso qualquer disposição destes Termos de Uso seja considerada inválida ou inexequível, as demais disposições permanecerão em pleno vigor e efeito.
+6.3 Estes Termos de Uso serão regidos e interpretados de acordo com as leis do seu país de residência.
+              
+    Contato:
+    Se você tiver alguma dúvida ou sugestão sobre nossa Política de Privacidade, entre em contato conosco através do seguinte e-mail: ideeoapp@gmail.com
+              
+    Obrigado por usar o aplicativo Ideeo App.
+              ";
+
+//MARK: Search, Order and Filter
+
+"search" = "Pesquise";
+
+//MARK: Order
+"order" = "Ordenar por:";
+
+"addDate" = "Data de adição";
+
+"editDate" = "Data de modificação";
+
+"recent" = "Mais recente";
+
+"old" = "Mais antigo";
+
+//MARK: Filter
+"filter" = "Filtrar por:";
+
+"img" = "Imagem";
+
+"txt" = "Texto";
+
+"aud" = "Áudio";
+
+//MARK: Titles
+
+"ideas" = "Ideias";
+
+"info" = "Informações";
+
+"insertAud" = "Inserir áudio";
+
+"insertTxt" = "Inserir texto";
+
+"ideaDay" = "Ideia do dia ";
+
+"note" = "Notas";
+
+"typeNote" = "Digite sua nota.";
+
+"record" = "Gravando";
+
+//MARK: Alerts
+
+"denied" = "Permissão negada";
+
+"micDenyMessage" = "Você negou permissão para acessar o microfone. Deseja abrir as configurações para conceder permissão?";
+
+"camDenyMessage" = "Você negou permissão para acessar a câmera. Deseja abrir as configurações para conceder permissão?";
+
+//MARK: General
+
+"cancel" = "Cancelar";
+
+"openConfig" = "Abrir configurações";

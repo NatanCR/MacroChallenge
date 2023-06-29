@@ -11,7 +11,7 @@ struct InfoView: View {
     @Environment(\.screenSize) var screenSize
     //variável que recebe o título do botão
     var infoTitle: [String] = ["about", "privacy", "terms"]
-    var infoText: [String] = ["hhhhhhh", "llllllll", "ttttttt"]
+    var infoText: [String] = ["aboutText", "privacyText", "termsText"]
     
     var body: some View {
         
@@ -46,7 +46,7 @@ struct InfoText: View {
                 VStack (alignment: .leading){
                     Text(LocalizedStringKey(infoText))
                         .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                        .frame(width: screenSize.width * 0.9, height: screenSize.height * 0.9, alignment: .topLeading)
+                        .frame(width: screenSize.width * 0.9, alignment: .topLeading)
                     
                     //TODO: colocar frame
                         .foregroundColor(Color("labelColor"))

@@ -58,9 +58,7 @@ struct RecordAudioView: View {
                             .frame(maxHeight: screenSize.height * 0.05)
                         
                         Button {
-                            self.recorded = false
-                            self.audioManager.stopAudio()
-                            self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
+                            self.deleteAction()
                             
     //                        self.recordAudio.deleteAllAudios()
     //                        IdeaSaver.clearAll()
@@ -76,17 +74,7 @@ struct RecordAudioView: View {
                 
                 // record and stop button
                 Button {
-                    self.isRecording.toggle()
-
-                    // if started recording
-                    if isRecording {
-                        self.recordAudio.startRecordingAudio()
-                    } else { // if stop the record
-                        self.recordAudio.stopRecordingAudio()
-                        self.audioUrl = ContentDirectoryHelper.getDirectoryContent(contentPath: self.recordAudio.recordedAudioPath)
-                        self.audioManager.assignAudio(self.audioUrl!)
-                        self.recorded = true
-                    }
+                    self.recordAction()
                 } label: {
                     Image(systemName: self.isRecording ? "stop.fill" : "mic.badge.plus")
                         .resizable()
@@ -113,31 +101,26 @@ struct RecordAudioView: View {
         .font(.custom("Sen-Regular", size: 20, relativeTo: .headline))
         .navigationTitle("Inserir áudio")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Salvar") {
-                    if isRecording {
-                        self.recordAudio.stopRecordingAudio()
-                        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
-                        self.recorded = false
-                    }
-                    
-                    if recorded {
-                        TextViewModel.setTitleDescriptionAndCompleteText(title: &self.textTitle, description: &self.textDescription, complete: &self.textComplete)
-                        
-                        let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
-                        IdeaSaver.saveAudioIdea(idea: idea)
-                    }
-                    
-                    dismiss()
+                    self.saveAction()
+                }
+            }
+            
+            //back button personalizado
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomActionBackButtonComponent {
+                    self.backAction()
                 }
             }
         }.onAppear {
-            recordAudio.requestPermission { isAllowed in
+            self.recordAudio.requestPermission { isAllowed in
                 if isAllowed {
                     DispatchQueue.main.async {
                         self.isAllowed = true
-                        startRecord()
+                        self.startRecord()
                     }
                 }
                 
@@ -159,15 +142,75 @@ struct RecordAudioView: View {
     }
     
     //MARK: - FUNCS
-    func startRecord() {
+    /**Starts the record audio action in general.*/
+    private func startRecord() {
         self.isFocused = false
         self.audioUrl = nil
         self.recordAudio.startRecordingAudio()
     }
     
-    func permisisonAlert() {
+    /**The action that is realised when pressing the back button.*/
+    private func backAction() {
+        if self.isRecording && !self.recorded {
+            self.recordAudio.stopRecordingAudio()
+            self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
+        }
+        
+        else if self.recorded {
+            self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
+            self.recorded = false
+        }
+    }
+    
+    /**The action that is realised when pressing the save button.*/
+    private func saveAction() {
+        if isRecording {
+            self.recordAudio.stopRecordingAudio()
+            self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
+            self.recorded = false
+        }
+        
+        if recorded {
+            TextViewModel.setTitleDescriptionAndCompleteText(title: &self.textTitle, description: &self.textDescription, complete: &self.textComplete)
+            
+            let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
+            IdeaSaver.saveAudioIdea(idea: idea)
+        }
+        
+        dismiss()
+    }
+    
+    /**The action that is realised when pressing the record/stop button.*/
+    private func recordAction() {
+        self.isRecording.toggle()
+
+        // if started recording
+        if isRecording {
+            self.recordAudio.startRecordingAudio()
+        } else { // if stop the record
+            self.recordAudio.stopRecordingAudio()
+            self.audioUrl = ContentDirectoryHelper.getDirectoryContent(contentPath: self.recordAudio.recordedAudioPath)
+            self.audioManager.assignAudio(self.audioUrl!)
+            self.recorded = true
+        }
+    }
+    
+    /**The action that is realised when pressing the delete button.*/
+    private func deleteAction() {
+        self.recorded = false
+        self.audioManager.stopAudio()
+        self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
+    }
+    
+    /**Alert that is poped up when trying to acces the record audio with no authorization.*/
+    private func permisisonAlert() {
+        let denied = String.LocalizationValue(stringLiteral: "denied")
+        let micDeny = String.LocalizationValue(stringLiteral: "micDenyMessage")
+        let cancel = String.LocalizationValue(stringLiteral: "cancel")
+        let openConfig = String.LocalizationValue(stringLiteral: "openConfig")
+        
         if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
-            let alert = UIAlertController(title: "Permissão negada", message: "Você negou permissão para acessar o microfone. Deseja abrir as configurações para conceder permissão?", preferredStyle: .alert)
+            let alert = UIAlertController(title: String(localized: denied), message: String(localized: micDeny), preferredStyle: .alert)
             
             //Obtém a cena de janela ativa
             if let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
@@ -177,11 +220,11 @@ struct RecordAudioView: View {
                 window.makeKeyAndVisible()
                 window.rootViewController?.present(alert, animated: true, completion: nil)
                 
-                alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: { _ in
+                alert.addAction(UIAlertAction(title: String(localized: cancel), style: .default, handler: { _ in
                     window.rootViewController?.dismiss(animated: true, completion: nil)
                     dismiss()
                 }))
-                alert.addAction(UIAlertAction(title: "Abrir configurações", style: .cancel, handler: { _ in
+                alert.addAction(UIAlertAction(title: String(localized: openConfig), style: .cancel, handler: { _ in
                     window.rootViewController?.dismiss(animated: true, completion: nil)
                     UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
                 }))
@@ -195,3 +238,28 @@ struct RecordAudioView_Previews: PreviewProvider {
         RecordAudioView()
     }
 }
+
+//extension LocalizedStringKey {
+//    var stringKey: String? {
+//        Mirror(reflecting: self).children.first(where: { $0.label == "key" })?.value as? String
+//    }
+//}
+//
+//extension String {
+//    static func localizedString(for key: String,
+//                                locale: Locale = .current) -> String {
+//
+//        let language = locale.languageCode
+//        let path = Bundle.main.path(forResource: language, ofType: "lproj")!
+//        let bundle = Bundle(path: path)!
+//        let localizedString = NSLocalizedString(key, bundle: bundle, comment: "")
+//
+//        return localizedString
+//    }
+//}
+//
+//extension LocalizedStringKey {
+//    func stringValue(locale: Locale = .current) -> String {
+//        return .localizedString(for: self.stringKey ?? "", locale: locale)
+//    }
+//}

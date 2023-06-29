@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+//MARK: - HOME VIEW
 struct HomeView: View {
     @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
     let audioManager: AudioManager = AudioManager()
 
+    //MARK: - HOME INIT
     //alteração da fonte dos títulos
     init(){
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "Sen-Bold", size: 30)!]
@@ -18,6 +20,7 @@ struct HomeView: View {
         
     }
     
+    //MARK: - HOME BODY
     var body: some View {
         
         NavigationView {
@@ -51,12 +54,10 @@ struct HomeView: View {
                     }
                 }
                 
-            }.navigationTitle("Ideas")
+            }.navigationTitle("ideas")
              .background(Color("backgroundColor"))
-             .onAppear {
-                 self.ideasViewModel.reloadLoadedData()
-                 self.ideasViewModel.filteredIdeas = ideasViewModel.loadedData
-                 self.ideasViewModel.orderBy(byCreation: false, sortedByAscendent: false)
+             .onAppear() {
+                 self.appearInitialization()
              }
             //atualizando a view quando fechar a camera
              .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
@@ -70,8 +71,17 @@ struct HomeView: View {
         .navigationViewStyle(StackNavigationViewStyle())
 
     }
+    
+    //MARK: - HOME FUNC's
+    // run in onAppear. Initializate the list of ideas only when opened the app
+    private func appearInitialization() {
+        self.ideasViewModel.reloadLoadedData()
+        self.ideasViewModel.filteredIdeas = ideasViewModel.loadedData
+        self.ideasViewModel.orderBy(byCreation: self.ideasViewModel.isSortedByCreation, sortedByAscendent: self.ideasViewModel.isSortedByAscendent)
+    }
 }
 
+//MARK: - GRID VIEW
 // view em forma de grid
 struct HomeGridView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
@@ -83,6 +93,7 @@ struct HomeGridView: View {
         GridItem(.flexible())
     ]
     
+    //MARK: - GRID BODY
     var body: some View{
         
         ScrollView{
@@ -118,10 +129,12 @@ struct HomeGridView: View {
     }
 }
 
+//MARK: - LIST VIEW
 //view em forma de lista
 struct HomeListView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     
+    //MARK: - LIST BODY
     var body: some View{
         
         if #available(iOS 16.0, *){
@@ -174,8 +187,10 @@ struct HomeListView: View {
         }
     }
 }
-    struct HomeView_Previews: PreviewProvider {
-        static var previews: some View {
-            HomeView()
-        }
+
+//MARK: - PREVIEW
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
     }
+}

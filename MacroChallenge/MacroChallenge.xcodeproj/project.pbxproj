@@ -47,6 +47,7 @@
 		918C7DC52A27D00900C36A53 /* AudioReprodutionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918C7DC42A27D00900C36A53 /* AudioReprodutionComponent.swift */; };
 		918C7DC82A27EDB000C36A53 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918C7DC72A27EDB000C36A53 /* ColorHelper.swift */; };
 		918E6A132A40CA800017CF1B /* BackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918E6A122A40CA800017CF1B /* BackAction.swift */; };
+		91C237122A4CD91600C9208C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91C237142A4CD91600C9208C /* InfoPlist.strings */; };
 		91DB2B4E2A2A5FA300EC8176 /* ContentDirectoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DB2B4D2A2A5FA300EC8176 /* ContentDirectoryHelper.swift */; };
 		91EDECC92A424B2E008E5CAA /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC62A424B2E008E5CAA /* Sen-Bold.ttf */; };
 		91EDECCA2A424B2E008E5CAA /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC62A424B2E008E5CAA /* Sen-Bold.ttf */; };
@@ -131,6 +132,8 @@
 		918C7DC42A27D00900C36A53 /* AudioReprodutionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioReprodutionComponent.swift; sourceTree = "<group>"; };
 		918C7DC72A27EDB000C36A53 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		918E6A122A40CA800017CF1B /* BackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackAction.swift; sourceTree = "<group>"; };
+		91C237132A4CD91600C9208C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		91C237152A4CD91900C9208C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		91DB2B4D2A2A5FA300EC8176 /* ContentDirectoryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDirectoryHelper.swift; sourceTree = "<group>"; };
 		91EDECC62A424B2E008E5CAA /* Sen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Bold.ttf"; path = "MacroChallenge/Fonts/Sen-Bold.ttf"; sourceTree = SOURCE_ROOT; };
 		91EDECC72A424B2E008E5CAA /* Sen-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-ExtraBold.ttf"; path = "MacroChallenge/Fonts/Sen-ExtraBold.ttf"; sourceTree = SOURCE_ROOT; };
@@ -401,6 +404,15 @@
 			path = Idea;
 			sourceTree = "<group>";
 		};
+		91C237162A4D00B100C9208C /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				D153ACD52A3CDE9600DE9A79 /* Localizable.strings */,
+				91C237142A4CD91600C9208C /* InfoPlist.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		D124953A2A268A720063C634 = {
 			isa = PBXGroup;
 			children = (
@@ -429,7 +441,7 @@
 				9195EF232A27049000A839D8 /* Essentials */,
 				916E0FB02A268B0B00F4FA87 /* Audio */,
 				916E0FB12A268B1700F4FA87 /* IdeaRegister */,
-				D153ACD52A3CDE9600DE9A79 /* Localizable.strings */,
+				91C237162A4D00B100C9208C /* Localization */,
 			);
 			path = MacroChallenge;
 			sourceTree = "<group>";
@@ -614,6 +626,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91EDECCF2A424B2E008E5CAA /* Sen-Regular.ttf in Resources */,
+				91C237122A4CD91600C9208C /* InfoPlist.strings in Resources */,
 				91EDECC92A424B2E008E5CAA /* Sen-Bold.ttf in Resources */,
 				D153ACD32A3CDE9600DE9A79 /* Localizable.strings in Resources */,
 				91EDECCC2A424B2E008E5CAA /* Sen-ExtraBold.ttf in Resources */,
@@ -743,6 +756,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		91C237142A4CD91600C9208C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91C237132A4CD91600C9208C /* en */,
+				91C237152A4CD91900C9208C /* pt-BR */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		D153ACD52A3CDE9600DE9A79 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

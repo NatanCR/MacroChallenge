@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  MacroChallenge
+
+  Created by Henrique Assis on 28/06/23.
+  
+*/
+
+//MARK: Permissions
+"NSMicrophoneUsageDescription" = "O app Ideeo gostaria de usar o microfone do seu dispositivo para o registro de áudios das suas ideias.";
+
+"NSCameraUsageDescription" = "O app Ideeo gostaria de usar a câmera do seu dispositivo para o registro de fotos das suas ideias.";

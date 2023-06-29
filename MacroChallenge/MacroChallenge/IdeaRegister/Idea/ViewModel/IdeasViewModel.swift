@@ -17,8 +17,8 @@ class IdeasViewModel: ObservableObject {
     @Published var isSortedByAscendent: Bool = false
     @Published var isSortedByCreation: Bool = false
     @Published var isShowingCamera = false
-    @StateObject var cameraViewModel = CameraViewModel()
     @Published var searchText: String = ""
+    @StateObject var cameraViewModel = CameraViewModel()
     
     
     func orderBy(byCreation: Bool, sortedByAscendent: Bool) {

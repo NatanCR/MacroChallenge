@@ -33,6 +33,11 @@ struct CameraRepresentable: UIViewControllerRepresentable {
         imagePicker.sourceType = .camera
         imagePicker.delegate = context.coordinator // Definindo o delegate
         
+        let denied = String.LocalizationValue(stringLiteral: "denied")
+        let camDeny = String.LocalizationValue(stringLiteral: "camDenyMessage")
+        let cancel = String.LocalizationValue(stringLiteral: "cancel")
+        let openConfig = String.LocalizationValue(stringLiteral: "openConfig")
+        
         viewModel.checkCameraPermission { granted in
             if granted {
                 DispatchQueue.main.async {
@@ -48,7 +53,7 @@ struct CameraRepresentable: UIViewControllerRepresentable {
                     
                 } else {
                     if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
-                        let alert = UIAlertController(title: "Permissão negada", message: "Você negou permissão para acessar a câmera. Deseja abrir as configurações para conceder permissão?", preferredStyle: .alert)
+                        let alert = UIAlertController(title: String(localized: denied), message: String(localized: camDeny), preferredStyle: .alert)
                         
                         //Obtém a cena de janela ativa
                         if let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
@@ -58,11 +63,11 @@ struct CameraRepresentable: UIViewControllerRepresentable {
                             window.makeKeyAndVisible()
                             window.rootViewController?.present(alert, animated: true, completion: nil)
                             
-                            alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: { _ in
+                            alert.addAction(UIAlertAction(title: String(localized: cancel), style: .default, handler: { _ in
                                 window.rootViewController?.dismiss(animated: true, completion: nil)
                                 dismiss()
                             }))
-                            alert.addAction(UIAlertAction(title: "Abrir configurações", style: .cancel, handler: { _ in
+                            alert.addAction(UIAlertAction(title: String(localized: openConfig), style: .cancel, handler: { _ in
                                 window.rootViewController?.dismiss(animated: true, completion: nil)
                                 UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
                             }))
