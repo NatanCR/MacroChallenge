@@ -109,10 +109,3 @@ struct PhotoIdeaView: View {
         IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: self.photoModel)
     }
 }
-
-
-//struct PhotoView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PhotoIdeaView()
-//    }
-//}

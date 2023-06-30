@@ -30,6 +30,9 @@ struct EditRegisterView: View {
                         PlaceholderComponent(idea: modelText)
                     }
             }
+            .onChange(of: modelText.textComplete, perform: { newValue in
+                self.saveIdea()
+            })
             .navigationBarBackButtonHidden()
             .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: self.dateFormatter)!))
             .navigationBarTitleDisplayMode(.large)
@@ -51,10 +54,14 @@ struct EditRegisterView: View {
                 }
             }
     }
+    
+    //MARK: - FUNCs
+    private func saveIdea() {
+        let text = self.modelText.textComplete
+        if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
+        
+        self.modelText.modifiedDate = Date()
+        TextViewModel.setTextsFromIdea(idea: &self.modelText)
+        IdeaSaver.changeSavedValue(type: ModelText.self, idea: self.modelText)
+    }
 }
-
-//struct EditRegisterView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditRegisterView()
-//    }
-//}

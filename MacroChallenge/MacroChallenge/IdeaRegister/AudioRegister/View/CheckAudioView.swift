@@ -102,6 +102,5 @@ struct CheckAudioView: View {
         self.idea.modifiedDate = Date()
         TextViewModel.setTextsFromIdea(idea: &self.idea)
         IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
-        print("save")
     }
 }
