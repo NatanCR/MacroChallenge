@@ -46,7 +46,7 @@ struct TextRegisterView: View {
                         TextViewModel.setTitleDescriptionAndCompleteText(title: &title, description: &idea, complete: &textComplete)
                         
                         //coloca os dados no formato da estrutura
-                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: idea, textComplete: textComplete)
+                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: idea, textComplete: textComplete, tag: nil)
                         //salva o dados registrados
                         IdeaSaver.saveTextIdea(idea: currentModel)
                         dismiss()

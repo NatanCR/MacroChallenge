@@ -18,14 +18,16 @@ struct PhotoModel: Idea {
     var creationDate: Date
     var modifiedDate: Date
     var capturedImages: String
+    var tag: [Tag]?
     
-    init(title: String, description: String, textComplete: String, creationDate: Date, modifiedDate: Date, capturedImage: String) {
+    init(title: String, description: String, textComplete: String, creationDate: Date, modifiedDate: Date, capturedImage: String, tag: [Tag]?) {
         self.title = title
         self.description = description
         self.textComplete = textComplete
         self.creationDate = creationDate
         self.modifiedDate = modifiedDate
         self.capturedImages = capturedImage
+        self.tag = tag
     }
 }
 
