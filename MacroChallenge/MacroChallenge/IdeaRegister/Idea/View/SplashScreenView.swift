@@ -22,7 +22,7 @@ struct SplashScreenView: View {
             ZStack{
                 Color("splashScreen")
                     .ignoresSafeArea()
-            //present the animation
+            //apresenta a animação
             Image("splash_\(index)")
                 .resizable()
                 .scaledToFit()
@@ -30,13 +30,13 @@ struct SplashScreenView: View {
                 .ignoresSafeArea()
                 .onAppear{
                          
-            //timer among the images
+            //tempo entre as imagens
             Timer
                 .scheduledTimer(withTimeInterval: 0.03, repeats: true){
                 _ in
                                  
                                  
-            //condition to call the images index
+            //condição que altera o index das imagens
             if(index < 49) {
                 index += 1
                                  }
@@ -44,7 +44,7 @@ struct SplashScreenView: View {
                              }
             }
                 .onAppear{
-                           //turn isActive true to call the next view
+                           //chama a próxima view
                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.4){
                                self.nextView = true
                            }
