@@ -120,10 +120,9 @@ struct HomeGridView: View {
                             let photoIdea = ideas as! PhotoModel
                             ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel)
                         }
-                    }.onAppear {
-                        //dump(ideas)
                     }
                 }
+
             }.padding()
         }
     }
@@ -157,10 +156,13 @@ struct HomeListView: View {
                             ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
+
                 }
+
                 .listRowBackground(Color("backgroundItem"))
             }
             .scrollContentBackground(.hidden)
+
         } else {
             List {
                 ForEach(self.ideasViewModel.filteredIdeas, id: \.id) { ideas in
@@ -185,6 +187,7 @@ struct HomeListView: View {
                 .listRowBackground(Color("backgroundItem"))
             }
         }
+        
     }
 }
 

@@ -14,6 +14,8 @@ struct ImagePreviewComponent: View {
     var title: String
     @State var idea: any Idea
     @ObservedObject var ideasViewModel: IdeasViewModel
+    @State private var isAlertActive: Bool = false
+
     
     var body: some View {
         VStack{
@@ -48,6 +50,16 @@ struct ImagePreviewComponent: View {
                     .padding(8)
                 }
                 .padding(.bottom, 5)
+                .contextMenu{
+                    Button(role: .destructive){
+                        isAlertActive = true
+                    } label: {
+                        HStack{
+                            Text("del")
+                            Image(systemName: "trash")
+                        }
+                    }
+                }
             Text(title)
                 .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
@@ -56,6 +68,20 @@ struct ImagePreviewComponent: View {
             Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
                 .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
+        }
+        
+        //TODO: fazer a tradução do alerta
+        .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
+            Button("Delete Idea", role: .destructive) {
+                //TODO: atualizar a view assim que deleta a ideia
+                //deletar
+                IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: idea as! PhotoModel)
+                
+                if let photoIdea = idea as? PhotoModel {
+                    ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: photoIdea.capturedImages)
+                }
+
+            }
         }
     }
 }
