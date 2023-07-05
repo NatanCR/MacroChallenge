@@ -11,6 +11,9 @@
 		40497BAA2A31259900E6D3B5 /* ListRowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BA92A31259900E6D3B5 /* ListRowComponent.swift */; };
 		40497BAC2A32E5F600E6D3B5 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BAB2A32E5F600E6D3B5 /* InfoView.swift */; };
 		40497BAE2A32E68500E6D3B5 /* ButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */; };
+		4074E0432A55FFBA00C5A46E /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074E0422A55FFBA00C5A46E /* TagView.swift */; };
+		4074E0452A5611C400C5A46E /* TagComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074E0442A5611C400C5A46E /* TagComponent.swift */; };
+		4074E0472A56121100C5A46E /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074E0462A56121100C5A46E /* Tag.swift */; };
 		4085CBAB2A30106A00DAC6CA /* ToolbarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */; };
 		4085CBAD2A30207200DAC6CA /* SearchBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */; };
 		4085CBAF2A302B9000DAC6CA /* FilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */; };
@@ -98,6 +101,9 @@
 		40497BA92A31259900E6D3B5 /* ListRowComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowComponent.swift; sourceTree = "<group>"; };
 		40497BAB2A32E5F600E6D3B5 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonComponent.swift; sourceTree = "<group>"; };
+		4074E0422A55FFBA00C5A46E /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		4074E0442A5611C400C5A46E /* TagComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagComponent.swift; sourceTree = "<group>"; };
+		4074E0462A56121100C5A46E /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarComponent.swift; sourceTree = "<group>"; };
 		4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarComponent.swift; sourceTree = "<group>"; };
 		4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterComponent.swift; sourceTree = "<group>"; };
@@ -182,6 +188,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4074E0482A56149F00C5A46E /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				4074E0492A5614AC00C5A46E /* View */,
+				4074E04A2A5614B400C5A46E /* Model */,
+			);
+			path = Tags;
+			sourceTree = "<group>";
+		};
+		4074E0492A5614AC00C5A46E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4074E04B2A5614CA00C5A46E /* Components */,
+				4074E0422A55FFBA00C5A46E /* TagView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4074E04A2A5614B400C5A46E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4074E0462A56121100C5A46E /* Tag.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4074E04B2A5614CA00C5A46E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4074E0442A5611C400C5A46E /* TagComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		4097FDEA2A2FC229001EAB03 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				9195EF242A27054200A839D8 /* Idea */,
+				4074E0482A56149F00C5A46E /* Tags */,
 				D135A6BB2A268FB0009C1938 /* TextRegister */,
 				916E0FB82A268B6B00F4FA87 /* AudioRegister */,
 				43211D392A268D92005C85E5 /* PhotoRegister */,
@@ -653,6 +694,7 @@
 				916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */,
 				401292872A40F155006DB4CF /* SplashScreenView.swift in Sources */,
 				D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */,
+				4074E0432A55FFBA00C5A46E /* TagView.swift in Sources */,
 				43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				40E859562A3B8FC500F2BC0E /* MenuEditComponent.swift in Sources */,
@@ -688,6 +730,8 @@
 				40497BAA2A31259900E6D3B5 /* ListRowComponent.swift in Sources */,
 				D153ACD02A3B82D500DE9A79 /* IdeasViewModel.swift in Sources */,
 				916E0FBC2A268BAA00F4FA87 /* IdeaSaver.swift in Sources */,
+				4074E0452A5611C400C5A46E /* TagComponent.swift in Sources */,
+				4074E0472A56121100C5A46E /* Tag.swift in Sources */,
 				D12495472A268A720063C634 /* MacroChallengeApp.swift in Sources */,
 				40E8595A2A3BAD2900F2BC0E /* CustomBackButtonComponent.swift in Sources */,
 				4085CBAD2A30207200DAC6CA /* SearchBarComponent.swift in Sources */,
