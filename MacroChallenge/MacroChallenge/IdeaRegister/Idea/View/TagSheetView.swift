@@ -34,12 +34,12 @@ struct TagSheetView: View {
                 .onSubmit {
                     let tag = Tag(name: nameTag, color: "#fff")
                     IdeaSaver.saveTag(tag: tag)
+                    viewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
                 }
             
-            //exibe lista de tags - precisa atualizar em tempo real
-            //lista com todas
             //lista será filtrada ao escrever no textfield
             
+            //exibe lista de tags - precisa atualizar em tempo real
             ForEach(self.$viewModel.tagsLoadedData, id:\.id) { $tag in
                 Text(tag.name)
                     .padding()

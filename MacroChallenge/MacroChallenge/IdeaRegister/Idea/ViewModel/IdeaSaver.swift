@@ -19,9 +19,7 @@ class IdeaSaver {
     public static func saveTag(tag: Tag) {
         saveUniqueTag(tag: tag, key: tagModelKey)
     }
-    
-    //MARK: - Tag's Load
-    
+        
     //MARK: - Audio Saves
     /**Save an audio idea in UserDefaults that stores all AudioIdeas**/
     public static func saveAudioIdea(idea: AudioIdeia) {
