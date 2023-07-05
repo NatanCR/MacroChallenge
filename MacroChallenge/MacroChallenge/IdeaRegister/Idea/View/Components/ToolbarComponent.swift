@@ -29,7 +29,7 @@ struct ToolbarComponent: View {
             }
             Spacer()
             NavigationLink {
-                TextRegisterView()
+                TextRegisterView(ideasViewModel: ideasViewModel)
             } label: {
                 Image(systemName: "square.and.pencil")
             }.padding()

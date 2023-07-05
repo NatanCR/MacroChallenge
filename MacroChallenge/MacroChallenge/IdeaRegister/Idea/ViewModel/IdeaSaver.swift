@@ -13,6 +13,14 @@ class IdeaSaver {
     private static let audioModelKey: String = "audioIdeas"
     private static let textModelKey: String = "textIdeas"
     private static let photoModelKey: String = "photoIdeas"
+    private static let tagModelKey: String = "tags"
+    
+    //MARK: - Tag's Saves
+    public static func saveTag(tag: Tag) {
+        saveUniqueTag(tag: tag, key: tagModelKey)
+    }
+    
+    //MARK: - Tag's Load
     
     //MARK: - Audio Saves
     /**Save an audio idea in UserDefaults that stores all AudioIdeas**/
@@ -113,6 +121,17 @@ class IdeaSaver {
         return []
     }
     
+    /**Returns all tags saved in UserDefaults**/
+    public static func getAllSavedTags() -> [Tag] {
+        if let savedTags = defaults.object(forKey: tagModelKey) as? Data {
+            if let loadedTags = try? JSONDecoder().decode([Tag].self, from: savedTags) {
+                return loadedTags
+            }
+        }
+        print("error to GetSavedTags, or no saved tags of specified type exists in UserDefault")
+        return []
+    }
+    
     //MARK: - GETTERS
     /**Gets the key used for audio ideas saved in UserDefaults.**/
     public static func getAudioModelKey() -> String {
@@ -185,6 +204,26 @@ class IdeaSaver {
     }
     
     // MARK: - PRIVATE STATICS
+    /**Save an unique tag.*/
+    private static func saveUniqueTag(tag: Tag, key: String) {
+        let encoder = JSONEncoder()
+        var savedTags: [Tag] = []
+        
+        if defaults.object(forKey: key) == nil {
+            defaults.set(savedTags, forKey: key)
+        }
+        
+        else {
+            savedTags = getAllSavedTags()
+        }
+        
+        savedTags.append(tag)
+        
+        if let encoded = try? encoder.encode(savedTags) {
+            defaults.set(encoded, forKey: key)
+        }
+    }
+    
     /**Save an idea of an unique idea type in UserDefaults.**/
     private static func saveUniqueIdea<T: Idea>(idea: T, type: T.Type, key: String){
         let encoder = JSONEncoder()

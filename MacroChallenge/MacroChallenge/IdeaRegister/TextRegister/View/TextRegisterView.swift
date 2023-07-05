@@ -14,8 +14,8 @@ struct TextRegisterView: View {
     @State private var idea: String = ""
     @State private var isActive: Bool = false //variável para ativar o alerta
     @FocusState private var isFocused: Bool
-    @ObservedObject private var keyboard = ObservingKeyboard()
     @State private var showTagSheet: Bool = false
+    @ObservedObject var ideasViewModel: IdeasViewModel
     
     var body: some View {
         ScrollView {
@@ -24,7 +24,7 @@ struct TextRegisterView: View {
                     .padding()
                     .focused($isFocused)
             }
-            .padding(.bottom, keyboard.keyboardHeight)
+            .padding(.bottom, ideasViewModel.keyboard.keyboardHeight)
         }
         .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)
@@ -71,7 +71,7 @@ struct TextRegisterView: View {
                             Image(systemName: "tag.fill")
                         }.font(Font.custom("Sen-Regular", size: 24, relativeTo: .headline))
                             .sheet(isPresented: $showTagSheet) {
-                                TagSheetView()
+                                TagSheetView(viewModel: ideasViewModel)
                             }
                         Spacer()
                     }
