@@ -17,12 +17,10 @@ struct HomeView: View {
     init(){
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "Sen-Bold", size: 30)!]
         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: "Sen-Bold", size: 17)!]
-        
     }
     
     //MARK: - HOME BODY
     var body: some View {
-        
         NavigationView {
             VStack {
                 HStack {
@@ -97,8 +95,6 @@ struct HomeGridView: View {
     var body: some View{
         
         ScrollView{
-            //TODO: fazer for each dos arquivos salvos
-            
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     NavigationLink {

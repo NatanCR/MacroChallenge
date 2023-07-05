@@ -14,12 +14,17 @@ struct TextRegisterView: View {
     @State private var idea: String = ""
     @State private var isActive: Bool = false //variável para ativar o alerta
     @FocusState private var isFocused: Bool
+    @ObservedObject private var keyboard = ObservingKeyboard()
+    @State private var showTagSheet: Bool = false
     
     var body: some View {
-        VStack {
-            TextEditor(text: $textComplete)
-                .padding()
-                .focused($isFocused)
+        ScrollView {
+            VStack {
+                TextEditor(text: $textComplete)
+                    .padding()
+                    .focused($isFocused)
+            }
+            .padding(.bottom, keyboard.keyboardHeight)
         }
         .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)
@@ -56,6 +61,23 @@ struct TextRegisterView: View {
                 }
             }
         }.font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
+            .overlay(
+                VStack {
+                    Spacer()
+                    HStack {
+                        Button {
+                            showTagSheet.toggle()
+                        } label: {
+                            Image(systemName: "tag.fill")
+                        }.font(Font.custom("Sen-Regular", size: 24, relativeTo: .headline))
+                            .sheet(isPresented: $showTagSheet) {
+                                TagSheetView()
+                            }
+                        Spacer()
+                    }
+                    .padding()
+                }
+            )
     }
 }
 

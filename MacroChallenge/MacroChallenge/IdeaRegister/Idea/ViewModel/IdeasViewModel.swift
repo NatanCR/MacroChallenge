@@ -21,6 +21,7 @@ class IdeasViewModel: ObservableObject {
     @StateObject var cameraViewModel = CameraViewModel()
     
     
+    
     func orderBy(byCreation: Bool, sortedByAscendent: Bool) {
         DispatchQueue.main.async { [self] in
             self.isSortedByAscendent = sortedByAscendent
