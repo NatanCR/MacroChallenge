@@ -59,6 +59,9 @@ struct TagView: View {
         }
         .padding(15)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .onTapGesture {
+            isFocused = false
+        }
     }
 
 }
