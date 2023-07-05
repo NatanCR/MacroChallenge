@@ -11,7 +11,9 @@ import SwiftUI
 struct HomeView: View {
     @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
     let audioManager: AudioManager = AudioManager()
-
+    
+    @FocusState private var searchInFocus: Bool
+    
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
     init(){
@@ -24,52 +26,67 @@ struct HomeView: View {
     var body: some View {
         
         NavigationView {
-            VStack {
-                HStack {
-                    SearchBarComponent(ideasViewModel: ideasViewModel)
-                        .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                    FilterComponent(ideasViewModel: ideasViewModel)
-                        .padding(.trailing)
-                }
-                
-                SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager)
-  
-                //navigation bar
-                .toolbar{
-                    ToolbarItemGroup(placement: .navigationBarTrailing){
-                      
-                        NavigationLink {
-                            InfoView()
-                        } label: {
-                            Image(systemName: "info.circle.fill")
-                                .font(.system(size: 20))
+            ZStack {
+                VStack {
+                    HStack {
+                        SearchBarComponent(ideasViewModel: ideasViewModel)
+                            .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                            .focused($searchInFocus)
+                        FilterComponent(ideasViewModel: ideasViewModel)
+                            .padding(.trailing)
+                    }
+                    
+                    
+                    SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager)
+                    
+                    //navigation bar
+                        .toolbar{
+                            ToolbarItemGroup(placement: .navigationBarTrailing){
+                                
+                                NavigationLink {
+                                    InfoView()
+                                } label: {
+                                    Image(systemName: "info.circle.fill")
+                                        .font(.system(size: 20))
+                                }
+                            }
+                        }
+                    
+                    //toolbar para adicionar ideias
+                        .toolbar {
+                            ToolbarItemGroup(placement: .bottomBar) {
+                                ToolbarComponent(ideasViewModel: ideasViewModel)
+                            }
+                        }
+                    
+                }.navigationTitle("ideas")
+                    .background(Color("backgroundColor"))
+                    .onAppear() {
+                        self.appearInitialization()
+                    }
+                //atualizando a view quando fechar a camera
+                    .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
+                        if !newValue {
+                            if self.ideasViewModel.isFiltered {
+                                self.ideasViewModel.reloadLoadedData()
+                                self.ideasViewModel.orderBy(byCreation: self.ideasViewModel.isSortedByCreation, sortedByAscendent: self.ideasViewModel.isSortedByAscendent)
+                            } else {
+                                self.appearInitialization()
+                            }
                         }
                     }
-                }
                 
-                //toolbar para adicionar ideias
-                .toolbar {
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        ToolbarComponent(ideasViewModel: ideasViewModel)
-                    }
-                }
-                
-            }.navigationTitle("ideas")
-             .background(Color("backgroundColor"))
-             .onAppear() {
-                 self.appearInitialization()
-             }
-            //atualizando a view quando fechar a camera
-             .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
-                if !newValue {
-                    self.ideasViewModel.loadedData = IdeaSaver.getAllSavedIdeas()
-                    self.ideasViewModel.filteredIdeas = ideasViewModel.loadedData
+                if searchInFocus != false{
+                    Rectangle()
+                        .fill(Color.pink)
+                        .opacity(0.001)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .onTapGesture(perform: ideasViewModel.DismissKeyboard)
                 }
             }
-            
         }
         .navigationViewStyle(StackNavigationViewStyle())
-
+        
     }
     
     //MARK: - HOME FUNC's

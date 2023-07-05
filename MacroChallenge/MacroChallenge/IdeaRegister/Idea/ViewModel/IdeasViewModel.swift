@@ -20,6 +20,9 @@ class IdeasViewModel: ObservableObject {
     @Published var searchText: String = ""
     @StateObject var cameraViewModel = CameraViewModel()
     
+    func DismissKeyboard(){
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
     
     func orderBy(byCreation: Bool, sortedByAscendent: Bool) {
         DispatchQueue.main.async { [self] in
