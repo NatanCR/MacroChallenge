@@ -22,7 +22,6 @@ struct PhotoIdeaView: View {
     
     @FocusState var isFocused: Bool
     
-    
     init(photoModel: PhotoModel) {
         self._photoModel = State(initialValue: photoModel)
         
@@ -30,63 +29,63 @@ struct PhotoIdeaView: View {
     }
     
     var body: some View {
-            if let uiImage = UIImage(contentsOfFile: photoURL!.path) {
+        if let uiImage = UIImage(contentsOfFile: photoURL!.path) {
+            
+            VStack (alignment: .center){
                 
-                VStack (alignment: .center){
-                    
-                                        
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .cornerRadius(25)
-                        .scaledToFill()
-                        .rotationEffect(.degrees(90))
-                        .frame(maxWidth: screenSize.width * 0.5, alignment: .top)
-                        .padding([.top, .bottom], 50)
-                    
-                    TextEditor(text: $photoModel.textComplete)
-                        .font(.custom("Sen-Regular", size: 17))
-                        .multilineTextAlignment(.leading)
-                        .frame(alignment: .topLeading)
-                        .focused($isFocused)
-                        .overlay {
-                            PlaceholderComponent(idea: photoModel)
-                        }
-                        .padding(9)
-                        .onAppear {
-                            if !photoModel.textComplete.isEmpty {
-                                DispatchQueue.main.async {
-                                    // Atualizar a view para exibir o conteúdo existente da variável description
-                                    self.photoModel.textComplete = photoModel.textComplete
-                                }
+                
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .cornerRadius(25)
+                    .scaledToFill()
+                    .rotationEffect(.degrees(90))
+                    .frame(maxWidth: screenSize.width * 0.5, alignment: .top)
+                    .padding([.top, .bottom], 50)
+                
+                TextEditor(text: $photoModel.textComplete)
+                    .font(.custom("Sen-Regular", size: 17))
+                    .multilineTextAlignment(.leading)
+                    .frame(alignment: .topLeading)
+                    .focused($isFocused)
+                    .overlay {
+                        PlaceholderComponent(idea: photoModel)
+                    }
+                    .padding(9)
+                    .onAppear {
+                        if !photoModel.textComplete.isEmpty {
+                            DispatchQueue.main.async {
+                                // Atualizar a view para exibir o conteúdo existente da variável description
+                                self.photoModel.textComplete = photoModel.textComplete
                             }
                         }
-                        .onChange(of: photoModel.textComplete) { newValue in
-                            saveIdea()
-                        }
-                }
-        .navigationTitle(Text(text) + Text(photoModel.creationDate.toString(dateFormatter: self.dateFormatter)!))
-        .navigationBarTitleDisplayMode(.large)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem (placement: .navigationBarTrailing){
-                MenuEditComponent(type: PhotoModel.self, idea: self.$photoModel)
+                    }
+                    .onChange(of: photoModel.textComplete) { newValue in
+                        saveIdea()
+                    }
             }
-            
-            ToolbarItem (placement: .navigationBarTrailing){
-                if isFocused{
-                    Button{
-                        isFocused = false
-                    } label: {
-                        Text("OK")
+            .navigationTitle(Text(text) + Text(photoModel.creationDate.toString(dateFormatter: self.dateFormatter)!))
+            .navigationBarTitleDisplayMode(.large)
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem (placement: .navigationBarTrailing){
+                    MenuEditComponent(type: PhotoModel.self, idea: self.$photoModel)
+                }
+                
+                ToolbarItem (placement: .navigationBarTrailing){
+                    if isFocused{
+                        Button{
+                            isFocused = false
+                        } label: {
+                            Text("OK")
+                        }
                     }
                 }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    CustomBackButtonComponent(type: PhotoModel.self, idea: $photoModel)
+                }
             }
-            ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtonComponent(type: PhotoModel.self, idea: $photoModel)
-            }
-        }
-
-                //TODO: traduzir alerta
+            
+            //TODO: traduzir alerta
             .alert(isPresented: $showAlert) {
                 Alert(
                     title: Text("Sucesso"),
