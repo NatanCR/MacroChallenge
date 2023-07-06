@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct TextPreviewComponent: View {
+    @Environment(\.dismiss) var dismiss
     @Environment(\.screenSize) var screenSize
     private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var text: String
     var title: String
     @Binding var idea: any Idea
     @ObservedObject var ideasViewModel: IdeasViewModel
+    @State private var isAlertActive: Bool = false
+
     
     init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel) {
         self.text = text
@@ -39,6 +42,16 @@ struct TextPreviewComponent: View {
                 
             }
             .padding(.bottom, 5)
+            .contextMenu{
+                Button(role: .destructive){
+                    isAlertActive = true
+                } label: {
+                    HStack{
+                        Text("del")
+                        Image(systemName: "trash")
+                    }
+                }
+            }
             
             Text(title)
                 .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
@@ -48,6 +61,15 @@ struct TextPreviewComponent: View {
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
             
             
+        }
+        //TODO: fazer a tradução do alerta
+        .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
+            Button("Delete Idea", role: .destructive) {
+                //TODO: atualizar a view assim que deleta a ideia
+                //deletar
+                IdeaSaver.clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
+            }
+
         }
     }
 }

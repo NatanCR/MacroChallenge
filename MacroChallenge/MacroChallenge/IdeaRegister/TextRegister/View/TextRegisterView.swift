@@ -25,6 +25,24 @@ struct TextRegisterView: View {
                     .focused($isFocused)
             }
             .padding(.bottom, ideasViewModel.keyboard.keyboardHeight)
+    @State var showModal: Bool = false
+    
+    var body: some View {
+        VStack (alignment: .leading){
+            TextEditor(text: $textComplete)
+                .padding()
+                .focused($isFocused)
+            
+            //chama a sheet
+            Button{
+                showModal = true
+            } label: {
+                Image("tag_icon")
+            }
+            .padding()
+            .sheet(isPresented: $showModal) {
+                TagView()
+            }
         }
         .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)
