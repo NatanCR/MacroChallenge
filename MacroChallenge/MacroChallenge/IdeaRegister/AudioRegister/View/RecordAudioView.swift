@@ -33,15 +33,17 @@ struct RecordAudioView: View {
             return true
         }
     }()
+    @ObservedObject var ideasViewModel: IdeasViewModel
     @State var showModal: Bool = false
     
     // audio
     private let audioManager: AudioManager
     
     //MARK: - INIT
-    init() {
+    init(ideasViewModel: IdeasViewModel) {
         self._recordAudio = StateObject(wrappedValue: RecordAudio())
         self.audioManager = AudioManager()
+        self.ideasViewModel = ideasViewModel
     }
     
     //MARK: - BODY
@@ -104,7 +106,7 @@ struct RecordAudioView: View {
                     }
                     .padding()
                     .sheet(isPresented: $showModal) {
-                        TagView()
+                        TagView(viewModel: ideasViewModel)
                     }
             }
         }
@@ -243,8 +245,8 @@ struct RecordAudioView: View {
     }
 }
 
-struct RecordAudioView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecordAudioView()
-    }
-}
+//struct RecordAudioView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecordAudioView()
+//    }
+//}

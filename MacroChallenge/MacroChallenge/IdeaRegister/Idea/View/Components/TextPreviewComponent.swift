@@ -42,7 +42,7 @@ struct TextPreviewComponent: View {
                 
             }
             .padding(.bottom, 5)
-            .contextMenu{
+            .contextMenu {
                 Button(role: .destructive){
                     isAlertActive = true
                 } label: {

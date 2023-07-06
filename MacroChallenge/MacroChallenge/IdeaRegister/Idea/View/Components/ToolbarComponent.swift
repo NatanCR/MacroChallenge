@@ -23,7 +23,7 @@ struct ToolbarComponent: View {
             .padding()
             Spacer()
             NavigationLink {
-                RecordAudioView()
+                RecordAudioView(ideasViewModel: ideasViewModel)
             } label: {
                 Image(systemName: "mic.fill")
             }

@@ -22,22 +22,18 @@ struct TagComponent: View {
                     ForEach(getRows(), id: \.self) { rows in
                         
                         HStack(spacing: 6){
-                            
                             ForEach(rows) { row in
-                                
-
-                                    RowView(tag: row)
-                                }
+                                RowView(tag: row)
+                            }
                         }
                     }
-                    
                 }
                 .padding(.vertical)
             }
         }
         .frame(width: screenSize.width * 0.9, alignment: .leading)
         .animation(.easeInOut, value: tags)
-
+        
     }
     
     @ViewBuilder
@@ -47,7 +43,7 @@ struct TagComponent: View {
             //TODO: associar tag a ideia
             print("ta clicando")
         } label: {
-            Text(tag.text)
+            Text(tag.name)
                 .font(.custom("Sen-Regular", size: fontSize))
                 .padding(.horizontal, 14)
                 .padding(.vertical, 8)
@@ -59,12 +55,12 @@ struct TagComponent: View {
                 .foregroundColor(Color("backgroundColor"))
                 .lineLimit(1)
             
-            
             //Deletar
                 .contentShape(Capsule())
-                .contextMenu{
+                .contextMenu {
                     Button(role: .destructive){
                         tags.remove(at: getIndex(tag: tag))
+                        IdeaSaver.clearOneTag(tag: tag)
                     } label: {
                         HStack{
                             Text("Delete")
@@ -125,15 +121,15 @@ struct TagComponent: View {
 }
 
 //função global
-func addTag(text: String, fontSize: CGFloat) -> Tag{
-        
+func addTag(text: String, color: String) -> Tag {
+    
     //pegando tamanho do texto
-    let font = UIFont.systemFont(ofSize: fontSize)
+    let font = UIFont.systemFont(ofSize: 16)
     
     let attributes = [NSAttributedString.Key.font: font]
     
     let size = (text as NSString).size(withAttributes: attributes)
-
-    return Tag(text: text, size: size.width)
+    
+    return Tag(name: text, color: color, size: size.width)
 }
 

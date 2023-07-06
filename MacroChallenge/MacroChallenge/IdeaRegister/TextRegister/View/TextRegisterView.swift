@@ -16,15 +16,6 @@ struct TextRegisterView: View {
     @FocusState private var isFocused: Bool
     @State private var showTagSheet: Bool = false
     @ObservedObject var ideasViewModel: IdeasViewModel
-    
-    var body: some View {
-        ScrollView {
-            VStack {
-                TextEditor(text: $textComplete)
-                    .padding()
-                    .focused($isFocused)
-            }
-            .padding(.bottom, ideasViewModel.keyboard.keyboardHeight)
     @State var showModal: Bool = false
     
     var body: some View {
@@ -41,7 +32,7 @@ struct TextRegisterView: View {
             }
             .padding()
             .sheet(isPresented: $showModal) {
-                TagView()
+                TagView(viewModel: ideasViewModel)
             }
         }
         .navigationTitle("insertTxt")
@@ -79,23 +70,6 @@ struct TextRegisterView: View {
                 }
             }
         }.font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
-            .overlay(
-                VStack {
-                    Spacer()
-                    HStack {
-                        Button {
-                            showTagSheet.toggle()
-                        } label: {
-                            Image(systemName: "tag.fill")
-                        }.font(Font.custom("Sen-Regular", size: 24, relativeTo: .headline))
-                            .sheet(isPresented: $showTagSheet) {
-                                TagSheetView(viewModel: ideasViewModel)
-                            }
-                        Spacer()
-                    }
-                    .padding()
-                }
-            )
     }
 }
 

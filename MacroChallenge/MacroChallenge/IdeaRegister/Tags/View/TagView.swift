@@ -9,11 +9,9 @@ import SwiftUI
 
 struct TagView: View {
     @Environment(\.screenSize) var screenSize
-    @State var text: String = ""
+    @State var tagName: String = ""
     @FocusState private var isFocused: Bool
-    
-    //Tags
-    @State var tags: [Tag] = []
+    @ObservedObject var viewModel: IdeasViewModel //pego as tags ja salvas
     
     var body: some View {
         VStack{
@@ -28,7 +26,7 @@ struct TagView: View {
             HStack{
                 //Text Field
                 //TODO: localizar texto do placeholder
-                TextField("Add a new tag", text: $text)
+                TextField("Add a new tag", text: $tagName)
                     .font(.custom("Sen-Regular", size: 17))
                     .foregroundColor(Color("labelColor"))
                     .padding(.vertical, 12)
@@ -43,23 +41,23 @@ struct TagView: View {
                 if isFocused{
                     Button{
                         //adicionando tags
-                        tags.append(addTag(text: text, fontSize: 16))
-                        text = ""
+                        IdeaSaver.saveTag(tag: addTag(text: tagName, color: "#fff"))
+                        tagName = ""
                         isFocused = false
-                        
+                        viewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
                     } label: {
                         Image(systemName: "arrow.right.circle.fill")
                             .font(.system(size: 30))
                     }
                     
                     //desabilitando botão quando o text field estiver vazio
-                    .disabled(text == "")
-                    .opacity (text == "" ? 0.6 : 1)
+                    .disabled(tagName == "")
+                    .opacity (tagName == "" ? 0.6 : 1)
                 }
             }
             
         //View de tag
-        TagComponent(maxLimit: 150, tags: $tags)
+            TagComponent(maxLimit: 150, tags: $viewModel.tagsLoadedData)
                 .padding(.top, 20)
             
             
@@ -75,8 +73,8 @@ struct TagView: View {
 }
 
 
-struct TagView_Previews: PreviewProvider {
-    static var previews: some View {
-        TagView()
-    }
-}
+//struct TagView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TagView()
+//    }
+//}

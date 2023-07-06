@@ -13,7 +13,6 @@
 		40497BAE2A32E68500E6D3B5 /* ButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */; };
 		4074E0432A55FFBA00C5A46E /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074E0422A55FFBA00C5A46E /* TagView.swift */; };
 		4074E0452A5611C400C5A46E /* TagComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074E0442A5611C400C5A46E /* TagComponent.swift */; };
-		4074E0472A56121100C5A46E /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074E0462A56121100C5A46E /* Tag.swift */; };
 		4085CBAB2A30106A00DAC6CA /* ToolbarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */; };
 		4085CBAD2A30207200DAC6CA /* SearchBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */; };
 		4085CBAF2A302B9000DAC6CA /* FilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */; };
@@ -76,8 +75,6 @@
 		D153ACD02A3B82D500DE9A79 /* IdeasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D153ACCF2A3B82D500DE9A79 /* IdeasViewModel.swift */; };
 		D153ACD32A3CDE9600DE9A79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D153ACD52A3CDE9600DE9A79 /* Localizable.strings */; };
 		D179E8CF2A549EB200E21A07 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179E8CE2A549EB200E21A07 /* Tag.swift */; };
-		D179E8D12A54BD5500E21A07 /* ObservingKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179E8D02A54BD5500E21A07 /* ObservingKeyboard.swift */; };
-		D179E8D32A54CF6700E21A07 /* TagSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179E8D22A54CF6700E21A07 /* TagSheetView.swift */; };
 		D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */; };
 		D1ECF5382A421A2600631333 /* ButtonFavoriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */; };
 /* End PBXBuildFile section */
@@ -106,7 +103,6 @@
 		40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonComponent.swift; sourceTree = "<group>"; };
 		4074E0422A55FFBA00C5A46E /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		4074E0442A5611C400C5A46E /* TagComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagComponent.swift; sourceTree = "<group>"; };
-		4074E0462A56121100C5A46E /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarComponent.swift; sourceTree = "<group>"; };
 		4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarComponent.swift; sourceTree = "<group>"; };
 		4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterComponent.swift; sourceTree = "<group>"; };
@@ -163,8 +159,6 @@
 		D153ACD42A3CDE9600DE9A79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D153ACD62A3CDED200DE9A79 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D179E8CE2A549EB200E21A07 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
-		D179E8D02A54BD5500E21A07 /* ObservingKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservingKeyboard.swift; sourceTree = "<group>"; };
-		D179E8D22A54CF6700E21A07 /* TagSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSheetView.swift; sourceTree = "<group>"; };
 		D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteIdeaSpec.swift; sourceTree = "<group>"; };
 		D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFavoriteComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,7 +209,7 @@
 		4074E04A2A5614B400C5A46E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4074E0462A56121100C5A46E /* Tag.swift */,
+				D179E8CE2A549EB200E21A07 /* Tag.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -235,7 +229,6 @@
 				4097FE042A2FD3B3001EAB03 /* HomeView.swift */,
 				40497BAB2A32E5F600E6D3B5 /* InfoView.swift */,
 				401292862A40F155006DB4CF /* SplashScreenView.swift */,
-				D179E8D22A54CF6700E21A07 /* TagSheetView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -354,7 +347,6 @@
 			isa = PBXGroup;
 			children = (
 				916E0FBD2A268BBE00F4FA87 /* Idea.swift */,
-				D179E8CE2A549EB200E21A07 /* Tag.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -420,7 +412,6 @@
 				912811EF2A29275400010872 /* DateHelper.swift */,
 				91DB2B4D2A2A5FA300EC8176 /* ContentDirectoryHelper.swift */,
 				918E6A122A40CA800017CF1B /* BackAction.swift */,
-				D179E8D02A54BD5500E21A07 /* ObservingKeyboard.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -714,7 +705,6 @@
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
 				D179E8CF2A549EB200E21A07 /* Tag.swift in Sources */,
 				4097FDFD2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */,
-				D179E8D12A54BD5500E21A07 /* ObservingKeyboard.swift in Sources */,
 				918C7DC82A27EDB000C36A53 /* ColorHelper.swift in Sources */,
 				40AAA7ED2A3103DE00943CBF /* SegmentedPickerComponent.swift in Sources */,
 				912811EE2A291D1300010872 /* CheckAudioView.swift in Sources */,
@@ -726,7 +716,6 @@
 				4097FDED2A2FC28A001EAB03 /* TextPreviewComponent.swift in Sources */,
 				430A99872A27C8DD00D2F773 /* PhotoIdeaView.swift in Sources */,
 				916E0FBE2A268BBE00F4FA87 /* Idea.swift in Sources */,
-				D179E8D32A54CF6700E21A07 /* TagSheetView.swift in Sources */,
 				4085CBAF2A302B9000DAC6CA /* FilterComponent.swift in Sources */,
 				916E0FC32A268BEA00F4FA87 /* AudioIdea.swift in Sources */,
 				40E8595C2A3BB6AD00F2BC0E /* PlaceholderComponent.swift in Sources */,
@@ -743,7 +732,6 @@
 				D153ACD02A3B82D500DE9A79 /* IdeasViewModel.swift in Sources */,
 				916E0FBC2A268BAA00F4FA87 /* IdeaSaver.swift in Sources */,
 				4074E0452A5611C400C5A46E /* TagComponent.swift in Sources */,
-				4074E0472A56121100C5A46E /* Tag.swift in Sources */,
 				D12495472A268A720063C634 /* MacroChallengeApp.swift in Sources */,
 				40E8595A2A3BAD2900F2BC0E /* CustomBackButtonComponent.swift in Sources */,
 				4085CBAD2A30207200DAC6CA /* SearchBarComponent.swift in Sources */,
@@ -937,7 +925,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 7UT3KQHPCK;
+				DEVELOPMENT_TEAM = 3SWCGFCJF2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
@@ -971,7 +959,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 7UT3KQHPCK;
+				DEVELOPMENT_TEAM = 3SWCGFCJF2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;

@@ -19,7 +19,6 @@ class IdeasViewModel: ObservableObject {
     @Published var isShowingCamera = false
     @Published var searchText: String = ""
     @StateObject var cameraViewModel = CameraViewModel()
-    @Published var keyboard = ObservingKeyboard()
     @Published var tagsLoadedData: [Tag] = IdeaSaver.getAllSavedTags()
     
     

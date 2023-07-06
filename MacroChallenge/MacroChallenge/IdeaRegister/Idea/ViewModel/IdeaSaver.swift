@@ -19,6 +19,12 @@ class IdeaSaver {
     public static func saveTag(tag: Tag) {
         saveUniqueTag(tag: tag, key: tagModelKey)
     }
+    
+    public static func saveTags(tags: [Tag]) {
+        if tags.isEmpty { print("Tags to save is empty."); return }
+        
+        saveMultiplesTags(tags: tags, key: tagModelKey)
+    }
         
     //MARK: - Audio Saves
     /**Save an audio idea in UserDefaults that stores all AudioIdeas**/
@@ -201,6 +207,28 @@ class IdeaSaver {
         }
     }
     
+    public static func clearUniqueTag() {
+        let emptyTag: [Tag] = []
+        
+        if defaults.object(forKey: tagModelKey) != nil { defaults.set(emptyTag, forKey: tagModelKey)};
+    }
+    
+    public static func clearOneTag(tag: Tag) {
+        
+        if defaults.object(forKey: tagModelKey) == nil { print("No saved Tag"); return }
+        
+        var tags: [Tag] = getAllSavedTags()
+        
+        let tagIndex: Int = tags.firstIndex(where: { $0.id == tag.id }) ?? -1
+        
+        if tagIndex == -1 { print("Tag not found"); return }
+        
+        tags.remove(at: tagIndex)
+        
+        clearUniqueTag()
+        saveTags(tags: tags)
+    }
+    
     // MARK: - PRIVATE STATICS
     /**Save an unique tag.*/
     private static func saveUniqueTag(tag: Tag, key: String) {
@@ -242,6 +270,26 @@ class IdeaSaver {
         
         // encoding and saving the idea array
         if let encoded = try? encoder.encode(savedIdeas) {
+            defaults.set(encoded, forKey: key)
+        }
+    }
+    
+    /**Save multiple tags*/
+    private static func saveMultiplesTags(tags: [Tag], key: String) {
+        let encoder = JSONEncoder()
+        var savedTags: [Tag] = []
+        
+        if defaults.object(forKey: key) == nil {
+            defaults.set(savedTags, forKey: key)
+        }
+        
+        else {
+            savedTags = getAllSavedTags()
+        }
+        
+        savedTags.append(contentsOf: tags)
+        
+        if let encoded = try? encoder.encode(savedTags) {
             defaults.set(encoded, forKey: key)
         }
     }
