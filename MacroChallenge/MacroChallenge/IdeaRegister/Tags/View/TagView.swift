@@ -12,6 +12,7 @@ struct TagView: View {
     @State var tagName: String = ""
     @FocusState private var isFocused: Bool
     @ObservedObject var viewModel: IdeasViewModel //pego as tags ja salvas
+    @Binding var tagsArrayReceived: [Tag]
     
     var body: some View {
         VStack{
@@ -56,7 +57,7 @@ struct TagView: View {
             }
             
         //View de tag
-            TagComponent(maxLimit: 150, tags: $viewModel.tagsLoadedData)
+            TagComponent(maxLimit: 150, allTags: $viewModel.tagsLoadedData, tagArraySelected: $tagsArrayReceived)
                 .padding(.top, 20)
             
             

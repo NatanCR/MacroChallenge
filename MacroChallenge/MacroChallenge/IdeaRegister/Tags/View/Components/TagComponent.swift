@@ -11,7 +11,8 @@ struct TagComponent: View {
     @Environment(\.screenSize) var screenSize
     var fontSize: CGFloat = 16
     var maxLimit: Int
-    @Binding var tags: [Tag]
+    @Binding var allTags: [Tag]
+    @Binding var tagArraySelected: [Tag]
     
     var body: some View {
         
@@ -32,7 +33,7 @@ struct TagComponent: View {
             }
         }
         .frame(width: screenSize.width * 0.9, alignment: .leading)
-        .animation(.easeInOut, value: tags)
+        .animation(.easeInOut, value: allTags)
         
     }
     
@@ -42,6 +43,9 @@ struct TagComponent: View {
         Button{
             //TODO: associar tag a ideia
             print("ta clicando")
+            //append em um array de tags
+            //esse array deve vir da tela de registro por referência
+            tagArraySelected.append(tag)
         } label: {
             Text(tag.name)
                 .font(.custom("Sen-Regular", size: fontSize))
@@ -59,7 +63,7 @@ struct TagComponent: View {
                 .contentShape(Capsule())
                 .contextMenu {
                     Button(role: .destructive){
-                        tags.remove(at: getIndex(tag: tag))
+                        allTags.remove(at: getIndex(tag: tag))
                         IdeaSaver.clearOneTag(tag: tag)
                     } label: {
                         HStack{
@@ -74,7 +78,7 @@ struct TagComponent: View {
     
     func getIndex(tag: Tag) -> Int{
         
-        let index = tags.firstIndex { currentTag in
+        let index = allTags.firstIndex { currentTag in
             return tag.id == currentTag.id
         } ?? 0
         
@@ -90,7 +94,7 @@ struct TagComponent: View {
         //calculando largura do texto
         var totalWidht: CGFloat = 0
         
-        tags.forEach { tag in
+        allTags.forEach { tag in
             
             //atualizando largura total do texto + background e paddings
             totalWidht += (tag.size + 40)

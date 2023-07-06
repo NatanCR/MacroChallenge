@@ -35,6 +35,7 @@ struct RecordAudioView: View {
     }()
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State var showModal: Bool = false
+    @State var tagsArray: [Tag] = []
     
     // audio
     private let audioManager: AudioManager
@@ -106,7 +107,7 @@ struct RecordAudioView: View {
                     }
                     .padding()
                     .sheet(isPresented: $showModal) {
-                        TagView(viewModel: ideasViewModel)
+                        TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
                     }
             }
         }
@@ -185,7 +186,7 @@ struct RecordAudioView: View {
         if recorded {
             TextViewModel.setTitleDescriptionAndCompleteText(title: &self.textTitle, description: &self.textDescription, complete: &self.textComplete)
             
-            let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: nil)
+            let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: tagsArray)
             IdeaSaver.saveAudioIdea(idea: idea)
         }
         

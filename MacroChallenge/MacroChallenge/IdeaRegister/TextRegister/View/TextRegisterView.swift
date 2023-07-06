@@ -17,6 +17,7 @@ struct TextRegisterView: View {
     @State private var showTagSheet: Bool = false
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State var showModal: Bool = false
+    @State var tagsArray: [Tag] = []
     
     var body: some View {
         VStack (alignment: .leading){
@@ -32,7 +33,7 @@ struct TextRegisterView: View {
             }
             .padding()
             .sheet(isPresented: $showModal) {
-                TagView(viewModel: ideasViewModel)
+                TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
             }
         }
         .navigationTitle("insertTxt")
@@ -60,7 +61,8 @@ struct TextRegisterView: View {
                         TextViewModel.setTitleDescriptionAndCompleteText(title: &title, description: &idea, complete: &textComplete)
                         
                         //coloca os dados no formato da estrutura
-                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: idea, textComplete: textComplete, tag: nil)
+                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: idea, textComplete: textComplete, tag: tagsArray)
+                        dump(tagsArray)
                         //salva o dados registrados
                         IdeaSaver.saveTextIdea(idea: currentModel)
                         dismiss()
