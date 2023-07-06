@@ -86,11 +86,10 @@ struct PhotoIdeaView: View {
             }
         }
 
-                //TODO: traduzir alerta
             .alert(isPresented: $showAlert) {
                 Alert(
-                    title: Text("Sucesso"),
-                    message: Text("A ideia foi excluída com sucesso."),
+                    title: Text("sucess"),
+                    message: Text("delSucess"),
                     dismissButton: .default(Text("OK")) {
                         self.presentationMode.wrappedValue.dismiss()
                     }

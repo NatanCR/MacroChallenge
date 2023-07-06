@@ -25,8 +25,7 @@ struct TagView: View {
                 .padding(.vertical)
             HStack{
                 //Text Field
-                //TODO: localizar texto do placeholder
-                TextField("Add a new tag", text: $tagName)
+                TextField("addTag", text: $tagName)
                     .font(.custom("Sen-Regular", size: 17))
                     .foregroundColor(Color("labelColor"))
                     .padding(.vertical, 12)
