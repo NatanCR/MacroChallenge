@@ -33,6 +33,7 @@ struct RecordAudioView: View {
             return true
         }
     }()
+    @State var showModal: Bool = false
     
     // audio
     private let audioManager: AudioManager
@@ -96,6 +97,15 @@ struct RecordAudioView: View {
                             }
                     }
                     .padding()
+                    Button{
+                        showModal = true
+                    } label: {
+                        Image("tag_icon")
+                    }
+                    .padding()
+                    .sheet(isPresented: $showModal) {
+                        TagView()
+                    }
             }
         }
         .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))

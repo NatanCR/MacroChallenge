@@ -25,9 +25,9 @@ struct TagComponent: View {
                             
                             ForEach(rows) { row in
                                 
-                                RowView(tag: row)
-                            }
-                            
+
+                                    RowView(tag: row)
+                                }
                         }
                     }
                     
@@ -36,32 +36,45 @@ struct TagComponent: View {
             }
         }
         .frame(width: screenSize.width * 0.9, alignment: .leading)
-        .animation(.linear, value: tags)
+        .animation(.easeInOut, value: tags)
 
     }
     
     @ViewBuilder
     func RowView(tag: Tag) -> some View {
         
-        Text(tag.text)
-            .font(.custom("Sen-Regular", size: fontSize))
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
-            .background(
-                Capsule()
-                    .fill(Color("labelColor"))
-            )
-            .foregroundColor(Color("backgroundColor"))
-            .lineLimit(1)
-        
-        //Deletar
-            .contentShape(Capsule())
-            .contextMenu{
-                Button("Delete", role: .destructive){
-                    tags.remove(at: getIndex(tag: tag))
+        Button{
+            //TODO: associar tag a ideia
+            print("ta clicando")
+        } label: {
+            Text(tag.text)
+                .font(.custom("Sen-Regular", size: fontSize))
+                .padding(.horizontal, 14)
+                .padding(.vertical, 8)
+                .background(
+                    Capsule()
+                    //TODO: deixar o usuário escolher a cor
+                        .fill(Color("labelColor"))
+                )
+                .foregroundColor(Color("backgroundColor"))
+                .lineLimit(1)
+            
+            
+            //Deletar
+                .contentShape(Capsule())
+                .contextMenu{
+                    Button(role: .destructive){
+                        tags.remove(at: getIndex(tag: tag))
+                    } label: {
+                        HStack{
+                            Text("Delete")
+                            Image(systemName: "trash.fill")
+                        }
+                    }
                 }
-            }
+        }
     }
+    
     
     func getIndex(tag: Tag) -> Int{
         
@@ -88,6 +101,7 @@ struct TagComponent: View {
             
             //checando se a largura do texto é maior que a tela
             if totalWidht > (screenSize.width * 0.9) {
+                
                 //adicionando row em rows
                 //limpando os dados
                 totalWidht = (!currentRow.isEmpty || rows.isEmpty ? (tag.size + 40) : 0)
@@ -123,8 +137,3 @@ func addTag(text: String, fontSize: CGFloat) -> Tag{
     return Tag(text: text, size: size.width)
 }
 
-//struct TagComponent_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TagComponent()
-//    }
-//}

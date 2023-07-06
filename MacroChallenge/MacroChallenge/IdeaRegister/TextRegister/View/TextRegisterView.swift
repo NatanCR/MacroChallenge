@@ -14,12 +14,22 @@ struct TextRegisterView: View {
     @State private var idea: String = ""
     @State private var isActive: Bool = false //variável para ativar o alerta
     @FocusState private var isFocused: Bool
+    @State var showModal: Bool = false
     
     var body: some View {
-        VStack {
+        VStack (alignment: .leading){
             TextEditor(text: $textComplete)
                 .padding()
                 .focused($isFocused)
+            Button{
+                showModal = true
+            } label: {
+                Image("tag_icon")
+            }
+            .padding()
+            .sheet(isPresented: $showModal) {
+                TagView()
+            }
         }
         .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)
