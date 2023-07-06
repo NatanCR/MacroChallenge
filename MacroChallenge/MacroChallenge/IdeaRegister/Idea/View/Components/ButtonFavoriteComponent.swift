@@ -11,10 +11,11 @@ struct ButtonFavoriteComponent<T: Idea>: View {
     var type: T.Type
     var text: String
     @State var idea: T
-    //@ObservedObject var ideaViewModel: IdeasViewModel
     
+    //MARK: - BODY
     var body: some View {
         Button{
+            self.getIdea()
             idea.isFavorite.toggle()
             IdeaSaver.changeSavedValue(type: type, idea: idea)
         } label: {
@@ -24,9 +25,14 @@ struct ButtonFavoriteComponent<T: Idea>: View {
             }
         }
         .onAppear {
-            if IdeaSaver.getAllSavedIdeas().contains(where: { $0.id == idea.id }) {
-                idea = IdeaSaver.getAllSavedIdeas().first(where: { $0.id == idea.id }) as! T
-            }
+            self.getIdea()
+        }
+    }
+    
+    //MARK: - FUNCs
+    private func getIdea() {
+        if let savedIdea = IdeaSaver.getAllSavedIdeas().first(where: { $0.id == idea.id }) as? T {
+            idea = savedIdea
         }
     }
 }
