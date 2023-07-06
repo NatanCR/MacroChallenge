@@ -21,6 +21,8 @@ struct TextRegisterView: View {
             TextEditor(text: $textComplete)
                 .padding()
                 .focused($isFocused)
+            
+            //chama a sheet
             Button{
                 showModal = true
             } label: {
