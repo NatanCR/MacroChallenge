@@ -165,6 +165,10 @@ d) Use the application fraudulently or for illegal or unauthorized purposes.
 
 "msgIdea" = "You are required to write an idea to save.";
 
+"delIdea" = "Delete Idea";
+
+"delMsg" = "Do you really wanna do this?";
+
 //MARK: General
 
 "cancel" = "Cancel";

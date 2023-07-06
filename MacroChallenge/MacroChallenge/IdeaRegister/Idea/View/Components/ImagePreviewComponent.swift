@@ -71,8 +71,8 @@ struct ImagePreviewComponent: View {
         }
         
         //TODO: fazer a tradução do alerta
-        .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
-            Button("Delete Idea", role: .destructive) {
+        .confirmationDialog("delMsg", isPresented: $isAlertActive) {
+            Button("delIdea", role: .destructive) {
                 //TODO: atualizar a view assim que deleta a ideia
                 //deletar
                 IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: idea as! PhotoModel)

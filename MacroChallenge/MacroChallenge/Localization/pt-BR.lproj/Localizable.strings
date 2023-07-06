@@ -165,6 +165,10 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 
 "msgIdea" = "É necessário que você escreva uma ideia para salvar.";
 
+"delIdea" = "Deletar Ideia";
+
+"delMsg" = "Voçê realmente deseja deletar essa ideia?";
+
 //MARK: General
 
 "cancel" = "Cancelar";
