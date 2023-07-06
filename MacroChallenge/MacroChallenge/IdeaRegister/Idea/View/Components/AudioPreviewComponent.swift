@@ -67,7 +67,6 @@ struct AudioPreviewComponent: View {
                 .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
         }
-        //TODO: fazer a tradução do alerta
         .confirmationDialog("delMsg", isPresented: $isAlertActive) {
             Button("delIdea", role: .destructive) {
                 //TODO: atualizar a view assim que deleta a ideia

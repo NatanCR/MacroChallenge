@@ -11,7 +11,6 @@ struct ButtonFavoriteComponent<T: Idea>: View {
     var type: T.Type
     var text: String
     @State var idea: T
-    //@ObservedObject var ideaViewModel: IdeasViewModel
     
     var body: some View {
         Button{

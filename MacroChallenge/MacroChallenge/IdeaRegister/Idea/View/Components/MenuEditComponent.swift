@@ -33,9 +33,8 @@ struct MenuEditComponent<T: Idea>: View {
             Image(systemName: "ellipsis.circle")
         }
         
-        //TODO: fazer a tradução do alerta
-        .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
-            Button("Delete Idea", role: .destructive) {
+        .confirmationDialog("delMsg", isPresented: $isAlertActive) {
+            Button("delIdea", role: .destructive) {
                 //deletar
                 IdeaSaver.clearOneIdea(type: self.type, idea: self.idea)
                 
