@@ -52,6 +52,8 @@ struct ImagePreviewComponent: View {
                     .padding(8)
                 }
                 .padding(.bottom, 5)
+            
+            //deletar
                 .contextMenu{
                     Button(role: .destructive){
                         isAlertActive = true
@@ -62,6 +64,7 @@ struct ImagePreviewComponent: View {
                         }
                     }
                 }
+            
             Text(title)
                 .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
