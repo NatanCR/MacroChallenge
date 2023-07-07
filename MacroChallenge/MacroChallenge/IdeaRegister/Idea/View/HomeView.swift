@@ -134,7 +134,7 @@ struct HomeListView: View {
         
         if #available(iOS 16.0, *){
             List {
-                ForEach(self.ideasViewModel.filteredIdeas, id: \.id) { ideas in
+                ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
@@ -146,10 +146,10 @@ struct HomeListView: View {
                         }
                     } label: {
                         if let photoIdea = ideas as? PhotoModel {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
                         }
                         else {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
 
@@ -161,7 +161,7 @@ struct HomeListView: View {
 
         } else {
             List {
-                ForEach(self.ideasViewModel.filteredIdeas, id: \.id) { ideas in
+                ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
@@ -173,10 +173,10 @@ struct HomeListView: View {
                         }
                     } label: {
                         if let photoIdea = ideas as? PhotoModel {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
                         }
                         else {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
                 }

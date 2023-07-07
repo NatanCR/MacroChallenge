@@ -11,7 +11,7 @@ struct ListRowComponent: View {
     @Environment(\.screenSize) var screenSize
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State private var isAlertActive: Bool = false
-    @State var idea: any Idea
+    @Binding var idea: any Idea
     var title: String
     var typeIdea: IdeaType
     var imageIdea: UIImage
@@ -58,6 +58,14 @@ struct ListRowComponent: View {
         .swipeActions {
             Button{
                 print("delete")
+                switch typeIdea {
+                case .text:
+                    IdeaSaver.clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
+                case .audio:
+                    IdeaSaver.clearOneIdea(type: AudioIdeia.self, idea: idea as! AudioIdeia)
+                case .photo:
+                    IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: idea as! PhotoModel)
+                }
             } label: {
                 Image(systemName: "trash.fill")
             }
@@ -65,6 +73,15 @@ struct ListRowComponent: View {
             
             Button{
                 print("fav")
+                idea.isFavorite.toggle()
+                switch typeIdea {
+                case .text:
+                    IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
+                case .audio:
+                    IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: idea as! AudioIdeia)
+                case .photo:
+                    IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
+                }
             } label: {
                 Image(systemName: "heart")
             }
