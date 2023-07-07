@@ -43,7 +43,12 @@ struct TagComponent: View {
         Button{
             //append em um array de tags
             //esse array deve vir da tela de registro por referência
-            tagArraySelected.append(tag)
+            //verifica se a tag ja existe para não salvar repetido
+            if !tagArraySelected.contains(tag) {
+                tagArraySelected.append(tag)
+            } else {
+                // Exibir mensagem de erro ou tomar outra ação
+            }
         } label: {
             Text(tag.name)
                 .font(.custom("Sen-Regular", size: fontSize))
