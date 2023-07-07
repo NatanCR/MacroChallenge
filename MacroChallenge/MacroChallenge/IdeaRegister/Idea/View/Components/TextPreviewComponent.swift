@@ -45,6 +45,8 @@ struct TextPreviewComponent: View {
                 
             }
             .padding(.bottom, 5)
+            
+            //deletar
             .contextMenu{
                 Button(role: .destructive){
                     isAlertActive = true

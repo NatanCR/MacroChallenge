@@ -56,7 +56,7 @@ struct ListRowComponent: View {
         //TODO: aplicar função de deletar e de favoritar
         //arrastar para deletar e para favoritar na lista
         .swipeActions {
-            Button{
+            Button(role: .destructive){
                 print("delete")
             } label: {
                 Image(systemName: "trash.fill")
