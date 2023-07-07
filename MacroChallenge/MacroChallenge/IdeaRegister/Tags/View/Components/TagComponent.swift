@@ -41,8 +41,6 @@ struct TagComponent: View {
     func RowView(tag: Tag) -> some View {
         
         Button{
-            //TODO: associar tag a ideia
-            print("ta clicando")
             //append em um array de tags
             //esse array deve vir da tela de registro por referência
             tagArraySelected.append(tag)

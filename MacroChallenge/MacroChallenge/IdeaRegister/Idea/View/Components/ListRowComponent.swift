@@ -53,10 +53,10 @@ struct ListRowComponent: View {
             }
         }
         .padding([.top, .bottom])
-        //TODO: aplicar função de deletar e de favoritar
         //arrastar para deletar e para favoritar na lista
         .swipeActions {
-            Button{
+            //TODO: atualizar a view assim que deleta a ideia
+            Button(role: .destructive) {
                 print("delete")
                 switch typeIdea {
                 case .text:
@@ -71,7 +71,7 @@ struct ListRowComponent: View {
             }
             .tint(Color("deleteColor"))
             
-            Button{
+            Button {
                 print("fav")
                 idea.isFavorite.toggle()
                 switch typeIdea {
