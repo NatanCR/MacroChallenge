@@ -16,13 +16,15 @@ struct TextPreviewComponent: View {
     @Binding var idea: any Idea
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State private var isAlertActive: Bool = false
+    @Binding var isAdding: Bool
 
     
-    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel) {
+    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>) {
         self.text = text
         self.title = title
         self._idea = idea
         self.ideasViewModel = ideasViewModel
+        self._isAdding = isAdding
     }
     
     var body: some View {
@@ -32,8 +34,9 @@ struct TextPreviewComponent: View {
                     .foregroundColor(Color("backgroundItem"))
                     .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
                     .overlay(alignment: .topTrailing){
-                        ButtonFavoriteComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText)
-                        .padding(8)
+//                            ButtonFavoriteComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText)
+                        OverlayComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText, isAdding: $isAdding)
+                                .padding(8)
                     }
                 Text(text)
                     .foregroundColor(Color("labelColor"))
