@@ -15,6 +15,7 @@ struct ImagePreviewComponent: View {
     @State var idea: any Idea
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State private var isAlertActive: Bool = false
+    @Binding var isAdding: Bool
 
     
     var body: some View {
@@ -34,19 +35,20 @@ struct ImagePreviewComponent: View {
                         .blur(radius: 2)
                 })
                 .overlay(alignment: .topTrailing){
-                    Button{
-                        idea.isFavorite.toggle()
-                        switch idea.ideiaType {
-                        case .audio:
-                            IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: idea as! AudioIdeia)
-                        case .text:
-                            IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
-                        case .photo:
-                            IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
-                        }
-                    } label: {
-                        idea.isFavorite ? Image(systemName: "heart.fill").font(.system(size: 20)) : Image(systemName: "heart").font(.system(size: 20))
-                    }
+//                    Button{
+//                        idea.isFavorite.toggle()
+//                        switch idea.ideiaType {
+//                        case .audio:
+//                            IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: idea as! AudioIdeia)
+//                        case .text:
+//                            IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
+//                        case .photo:
+//                            IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
+//                        }
+//                    } label: {
+//                        idea.isFavorite ? Image(systemName: "heart.fill").font(.system(size: 20)) : Image(systemName: "heart").font(.system(size: 20))
+//                    }
+                    OverlayComponent(type: PhotoModel.self, text: "", idea: idea as! PhotoModel, isAdding: $isAdding)
                     .padding(8)
                 }
                 .padding(.bottom, 5)

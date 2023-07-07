@@ -13,6 +13,7 @@ struct ButtonFavoriteComponent<T: Idea>: View {
     @State var idea: T
     //@ObservedObject var ideaViewModel: IdeasViewModel
     
+    
     var body: some View {
         Button{
             idea.isFavorite.toggle()
