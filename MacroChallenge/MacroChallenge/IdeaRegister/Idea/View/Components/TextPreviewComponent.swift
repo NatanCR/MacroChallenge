@@ -34,10 +34,11 @@ struct TextPreviewComponent: View {
                     .foregroundColor(Color("backgroundItem"))
                     .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
                     .overlay(alignment: .topTrailing){
-//                            ButtonFavoriteComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText)
+                        
                         OverlayComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText, isAdding: $isAdding)
                                 .padding(8)
                     }
+                
                 Text(text)
                     .foregroundColor(Color("labelColor"))
                     .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))

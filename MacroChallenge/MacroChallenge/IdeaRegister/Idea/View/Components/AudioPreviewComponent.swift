@@ -26,22 +26,11 @@ struct AudioPreviewComponent: View {
                     .foregroundColor(Color("backgroundItem"))
                     .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
                     .overlay(alignment: .topTrailing){
-//                        Button{
-//                            idea.isFavorite.toggle()
-//                            switch idea.ideiaType {
-//                            case .audio:
-//                                IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: idea as! AudioIdeia)
-//                            case .text:
-//                                IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
-//                            case .photo:
-//                                IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
-//                            }
-//                        } label: {
-//                            idea.isFavorite ? Image(systemName: "heart.fill").font(.system(size: 20)) : Image(systemName: "heart").font(.system(size: 20))
-//                        }
+                        
                         OverlayComponent(type: AudioIdeia.self, text: "", idea: idea as! AudioIdeia, isAdding: $isAdding)
                         .padding(8)
                     }
+                
                 VStack{
                     
                     PlayPreviewComponent(audioManager: self.audioManager, idea: idea as! AudioIdeia)

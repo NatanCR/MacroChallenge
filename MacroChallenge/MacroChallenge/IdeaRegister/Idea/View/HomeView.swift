@@ -147,6 +147,7 @@ struct HomeGridView: View {
 
             }.padding()
         }
+        
     }
 }
 
@@ -162,7 +163,6 @@ struct HomeListView: View {
         
         if #available(iOS 16.0, *){
             List(self.ideasViewModel.filteredIdeas, id: \.id, selection: $selection){ ideas in
-//                ForEach(self.ideasViewModel.filteredIdeas, id: \.id) { ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
@@ -181,16 +181,14 @@ struct HomeListView: View {
                         }
                     }
                     
-//                }
-                
                 .listRowBackground(Color("backgroundItem"))
             }
             .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
             .scrollContentBackground(.hidden)
 
         } else {
-            List {
-                ForEach(self.ideasViewModel.filteredIdeas, id: \.id) { ideas in
+            List (self.ideasViewModel.filteredIdeas, id: \.id, selection: $selection){
+                ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
@@ -208,9 +206,9 @@ struct HomeListView: View {
                             ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
-                }
                 .listRowBackground(Color("backgroundItem"))
             }
+            .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
         }
         
     }
