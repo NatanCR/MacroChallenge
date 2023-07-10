@@ -17,6 +17,7 @@ struct EditRegisterView: View {
     private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     @State var showSheet: Bool = false
     @ObservedObject var viewModel: IdeasViewModel
+    @State var tagsArray: [Tag] = [] //TODO: fazer com que o usuario possa adicionar novas tags a partir dessa tela 
     
     init(modelText: ModelText, viewModel: IdeasViewModel) {
         self._modelText = State(initialValue: modelText)
@@ -31,14 +32,19 @@ struct EditRegisterView: View {
                 .overlay{
                     PlaceholderComponent(idea: modelText)
                 }
-            if !modelText.tag!.isEmpty {
+            if modelText.tag!.isEmpty {
+                Button {
+                    
+                } label: {
+                    Image("tag_icon")
+                }
+            } else {
                 Button {
                     self.showSheet = true
                 } label: {
-                    TagLabelComponent(tagName: modelText.tag?.first?.name ?? "")
+                    IdeaTagViewerComponent(idea: modelText)
                 }
             }
-            
         }
         .sheet(isPresented: $showSheet) {
             TagView(viewModel: viewModel, tagsArrayReceived: $viewModel.tagsLoadedData)
