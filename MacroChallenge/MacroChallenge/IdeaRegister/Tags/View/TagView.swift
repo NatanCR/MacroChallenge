@@ -57,7 +57,7 @@ struct TagView: View {
             }
             
         //View de tag
-            TagComponent(maxLimit: 150, allTags: $viewModel.tagsLoadedData, tagArraySelected: $tagsArrayReceived)
+            TagComponent(allTags: $viewModel.tagsLoadedData, tagArraySelected: $tagsArrayReceived)
                 .padding(.top, 20)
             
             

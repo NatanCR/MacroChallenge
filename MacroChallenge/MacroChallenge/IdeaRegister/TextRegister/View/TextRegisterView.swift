@@ -26,7 +26,7 @@ struct TextRegisterView: View {
                 .focused($isFocused)
             
             //chama a sheet
-            Button{
+            Button {
                 showModal = true
             } label: {
                 Image("tag_icon")

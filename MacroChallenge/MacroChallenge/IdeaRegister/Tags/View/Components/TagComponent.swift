@@ -9,8 +9,8 @@ import SwiftUI
 
 struct TagComponent: View {
     @Environment(\.screenSize) var screenSize
-    var fontSize: CGFloat = 16
-    var maxLimit: Int
+//    var fontSize: CGFloat = 16
+//    var maxLimit: Int
     @Binding var allTags: [Tag]
     @Binding var tagArraySelected: [Tag]
     
@@ -40,27 +40,28 @@ struct TagComponent: View {
     @ViewBuilder
     func RowView(tag: Tag) -> some View {
         
-        Button{
-            //append em um array de tags
-            //esse array deve vir da tela de registro por referência
+        Button {
             //verifica se a tag ja existe para não salvar repetido
             if !tagArraySelected.contains(tag) {
+                //append em um array de tags
+                //esse array deve vir da tela de registro por referência
                 tagArraySelected.append(tag)
             } else {
                 // Exibir mensagem de erro ou tomar outra ação
             }
         } label: {
-            Text(tag.name)
-                .font(.custom("Sen-Regular", size: fontSize))
-                .padding(.horizontal, 14)
-                .padding(.vertical, 8)
-                .background(
-                    Capsule()
-                    //TODO: deixar o usuário escolher a cor
-                        .fill(Color("labelColor"))
-                )
-                .foregroundColor(Color("backgroundColor"))
-                .lineLimit(1)
+            TagLabelComponent(tagName: tag.name)
+//            Text(tag.name)
+//                .font(.custom("Sen-Regular", size: fontSize))
+//                .padding(.horizontal, 14)
+//                .padding(.vertical, 8)
+//                .background(
+//                    Capsule()
+//                    //TODO: deixar o usuário escolher a cor
+//                        .fill(Color("labelColor"))
+//                )
+//                .foregroundColor(Color("backgroundColor"))
+//                .lineLimit(1)
             
             //Deletar
                 .contentShape(Capsule())

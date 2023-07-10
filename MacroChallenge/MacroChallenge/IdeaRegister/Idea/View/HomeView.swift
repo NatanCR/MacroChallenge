@@ -100,7 +100,7 @@ struct HomeGridView: View {
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
-                            EditRegisterView(modelText: ideas as! ModelText)
+                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
                             CheckAudioView(audioIdea: ideas as! AudioIdeia)
                         case .photo:
@@ -138,7 +138,7 @@ struct HomeListView: View {
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
-                            EditRegisterView(modelText: ideas as! ModelText)
+                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
                             CheckAudioView(audioIdea: ideas as! AudioIdeia)
                         case .photo:
@@ -165,7 +165,7 @@ struct HomeListView: View {
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
-                            EditRegisterView(modelText: ideas as! ModelText)
+                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
                             CheckAudioView(audioIdea: ideas as! AudioIdeia)
                         case .photo:

@@ -8,51 +8,64 @@
 import SwiftUI
 
 struct EditRegisterView: View {
-    private var text: LocalizedStringKey = "ideaDay"
+    private let text: LocalizedStringKey = "ideaDay"
     @State var modelText: ModelText
     @Environment(\.dismiss) private var dismiss
     @Environment(\.screenSize) private var screenSize
-    @EnvironmentObject var appState: AppState
     // text
     @FocusState var isFocused: Bool
-    let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
+    private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
+    @State var showSheet: Bool = false
+    @ObservedObject var viewModel: IdeasViewModel
     
-    init(modelText: ModelText) {
+    init(modelText: ModelText, viewModel: IdeasViewModel) {
         self._modelText = State(initialValue: modelText)
+        self.viewModel = viewModel
     }
     
     var body: some View {
-            VStack {
-                TextEditor(text: $modelText.textComplete)
-                    .frame(width: screenSize.width * 0.95 ,height: screenSize.height * 0.8)
-                    .focused($isFocused)
-                    .overlay{
-                        PlaceholderComponent(idea: modelText)
-                    }
-            }
-            .onChange(of: modelText.textComplete, perform: { newValue in
-                self.saveIdea()
-            })
-            .navigationBarBackButtonHidden()
-            .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: self.dateFormatter)!))
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    MenuEditComponent(type: ModelText.self, idea: $modelText)
+        VStack(alignment: .leading) {
+            TextEditor(text: $modelText.textComplete)
+                .frame(width: screenSize.width * 0.95 ,height: screenSize.height * 0.8)
+                .focused($isFocused)
+                .overlay{
+                    PlaceholderComponent(idea: modelText)
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if isFocused{
-                        Button{
-                            isFocused = false
-                        } label: {
-                            Text("OK")
-                        }
-                    }
-                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    CustomBackButtonComponent(type: ModelText.self, idea: $modelText)
+            if !modelText.tag!.isEmpty {
+                Button {
+                    self.showSheet = true
+                } label: {
+                    TagLabelComponent(tagName: modelText.tag?.first?.name ?? "")
                 }
             }
+            
+        }
+        .sheet(isPresented: $showSheet) {
+            TagView(viewModel: viewModel, tagsArrayReceived: $viewModel.tagsLoadedData)
+        }
+        .onChange(of: modelText.textComplete, perform: { newValue in
+            self.saveIdea()
+        })
+        .navigationBarBackButtonHidden()
+        .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: self.dateFormatter)!))
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                MenuEditComponent(type: ModelText.self, idea: $modelText)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if isFocused{
+                    Button{
+                        isFocused = false
+                    } label: {
+                        Text("OK")
+                    }
+                }
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomBackButtonComponent(type: ModelText.self, idea: $modelText)
+            }
+        }
     }
     
     //MARK: - FUNCs
