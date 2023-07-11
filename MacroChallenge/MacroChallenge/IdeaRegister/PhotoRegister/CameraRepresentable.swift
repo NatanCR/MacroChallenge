@@ -12,7 +12,7 @@ import Foundation
 
 struct CameraRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = UIImagePickerController
-    
+    @Binding var tookPicture: Bool
     @ObservedObject var viewModel: CameraViewModel
     @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
     @Environment(\.dismiss) var dismiss
@@ -24,7 +24,8 @@ struct CameraRepresentable: UIViewControllerRepresentable {
         }
     }()
     
-    init(viewModel: CameraViewModel) {
+    init(tookPicture: Binding<Bool>,viewModel: CameraViewModel) {
+        self._tookPicture = tookPicture
         self.viewModel = viewModel
     }
     
@@ -90,6 +91,7 @@ struct CameraRepresentable: UIViewControllerRepresentable {
     }
     
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        
         let parent: CameraRepresentable
         
         init(parent: CameraRepresentable) {
@@ -110,6 +112,7 @@ struct CameraRepresentable: UIViewControllerRepresentable {
                 print(error.localizedDescription)
             }
             
+            parent.tookPicture = true
             picker.dismiss(animated: true) // Fechando a câmera
         }
         

@@ -8,18 +8,34 @@
 import SwiftUI
 
 struct ToolbarComponent: View {
-    @ObservedObject var ideasViewModel: IdeasViewModel
     
+    @ObservedObject var ideasViewModel: IdeasViewModel
+    var photoModel: PhotoModel
+    
+    init(ideasViewModel: IdeasViewModel) {
+        self.ideasViewModel = ideasViewModel
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileName = UUID().uuidString + ".png"
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        let lastComponent = fileURL.lastPathComponent
+        self.photoModel = PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: lastComponent)
+    }
     var body: some View {
         HStack{
-            Button {
-                ideasViewModel.isShowingCamera = true
+            
+            NavigationLink{
+                InsertPhotoIdeaView(ideasViewModel: ideasViewModel, photoModel: photoModel)
             } label: {
                 Image(systemName: "camera.fill")
             }
-            .fullScreenCover(isPresented: $ideasViewModel.isShowingCamera) {
-                CameraRepresentable(viewModel: ideasViewModel.cameraViewModel)
-            }
+//            Button {
+//                ideasViewModel.isShowingCamera = true
+//            } label: {
+//                Image(systemName: "camera.fill")
+//            }
+//            .fullScreenCover(isPresented: $ideasViewModel.isShowingCamera) {
+//                CameraRepresentable(viewModel: ideasViewModel.cameraViewModel)
+//            }
             .padding()
             Spacer()
             NavigationLink {

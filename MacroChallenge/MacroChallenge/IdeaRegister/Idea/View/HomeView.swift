@@ -9,11 +9,12 @@ import SwiftUI
 
 //MARK: - HOME VIEW
 struct HomeView: View {
+    
     @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
     let audioManager: AudioManager = AudioManager()
     //quando for true altera para view de seleção de ideias
     @State var isAdding: Bool = false
-
+    
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
     init(){
@@ -38,7 +39,7 @@ struct HomeView: View {
                 
                 //navigation bar
                 .toolbar{
-                    ToolbarItemGroup(placement: .navigationBarTrailing){
+                    ToolbarItem(placement: .navigationBarTrailing){
                         
                         if isAdding == false{
                             //leva para a InfoView
@@ -68,7 +69,7 @@ struct HomeView: View {
                         }
                     }
 
-                    ToolbarItemGroup(placement: .bottomBar) {
+                    ToolbarItem(placement: .bottomBar) {
                         ToolbarComponent(ideasViewModel: ideasViewModel)
                     }
                 }
