@@ -28,9 +28,17 @@ struct CheckAudioView: View {
     // text
     @FocusState var isFocused: Bool
     
-    init(audioIdea idea: AudioIdeia) {
+    // tag
+    @State private var showSheet: Bool = false
+    
+    // view model functions
+    @ObservedObject var viewModel: IdeasViewModel
+    
+    
+    init(audioIdea idea: AudioIdeia, viewModel: IdeasViewModel) {
         self.audioManager = AudioManager()
         self._idea = State(initialValue: idea)
+        self.viewModel = viewModel
         self.audioUrl = ContentDirectoryHelper.getDirectoryContent(contentPath: idea.audioPath)
         self.audioManager.assignAudio(self.audioUrl)
         self.isFocused = false
@@ -59,16 +67,33 @@ struct CheckAudioView: View {
                 .overlay {
                     PlaceholderComponent(idea: idea)
                 }
+            
+            if idea.tag!.isEmpty {
+                Button {
+                    // chamar as tags para adicionar
+                } label: {
+                    Image("tag_icon")
+                }
+            } else {
+                Button {
+                    self.showSheet = true
+                } label: {
+                    IdeaTagViewerComponent(idea: idea)
+                }
         }
+    }
+        .sheet(isPresented: $showSheet, content: {
+            TagView(viewModel: viewModel, tagsArrayReceived: $viewModel.tagsLoadedData) //TODO: aqui deve ser um novo array que recebe novas tags
+        })
         .navigationTitle(Text(text) + Text(idea.creationDate.toString(dateFormatter: self.dateFormatter)!))
         .navigationBarTitleDisplayMode(.large)
         .onChange(of: idea.textComplete) { newValue in
             saveIdea()
         }
         .navigationBarBackButtonHidden()
-        
+    
         .toolbar {
-
+            
             //menu de favoritar e excluir
             ToolbarItem(placement: .navigationBarTrailing){
                 MenuEditComponent(type: AudioIdeia.self, idea: self.$idea)
@@ -89,18 +114,18 @@ struct CheckAudioView: View {
             //back button personalizado
             ToolbarItem(placement: .navigationBarLeading) {
                 CustomBackButtonComponent(type: AudioIdeia.self, idea: $idea)
-
+                
             }
         }
-    }
+}
+
+//MARK: - FUNCs
+private func saveIdea() {
+    let text = self.idea.textComplete
+    if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
     
-    //MARK: - FUNCs
-    private func saveIdea() {
-        let text = self.idea.textComplete
-        if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
-        
-        self.idea.modifiedDate = Date()
-        TextViewModel.setTextsFromIdea(idea: &self.idea)
-        IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
-    }
+    self.idea.modifiedDate = Date()
+    TextViewModel.setTextsFromIdea(idea: &self.idea)
+    IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
+}
 }

@@ -8,21 +8,26 @@
 import SwiftUI
 
 struct EditRegisterView: View {
-    private let text: LocalizedStringKey = "ideaDay"
-    @State var modelText: ModelText
+    // config
     @Environment(\.dismiss) private var dismiss
     @Environment(\.screenSize) private var screenSize
+    // title
+    private let text: LocalizedStringKey = "ideaDay"
+    // idea
+    @State var modelText: ModelText
     // text
     @FocusState var isFocused: Bool
-    private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
-    @State var showSheet: Bool = false
+    // tag
+    @State private var showSheet: Bool = false
+    @State var tagsArray: [Tag] = [] //TODO: a modelText deve receber o array com as novas tags selecionadas antes de salvar a edição
+    // view model functions
     @ObservedObject var viewModel: IdeasViewModel
-    @State var tagsArray: [Tag] = [] //TODO: fazer com que o usuario possa adicionar novas tags a partir dessa tela 
     
     init(modelText: ModelText, viewModel: IdeasViewModel) {
         self._modelText = State(initialValue: modelText)
         self.viewModel = viewModel
     }
+    
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -34,7 +39,7 @@ struct EditRegisterView: View {
                 }
             if modelText.tag!.isEmpty {
                 Button {
-                    
+                    self.showSheet = true
                 } label: {
                     Image("tag_icon")
                 }
@@ -47,13 +52,26 @@ struct EditRegisterView: View {
             }
         }
         .sheet(isPresented: $showSheet) {
-            TagView(viewModel: viewModel, tagsArrayReceived: $viewModel.tagsLoadedData)
+            TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
         }
         .onChange(of: modelText.textComplete, perform: { newValue in
-            self.saveIdea()
+            self.saveIdea(newTags: self.tagsArray)
+        })
+        .onChange(of: showSheet, perform: { newValue in
+            if #available(iOS 16.0, *) {
+                if !modelText.tag!.contains(self.tagsArray) {
+                    for tag in self.tagsArray {
+                        modelText.tag?.append(tag)
+                    }
+                } else {
+                    print("Don't added new tags")
+                }
+            } else {
+                //versao inferior ao ios 16
+            }
         })
         .navigationBarBackButtonHidden()
-        .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: self.dateFormatter)!))
+        .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!))
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -74,12 +92,26 @@ struct EditRegisterView: View {
         }
     }
     
+    
     //MARK: - FUNCs
-    private func saveIdea() {
+    private func saveIdea(newTags: [Tag]) {
         let text = self.modelText.textComplete
         if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
         
         self.modelText.modifiedDate = Date()
+        
+        if #available(iOS 16.0, *) {
+            if !modelText.tag!.contains(newTags) {
+                for tag in newTags {
+                    modelText.tag?.append(tag)
+                }
+            } else {
+                print("error: can't add new tags in idea")
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+       
         TextViewModel.setTextsFromIdea(idea: &self.modelText)
         IdeaSaver.changeSavedValue(type: ModelText.self, idea: self.modelText)
     }

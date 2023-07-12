@@ -20,7 +20,7 @@ class IdeasViewModel: ObservableObject {
     @Published var searchText: String = ""
     @StateObject var cameraViewModel = CameraViewModel()
     @Published var tagsLoadedData: [Tag] = IdeaSaver.getAllSavedTags()
-    
+    static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     
     func orderBy(byCreation: Bool, sortedByAscendent: Bool) {
         DispatchQueue.main.async { [self] in

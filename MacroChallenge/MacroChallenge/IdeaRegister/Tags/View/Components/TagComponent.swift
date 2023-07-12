@@ -51,17 +51,6 @@ struct TagComponent: View {
             }
         } label: {
             TagLabelComponent(tagName: tag.name)
-//            Text(tag.name)
-//                .font(.custom("Sen-Regular", size: fontSize))
-//                .padding(.horizontal, 14)
-//                .padding(.vertical, 8)
-//                .background(
-//                    Capsule()
-//                    //TODO: deixar o usuário escolher a cor
-//                        .fill(Color("labelColor"))
-//                )
-//                .foregroundColor(Color("backgroundColor"))
-//                .lineLimit(1)
             
             //Deletar
                 .contentShape(Capsule())

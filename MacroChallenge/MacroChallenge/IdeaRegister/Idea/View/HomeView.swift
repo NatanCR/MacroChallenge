@@ -102,7 +102,7 @@ struct HomeGridView: View {
                         case .text:
                             EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdeia)
+                            CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
                             PhotoIdeaView(photoModel: ideas as! PhotoModel)
                         }
@@ -118,7 +118,6 @@ struct HomeGridView: View {
                         }
                     }
                 }
-
             }.padding()
         }
     }
@@ -140,7 +139,7 @@ struct HomeListView: View {
                         case .text:
                             EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdeia)
+                            CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
                             PhotoIdeaView(photoModel: ideas as! PhotoModel)
                         }
@@ -152,9 +151,7 @@ struct HomeListView: View {
                             ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
-
                 }
-
                 .listRowBackground(Color("backgroundItem"))
             }
             .scrollContentBackground(.hidden)
@@ -167,7 +164,7 @@ struct HomeListView: View {
                         case .text:
                             EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdeia)
+                            CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
                             PhotoIdeaView(photoModel: ideas as! PhotoModel)
                         }
