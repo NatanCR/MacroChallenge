@@ -78,6 +78,7 @@ struct HomeView: View {
             .navigationTitle(isAdding ? "New folder" : "ideas")
             .navigationBarTitleDisplayMode(isAdding ? .inline : .large)
              .background(Color("backgroundColor"))
+             .ignoresSafeArea(.keyboard)
              .onAppear() {
                  self.appearInitialization()
              }
