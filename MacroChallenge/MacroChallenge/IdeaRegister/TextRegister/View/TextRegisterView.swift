@@ -25,16 +25,25 @@ struct TextRegisterView: View {
                 .padding()
                 .focused($isFocused)
             
-            //chama a sheet
-            Button {
-                showModal = true
-            } label: {
-                Image("tag_icon")
+            if tagsArray.isEmpty {
+                //chama a sheet
+                Button {
+                    showModal = true
+                } label: {
+                    Image("tag_icon")
+                }.padding()
+                
+            } else {
+                Button {
+                    self.showModal = true
+                } label: {
+                    IdeaTagViewerComponent(idea: ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: textComplete, textComplete: textComplete, tag: tagsArray))
+                }.padding()
+
             }
-            .padding()
-            .sheet(isPresented: $showModal) {
-                TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
-            }
+        }
+        .sheet(isPresented: $showModal) {
+            TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
         }
         .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)

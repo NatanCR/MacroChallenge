@@ -100,16 +100,27 @@ struct RecordAudioView: View {
                             }
                     }
                     .padding()
+                if tagsArray.isEmpty {
                     Button{
-                        showModal = true
+                        self.showModal = true
                     } label: {
                         Image("tag_icon")
                     }
                     .padding()
-                    .sheet(isPresented: $showModal) {
-                        TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
+                } else {
+                    Button {
+                        self.showModal = true
+                    } label: {
+                        IdeaTagViewerComponent(idea: AudioIdeia(title: textTitle, description: textDescription, textComplete: textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: self.tagsArray))
                     }
+
+                }
+                    
+                    
             }
+        }
+        .sheet(isPresented: $showModal) {
+            TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
         }
         .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
         .navigationTitle("Inserir áudio")
