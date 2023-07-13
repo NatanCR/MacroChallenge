@@ -11,7 +11,7 @@ struct TextRegisterView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var textComplete: String = ""
     @State private var title: String = ""
-    @State private var idea: String = ""
+    @State private var description: String = ""
     @State private var isActive: Bool = false //variável para ativar o alerta
     @FocusState private var isFocused: Bool
     @State private var showTagSheet: Bool = false
@@ -37,7 +37,7 @@ struct TextRegisterView: View {
                 Button {
                     self.showModal = true
                 } label: {
-                    IdeaTagViewerComponent(idea: ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: textComplete, textComplete: textComplete, tag: tagsArray))
+                    IdeaTagViewerComponent(idea: ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray))
                 }.padding()
 
             }
@@ -67,10 +67,10 @@ struct TextRegisterView: View {
                     if textComplete.isEmpty {
                         self.isActive.toggle()
                     } else {
-                        TextViewModel.setTitleDescriptionAndCompleteText(title: &title, description: &idea, complete: &textComplete)
+                        TextViewModel.setTitleDescriptionAndCompleteText(title: &title, description: &description, complete: &textComplete)
                         
                         //coloca os dados no formato da estrutura
-                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: idea, textComplete: textComplete, tag: tagsArray)
+                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray)
                         
                         dump(tagsArray)
                         
