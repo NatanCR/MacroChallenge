@@ -19,7 +19,7 @@ struct EditRegisterView: View {
     @FocusState var isFocused: Bool
     // tag
     @State private var showSheet: Bool = false
-    @State var tagsArray: [Tag] = [] //TODO: a modelText deve receber o array com as novas tags selecionadas antes de salvar a edição
+    @State var tagsArray: [Tag] = [] 
     // view model functions
     @ObservedObject var viewModel: IdeasViewModel
     

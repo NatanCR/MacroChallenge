@@ -30,6 +30,7 @@ struct CheckAudioView: View {
     
     // tag
     @State private var showSheet: Bool = false
+    @State var tagsArray: [Tag] = []
     
     // view model functions
     @ObservedObject var viewModel: IdeasViewModel
@@ -70,7 +71,7 @@ struct CheckAudioView: View {
             
             if idea.tag!.isEmpty {
                 Button {
-                    // chamar as tags para adicionar
+                    self.showSheet = true
                 } label: {
                     Image("tag_icon")
                 }
@@ -83,13 +84,26 @@ struct CheckAudioView: View {
         }
     }
         .sheet(isPresented: $showSheet, content: {
-            TagView(viewModel: viewModel, tagsArrayReceived: $viewModel.tagsLoadedData) //TODO: aqui deve ser um novo array que recebe novas tags
+            TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
         })
         .navigationTitle(Text(text) + Text(idea.creationDate.toString(dateFormatter: self.dateFormatter)!))
         .navigationBarTitleDisplayMode(.large)
         .onChange(of: idea.textComplete) { newValue in
-            saveIdea()
+            saveIdea(newTags: self.tagsArray)
         }
+        .onChange(of: showSheet, perform: { newValue in
+            if #available(iOS 16.0, *) {
+                if !idea.tag!.contains(self.tagsArray) {
+                    for tag in self.tagsArray {
+                        idea.tag?.append(tag)
+                    }
+                } else {
+                    print("error: can't add new tags in idea")
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+        })
         .navigationBarBackButtonHidden()
     
         .toolbar {
@@ -104,7 +118,7 @@ struct CheckAudioView: View {
                 if isFocused{
                     Button{
                         isFocused = false
-                        saveIdea()
+                        saveIdea(newTags: self.tagsArray)
                     } label: {
                         Text("OK")
                     }
@@ -114,17 +128,29 @@ struct CheckAudioView: View {
             //back button personalizado
             ToolbarItem(placement: .navigationBarLeading) {
                 CustomBackButtonComponent(type: AudioIdeia.self, idea: $idea)
-                
             }
         }
 }
 
 //MARK: - FUNCs
-private func saveIdea() {
+    private func saveIdea(newTags: [Tag]) {
     let text = self.idea.textComplete
     if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
     
     self.idea.modifiedDate = Date()
+    
+    if #available(iOS 16.0, *) {
+        if !idea.tag!.contains(newTags) {
+            for tag in newTags {
+                idea.tag?.append(tag)
+            }
+        } else {
+            print("error: can't add new tags in idea")
+        }
+    } else {
+        // Fallback on earlier versions
+    }
+    
     TextViewModel.setTextsFromIdea(idea: &self.idea)
     IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
 }
