@@ -92,17 +92,7 @@ struct CheckAudioView: View {
             saveIdea(newTags: self.tagsArray)
         }
         .onChange(of: showSheet, perform: { newValue in
-            if #available(iOS 16.0, *) {
-                if !idea.tag!.contains(self.tagsArray) {
-                    for tag in self.tagsArray {
-                        idea.tag?.append(tag)
-                    }
-                } else {
-                    print("error: can't add new tags in idea")
-                }
-            } else {
-                // Fallback on earlier versions
-            }
+            saveIdea(newTags: self.tagsArray)
         })
         .navigationBarBackButtonHidden()
     

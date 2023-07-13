@@ -19,7 +19,7 @@ struct EditRegisterView: View {
     @FocusState var isFocused: Bool
     // tag
     @State private var showSheet: Bool = false
-    @State var tagsArray: [Tag] = [] 
+    @State var tagsArray: [Tag] = []
     // view model functions
     @ObservedObject var viewModel: IdeasViewModel
     
@@ -58,17 +58,7 @@ struct EditRegisterView: View {
             self.saveIdea(newTags: self.tagsArray)
         })
         .onChange(of: showSheet, perform: { newValue in
-            if #available(iOS 16.0, *) {
-                if !modelText.tag!.contains(self.tagsArray) {
-                    for tag in self.tagsArray {
-                        modelText.tag?.append(tag)
-                    }
-                } else {
-                    print("Don't added new tags")
-                }
-            } else {
-                //versao inferior ao ios 16
-            }
+            saveIdea(newTags: self.tagsArray)
         })
         .navigationBarBackButtonHidden()
         .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!))
