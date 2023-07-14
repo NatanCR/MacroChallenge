@@ -221,6 +221,8 @@
 		4074E04B2A5614CA00C5A46E /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D189F12E2A5C983C009F6488 /* IdeaTagViewerComponent.swift */,
+				D189F12C2A5C7A07009F6488 /* TagLabelComponent.swift */,
 				4074E0442A5611C400C5A46E /* TagComponent.swift */,
 			);
 			path = Components;
@@ -253,8 +255,6 @@
 				40E859592A3BAD2900F2BC0E /* CustomBackButtonComponent.swift */,
 				40E8595B2A3BB6AD00F2BC0E /* PlaceholderComponent.swift */,
 				D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */,
-				D189F12C2A5C7A07009F6488 /* TagLabelComponent.swift */,
-				D189F12E2A5C983C009F6488 /* IdeaTagViewerComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

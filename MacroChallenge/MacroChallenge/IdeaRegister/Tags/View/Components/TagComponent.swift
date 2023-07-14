@@ -39,20 +39,19 @@ struct TagComponent: View {
     func RowView(tag: Binding<Tag>) -> some View {
         
         Button {
-            dump(tag.wrappedValue)
             tag.wrappedValue.isTagSelected.toggle()
-            dump(tag.wrappedValue)
             
             //verifica se a tag ja existe para não salvar repetido
             if tag.wrappedValue.isTagSelected && !tagArraySelected.contains(tag.wrappedValue) {
                 //append em um array de tags
                 //esse array deve vir da tela de registro por referência
                 tagArraySelected.append(tag.wrappedValue)
+                
                 print("AQUI COMECA O ARRAY")
                 dump(tagArraySelected)
                 print("AQUI TERMINA O ARRAY")
             } else {
-                print("Tag don't added")
+                //TODO: REMOVER TAG DO ARRAY
             }
         } label: {
             if tag.wrappedValue.isTagSelected {
@@ -92,7 +91,6 @@ struct TagComponent: View {
             }
         }
     }
-    
     
     func getIndex(tag: Tag) -> Int{
         
