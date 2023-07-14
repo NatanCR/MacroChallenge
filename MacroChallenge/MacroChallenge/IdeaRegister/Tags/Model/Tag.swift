@@ -12,6 +12,7 @@ struct Tag: Identifiable, Codable, Hashable {
     var name: String
     var color: String //não é possível decodificar um Color
     var size: CGFloat = 0
+    var isTagSelected: Bool = false 
     
     /*var color: Color {
         Color(hex: colorHex)

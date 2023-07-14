@@ -9,8 +9,6 @@ import SwiftUI
 
 struct TagComponent: View {
     @Environment(\.screenSize) var screenSize
-//    var fontSize: CGFloat = 16
-//    var maxLimit: Int
     @Binding var allTags: [Tag]
     @Binding var tagArraySelected: [Tag]
     
@@ -23,8 +21,8 @@ struct TagComponent: View {
                     ForEach(getRows(), id: \.self) { rows in
                         
                         HStack(spacing: 6){
-                            ForEach(rows) { row in
-                                RowView(tag: row)
+                            ForEach(rows, id: \.id) { tag in
+                                RowView(tag: $allTags[getIndex(tag: tag)])
                             }
                         }
                     }
@@ -38,33 +36,56 @@ struct TagComponent: View {
     }
     
     @ViewBuilder
-    func RowView(tag: Tag) -> some View {
+    func RowView(tag: Binding<Tag>) -> some View {
         
         Button {
+            dump(tag.wrappedValue)
+            tag.wrappedValue.isTagSelected.toggle()
+            dump(tag.wrappedValue)
             //verifica se a tag ja existe para não salvar repetido
-            if !tagArraySelected.contains(tag) {
+            if !tagArraySelected.contains(tag.wrappedValue) {
                 //append em um array de tags
                 //esse array deve vir da tela de registro por referência
-                tagArraySelected.append(tag)
+                tagArraySelected.append(tag.wrappedValue)
             } else {
                 // Exibir mensagem de erro ou tomar outra ação
             }
         } label: {
-            TagLabelComponent(tagName: tag.name)
-            
-            //Deletar
-                .contentShape(Capsule())
-                .contextMenu {
-                    Button(role: .destructive){
-                        allTags.remove(at: getIndex(tag: tag))
-                        IdeaSaver.clearOneTag(tag: tag)
-                    } label: {
-                        HStack{
-                            Text("Delete")
-                            Image(systemName: "trash.fill")
+            if tag.wrappedValue.isTagSelected {
+                TagLabelComponent(tagName: tag.wrappedValue.name)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color("AccentColor"), lineWidth: 4)
+                    )
+                //Deletar
+                    .contentShape(Capsule())
+                    .contextMenu {
+                        Button(role: .destructive){
+                            allTags.remove(at: getIndex(tag: tag.wrappedValue))
+                            IdeaSaver.clearOneTag(tag: tag.wrappedValue)
+                        } label: {
+                            HStack{
+                                Text("Delete")
+                                Image(systemName: "trash.fill")
+                            }
                         }
                     }
-                }
+            } else {
+                TagLabelComponent(tagName: tag.wrappedValue.name)
+                //Deletar
+                    .contentShape(Capsule())
+                    .contextMenu {
+                        Button(role: .destructive){
+                            allTags.remove(at: getIndex(tag: tag.wrappedValue))
+                            IdeaSaver.clearOneTag(tag: tag.wrappedValue)
+                        } label: {
+                            HStack{
+                                Text("Delete")
+                                Image(systemName: "trash.fill")
+                            }
+                        }
+                    }
+            }
         }
     }
     

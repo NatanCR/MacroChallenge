@@ -20,13 +20,14 @@ struct TagLabelComponent: View {
                     //TODO: deixar o usuário escolher a cor
                         .fill(Color("labelColor"))
                 )
+                
                 .foregroundColor(Color("backgroundColor"))
                 .lineLimit(1)
     }
 }
 
-struct TagLabelComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        TagLabelComponent(tagName: "Tag")
-    }
-}
+//struct TagLabelComponent_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TagLabelComponent(tagName: "Extraterrestre", isSelected: Binding(false))
+//    }
+//}
