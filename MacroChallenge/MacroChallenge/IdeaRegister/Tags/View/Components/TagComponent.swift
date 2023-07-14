@@ -64,6 +64,7 @@ struct TagComponent: View {
                     .contentShape(Capsule())
                     .contextMenu {
                         Button(role: .destructive){
+                            //TODO: BUG SE REMOVER TODAS AS TAGS
                             allTags.remove(at: getIndex(tag: tag.wrappedValue))
                             IdeaSaver.clearOneTag(tag: tag.wrappedValue)
                         } label: {
@@ -79,6 +80,7 @@ struct TagComponent: View {
                     .contentShape(Capsule())
                     .contextMenu {
                         Button(role: .destructive){
+                            //TODO: BUG SE REMOVER TODAS AS TAGS
                             allTags.remove(at: getIndex(tag: tag.wrappedValue))
                             IdeaSaver.clearOneTag(tag: tag.wrappedValue)
                         } label: {
