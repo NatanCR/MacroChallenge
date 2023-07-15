@@ -81,8 +81,8 @@ struct CheckAudioView: View {
                 } label: {
                     IdeaTagViewerComponent(idea: idea)
                 }
+            }
         }
-    }
         .sheet(isPresented: $showSheet, content: {
             TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
         })
@@ -95,7 +95,7 @@ struct CheckAudioView: View {
             saveIdea(newTags: self.tagsArray)
         })
         .navigationBarBackButtonHidden()
-    
+        
         .toolbar {
             
             //menu de favoritar e excluir
@@ -120,28 +120,24 @@ struct CheckAudioView: View {
                 CustomBackButtonComponent(type: AudioIdeia.self, idea: $idea)
             }
         }
-}
-
-//MARK: - FUNCs
+    }
+    
+    //MARK: - FUNCs
     private func saveIdea(newTags: [Tag]) {
-    let text = self.idea.textComplete
-    if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
-    
-    self.idea.modifiedDate = Date()
-    
-    if #available(iOS 16.0, *) {
-        if !idea.tag!.contains(newTags) {
+        let text = self.idea.textComplete
+        if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
+        
+        self.idea.modifiedDate = Date()
+        
+        if let existingTags = idea.tag, !existingTags.contains(where: { newTags.contains($0) }) {
             for tag in newTags {
                 idea.tag?.append(tag)
             }
         } else {
             print("error: can't add new tags in idea")
         }
-    } else {
-        // Fallback on earlier versions
+        
+        TextViewModel.setTextsFromIdea(idea: &self.idea)
+        IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
     }
-    
-    TextViewModel.setTextsFromIdea(idea: &self.idea)
-    IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
-}
 }

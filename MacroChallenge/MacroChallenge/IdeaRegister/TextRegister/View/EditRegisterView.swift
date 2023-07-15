@@ -58,6 +58,7 @@ struct EditRegisterView: View {
             self.saveIdea(newTags: self.tagsArray)
         })
         .onChange(of: showSheet, perform: { newValue in
+            
             saveIdea(newTags: self.tagsArray)
         })
         .navigationBarBackButtonHidden()
@@ -90,18 +91,14 @@ struct EditRegisterView: View {
         
         self.modelText.modifiedDate = Date()
         
-        if #available(iOS 16.0, *) {
-            if !modelText.tag!.contains(newTags) {
-                for tag in newTags {
-                    modelText.tag?.append(tag)
-                }
-            } else {
-                print("error: can't add new tags in idea")
+        if let existingTags = modelText.tag, !existingTags.contains(where: { newTags.contains($0) }) {
+            for tag in newTags {
+                modelText.tag?.append(tag)
             }
         } else {
-            // Fallback on earlier versions
+            print("error: can't add new tags in idea")
         }
-       
+        
         TextViewModel.setTextsFromIdea(idea: &self.modelText)
         IdeaSaver.changeSavedValue(type: ModelText.self, idea: self.modelText)
     }
