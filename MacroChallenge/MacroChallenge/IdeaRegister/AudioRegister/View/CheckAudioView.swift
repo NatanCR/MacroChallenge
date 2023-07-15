@@ -92,7 +92,12 @@ struct CheckAudioView: View {
             saveIdea(newTags: self.tagsArray)
         }
         .onChange(of: showSheet, perform: { newValue in
-            saveIdea(newTags: self.tagsArray)
+            if self.tagsArray.count >= 1 {
+                saveIdea(newTags: self.tagsArray)
+            } else {
+                return 
+            }
+            
         })
         .navigationBarBackButtonHidden()
         

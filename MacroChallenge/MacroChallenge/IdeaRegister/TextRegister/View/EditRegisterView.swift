@@ -58,8 +58,12 @@ struct EditRegisterView: View {
             self.saveIdea(newTags: self.tagsArray)
         })
         .onChange(of: showSheet, perform: { newValue in
+            if self.tagsArray.count >= 1 {
+                saveIdea(newTags: self.tagsArray)
+            } else {
+                return
+            }
             
-            saveIdea(newTags: self.tagsArray)
         })
         .navigationBarBackButtonHidden()
         .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!))
@@ -91,6 +95,7 @@ struct EditRegisterView: View {
         
         self.modelText.modifiedDate = Date()
         
+        //verifica se nao existem tags repetidas antes de salvar
         if let existingTags = modelText.tag, !existingTags.contains(where: { newTags.contains($0) }) {
             for tag in newTags {
                 modelText.tag?.append(tag)
