@@ -95,7 +95,7 @@ struct CheckAudioView: View {
             if self.tagsArray.count >= 1 {
                 saveIdea(newTags: self.tagsArray)
             } else {
-                return 
+                return
             }
             
         })

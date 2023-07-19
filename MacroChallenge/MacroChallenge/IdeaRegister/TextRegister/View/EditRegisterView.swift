@@ -58,11 +58,16 @@ struct EditRegisterView: View {
             self.saveIdea(newTags: self.tagsArray)
         })
         .onChange(of: showSheet, perform: { newValue in
-            if self.tagsArray.count >= 1 {
-                saveIdea(newTags: self.tagsArray)
-            } else {
-                return
+            if !showSheet {
+                print("ARRAY FECHANDO SHEET")
+                dump(self.tagsArray)
+                if self.tagsArray.count >= 1 {
+                    saveIdea(newTags: self.tagsArray)
+                } else {
+                    return
+                }
             }
+            
             
         })
         .navigationBarBackButtonHidden()

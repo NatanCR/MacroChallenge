@@ -52,6 +52,8 @@ struct TagComponent: View {
                 print("AQUI TERMINA O ARRAY")
             } else {
                 //TODO: REMOVER TAG DO ARRAY
+                //TODO: TA TROCANDO A POSIÇAO DOS ELEMENTOS NO ARRAY AO EXCLUIR OU TA EXCLUINDO A POSICAO ERRADA
+                self.tagArraySelected.remove(at: getIndex(tag: tag.wrappedValue))
             }
         } label: {
             if tag.wrappedValue.isTagSelected {
