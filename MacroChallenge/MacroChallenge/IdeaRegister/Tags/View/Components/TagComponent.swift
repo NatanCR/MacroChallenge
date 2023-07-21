@@ -22,7 +22,7 @@ struct TagComponent: View {
                         
                         HStack(spacing: 6){
                             ForEach(rows, id: \.id) { tag in
-                                RowView(tag: $allTags[getIndex(tag: tag)])
+                                RowView(tag: $allTags[getIndex(tag: tag, allTags: true)])
                             }
                         }
                     }
@@ -46,15 +46,14 @@ struct TagComponent: View {
                 //append em um array de tags
                 //esse array deve vir da tela de registro por referência
                 tagArraySelected.append(tag.wrappedValue)
-                
-                print("AQUI COMECA O ARRAY")
-                dump(tagArraySelected)
-                print("AQUI TERMINA O ARRAY")
+
             } else {
-                //TODO: REMOVER TAG DO ARRAY
-                //TODO: TA TROCANDO A POSIÇAO DOS ELEMENTOS NO ARRAY AO EXCLUIR OU TA EXCLUINDO A POSICAO ERRADA
-                self.tagArraySelected.remove(at: getIndex(tag: tag.wrappedValue))
+
+                if getIndex(tag: tag.wrappedValue) != -1 {
+                    self.tagArraySelected.remove(at: getIndex(tag: tag.wrappedValue))
+                }
             }
+            
         } label: {
             if tag.wrappedValue.isTagSelected {
                 TagLabelComponent(tagName: tag.wrappedValue.name)
@@ -66,7 +65,7 @@ struct TagComponent: View {
                     .contentShape(Capsule())
                     .contextMenu {
                         Button(role: .destructive){
-                            allTags.remove(at: getIndex(tag: tag.wrappedValue))
+                            allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
                             if allTags.count <= 1 {
                                 IdeaSaver.clearUniqueTag()
                             } else {
@@ -85,7 +84,7 @@ struct TagComponent: View {
                     .contentShape(Capsule())
                     .contextMenu {
                         Button(role: .destructive){
-                            allTags.remove(at: getIndex(tag: tag.wrappedValue))
+                            allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
                             if allTags.count <= 1 {
                                 IdeaSaver.clearUniqueTag()
                             } else {
@@ -103,11 +102,17 @@ struct TagComponent: View {
         }
     }
     
-    func getIndex(tag: Tag) -> Int{
-        
-        let index = allTags.firstIndex { currentTag in
-            return tag.id == currentTag.id
-        } ?? 0
+    func getIndex(tag: Tag, allTags: Bool = false) -> Int {
+        var index = -1
+        if allTags {
+            index = self.allTags.firstIndex { currentTag in
+                return tag.id == currentTag.id
+            } ?? -1
+        } else {
+            index = tagArraySelected.firstIndex { currentTag in
+                return tag.id == currentTag.id
+            } ?? -1
+        }
         
         return index
     }

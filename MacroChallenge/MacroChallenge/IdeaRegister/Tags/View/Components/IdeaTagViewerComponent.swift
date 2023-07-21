@@ -11,8 +11,10 @@ struct IdeaTagViewerComponent<T: Idea>: View {
     var idea: T
     
     var body: some View {
+        
         if idea.tag!.count > 0 && idea.tag!.count < 2  {
             TagLabelComponent(tagName: idea.tag?.first?.name ?? "")
+            
         } else if idea.tag!.count >= 2 {
             ZStack {
                 //segunda
