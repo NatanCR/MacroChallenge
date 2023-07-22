@@ -45,6 +45,8 @@ struct EditRegisterView: View {
                 }
             } else {
                 Button {
+                    self.tagsArray = modelText.tag ?? []
+                    dump(self.tagsArray)
                     self.showSheet = true
                 } label: {
                     IdeaTagViewerComponent(idea: modelText)
