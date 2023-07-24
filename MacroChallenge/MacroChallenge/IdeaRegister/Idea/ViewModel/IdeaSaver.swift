@@ -109,7 +109,7 @@ class IdeaSaver {
             }
         }
         
-        print("error to GetSavedIdeas, or no saved ideas of specified type exists in UserDefault")
+        //print("error to GetSavedIdeas, or no saved ideas of specified type exists in UserDefault")
         return []
     }
     

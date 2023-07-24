@@ -175,6 +175,8 @@ struct RecordAudioView: View {
             
             let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
             IdeaSaver.saveAudioIdea(idea: idea)
+            
+            CloudManager.saveRecord(idea)
         }
         
         dismiss()

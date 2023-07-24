@@ -49,6 +49,9 @@ struct TextRegisterView: View {
                         let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: idea, textComplete: textComplete)
                         //salva o dados registrados
                         IdeaSaver.saveTextIdea(idea: currentModel)
+                        
+                        //salva no icloud
+                        CloudManager.saveRecord(currentModel)
                         dismiss()
                     }
                 } label: {

@@ -28,8 +28,11 @@ class CameraViewModel: ObservableObject {
         }
         
         do {
+            // save the idea
             let photoModel = try PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: lastComponent)
             IdeaSaver.savePhotoIdea(idea: photoModel)
+            CloudManager.saveRecord(photoModel)
+            
         } catch PhotoModelError.imageSaveError(let error) {
             print("Erro ao salvar a imagem: \(error)")
         } catch PhotoModelError.invalidImageData {
