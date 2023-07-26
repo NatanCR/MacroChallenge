@@ -45,7 +45,8 @@ struct EditRegisterView: View {
                 }
             } else {
                 Button {
-                    self.tagsArray = modelText.tag ?? []
+//                    self.tagsArray = modelText.tag ?? []
+                    print("PRINT BOTAO EDIT VIEW")
                     dump(self.tagsArray)
                     self.showSheet = true
                 } label: {

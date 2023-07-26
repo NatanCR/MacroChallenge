@@ -56,6 +56,7 @@ struct HomeView: View {
              .background(Color("backgroundColor"))
              .onAppear() {
                  self.appearInitialization()
+                 ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
              }
             //atualizando a view quando fechar a camera
              .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in

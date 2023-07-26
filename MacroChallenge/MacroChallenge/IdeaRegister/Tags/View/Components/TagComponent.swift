@@ -30,6 +30,10 @@ struct TagComponent: View {
                 .padding(.vertical)
             }
         }
+        .onAppear{
+            print("TODAS AS TAGS")
+            dump(self.allTags)
+        }
         .frame(width: screenSize.width * 0.9, alignment: .leading)
         .animation(.easeInOut, value: allTags)
         
@@ -39,6 +43,9 @@ struct TagComponent: View {
     func RowView(tag: Binding<Tag>) -> some View {
         
         Button {
+            print("PRINT BOTAO TAG")
+            dump(self.tagArraySelected)
+            dump(self.allTags)
             tag.wrappedValue.isTagSelected.toggle()
             
             //verifica se a tag ja existe para não salvar repetido
@@ -53,6 +60,7 @@ struct TagComponent: View {
                     self.tagArraySelected.remove(at: getIndex(tag: tag.wrappedValue))
                 }
             }
+            dump(self.tagArraySelected)
             
         } label: {
             if tag.wrappedValue.isTagSelected {
