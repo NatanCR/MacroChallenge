@@ -41,7 +41,7 @@ struct TagView: View {
                 if isFocused{
                     Button{
                         //adicionando tags
-                        IdeaSaver.saveTag(tag: addTag(text: tagName, color: "#fff"))
+                        IdeaSaver.saveTag(tag: viewModel.addTag(text: tagName, color: "#fff"))
                         tagName = ""
                         isFocused = false
                         viewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()

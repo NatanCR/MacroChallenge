@@ -45,9 +45,7 @@ struct EditRegisterView: View {
                 }
             } else {
                 Button {
-//                    self.tagsArray = modelText.tag ?? []
-                    print("PRINT BOTAO EDIT VIEW")
-                    dump(self.tagsArray)
+                    self.tagsArray = modelText.tag ?? []
                     self.showSheet = true
                 } label: {
                     IdeaTagViewerComponent(idea: modelText)
@@ -103,13 +101,25 @@ struct EditRegisterView: View {
         
         self.modelText.modifiedDate = Date()
         
-        //verifica se nao existem tags repetidas antes de salvar
-        if let existingTags = modelText.tag, !existingTags.contains(where: { newTags.contains($0) }) {
-            for tag in newTags {
+//        //verifica se nao existem tags repetidas antes de salvar
+//        if let existingTags = modelText.tag, !existingTags.contains(where: { newTags.contains($0) }) {
+//            for tag in newTags {
+//                modelText.tag?.append(tag)
+//            }
+//        } else {
+//            print("error: can't add new tags in idea")
+//        }
+        if let existingTags = modelText.tag {
+            // Verifica se cada tag em newTags já existe em existingTags
+            let duplicateTags = newTags.filter { existingTags.contains($0) }
+            
+            // Adiciona apenas as tags não duplicadas em modelText.tag
+            for tag in newTags where !duplicateTags.contains(tag) {
                 modelText.tag?.append(tag)
             }
         } else {
-            print("error: can't add new tags in idea")
+            // Se modelText.tag é nulo, simplesmente adiciona todas as tags de newTags
+            modelText.tag = newTags
         }
         
         TextViewModel.setTextsFromIdea(idea: &self.modelText)

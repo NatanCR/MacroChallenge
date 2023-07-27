@@ -103,4 +103,17 @@ class IdeasViewModel: ObservableObject {
             }
         }
     }
+    
+    /**Função para formatar e devolver uma tag estruturada para adicionar no banco de dados**/
+    func addTag(text: String, color: String) -> Tag {
+        
+        //pegando tamanho do texto
+        let font = UIFont.systemFont(ofSize: 16)
+        
+        let attributes = [NSAttributedString.Key.font: font]
+        
+        let size = (text as NSString).size(withAttributes: attributes)
+        
+        return Tag(name: text, color: color, size: size.width)
+    }
 }

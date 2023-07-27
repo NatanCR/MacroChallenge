@@ -21,6 +21,7 @@ struct TagComponent: View {
                     ForEach(getRows(), id: \.self) { rows in
                         
                         HStack(spacing: 6){
+                            // lendo e exibindo o array de todas as tags
                             ForEach(rows, id: \.id) { tag in
                                 RowView(tag: $allTags[getIndex(tag: tag, allTags: true)])
                             }
@@ -31,8 +32,9 @@ struct TagComponent: View {
             }
         }
         .onAppear{
-            print("TODAS AS TAGS")
-            dump(self.allTags)
+            dump(self.tagArraySelected)
+            //função para comparar as tags que ja existem e coloca-las com borda no array usado com all tags
+            updateSelectedTags()
         }
         .frame(width: screenSize.width * 0.9, alignment: .leading)
         .animation(.easeInOut, value: allTags)
@@ -42,10 +44,9 @@ struct TagComponent: View {
     @ViewBuilder
     func RowView(tag: Binding<Tag>) -> some View {
         
+        // selecionando a tag
         Button {
-            print("PRINT BOTAO TAG")
-            dump(self.tagArraySelected)
-            dump(self.allTags)
+
             tag.wrappedValue.isTagSelected.toggle()
             
             //verifica se a tag ja existe para não salvar repetido
@@ -60,9 +61,9 @@ struct TagComponent: View {
                     self.tagArraySelected.remove(at: getIndex(tag: tag.wrappedValue))
                 }
             }
-            dump(self.tagArraySelected)
             
         } label: {
+            // definindo se a tag terá borda de acordo com sua variavel isActive
             if tag.wrappedValue.isTagSelected {
                 TagLabelComponent(tagName: tag.wrappedValue.name)
                     .overlay(
@@ -162,18 +163,23 @@ struct TagComponent: View {
         
         return rows
     }
+    
+    func updateSelectedTags() {
+        // Cria uma cópia do array allTags
+        var updatedTags = self.allTags
+        
+        // Itera sobre as tags presentes em tagArraySelected
+        for selectedTag in self.tagArraySelected {
+            // Verifica se a tag selecionada está presente em allTags
+            if let index = updatedTags.firstIndex(where: { $0.id == selectedTag.id }) {
+                // Atualiza a propriedade isTagSelected para true
+                updatedTags[index].isTagSelected = true
+                dump(updatedTags[index])
+            }
+        }
+        
+        // Substitui o array allTags pela versão atualizada
+        self.allTags = updatedTags
+        dump(self.allTags)
+    }
 }
-
-//função global
-func addTag(text: String, color: String) -> Tag {
-    
-    //pegando tamanho do texto
-    let font = UIFont.systemFont(ofSize: 16)
-    
-    let attributes = [NSAttributedString.Key.font: font]
-    
-    let size = (text as NSString).size(withAttributes: attributes)
-    
-    return Tag(name: text, color: color, size: size.width)
-}
-
