@@ -131,7 +131,19 @@ class IdeasViewModel: ObservableObject {
                 
             }
         }
-        
         return updatedTags
+    }
+}
+extension Idea {
+    mutating func removeTag(_ tag: Tag) {
+        self.tag?.removeAll { $0.id == tag.id }
+    }
+}
+
+extension Array where Element: Idea {
+    mutating func removeTagFromAllIdeas(_ tag: Tag) {
+        for index in self.indices {
+            self[index].tag?.removeAll { $0.id == tag.id }
+        }
     }
 }

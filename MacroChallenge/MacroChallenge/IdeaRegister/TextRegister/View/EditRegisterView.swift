@@ -63,7 +63,7 @@ struct EditRegisterView: View {
             if !showSheet {
                 print("ARRAY FECHANDO SHEET")
                 dump(self.tagsArray)
-                if self.tagsArray.count >= 1 {
+                if self.tagsArray != self.modelText.tag {
                     saveIdea(newTags: self.tagsArray)
                 } else {
                     return

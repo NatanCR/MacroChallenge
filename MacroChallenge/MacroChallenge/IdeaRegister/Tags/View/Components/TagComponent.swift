@@ -75,6 +75,7 @@ struct TagComponent: View {
                     .contextMenu {
                         Button(role: .destructive){
                             allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
+                            
                             if allTags.count <= 1 {
                                 IdeaSaver.clearUniqueTag()
                             } else {

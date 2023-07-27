@@ -57,6 +57,7 @@ struct HomeView: View {
              .onAppear() {
                  self.appearInitialization()
                  ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
+                 dump(ideasViewModel.filteredIdeas)
              }
             //atualizando a view quando fechar a camera
              .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in

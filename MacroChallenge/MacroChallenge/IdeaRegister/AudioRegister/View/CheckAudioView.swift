@@ -93,7 +93,7 @@ struct CheckAudioView: View {
             saveIdea(newTags: self.tagsArray)
         }
         .onChange(of: showSheet, perform: { newValue in
-            if self.tagsArray.count >= 1 {
+            if self.tagsArray != self.idea.tag {
                 saveIdea(newTags: self.tagsArray)
             } else {
                 return
