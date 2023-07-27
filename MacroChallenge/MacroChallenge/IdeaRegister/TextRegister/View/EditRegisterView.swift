@@ -100,15 +100,7 @@ struct EditRegisterView: View {
         if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
         
         self.modelText.modifiedDate = Date()
-        
-//        //verifica se nao existem tags repetidas antes de salvar
-//        if let existingTags = modelText.tag, !existingTags.contains(where: { newTags.contains($0) }) {
-//            for tag in newTags {
-//                modelText.tag?.append(tag)
-//            }
-//        } else {
-//            print("error: can't add new tags in idea")
-//        }
+    
         if let existingTags = modelText.tag {
             // Verifica se cada tag em newTags já existe em existingTags
             let duplicateTags = newTags.filter { existingTags.contains($0) }
@@ -120,6 +112,7 @@ struct EditRegisterView: View {
         } else {
             // Se modelText.tag é nulo, simplesmente adiciona todas as tags de newTags
             modelText.tag = newTags
+            print("can't add new tags in idea")
         }
         
         TextViewModel.setTextsFromIdea(idea: &self.modelText)
