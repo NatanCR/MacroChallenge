@@ -135,19 +135,7 @@ struct CheckAudioView: View {
         
         self.idea.modifiedDate = Date()
         
-        if let existingTags = idea.tag {
-            // Verifica se cada tag em newTags já existe em existingTags
-            let duplicateTags = newTags.filter { existingTags.contains($0) }
-            
-            // Adiciona apenas as tags não duplicadas em modelText.tag
-            for tag in newTags where !duplicateTags.contains(tag) {
-                idea.tag?.append(tag)
-            }
-        } else {
-            // Se modelText.tag é nulo, simplesmente adiciona todas as tags de newTags
-            idea.tag = newTags
-            print("can't add new tags in idea")
-        }
+        self.idea.tag = newTags
         
         TextViewModel.setTextsFromIdea(idea: &self.idea)
         IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)

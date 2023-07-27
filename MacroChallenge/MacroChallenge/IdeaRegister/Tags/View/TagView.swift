@@ -56,8 +56,8 @@ struct TagView: View {
                 }
             }
             
-        //View de tag
-            TagComponent(allTags: $viewModel.tagsLoadedData, tagArraySelected: $tagsArrayReceived)
+        //Lista de tag
+            TagComponent(allTags: $viewModel.tagsLoadedData, tagArraySelected: $tagsArrayReceived, viewModel: viewModel)
                 .padding(.top, 20)
             
             

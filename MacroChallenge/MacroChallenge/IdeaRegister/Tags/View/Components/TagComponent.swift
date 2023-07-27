@@ -11,6 +11,7 @@ struct TagComponent: View {
     @Environment(\.screenSize) var screenSize
     @Binding var allTags: [Tag]
     @Binding var tagArraySelected: [Tag]
+    @ObservedObject var viewModel: IdeasViewModel
     
     var body: some View {
         
@@ -32,9 +33,8 @@ struct TagComponent: View {
             }
         }
         .onAppear{
-            dump(self.tagArraySelected)
             //função para comparar as tags que ja existem e coloca-las com borda no array usado com all tags
-            updateSelectedTags()
+            self.allTags = viewModel.updateSelectedTags(allTags: self.allTags, tagSelected: self.tagArraySelected)
         }
         .frame(width: screenSize.width * 0.9, alignment: .leading)
         .animation(.easeInOut, value: allTags)
@@ -164,22 +164,4 @@ struct TagComponent: View {
         return rows
     }
     
-    func updateSelectedTags() {
-        // Cria uma cópia do array allTags
-        var updatedTags = self.allTags
-        
-        // Itera sobre as tags presentes em tagArraySelected
-        for selectedTag in self.tagArraySelected {
-            // Verifica se a tag selecionada está presente em allTags
-            if let index = updatedTags.firstIndex(where: { $0.id == selectedTag.id }) {
-                // Atualiza a propriedade isTagSelected para true
-                updatedTags[index].isTagSelected = true
-                dump(updatedTags[index])
-            }
-        }
-        
-        // Substitui o array allTags pela versão atualizada
-        self.allTags = updatedTags
-        dump(self.allTags)
-    }
 }

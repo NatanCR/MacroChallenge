@@ -72,7 +72,6 @@ struct TextRegisterView: View {
                         //coloca os dados no formato da estrutura
                         let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray)
                         
-                        dump(tagsArray)
                         
                         //salva o dados registrados
                         IdeaSaver.saveTextIdea(idea: currentModel)

@@ -116,4 +116,22 @@ class IdeasViewModel: ObservableObject {
         
         return Tag(name: text, color: color, size: size.width)
     }
+    
+    /**Função que verifica se existem tags já usadas na ideia que está sendo visualizada, para exibi-las com borda pro usuário.**/
+    func updateSelectedTags(allTags: [Tag], tagSelected: [Tag]) -> [Tag] {
+        // Cria uma cópia do array allTags
+        var updatedTags = allTags
+        
+        // Itera sobre as tags presentes em tagArraySelected
+        for selectedTag in tagSelected {
+            // Verifica se a tag selecionada está presente em allTags
+            if let index = updatedTags.firstIndex(where: { $0.id == selectedTag.id }) {
+                // Atualiza a propriedade isTagSelected para true
+                updatedTags[index].isTagSelected = true
+                
+            }
+        }
+        
+        return updatedTags
+    }
 }
