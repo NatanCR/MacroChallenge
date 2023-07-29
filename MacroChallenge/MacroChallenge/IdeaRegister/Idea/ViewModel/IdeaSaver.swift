@@ -25,7 +25,7 @@ class IdeaSaver {
         
         saveMultiplesTags(tags: tags, key: tagModelKey)
     }
-        
+    
     //MARK: - Audio Saves
     /**Save an audio idea in UserDefaults that stores all AudioIdeas**/
     public static func saveAudioIdea(idea: AudioIdeia) {
@@ -86,9 +86,9 @@ class IdeaSaver {
         ideas[ideaIndex] = idea
         
         switch ideaType {
-            case .audio: clearUniqueTypeIdea(type: .audio); saveAudioIdeas(ideas: (ideas as? [AudioIdeia] ?? []))
-            case .text: clearUniqueTypeIdea(type: .text); saveTextIdeas(ideas: ideas as? [ModelText] ?? [])
-            case .photo: clearUniqueTypeIdea(type: .photo); savePhotoIdeas(ideas: ideas as? [PhotoModel] ?? [])
+        case .audio: clearUniqueTypeIdea(type: .audio); saveAudioIdeas(ideas: (ideas as? [AudioIdeia] ?? []))
+        case .text: clearUniqueTypeIdea(type: .text); saveTextIdeas(ideas: ideas as? [ModelText] ?? [])
+        case .photo: clearUniqueTypeIdea(type: .photo); savePhotoIdeas(ideas: ideas as? [PhotoModel] ?? [])
         }
     }
     
@@ -175,9 +175,9 @@ class IdeaSaver {
         let emptyIdea: [any Idea] = []
         
         switch type {
-            case .audio: if defaults.object(forKey: audioModelKey) != nil { defaults.set(emptyIdea, forKey: audioModelKey) }; break
-            case .text:  if defaults.object(forKey: textModelKey)  != nil { defaults.set(emptyIdea, forKey: textModelKey)  }; break
-            case .photo: if defaults.object(forKey: photoModelKey) != nil { defaults.set(emptyIdea, forKey: photoModelKey) }; break
+        case .audio: if defaults.object(forKey: audioModelKey) != nil { defaults.set(emptyIdea, forKey: audioModelKey) }; break
+        case .text:  if defaults.object(forKey: textModelKey)  != nil { defaults.set(emptyIdea, forKey: textModelKey)  }; break
+        case .photo: if defaults.object(forKey: photoModelKey) != nil { defaults.set(emptyIdea, forKey: photoModelKey) }; break
         }
     }
     
@@ -204,6 +204,31 @@ class IdeaSaver {
         case .audio: clearUniqueTypeIdea(type: .audio); saveAudioIdeas(ideas: (ideas as? [AudioIdeia] ?? []))
         case .text: clearUniqueTypeIdea(type: .text); saveTextIdeas(ideas: ideas as? [ModelText] ?? [])
         case .photo: clearUniqueTypeIdea(type: .photo); savePhotoIdeas(ideas: ideas as? [PhotoModel] ?? [])
+        }
+    }
+    
+    /**Função para remover das ideias as tags que foram apagadas da lista de tags**/
+    public static func removeTagFromIdeas(tagToRemove: Tag) {
+        var ideas: [any Idea] = getAllSavedIdeas()
+        
+        for i in 0..<ideas.count {
+            if let tags = ideas[i].tag {
+                if let tagIndex = tags.firstIndex(where: { $0.id == tagToRemove.id }) {
+                    ideas[i].tag?.remove(at: tagIndex)
+                    
+                    if let idea = ideas[i] as? ModelText {
+                        changeSavedValue(type: ModelText.self, idea: idea)
+                    } else if let idea = ideas[i] as? AudioIdeia {
+                        changeSavedValue(type: AudioIdeia.self, idea: idea)
+                    } else if let idea = ideas[i] as? PhotoModel {
+                        changeSavedValue(type: PhotoModel.self, idea: idea)
+                    }
+                } else {
+                    print("Tag id not found")
+                }
+            } else {
+                print("Tags not recorded")
+            }
         }
     }
     

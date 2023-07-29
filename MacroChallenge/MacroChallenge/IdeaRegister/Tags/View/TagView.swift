@@ -39,7 +39,7 @@ struct TagView: View {
                 
                 //mostra o botão de adicionar quando clica no text field
                 if isFocused{
-                    Button{
+                    Button{//TODO: LIMPAR OS ESPAÇOS EM BRANCO ANTES DE SALVAR O NOME DA TAG
                         //adicionando tags
                         IdeaSaver.saveTag(tag: viewModel.addTag(text: tagName, color: "#fff"))
                         tagName = ""
