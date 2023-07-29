@@ -94,12 +94,15 @@ struct TagComponent: View {
                     .contentShape(Capsule())
                     .contextMenu {
                         Button(role: .destructive){
-                            IdeaSaver.removeTagFromIdeas(tagToRemove: tag.wrappedValue) 
+                            IdeaSaver.removeTagFromIdeas(tagToRemove: tag.wrappedValue)
+                            
                             allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
+                            
                             if allTags.count <= 1 {
                                 IdeaSaver.clearUniqueTag()
                             } else {
                                 //TODO: bug ao excluir a ultima tag da lista de tags "index out of range
+                                //TODO: bug excluindo a tag errad da lista
                                 IdeaSaver.clearOneTag(tag: tag.wrappedValue)
                             }
                             
