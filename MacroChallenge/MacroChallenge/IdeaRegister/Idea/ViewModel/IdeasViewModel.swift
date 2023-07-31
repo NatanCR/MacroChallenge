@@ -58,6 +58,7 @@ class IdeasViewModel: ObservableObject {
     
     func reloadLoadedData() {
         self.loadedData = IdeaSaver.getAllSavedIdeas()
+        self.loadedData = CloudManager.fetchData(loadedData)
         self.disposedData = loadedData
     }
     

@@ -19,7 +19,7 @@ struct PhotoModel: Idea {
     var modifiedDate: Date
     var capturedImages: String
     
-    init(title: String, description: String, textComplete: String, creationDate: Date, modifiedDate: Date, capturedImage: String) {
+    init(id: UUID = UUID(), title: String, description: String, textComplete: String, creationDate: Date, modifiedDate: Date, capturedImage: String) {
         self.title = title
         self.description = description
         self.textComplete = textComplete
