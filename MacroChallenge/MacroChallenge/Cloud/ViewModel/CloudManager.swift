@@ -8,7 +8,7 @@
 import Foundation
 import CloudKit
 
-actor CloudManager {
+class CloudManager {
     //MARK: - VARs
     // statics
     private static let database = CKContainer(identifier: "iCloud.com.macro.Ideeo").privateCloudDatabase
@@ -99,13 +99,14 @@ actor CloudManager {
     
     //MARK: - FETCH
     /**Fetch the ideas data, unifying the local store data with the iCloud records.*/
-    public static func fetchData(_ allData: [any Idea]) -> [any Idea] {
+    public static func fetchData(completion: @escaping ([any Idea]) -> Void){
         var audioIdeas: [AudioIdeia] = []
         var textIdeas: [ModelText] = []
         var photoIdeas: [PhotoModel] = []
+        var allIdeas: [any Idea] = []
         
         // get the ideas saved in user defaults
-        for data in allData {
+        for data in IdeaSaver.getAllSavedIdeas() {
             switch data.ideiaType{
             case .audio:
                 audioIdeas.append(data as! AudioIdeia)
@@ -118,16 +119,20 @@ actor CloudManager {
             }
         }
         
-        let allTextIdeas = ideaFetch(textIdeas, type: ModelText.self)
-        
-        var allIdeas: [any Idea] = []
-        allIdeas.append(contentsOf: allTextIdeas)
-        
-        return allIdeas
+        ideaFetch(textIdeas, type: ModelText.self) { fetchedText in
+            allIdeas = fetchedText
+            ideaFetch(audioIdeas, type: AudioIdeia.self) { fectchedAudio in
+                allIdeas += fectchedAudio
+                ideaFetch(photoIdeas, type: PhotoModel.self) { fetchedPhoto in
+                    allIdeas += fetchedPhoto
+                    completion(allIdeas)
+                }
+            }
+        }
     }
     
-    //MARK: AUDIO FETCH
-    private static func ideaFetch<T: Idea>(_ ideas: [T], type: T.Type) -> [T] {
+    //MARK: IDEAS FETCH
+    private static func ideaFetch<T: Idea>(_ ideas: [T], type: T.Type, completion: @escaping ([T]) -> Void) {
         var allRecords: [CKRecord] = []
         var allIdeas: [T] = []
         let recordType: String
@@ -144,6 +149,7 @@ actor CloudManager {
             // see if the result gets a success or a failure
             switch result {
                 case .success(let records):
+                DispatchQueue.main.async {
                     // get the tuple of CKRecord.ID and the Result of CKRecord and its possible error
                     for match in records.matchResults {
                         // get the CKRecord from the Result
@@ -154,14 +160,14 @@ actor CloudManager {
                             allRecords.append(record)
                         }
                     }
-                    allIdeas = getUnifiedIdeaAndRecords(ideas: ideas, records: allRecords, type: type)
                 
+                    allIdeas = getUnifiedIdeaAndRecords(ideas: ideas, records: allRecords, type: type)
+                    completion(allIdeas)
+                }
+
                 case .failure(let error): print(error.localizedDescription)
             }
         }
-        
-        print(allIdeas)
-        return allIdeas
     }
     
     //MARK: MATCH RESULT
@@ -190,11 +196,41 @@ actor CloudManager {
         if !ideas.isEmpty, recordIdeas.isEmpty { return allIdeas }
         if ideas.isEmpty, !recordIdeas.isEmpty { return recordIdeas }
         
+        let standardRecord = CKRecord(recordType: audioRecordType)
+        
         for record in recordIdeas {
             // append the record if it doesnt exist in local storage
             if !allIdeas.contains(where: { $0.id == record.id }) {
-                allIdeas.append(record)
-                continue
+                
+                // audio idea
+                if record.ideiaType == .audio {
+                    var audioIdea: AudioIdeia = record as! AudioIdeia
+                    //TODO: asset
+                    if let recordAsset = getRecordFromIdea(record, records) {
+                        if let assetURL = convertAssetToURL(record: recordAsset, ideaType: .audio) {
+                            saveAssetURLToDirectory(assetURL, idea: audioIdea)
+                            audioIdea.audioPath = assetURL.lastPathComponent
+                            allIdeas.append(audioIdea as! T)
+                            continue
+                        }
+                    }
+                }
+                
+                // photo idea
+                else if record.ideiaType == .photo {
+                    var photoIdea: PhotoModel = record as! PhotoModel
+                    
+                    if let recordAsset = getRecordFromIdea(record, records) {
+                        photoIdea.capturedImages = convertAssetToURL(record: recordAsset, ideaType: .photo)?.lastPathComponent ?? String()
+                        allIdeas.append(photoIdea as! T)
+                        continue
+                    }
+                }
+                    
+                else {
+                    allIdeas.append(record)
+                    continue
+                }
             }
             
             // replace the local storage by the record if the modified date is more recent
@@ -236,27 +272,54 @@ actor CloudManager {
         // modified Date
         let modifiedDate = record["modifiedDate"] as? Date ?? Date()
         
-        // audio and photo
-        if ideaType == .audio {
-            
-        }
-        
-        else if ideaType == .photo {
-            
-        }
-        
         switch ideaType {
         case .text:
             return ModelText(id: ideaID ?? UUID(), ideiaType: ideaType ?? .text, title: title, isFavorite: isFavorite, creationDate: createDate, modifiedDate: modifiedDate, description: description, textComplete: textComplete) as? T
             
         case .audio:
-            return AudioIdeia(id: ideaID ?? UUID(), title: title, description: description, textComplete: textComplete, creationDate: createDate, modifiedDate: modifiedDate, audioPath: "") as? T
+            return AudioIdeia(id: ideaID ?? UUID(), title: title, description: description, textComplete: textComplete, creationDate: createDate, modifiedDate: modifiedDate, audioPath: String()) as? T
             
         case .photo:
-            return PhotoModel(id: ideaID ?? UUID(), title: title, description: description, textComplete: textComplete, creationDate: createDate, modifiedDate: modifiedDate, capturedImage: "") as? T
+            return PhotoModel(id: ideaID ?? UUID(), title: title, description: description, textComplete: textComplete, creationDate: createDate, modifiedDate: modifiedDate, capturedImage: String()) as? T
             
         default:
             return nil
+        }
+    }
+    
+    private static func getRecordFromIdea<T: Idea>(_ idea: T, _ records: [CKRecord]) -> CKRecord? {
+        return records.first(where: { $0["ideaID"] as? String ?? String() == idea.id.uuidString })
+    }
+    
+    private static func convertAssetToURL(record: CKRecord, ideaType: IdeaType) -> URL? {
+        let assetKey: String
+        if ideaType == .audio { assetKey = "audio" }
+        else { assetKey = "photo" }
+        
+        guard let asset = record[assetKey] as? CKAsset else { return nil }
+        
+        return asset.fileURL
+    }
+    
+    private static func saveAssetURLToDirectory<T: Idea>(_ url: URL, idea: T) {
+        let pathComponent: String
+        
+        if idea.ideiaType == .audio {
+            let audioIdea: AudioIdeia = idea as! AudioIdeia
+            pathComponent = audioIdea.audioPath
+        } else {
+            let photoIdea: PhotoModel = idea as! PhotoModel
+            pathComponent = photoIdea.capturedImages
+        }
+        
+        do {
+            let assetData = try Data(contentsOf: url)
+            let saveURL = ContentDirectoryHelper.getDocumentDirectory().appendingPathComponent(pathComponent)
+            
+            try assetData.write(to: saveURL)
+        }
+        catch {
+            print(error.localizedDescription)
         }
     }
     

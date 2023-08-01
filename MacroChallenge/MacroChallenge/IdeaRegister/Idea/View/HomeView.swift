@@ -76,8 +76,6 @@ struct HomeView: View {
     // run in onAppear. Initializate the list of ideas only when opened the app
     private func appearInitialization() {
         self.ideasViewModel.reloadLoadedData()
-        self.ideasViewModel.filteredIdeas = ideasViewModel.loadedData
-        self.ideasViewModel.orderBy(byCreation: self.ideasViewModel.isSortedByCreation, sortedByAscendent: self.ideasViewModel.isSortedByAscendent)
     }
 }
 

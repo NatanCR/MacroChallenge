@@ -57,9 +57,15 @@ class IdeasViewModel: ObservableObject {
     }
     
     func reloadLoadedData() {
-        self.loadedData = IdeaSaver.getAllSavedIdeas()
-        self.loadedData = CloudManager.fetchData(loadedData)
-        self.disposedData = loadedData
+        DispatchQueue.main.async {
+            CloudManager.fetchData() { ideas in
+                self.loadedData = ideas
+                self.disposedData = self.loadedData
+                
+                self.filteredIdeas = self.loadedData
+                self.orderBy(byCreation: self.isSortedByCreation, sortedByAscendent: self.isSortedByAscendent)
+            }
+        }
     }
     
 //    func searchFilter(searchText: String) -> any Idea {
