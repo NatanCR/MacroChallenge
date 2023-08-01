@@ -57,6 +57,8 @@ struct EditRegisterView: View {
             TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
         }
         .onChange(of: modelText.textComplete, perform: { newValue in
+            //passando as tags que ja existem antes de salvar a mudança de texto
+            self.tagsArray = modelText.tag ?? []
             self.saveIdea(newTags: self.tagsArray)
         })
         .onChange(of: showSheet, perform: { newValue in

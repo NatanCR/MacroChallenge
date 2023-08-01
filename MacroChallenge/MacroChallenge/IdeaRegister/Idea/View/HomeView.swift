@@ -56,8 +56,8 @@ struct HomeView: View {
              .background(Color("backgroundColor"))
              .onAppear() {
                  self.appearInitialization()
+                 //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                  ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
-                 dump(ideasViewModel.filteredIdeas)
              }
             //atualizando a view quando fechar a camera
              .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in

@@ -75,12 +75,14 @@ struct TagComponent: View {
                     .contextMenu {
                         Button(role: .destructive){
                             IdeaSaver.removeTagFromIdeas(tagToRemove: tag.wrappedValue)
-                            allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
+                            
                             if allTags.count <= 1 {
                                 IdeaSaver.clearUniqueTag()
                             } else {
                                 IdeaSaver.clearOneTag(tag: tag.wrappedValue)
                             }
+                            
+                            allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
                         } label: {
                             HStack{
                                 Text("Delete")
@@ -96,16 +98,13 @@ struct TagComponent: View {
                         Button(role: .destructive){
                             IdeaSaver.removeTagFromIdeas(tagToRemove: tag.wrappedValue)
                             
-                            allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
-                            
                             if allTags.count <= 1 {
                                 IdeaSaver.clearUniqueTag()
                             } else {
-                                //TODO: bug ao excluir a ultima tag da lista de tags "index out of range
-                                //TODO: bug excluindo a tag errad da lista
                                 IdeaSaver.clearOneTag(tag: tag.wrappedValue)
                             }
                             
+                            allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
                         } label: {
                             HStack{
                                 Text("Delete")
@@ -119,10 +118,12 @@ struct TagComponent: View {
     
     func getIndex(tag: Tag, allTags: Bool = false) -> Int {
         var index = -1
+        
         if allTags {
             index = self.allTags.firstIndex { currentTag in
                 return tag.id == currentTag.id
             } ?? -1
+            
         } else {
             index = tagArraySelected.firstIndex { currentTag in
                 return tag.id == currentTag.id
