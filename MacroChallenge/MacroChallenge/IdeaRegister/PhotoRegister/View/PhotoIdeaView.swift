@@ -21,19 +21,22 @@ struct PhotoIdeaView: View {
     var photoURL: URL? = nil
     
     @FocusState var isFocused: Bool
+    // tag sheet and array
+    @State private var showSheet: Bool = false
+    @State var tagsArray: [Tag] = []
+    // view model functions and arrays
+    @ObservedObject var viewModel: IdeasViewModel
     
-    
-    init(photoModel: PhotoModel) {
+    init(photoModel: PhotoModel, viewModel: IdeasViewModel) {
         self._photoModel = State(initialValue: photoModel)
-        
         self.photoURL = ContentDirectoryHelper.getDirectoryContent(contentPath: photoModel.capturedImages)
+        self.viewModel = viewModel
     }
     
     var body: some View {
             if let uiImage = UIImage(contentsOfFile: photoURL!.path) {
                 
-                VStack (alignment: .center){
-                    
+                VStack (alignment: .center) {
                                         
                     Image(uiImage: uiImage)
                         .resizable()
@@ -52,18 +55,47 @@ struct PhotoIdeaView: View {
                             PlaceholderComponent(idea: photoModel)
                         }
                         .padding(9)
-                        .onAppear {
-                            if !photoModel.textComplete.isEmpty {
-                                DispatchQueue.main.async {
-                                    // Atualizar a view para exibir o conteúdo existente da variável description
-                                    self.photoModel.textComplete = photoModel.textComplete
-                                }
-                            }
+                    if photoModel.tag!.isEmpty {
+                        Button {
+                            self.showSheet = true
+                        } label: {
+                            Image("tag_icon")
                         }
-                        .onChange(of: photoModel.textComplete) { newValue in
-                            saveIdea()
+                    } else {
+                        Button {
+                            self.tagsArray = photoModel.tag ?? []
+                            self.showSheet = true
+                        } label: {
+                            IdeaTagViewerComponent(idea: photoModel)
                         }
+                    }
                 }
+                .sheet(isPresented: $showSheet, content: {
+                    TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
+                })
+                .onAppear {
+                    dump(photoModel.tag)
+                    if !photoModel.textComplete.isEmpty {
+                        DispatchQueue.main.async {
+                            // Atualizar a view para exibir o conteúdo existente da variável description
+                            self.photoModel.textComplete = photoModel.textComplete
+                        }
+                    }
+                }
+                .onChange(of: photoModel.textComplete) { newValue in
+                    self.tagsArray = photoModel.tag ?? []
+                    saveIdea(newTags: self.tagsArray)
+                }
+                //recebe e salva as tags adicionadas pela tela da sheet
+                .onChange(of: showSheet, perform: { newValue in
+                    if !showSheet {
+                        if self.tagsArray != self.photoModel.tag {
+                            saveIdea(newTags: self.tagsArray)
+                        } else {
+                            return
+                        }
+                    }
+                })
         .navigationTitle(Text(text) + Text(photoModel.creationDate.toString(dateFormatter: self.dateFormatter)!))
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden()
@@ -99,11 +131,13 @@ struct PhotoIdeaView: View {
     }
     
     //MARK: - FUNCs
-    private func saveIdea() {
+    private func saveIdea(newTags: [Tag]) {
         let text = self.photoModel.textComplete
         if let lastCharacter = text.last, lastCharacter.isWhitespace { return }
         
         self.photoModel.modifiedDate = Date()
+        //reescrevo os elementos do array com o array que voltou da sheet de tags
+        self.photoModel.tag = newTags
         TextViewModel.setTextsFromIdea(idea: &self.photoModel)
         IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: self.photoModel)
     }

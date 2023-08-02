@@ -106,7 +106,7 @@ struct HomeGridView: View {
                         case .audio:
                             CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
-                            PhotoIdeaView(photoModel: ideas as! PhotoModel)
+                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
                         }
                     } label: {
                         switch ideas.ideiaType {
@@ -143,7 +143,7 @@ struct HomeListView: View {
                         case .audio:
                             CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
-                            PhotoIdeaView(photoModel: ideas as! PhotoModel)
+                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
                         }
                     } label: {
                         if let photoIdea = ideas as? PhotoModel {
@@ -168,7 +168,7 @@ struct HomeListView: View {
                         case .audio:
                             CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
-                            PhotoIdeaView(photoModel: ideas as! PhotoModel)
+                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
                         }
                     } label: {
                         if let photoIdea = ideas as? PhotoModel {

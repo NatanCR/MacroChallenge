@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TagLabelComponent: View {
     var tagName: String
+    var isSelected: Bool
     
     var body: some View {
             Text(tagName)
@@ -17,11 +18,14 @@ struct TagLabelComponent: View {
                 .padding(.vertical, 8)
                 .background(
                     Capsule()
-                    //TODO: deixar o usuário escolher a cor
-                        .fill(Color("labelColor"))
+                        .fill(isSelected ? Color("labelColor") : Color.clear)
                 )
+                .overlay {
+                    Capsule()
+                    .stroke(isSelected ? Color.clear : Color("labelColor"), lineWidth: 1)
+                }
                 
-                .foregroundColor(Color("backgroundColor"))
+                .foregroundColor(isSelected ? Color("backgroundColor") : Color("labelColor"))
                 .lineLimit(1)
     }
 }

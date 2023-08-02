@@ -20,9 +20,9 @@ struct EditRegisterView: View {
     // tag
     @State private var showSheet: Bool = false
     @State var tagsArray: [Tag] = []
-    // view model functions
+    // view model functions and arrays
     @ObservedObject var viewModel: IdeasViewModel
-    
+        
     init(modelText: ModelText, viewModel: IdeasViewModel) {
         self._modelText = State(initialValue: modelText)
         self.viewModel = viewModel
@@ -32,11 +32,14 @@ struct EditRegisterView: View {
     var body: some View {
         VStack(alignment: .leading) {
             TextEditor(text: $modelText.textComplete)
-                .frame(width: screenSize.width * 0.95 ,height: screenSize.height * 0.8)
+                .font(.custom("Sen-Regular", size: 17))
+                .multilineTextAlignment(.leading)
+                .frame(width: screenSize.width * 0.95 ,height: screenSize.height * 0.7)
                 .focused($isFocused)
                 .overlay{
                     PlaceholderComponent(idea: modelText)
                 }
+            Spacer()
             if modelText.tag!.isEmpty {
                 Button {
                     self.showSheet = true
@@ -53,6 +56,7 @@ struct EditRegisterView: View {
                 }
             }
         }
+
         .sheet(isPresented: $showSheet) {
             TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
         }
@@ -61,18 +65,15 @@ struct EditRegisterView: View {
             self.tagsArray = modelText.tag ?? []
             self.saveIdea(newTags: self.tagsArray)
         })
+        //recebe e salva as tags adicionadas pela tela da sheet
         .onChange(of: showSheet, perform: { newValue in
             if !showSheet {
-                print("ARRAY FECHANDO SHEET")
-                dump(self.tagsArray)
                 if self.tagsArray != self.modelText.tag {
                     saveIdea(newTags: self.tagsArray)
                 } else {
                     return
                 }
             }
-            
-            
         })
         .navigationBarBackButtonHidden()
         .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!))

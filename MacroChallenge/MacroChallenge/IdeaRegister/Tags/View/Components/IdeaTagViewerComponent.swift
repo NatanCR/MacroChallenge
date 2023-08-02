@@ -13,14 +13,14 @@ struct IdeaTagViewerComponent<T: Idea>: View {
     var body: some View {
         
         if idea.tag!.count > 0 && idea.tag!.count < 2  {
-            TagLabelComponent(tagName: idea.tag?.first?.name ?? "")
+            TagLabelComponent(tagName: idea.tag?.first?.name ?? "", isSelected: true)
             
         } else if idea.tag!.count >= 2 {
             ZStack {
                 //segunda
-                TagLabelComponent(tagName: idea.tag?.first?.name ?? "")
+                TagLabelComponent(tagName: idea.tag?.first?.name ?? "", isSelected: true)
                 //primeira
-                TagLabelComponent(tagName: idea.tag?.first?.name ?? "")
+                TagLabelComponent(tagName: idea.tag?.first?.name ?? "", isSelected: true)
                     .offset(x: -5, y: -5)
             }
         }

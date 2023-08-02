@@ -16,17 +16,19 @@ struct TagComponent: View {
     var body: some View {
         
         VStack(alignment: .leading){
-            ScrollView(.vertical, showsIndicators: false){
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
                     //apresentando as tags
                     ForEach(getRows(), id: \.self) { rows in
                         
-                        HStack(spacing: 6){
+                        HStack(spacing: 8) {
                             // lendo e exibindo o array de todas as tags
                             ForEach(rows, id: \.id) { tag in
                                 RowView(tag: $allTags[getIndex(tag: tag, allTags: true)])
                             }
                         }
+                        .frame(width: screenSize.width * 0.9, alignment: .leading)
+                        .padding(.horizontal, 5)
                     }
                 }
                 .padding(.vertical)
@@ -65,11 +67,8 @@ struct TagComponent: View {
         } label: {
             // definindo se a tag terá borda de acordo com sua variavel isActive
             if tag.wrappedValue.isTagSelected {
-                TagLabelComponent(tagName: tag.wrappedValue.name)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color("AccentColor"), lineWidth: 4)
-                    )
+                TagLabelComponent(tagName: tag.wrappedValue.name, isSelected: tag.wrappedValue.isTagSelected)
+
                 //Deletar
                     .contentShape(Capsule())
                     .contextMenu {
@@ -91,7 +90,7 @@ struct TagComponent: View {
                         }
                     }
             } else {
-                TagLabelComponent(tagName: tag.wrappedValue.name)
+                TagLabelComponent(tagName: tag.wrappedValue.name, isSelected: tag.wrappedValue.isTagSelected)
                 //Deletar
                     .contentShape(Capsule())
                     .contextMenu {
