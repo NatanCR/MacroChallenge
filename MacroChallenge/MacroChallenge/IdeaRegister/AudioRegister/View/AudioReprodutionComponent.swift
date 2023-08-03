@@ -74,8 +74,9 @@ struct AudioReprodutionComponent: View {
                     .padding()
                 
                 Text(self.audioTimeText)
-                    .font(.system(size: 13))
+                    .font(.custom("Sen-Regular", size: 13))
                     .foregroundColor(Color("labelColor"))
+                    .monospacedDigit()
             }
         }
     }
