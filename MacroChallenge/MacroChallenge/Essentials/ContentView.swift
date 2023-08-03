@@ -1,15 +1,15 @@
+////
+////  ContentView.swift
+////  MacroChallenge
+////
+////  Created by Natan de Camargo Rodrigues on 30/05/23.
+////
 //
-//  ContentView.swift
-//  MacroChallenge
+//import SwiftUI
 //
-//  Created by Natan de Camargo Rodrigues on 30/05/23.
-//
-
-import SwiftUI
-
-struct ContentView: View {
-    var body: some View {
-        HomeAudioPrototype()
-//        PhotoHomeView()
-    }
-}
+//struct ContentView: View {
+//    var body: some View {
+////        HomeAudioPrototype()
+////        PhotoHomeView()
+//    }
+//}

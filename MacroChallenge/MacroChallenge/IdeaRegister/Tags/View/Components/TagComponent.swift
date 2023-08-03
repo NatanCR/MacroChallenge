@@ -9,78 +9,125 @@ import SwiftUI
 
 struct TagComponent: View {
     @Environment(\.screenSize) var screenSize
-    var fontSize: CGFloat = 16
-    var maxLimit: Int
-    @Binding var tags: [Tag]
+    @Binding var allTags: [Tag]
+    @Binding var tagArraySelected: [Tag]
+    @ObservedObject var viewModel: IdeasViewModel
     
     var body: some View {
         
         VStack(alignment: .leading){
-            ScrollView(.vertical, showsIndicators: false){
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
                     //apresentando as tags
                     ForEach(getRows(), id: \.self) { rows in
                         
-                        HStack(spacing: 6){
-                            
-                            ForEach(rows) { row in
-                                
-
-                                    RowView(tag: row)
-                                }
+                        HStack(spacing: 8) {
+                            // lendo e exibindo o array de todas as tags
+                            ForEach(rows, id: \.id) { tag in
+                                RowView(tag: $allTags[getIndex(tag: tag, allTags: true)])
+                            }
                         }
+                        .frame(width: screenSize.width * 0.9, alignment: .leading)
+                        .padding(.horizontal, 5)
                     }
-                    
                 }
                 .padding(.vertical)
             }
         }
+        .onAppear{
+            //função para comparar as tags que ja existem e coloca-las com borda no array usado com all tags
+            self.allTags = viewModel.updateSelectedTags(allTags: self.allTags, tagSelected: self.tagArraySelected)
+        }
         .frame(width: screenSize.width * 0.9, alignment: .leading)
-        .animation(.easeInOut, value: tags)
-
+        .animation(.easeInOut, value: allTags)
+        
     }
     
     @ViewBuilder
-    func RowView(tag: Tag) -> some View {
+    func RowView(tag: Binding<Tag>) -> some View {
         
-        Button{
-            //TODO: associar tag a ideia
-            print("ta clicando")
+        // selecionando a tag
+        Button {
+
+            tag.wrappedValue.isTagSelected.toggle()
+            
+            //verifica se a tag ja existe para não salvar repetido
+            if tag.wrappedValue.isTagSelected && !tagArraySelected.contains(tag.wrappedValue) {
+                //append em um array de tags
+                //esse array deve vir da tela de registro por referência
+                tagArraySelected.append(tag.wrappedValue)
+
+            } else {
+
+                if getIndex(tag: tag.wrappedValue) != -1 {
+                    self.tagArraySelected.remove(at: getIndex(tag: tag.wrappedValue))
+                }
+            }
+            
         } label: {
-            Text(tag.text)
-                .font(.custom("Sen-Regular", size: fontSize))
-                .padding(.horizontal, 14)
-                .padding(.vertical, 8)
-                .background(
-                    Capsule()
-                    //TODO: deixar o usuário escolher a cor
-                        .fill(Color("labelColor"))
-                )
-                .foregroundColor(Color("backgroundColor"))
-                .lineLimit(1)
-            
-            
-            //Deletar
-                .contentShape(Capsule())
-                .contextMenu{
-                    Button(role: .destructive){
-                        tags.remove(at: getIndex(tag: tag))
-                    } label: {
-                        HStack{
-                            Text("Delete")
-                            Image(systemName: "trash.fill")
+            // definindo se a tag terá borda de acordo com sua variavel isActive
+            if tag.wrappedValue.isTagSelected {
+                TagLabelComponent(tagName: tag.wrappedValue.name, isSelected: tag.wrappedValue.isTagSelected)
+
+                //Deletar
+                    .contentShape(Capsule())
+                    .contextMenu {
+                        Button(role: .destructive){
+                            IdeaSaver.removeTagFromIdeas(tagToRemove: tag.wrappedValue)
+                            
+                            if allTags.count <= 1 {
+                                IdeaSaver.clearUniqueTag()
+                            } else {
+                                IdeaSaver.clearOneTag(tag: tag.wrappedValue)
+                            }
+                            
+                            allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
+                        } label: {
+                            HStack{
+                                Text("Delete")
+                                Image(systemName: "trash.fill")
+                            }
                         }
                     }
-                }
+            } else {
+                TagLabelComponent(tagName: tag.wrappedValue.name, isSelected: tag.wrappedValue.isTagSelected)
+                //Deletar
+                    .contentShape(Capsule())
+                    .contextMenu {
+                        Button(role: .destructive){
+                            IdeaSaver.removeTagFromIdeas(tagToRemove: tag.wrappedValue)
+                            
+                            if allTags.count <= 1 {
+                                IdeaSaver.clearUniqueTag()
+                            } else {
+                                IdeaSaver.clearOneTag(tag: tag.wrappedValue)
+                            }
+                            
+                            allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
+                        } label: {
+                            HStack{
+                                Text("Delete")
+                                Image(systemName: "trash.fill")
+                            }
+                        }
+                    }
+            }
         }
     }
     
-    
-    func getIndex(tag: Tag) -> Int{
+    func getIndex(tag: Tag, allTags: Bool = false) -> Int {
+        var index = -1
         
-        let index = tags.firstIndex { currentTag in
-            return tag.id == currentTag.id
-        } ?? 0
+        if allTags {
+            index = self.allTags.firstIndex { currentTag in
+                return tag.id == currentTag.id
+            } ?? -1
+            
+        } else {
+            index = tagArraySelected.firstIndex { currentTag in
+                return tag.id == currentTag.id
+            } ?? -1
+        }
         
         return index
     }
@@ -94,7 +141,7 @@ struct TagComponent: View {
         //calculando largura do texto
         var totalWidht: CGFloat = 0
         
-        tags.forEach { tag in
+        allTags.forEach { tag in
             
             //atualizando largura total do texto + background e paddings
             totalWidht += (tag.size + 40)
@@ -122,18 +169,5 @@ struct TagComponent: View {
         
         return rows
     }
-}
-
-//função global
-func addTag(text: String, fontSize: CGFloat) -> Tag{
-        
-    //pegando tamanho do texto
-    let font = UIFont.systemFont(ofSize: fontSize)
     
-    let attributes = [NSAttributedString.Key.font: font]
-    
-    let size = (text as NSString).size(withAttributes: attributes)
-
-    return Tag(text: text, size: size.width)
 }
-

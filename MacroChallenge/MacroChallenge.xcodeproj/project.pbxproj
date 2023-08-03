@@ -13,7 +13,6 @@
 		40497BAE2A32E68500E6D3B5 /* ButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */; };
 		4074E0432A55FFBA00C5A46E /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074E0422A55FFBA00C5A46E /* TagView.swift */; };
 		4074E0452A5611C400C5A46E /* TagComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074E0442A5611C400C5A46E /* TagComponent.swift */; };
-		4074E0472A56121100C5A46E /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074E0462A56121100C5A46E /* Tag.swift */; };
 		4085CBAB2A30106A00DAC6CA /* ToolbarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */; };
 		4085CBAD2A30207200DAC6CA /* SearchBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */; };
 		4085CBAF2A302B9000DAC6CA /* FilterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */; };
@@ -80,6 +79,9 @@
 		D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */; };
 		D153ACD02A3B82D500DE9A79 /* IdeasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D153ACCF2A3B82D500DE9A79 /* IdeasViewModel.swift */; };
 		D153ACD32A3CDE9600DE9A79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D153ACD52A3CDE9600DE9A79 /* Localizable.strings */; };
+		D179E8CF2A549EB200E21A07 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179E8CE2A549EB200E21A07 /* Tag.swift */; };
+		D189F12D2A5C7A07009F6488 /* TagLabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D189F12C2A5C7A07009F6488 /* TagLabelComponent.swift */; };
+		D189F12F2A5C983C009F6488 /* IdeaTagViewerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D189F12E2A5C983C009F6488 /* IdeaTagViewerComponent.swift */; };
 		D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */; };
 		D1ECF5382A421A2600631333 /* ButtonFavoriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */; };
 /* End PBXBuildFile section */
@@ -108,7 +110,6 @@
 		40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonComponent.swift; sourceTree = "<group>"; };
 		4074E0422A55FFBA00C5A46E /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		4074E0442A5611C400C5A46E /* TagComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagComponent.swift; sourceTree = "<group>"; };
-		4074E0462A56121100C5A46E /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarComponent.swift; sourceTree = "<group>"; };
 		4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarComponent.swift; sourceTree = "<group>"; };
 		4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterComponent.swift; sourceTree = "<group>"; };
@@ -169,6 +170,9 @@
 		D153ACCF2A3B82D500DE9A79 /* IdeasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeasViewModel.swift; sourceTree = "<group>"; };
 		D153ACD42A3CDE9600DE9A79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D153ACD62A3CDED200DE9A79 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D179E8CE2A549EB200E21A07 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		D189F12C2A5C7A07009F6488 /* TagLabelComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelComponent.swift; sourceTree = "<group>"; };
+		D189F12E2A5C983C009F6488 /* IdeaTagViewerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaTagViewerComponent.swift; sourceTree = "<group>"; };
 		D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteIdeaSpec.swift; sourceTree = "<group>"; };
 		D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFavoriteComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -219,7 +223,7 @@
 		4074E04A2A5614B400C5A46E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4074E0462A56121100C5A46E /* Tag.swift */,
+				D179E8CE2A549EB200E21A07 /* Tag.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -227,6 +231,8 @@
 		4074E04B2A5614CA00C5A46E /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D189F12E2A5C983C009F6488 /* IdeaTagViewerComponent.swift */,
+				D189F12C2A5C7A07009F6488 /* TagLabelComponent.swift */,
 				4074E0442A5611C400C5A46E /* TagComponent.swift */,
 			);
 			path = Components;
@@ -719,6 +725,7 @@
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D1ECF5382A421A2600631333 /* ButtonFavoriteComponent.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
+				D179E8CF2A549EB200E21A07 /* Tag.swift in Sources */,
 				4097FDFD2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */,
 				918C7DC82A27EDB000C36A53 /* ColorHelper.swift in Sources */,
 				40AAA7ED2A3103DE00943CBF /* SegmentedPickerComponent.swift in Sources */,
@@ -745,13 +752,14 @@
 				918C7DC32A27C29200C36A53 /* RecordAudioView.swift in Sources */,
 				D135A6C32A26900F009C1938 /* AppState.swift in Sources */,
 				40497BAC2A32E5F600E6D3B5 /* InfoView.swift in Sources */,
+				D189F12F2A5C983C009F6488 /* IdeaTagViewerComponent.swift in Sources */,
 				918C7DC12A27C1A700C36A53 /* HomeAudioPrototype.swift in Sources */,
 				40497BAA2A31259900E6D3B5 /* ListRowComponent.swift in Sources */,
 				D153ACD02A3B82D500DE9A79 /* IdeasViewModel.swift in Sources */,
 				916E0FBC2A268BAA00F4FA87 /* IdeaSaver.swift in Sources */,
 				40EAF1042A5767B7006E102F /* OverlayComponent.swift in Sources */,
+				D189F12D2A5C7A07009F6488 /* TagLabelComponent.swift in Sources */,
 				4074E0452A5611C400C5A46E /* TagComponent.swift in Sources */,
-				4074E0472A56121100C5A46E /* Tag.swift in Sources */,
 				D12495472A268A720063C634 /* MacroChallengeApp.swift in Sources */,
 				40E8595A2A3BAD2900F2BC0E /* CustomBackButtonComponent.swift in Sources */,
 				4085CBAD2A30207200DAC6CA /* SearchBarComponent.swift in Sources */,
@@ -965,7 +973,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = macro01.MacroChallenge;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macro.Ideeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1001,7 +1009,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = macro01.MacroChallenge;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macro.Ideeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

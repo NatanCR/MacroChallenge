@@ -12,7 +12,7 @@
 
 "save" = "Salvar";
 
-"del" = "Deletar"; 
+"del" = "Apagar"; 
 
 "fav" = "Favoritar";
 
@@ -153,6 +153,8 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 
 "record" = "Gravando";
 
+"addTag" = "Adicione uma tag";
+
 //MARK: Alerts
 
 "denied" = "Permissão negada";
@@ -164,6 +166,14 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 "writeIdea" = "Escreva uma idea";
 
 "msgIdea" = "É necessário que você escreva uma ideia para salvar.";
+
+"delIdea" = "Apagar ideia";
+
+"delMsg" = "Voçê realmente deseja deletar essa ideia?";
+
+"sucess" = "Sucesso";
+
+"delSucess" = "Ideia excluída com sucesso.";
 
 //MARK: General
 

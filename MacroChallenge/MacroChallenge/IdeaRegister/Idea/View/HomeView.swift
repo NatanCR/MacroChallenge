@@ -25,7 +25,6 @@ struct HomeView: View {
     
     //MARK: - HOME BODY
     var body: some View {
-        
         NavigationView {
             VStack {
                 HStack {
@@ -83,6 +82,8 @@ struct HomeView: View {
              .ignoresSafeArea(.keyboard)
              .onAppear() {
                  self.appearInitialization()
+                 //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
+                 ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
              }
             //atualizando a view quando fechar a camera
              .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
@@ -133,18 +134,16 @@ struct HomeGridView: View {
     var body: some View{
         
         ScrollView{
-            //TODO: fazer for each dos arquivos salvos
-            
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
-                            EditRegisterView(modelText: ideas as! ModelText)
+                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdeia)
+                            CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
-                            PhotoIdeaView(photoModel: ideas as! PhotoModel)
+                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
                         }
                     } label: {
                         switch ideas.ideiaType {
@@ -158,7 +157,6 @@ struct HomeGridView: View {
                         }
                     }
                 }
-
             }.padding()
         }
         
@@ -176,55 +174,57 @@ struct HomeListView: View {
     var body: some View{
         
         if #available(iOS 16.0, *){
-            List(self.ideasViewModel.filteredIdeas, id: \.id, selection: $selection){ ideas in
+            List {
+                ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
-                            EditRegisterView(modelText: ideas as! ModelText)
+                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdeia)
+                            CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
-                            PhotoIdeaView(photoModel: ideas as! PhotoModel)
+                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
                         }
                     } label: {
                         if let photoIdea = ideas as? PhotoModel {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
                         }
                         else {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
-                    
+                }
                 .listRowBackground(Color("backgroundItem"))
             }
             .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
             .scrollContentBackground(.hidden)
-
+            
         } else {
-            List (self.ideasViewModel.filteredIdeas, id: \.id, selection: $selection){
-                ideas in
+            List {
+                ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
-                            EditRegisterView(modelText: ideas as! ModelText)
+                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdeia)
+                            CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
-                            PhotoIdeaView(photoModel: ideas as! PhotoModel)
+                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
                         }
                     } label: {
                         if let photoIdea = ideas as? PhotoModel {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
                         }
                         else {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
+                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
-                .listRowBackground(Color("backgroundItem"))
+                    .listRowBackground(Color("backgroundItem"))
+                }
+                .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
             }
-            .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
+            
         }
-        
     }
 }
 

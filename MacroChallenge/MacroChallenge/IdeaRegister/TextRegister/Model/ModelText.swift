@@ -16,4 +16,14 @@ struct ModelText: Idea {
     var modifiedDate: Date
     var description: String
     var textComplete: String
+    var tag: [Tag]?
+    
+    init(title: String, creationDate: Date, modifiedDate: Date, description: String, textComplete: String, tag: [Tag]?) {
+        self.title = title
+        self.creationDate = creationDate
+        self.modifiedDate = modifiedDate
+        self.description = description
+        self.textComplete = textComplete
+        self.tag = tag
+    }
 }

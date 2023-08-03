@@ -33,15 +33,18 @@ struct RecordAudioView: View {
             return true
         }
     }()
+    @ObservedObject var ideasViewModel: IdeasViewModel
     @State var showModal: Bool = false
+    @State var tagsArray: [Tag] = []
     
     // audio
     private let audioManager: AudioManager
     
     //MARK: - INIT
-    init() {
+    init(ideasViewModel: IdeasViewModel) {
         self._recordAudio = StateObject(wrappedValue: RecordAudio())
         self.audioManager = AudioManager()
+        self.ideasViewModel = ideasViewModel
     }
     
     //MARK: - BODY
@@ -97,16 +100,27 @@ struct RecordAudioView: View {
                             }
                     }
                     .padding()
+                if tagsArray.isEmpty {
                     Button{
-                        showModal = true
+                        self.showModal = true
                     } label: {
                         Image("tag_icon")
                     }
                     .padding()
-                    .sheet(isPresented: $showModal) {
-                        TagView()
+                } else {
+                    Button {
+                        self.showModal = true
+                    } label: {
+                        IdeaTagViewerComponent(idea: AudioIdeia(title: textTitle, description: textDescription, textComplete: textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: self.tagsArray))
                     }
+
+                }
+                    
+                    
             }
+        }
+        .sheet(isPresented: $showModal) {
+            TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
         }
         .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
         .navigationTitle("Inserir áudio")
@@ -183,7 +197,7 @@ struct RecordAudioView: View {
         if recorded {
             TextViewModel.setTitleDescriptionAndCompleteText(title: &self.textTitle, description: &self.textDescription, complete: &self.textComplete)
             
-            let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "")
+            let idea = AudioIdeia(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: tagsArray)
             IdeaSaver.saveAudioIdea(idea: idea)
         }
         
@@ -243,8 +257,8 @@ struct RecordAudioView: View {
     }
 }
 
-struct RecordAudioView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecordAudioView()
-    }
-}
+//struct RecordAudioView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecordAudioView()
+//    }
+//}

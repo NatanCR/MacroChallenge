@@ -48,8 +48,6 @@ struct InfoText: View {
                     Text(LocalizedStringKey(infoText))
                         .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
                         .frame(width: screenSize.width * 0.9, alignment: .topLeading)
-                    
-                    //TODO: colocar frame
                         .foregroundColor(Color("labelColor"))
                 }
                 .navigationTitle(LocalizedStringKey(infoTitle))

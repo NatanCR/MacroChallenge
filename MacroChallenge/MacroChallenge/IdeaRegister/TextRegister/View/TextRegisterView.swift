@@ -11,10 +11,13 @@ struct TextRegisterView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var textComplete: String = ""
     @State private var title: String = ""
-    @State private var idea: String = ""
+    @State private var description: String = ""
     @State private var isActive: Bool = false //variável para ativar o alerta
     @FocusState private var isFocused: Bool
+    @State private var showTagSheet: Bool = false
+    @ObservedObject var ideasViewModel: IdeasViewModel
     @State var showModal: Bool = false
+    @State var tagsArray: [Tag] = []
     
     var body: some View {
         VStack (alignment: .leading){
@@ -22,16 +25,25 @@ struct TextRegisterView: View {
                 .padding()
                 .focused($isFocused)
             
-            //chama a sheet
-            Button{
-                showModal = true
-            } label: {
-                Image("tag_icon")
+            if tagsArray.isEmpty {
+                //chama a sheet
+                Button {
+                    showModal = true
+                } label: {
+                    Image("tag_icon")
+                }.padding()
+            } else {
+                Button {
+                    self.showModal = true
+                } label: {
+                    //define a formatação das tags
+                    IdeaTagViewerComponent<ModelText>(idea: ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray))
+                }.padding()
+
             }
-            .padding()
-            .sheet(isPresented: $showModal) {
-                TagView()
-            }
+        }
+        .sheet(isPresented: $showModal) {
+            TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
         }
         .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)
@@ -55,10 +67,12 @@ struct TextRegisterView: View {
                     if textComplete.isEmpty {
                         self.isActive.toggle()
                     } else {
-                        TextViewModel.setTitleDescriptionAndCompleteText(title: &title, description: &idea, complete: &textComplete)
+                        TextViewModel.setTitleDescriptionAndCompleteText(title: &title, description: &description, complete: &textComplete)
                         
                         //coloca os dados no formato da estrutura
-                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: idea, textComplete: textComplete)
+                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray)
+                        
+                        
                         //salva o dados registrados
                         IdeaSaver.saveTextIdea(idea: currentModel)
                         dismiss()

@@ -153,6 +153,8 @@ d) Use the application fraudulently or for illegal or unauthorized purposes.
 
 "record" = "Recording";
 
+"addTag" = "Add a new tag";
+
 //MARK: Alerts
 
 "denied" = "Permission denied";
@@ -164,6 +166,14 @@ d) Use the application fraudulently or for illegal or unauthorized purposes.
 "writeIdea" = "Write an idea";
 
 "msgIdea" = "You are required to write an idea to save.";
+
+"delIdea" = "Delete idea";
+
+"delMsg" = "Do you really wanna do this?";
+
+"sucess" = "Sucess";
+
+"delSucess" = "Idea was excluded.";
 
 //MARK: General
 
