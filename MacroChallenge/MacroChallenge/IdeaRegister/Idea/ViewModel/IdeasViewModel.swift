@@ -74,9 +74,9 @@ class IdeasViewModel: ObservableObject {
                 //filtra com o que tem em cada propriedade e guarda na variavel
                 let isMatchingTitle = idea.title.localizedCaseInsensitiveContains(searchText)
                 let isMatchingDescription = idea.description.localizedCaseInsensitiveContains(searchText)
-                //                let isMatchingTag = idea.tag.localizedCaseInsensitiveContains(searchText)
+                let isMatchingTag = idea.tag?.first(where: { $0.name.localizedCaseInsensitiveContains(searchText) })
                 
-                return isMatchingTitle || isMatchingDescription //|| isMatchingTag
+                return isMatchingTitle || isMatchingDescription || (isMatchingTag != nil)
                 
                 //ordena na ordem de prioridade
             }
@@ -85,8 +85,8 @@ class IdeasViewModel: ObservableObject {
                 let titleMatch2 = idea2.title.localizedCaseInsensitiveContains(searchText)
                 let descriptionMatch1 = idea1.description.localizedCaseInsensitiveContains(searchText)
                 let descriptionMatch2 = idea2.description.localizedCaseInsensitiveContains(searchText)
-                //                let tagMatch1 = idea1.tag.localizedCaseInsensitiveContains(searchText)
-                //                let tagMatch2 = idea2.tag.localizedCaseInsensitiveContains(searchText)
+                let tagMatch1 = idea1.tag?.first(where: { $0.name.localizedCaseInsensitiveContains(searchText) })
+                let tagMatch2 = idea2.tag?.first(where: { $0.name.localizedCaseInsensitiveContains(searchText) })
                 
                 //compara pra saber qual ideia vem antes da outra
                 if titleMatch1 && !titleMatch2 {
@@ -97,10 +97,10 @@ class IdeasViewModel: ObservableObject {
                     return true
                 } else if !descriptionMatch1 && descriptionMatch2 {
                     return false
-                    //                } else if tagMatch1 && !tagMatch2 {
-                    //                    return true
-                    //                } else if !tagMatch1 && tagMatch2 {
-                    //                    return false
+                } else if (tagMatch1 != nil) && (tagMatch2 == nil) {
+                    return true
+                } else if (tagMatch1 == nil) && (tagMatch2 != nil) {
+                    return false
                 } else {
                     return idea1.creationDate > idea2.creationDate
                 }
