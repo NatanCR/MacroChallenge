@@ -12,7 +12,7 @@
 
 "save" = "Salvar";
 
-"del" = "Deletar"; 
+"del" = "Apagar"; 
 
 "fav" = "Favoritar";
 
@@ -167,7 +167,7 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 
 "msgIdea" = "É necessário que você escreva uma ideia para salvar.";
 
-"delIdea" = "Deletar Ideia";
+"delIdea" = "Apagar ideia";
 
 "delMsg" = "Voçê realmente deseja deletar essa ideia?";
 
