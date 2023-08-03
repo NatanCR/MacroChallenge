@@ -18,7 +18,7 @@ struct ToolbarComponent: View {
         let fileName = UUID().uuidString + ".png"
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
         let lastComponent = fileURL.lastPathComponent
-        self.photoModel = PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: lastComponent)
+        self.photoModel = PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: lastComponent, tag: [])
     }
     var body: some View {
         HStack{
@@ -28,14 +28,6 @@ struct ToolbarComponent: View {
             } label: {
                 Image(systemName: "camera.fill")
             }
-//            Button {
-//                ideasViewModel.isShowingCamera = true
-//            } label: {
-//                Image(systemName: "camera.fill")
-//            }
-//            .fullScreenCover(isPresented: $ideasViewModel.isShowingCamera) {
-//                CameraRepresentable(viewModel: ideasViewModel.cameraViewModel)
-//            }
             .padding()
             Spacer()
             NavigationLink {
