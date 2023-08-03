@@ -37,75 +37,6 @@ struct PhotoIdeaView: View {
     var body: some View {
         if let uiImage = UIImage(contentsOfFile: photoURL!.path) {
             
-            VStack (alignment: .center) {
-                
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .cornerRadius(25)
-                    .scaledToFill()
-                    .rotationEffect(.degrees(90))
-                    .frame(maxWidth: screenSize.width * 0.5, alignment: .top)
-                    .padding([.top, .bottom], 50)
-                
-                TextEditor(text: $photoModel.textComplete)
-                    .font(.custom("Sen-Regular", size: 17))
-                    .multilineTextAlignment(.leading)
-                    .frame(alignment: .topLeading)
-                    .focused($isFocused)
-                    .overlay {
-                        PlaceholderComponent(idea: photoModel)
-                    }
-                    .padding(9)
-                if photoModel.tag!.isEmpty {
-                    Button {
-                        self.showSheet = true
-                    } label: {
-                        Image("tag_icon")
-                    }
-                } else {
-                    Button {
-                        self.tagsArray = photoModel.tag ?? []
-                        self.showSheet = true
-                    } label: {
-                        IdeaTagViewerComponent(idea: photoModel)
-                    }
-                }
-            }
-            .sheet(isPresented: $showSheet, content: {
-                TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
-            })
-            .onAppear {
-                dump(photoModel.tag)
-                if !photoModel.textComplete.isEmpty {
-                    DispatchQueue.main.async {
-                        // Atualizar a view para exibir o conteúdo existente da variável description
-                        self.photoModel.textComplete = photoModel.textComplete
-                    }
-                }
-            }
-            .onChange(of: photoModel.textComplete) { newValue in
-                self.tagsArray = photoModel.tag ?? []
-                saveIdea(newTags: self.tagsArray)
-            }
-            //recebe e salva as tags adicionadas pela tela da sheet
-            .onChange(of: showSheet, perform: { newValue in
-                if !showSheet {
-                    if self.tagsArray != self.photoModel.tag {
-                        saveIdea(newTags: self.tagsArray)
-                    } else {
-                        return
-                    }
-                }
-            })
-            .navigationTitle(Text(text) + Text(photoModel.creationDate.toString(dateFormatter: self.dateFormatter)!))
-            .navigationBarTitleDisplayMode(.large)
-            .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem (placement: .navigationBarTrailing) {
-                    MenuEditComponent(type: PhotoModel.self, idea: self.$photoModel)
-                }
-            }
-            
             VStack (alignment: .center){
                 
                 
@@ -155,9 +86,6 @@ struct PhotoIdeaView: View {
                             Text("OK")
                         }
                     }
-                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    CustomBackButtonComponent(type: PhotoModel.self, idea: $photoModel)
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     CustomBackButtonComponent(type: PhotoModel.self, idea: $photoModel)

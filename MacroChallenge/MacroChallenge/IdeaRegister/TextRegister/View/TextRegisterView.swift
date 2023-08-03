@@ -47,6 +47,7 @@ struct TextRegisterView: View {
         }
         .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
         .onAppear {
             isFocused = true
         }
@@ -80,6 +81,10 @@ struct TextRegisterView: View {
                 } label: {
                     Text("save")
                 }
+            }
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomActionBackButtonComponent(action: {})
             }
         }.font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
     }
