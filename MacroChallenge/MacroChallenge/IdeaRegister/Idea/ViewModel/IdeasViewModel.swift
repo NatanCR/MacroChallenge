@@ -137,6 +137,20 @@ class IdeasViewModel: ObservableObject {
         }
         return updatedTags
     }
+    
+    func verifyExistTags(newTagName: String) -> Bool {
+        for tag in self.tagsLoadedData {
+            if tag.name == newTagName {
+                print("nome igual")
+                return true
+            } else {
+                print("ainda nao existe")
+            }
+        }
+        print("ta retornando falso")
+        return false
+    }
+    
     /**Função que salva uma nova tag e recarrega a lista com as tags recentes**/
     func saveTagAndUpdateListView(tagName: String, tagColor: String) {
         IdeaSaver.saveTag(tag: addTag(text: tagName, color: tagColor))

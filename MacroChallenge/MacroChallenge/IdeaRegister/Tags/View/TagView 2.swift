@@ -13,10 +13,9 @@ struct TagView: View {
     @FocusState private var isFocused: Bool
     @ObservedObject var viewModel: IdeasViewModel //pego as tags ja salvas
     @Binding var tagsArrayReceived: [Tag]
-    @State private var thatTagExist: Bool = false
     
     var body: some View {
-        VStack {
+        VStack{
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color("labelColor"))
                 .frame(width: screenSize.width * 0.5, height: screenSize.height * 0.005)
@@ -27,15 +26,7 @@ struct TagView: View {
                 .padding(.vertical)
             HStack{
                 //Text Field
-                TextField("addTag", text: $tagName, onCommit: {
-                    self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
-                    if !thatTagExist {
-                        viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
-                    }
-                     })
-                    .onSubmit {
-                        self.tagName = ""
-                    }
+                TextField("addTag", text: $tagName)
                     .font(.custom("Sen-Regular", size: 17))
                     .foregroundColor(Color("labelColor"))
                     .padding(.vertical, 12)
@@ -51,12 +42,10 @@ struct TagView: View {
                         if isFocused{
                             Button{//TODO: LIMPAR OS ESPAÇOS EM BRANCO ANTES DE SALVAR O NOME DA TAG
                                 //adicionando tags
-                                self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
-                                if !thatTagExist {
-                                    viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
-                                }
+                                IdeaSaver.saveTag(tag: viewModel.addTag(text: tagName, color: "#fff"))
                                 tagName = ""
                                 isFocused = false
+                                viewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
                             } label: {
                                 Image(systemName: "arrow.right.circle.fill")
                                     .font(.system(size: 30))
@@ -71,6 +60,8 @@ struct TagView: View {
                 //Lista de tag
                 TagComponent(allTags: $viewModel.tagsLoadedData, tagArraySelected: $tagsArrayReceived, viewModel: viewModel)
                     .padding(.top, 20)
+                
+                
             }
             .padding(15)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -78,15 +69,8 @@ struct TagView: View {
             .onTapGesture {
                 isFocused = false
             }
-            .alert("sameTag", isPresented: $thatTagExist, actions: {
-                Button(role: .cancel) {
-                } label: {
-                    Text("OK")
-                }
-            }, message: {
-                Text("msgTag")
-            })
         }
+        
     }
     
     

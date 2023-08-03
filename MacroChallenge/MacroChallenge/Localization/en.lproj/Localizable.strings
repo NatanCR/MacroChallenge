@@ -175,6 +175,10 @@ d) Use the application fraudulently or for illegal or unauthorized purposes.
 
 "delSucess" = "Idea was excluded.";
 
+"sameTag" = "Repeated tag";
+
+"msgTag" = "This tag already exists, you can choose it from the list.";
+
 //MARK: General
 
 "cancel" = "Cancel";

@@ -175,6 +175,10 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 
 "delSucess" = "Ideia excluída com sucesso.";
 
+"sameTag" = "Tag repetida";
+
+"msgTag" = "Essa tag já existe, você pode escolhe-la pela lista.";
+
 //MARK: General
 
 "cancel" = "Cancelar";
