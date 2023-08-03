@@ -59,6 +59,7 @@ struct PhotoIdeaView: View {
                                     self.photoModel.textComplete = photoModel.textComplete
                                 }
                             }
+                            print(photoURL!.path)
                         }
                         .onChange(of: photoModel.textComplete) { newValue in
                             saveIdea()

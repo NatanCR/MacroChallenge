@@ -10,6 +10,7 @@ import SwiftUI
 struct ListRowComponent: View {
     @Environment(\.screenSize) var screenSize
     @ObservedObject var ideasViewModel: IdeasViewModel
+    @State private var isAlertActive: Bool = false
     @State var idea: any Idea
     var title: String
     var typeIdea: IdeaType
@@ -31,7 +32,7 @@ struct ListRowComponent: View {
                     .opacity(0.5)
                     .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.01, alignment: .leading)
             }
-
+            
             Spacer()
             if typeIdea == .audio {
                 Image(uiImage: UIImage(systemName: "waveform.and.mic") ?? UIImage())
@@ -52,5 +53,23 @@ struct ListRowComponent: View {
             }
         }
         .padding([.top, .bottom])
+        //TODO: aplicar função de deletar e de favoritar
+        //arrastar para deletar e para favoritar na lista
+        .swipeActions {
+            Button(role: .destructive){
+                print("delete")
+            } label: {
+                Image(systemName: "trash.fill")
+            }
+            .tint(Color("deleteColor"))
+            
+            Button{
+                print("fav")
+            } label: {
+                Image(systemName: "heart")
+            }
+            .tint(Color("splashScreen"))
+        }
+        
     }
 }

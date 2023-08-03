@@ -9,15 +9,17 @@ import SwiftUI
 
 //MARK: - HOME VIEW
 struct HomeView: View {
+    
     @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
     let audioManager: AudioManager = AudioManager()
-
+    //quando for true altera para view de seleção de ideias
+    @State var isAdding: Bool = false
+    
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
     init(){
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "Sen-Bold", size: 30)!]
         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: "Sen-Bold", size: 17)!]
-        
     }
     
     //MARK: - HOME BODY
@@ -31,31 +33,52 @@ struct HomeView: View {
                     FilterComponent(ideasViewModel: ideasViewModel)
                         .padding(.trailing)
                 }
+                .padding(.vertical)
+                    
+                SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
                 
-                SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager)
-  
                 //navigation bar
                 .toolbar{
-                    ToolbarItemGroup(placement: .navigationBarTrailing){
-                      
-                        NavigationLink {
-                            InfoView()
-                        } label: {
-                            Image(systemName: "info.circle.fill")
-                                .font(.system(size: 20))
+                    ToolbarItem(placement: .navigationBarTrailing){
+                        
+                        if isAdding == false{
+                            //leva para a InfoView
+                            NavigationLink {
+                                InfoView()
+                            } label: {
+                                Image(systemName: "info.circle.fill")
+                                    .font(.system(size: 20))
+                            }
+                            
+                        } else {
+                            //leva para a FolderView
+                            NavigationLink{
+                                FolderView(isAdding: $isAdding)
+                            } label: {
+                                Text("OK")
+                            }
                         }
                     }
-                }
-                
-                //toolbar para adicionar ideias
-                .toolbar {
-                    ToolbarItemGroup(placement: .bottomBar) {
+                    
+                    ToolbarItem(placement: .navigationBarLeading){
+                        //volta para a tela padrão
+                        if isAdding{
+                            Button("Cancel"){
+                                isAdding = false
+                            }
+                        }
+                    }
+
+                    ToolbarItem(placement: .bottomBar) {
                         ToolbarComponent(ideasViewModel: ideasViewModel)
                     }
                 }
                 
-            }.navigationTitle("ideas")
+            }
+            .navigationTitle(isAdding ? "New folder" : "ideas")
+            .navigationBarTitleDisplayMode(isAdding ? .inline : .large)
              .background(Color("backgroundColor"))
+             .ignoresSafeArea(.keyboard)
              .onAppear() {
                  self.appearInitialization()
              }
@@ -86,6 +109,7 @@ struct HomeView: View {
 struct HomeGridView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     let audioManager: AudioManager
+    @Binding var isAdding: Bool
     
     let columns = [
         GridItem(.flexible()),
@@ -113,19 +137,19 @@ struct HomeGridView: View {
                     } label: {
                         switch ideas.ideiaType {
                         case .text:
-                            TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel)
+                            TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding)
                         case .audio:
-                            AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager)
+                            AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
                         case .photo:
                             let photoIdea = ideas as! PhotoModel
-                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel)
+                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding)
                         }
-                    }.onAppear {
-                        //dump(ideas)
                     }
                 }
+
             }.padding()
         }
+        
     }
 }
 
@@ -133,13 +157,14 @@ struct HomeGridView: View {
 //view em forma de lista
 struct HomeListView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
+    @Binding var isAdding: Bool
+    @State var selection = Set<UUID>()
     
     //MARK: - LIST BODY
     var body: some View{
         
         if #available(iOS 16.0, *){
-            List {
-                ForEach(self.ideasViewModel.filteredIdeas, id: \.id) { ideas in
+            List(self.ideasViewModel.filteredIdeas, id: \.id, selection: $selection){ ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
@@ -157,13 +182,15 @@ struct HomeListView: View {
                             ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
-                }
+                    
                 .listRowBackground(Color("backgroundItem"))
             }
+            .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
             .scrollContentBackground(.hidden)
+
         } else {
-            List {
-                ForEach(self.ideasViewModel.filteredIdeas, id: \.id) { ideas in
+            List (self.ideasViewModel.filteredIdeas, id: \.id, selection: $selection){
+                ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
@@ -181,16 +208,17 @@ struct HomeListView: View {
                             ListRowComponent(ideasViewModel: self.ideasViewModel, idea: ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                         }
                     }
-                }
                 .listRowBackground(Color("backgroundItem"))
             }
+            .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
         }
+        
     }
 }
 
-//MARK: - PREVIEW
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
+////MARK: - PREVIEW
+//struct HomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView()
+//    }
+//}

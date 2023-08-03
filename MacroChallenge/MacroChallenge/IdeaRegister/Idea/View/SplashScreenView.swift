@@ -17,25 +17,39 @@ struct SplashScreenView: View {
 
             if nextView {
                 HomeView()
+                
             } else {
-                ZStack{
-                    Color("splashScreen")
-                        .ignoresSafeArea()
-                    Image("lamp")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100)
-                        .scaleEffect(self.isActive ? 1 : 0.1)
-                        .animation(.easeIn(duration: 0.4), value: isActive)
-                    
-                }
+            ZStack{
+                Color("splashScreen")
+                    .ignoresSafeArea()
+            //apresenta a animação
+            Image("splash_\(index)")
+                .resizable()
+                .scaledToFit()
+                .frame(width: screenSize.width)
+                .ignoresSafeArea()
                 .onAppear{
-                    isActive = true
-                    
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
-                    self.nextView = true
-                    }
-                }
+                         
+            //tempo entre as imagens
+            Timer
+                .scheduledTimer(withTimeInterval: 0.03, repeats: true){
+                _ in
+                                 
+                                 
+            //condição que altera o index das imagens
+            if(index < 49) {
+                index += 1
+                                 }
+                                 
+                             }
+            }
+                .onAppear{
+                           //chama a próxima view
+                           DispatchQueue.main.asyncAfter(deadline: .now() + 2.4){
+                               self.nextView = true
+                           }
+                       }
+            }
             }
     }
 }

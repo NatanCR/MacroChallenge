@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct TextPreviewComponent: View {
+    @Environment(\.dismiss) var dismiss
     @Environment(\.screenSize) var screenSize
     private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var text: String
     var title: String
     @Binding var idea: any Idea
     @ObservedObject var ideasViewModel: IdeasViewModel
+    @State private var isAlertActive: Bool = false
+    @Binding var isAdding: Bool
+
     
-    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel) {
+    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>) {
         self.text = text
         self.title = title
         self._idea = idea
         self.ideasViewModel = ideasViewModel
+        self._isAdding = isAdding
     }
     
     var body: some View {
@@ -29,9 +34,11 @@ struct TextPreviewComponent: View {
                     .foregroundColor(Color("backgroundItem"))
                     .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
                     .overlay(alignment: .topTrailing){
-                        ButtonFavoriteComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText)
-                        .padding(8)
+                        
+                        OverlayComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText, isAdding: $isAdding)
+                                .padding(8)
                     }
+                
                 Text(text)
                     .foregroundColor(Color("labelColor"))
                     .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
@@ -39,6 +46,18 @@ struct TextPreviewComponent: View {
                 
             }
             .padding(.bottom, 5)
+            
+            //deletar
+            .contextMenu{
+                Button(role: .destructive){
+                    isAlertActive = true
+                } label: {
+                    HStack{
+                        Text("del")
+                        Image(systemName: "trash")
+                    }
+                }
+            }
             
             Text(title)
                 .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
@@ -48,6 +67,15 @@ struct TextPreviewComponent: View {
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
             
             
+        }
+        //TODO: fazer a tradução do alerta
+        .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
+            Button("Delete Idea", role: .destructive) {
+                //TODO: atualizar a view assim que deleta a ideia
+                //deletar
+                IdeaSaver.clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
+            }
+
         }
     }
 }

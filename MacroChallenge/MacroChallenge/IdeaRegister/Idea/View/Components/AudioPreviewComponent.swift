@@ -14,7 +14,10 @@ struct AudioPreviewComponent: View {
     var title: String
     @State var idea: any Idea
     @ObservedObject var ideasViewModel: IdeasViewModel
+    @State private var isAlertActive: Bool = false
     let audioManager: AudioManager
+    
+    @Binding var isAdding: Bool
     
     var body: some View {
         VStack{
@@ -23,31 +26,29 @@ struct AudioPreviewComponent: View {
                     .foregroundColor(Color("backgroundItem"))
                     .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
                     .overlay(alignment: .topTrailing){
-                        Button{
-                            idea.isFavorite.toggle()
-                            switch idea.ideiaType {
-                            case .audio:
-                                IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: idea as! AudioIdeia)
-                            case .text:
-                                IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
-                            case .photo:
-                                IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
-                            }
-                        } label: {
-                            idea.isFavorite ? Image(systemName: "heart.fill").font(.system(size: 20)) : Image(systemName: "heart").font(.system(size: 20))
-                        }
+                        
+                        OverlayComponent(type: AudioIdeia.self, text: "", idea: idea as! AudioIdeia, isAdding: $isAdding)
                         .padding(8)
                     }
+                
                 VStack{
-                    Image(systemName: "waveform.and.mic")
-                        .font(.system(size: screenSize.width * 0.08, design: .rounded))
-                        .foregroundColor(Color("labelColor"))
-                        .padding(.bottom)
                     
                     PlayPreviewComponent(audioManager: self.audioManager, idea: idea as! AudioIdeia)
                 }
             }
             .padding(.bottom, 5)
+            
+            //deletar
+            .contextMenu{
+                Button(role: .destructive){
+                    isAlertActive = true
+                } label: {
+                    HStack{
+                        Text("del")
+                        Image(systemName: "trash")
+                    }
+                }
+            }
 
             Text(title)
                 .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
@@ -55,6 +56,20 @@ struct AudioPreviewComponent: View {
             Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
                 .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
+        }
+        //TODO: fazer a tradução do alerta
+        .confirmationDialog("Do you really want to do this?", isPresented: $isAlertActive) {
+            Button("Delete Idea", role: .destructive) {
+                //TODO: atualizar a view assim que deleta a ideia
+                //deletar
+                IdeaSaver.clearOneIdea(type: AudioIdeia.self, idea: idea as! AudioIdeia)
+                
+                if let audioIdea = idea as? AudioIdeia {
+                    ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: audioIdea.audioPath)
+                }
+
+
+            }
         }
     }
 }
@@ -91,7 +106,7 @@ struct PlayPreviewComponent: View {
     
     //MARK: - BODY
     var body: some View{
-        HStack{
+        VStack{
             
             Button {
                 if !self.isPlaying {
@@ -109,7 +124,7 @@ struct PlayPreviewComponent: View {
             } label: {
                 Image(systemName: self.isPlaying ? "pause.fill" : "play.fill")
                     .foregroundColor(Color("labelColor"))
-                    .font(.system(size: screenSize.width * 0.04))
+                    .font(.system(size: screenSize.width * 0.07))
             }
             // notification recebida com o timer
             .onReceive(sliderTime) { _ in
@@ -123,11 +138,12 @@ struct PlayPreviewComponent: View {
             .onReceive(playedAnotherAudioNotification) { _ in
                 self.playedAnotherAudio()
             }
+            .padding()
             
             ProgressView(value: sliderValue, total: audioManager.getDuration())
-                .frame(width: screenSize.width * 0.12)
+                .frame(width: screenSize.width * 0.2)
+                .background(Color("audio"))
         }
-        .padding(2)
     }
     
     //MARK: - METHODS
