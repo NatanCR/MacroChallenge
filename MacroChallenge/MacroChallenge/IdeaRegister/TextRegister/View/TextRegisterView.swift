@@ -32,11 +32,11 @@ struct TextRegisterView: View {
                 } label: {
                     Image("tag_icon")
                 }.padding()
-                
             } else {
                 Button {
                     self.showModal = true
                 } label: {
+                    //define a formatação das tags
                     IdeaTagViewerComponent<ModelText>(idea: ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray))
                 }.padding()
 
