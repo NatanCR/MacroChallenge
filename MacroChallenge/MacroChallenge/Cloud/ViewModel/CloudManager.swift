@@ -205,7 +205,6 @@ class CloudManager {
                 // audio idea
                 if record.ideiaType == .audio {
                     var audioIdea: AudioIdeia = record as! AudioIdeia
-                    //TODO: asset
                     if let recordAsset = getRecordFromIdea(record, records) {
                         if let assetURL = convertAssetToURL(record: recordAsset, ideaType: .audio) {
                             saveAssetURLToDirectory(assetURL, idea: audioIdea)
@@ -301,8 +300,9 @@ class CloudManager {
         return asset.fileURL
     }
     
-    private static func saveAssetURLToDirectory<T: Idea>(_ url: URL, idea: T) {
+    private static func saveAssetURLToDirectory<T: Idea>(_ assetURL: URL, idea: T) {
         let pathComponent: String
+        let dir = ContentDirectoryHelper.getDocumentDirectory()
         
         if idea.ideiaType == .audio {
             let audioIdea: AudioIdeia = idea as! AudioIdeia
@@ -313,10 +313,10 @@ class CloudManager {
         }
         
         do {
-            let assetData = try Data(contentsOf: url)
-            let saveURL = ContentDirectoryHelper.getDocumentDirectory().appendingPathComponent(pathComponent)
+            let destinationURL = dir.appendingPathComponent(pathComponent)
+            try FileManager.default.copyItem(at: assetURL, to: destinationURL)
             
-            try assetData.write(to: saveURL)
+//            try assetData.write(to: saveURL)
         }
         catch {
             print(error.localizedDescription)
