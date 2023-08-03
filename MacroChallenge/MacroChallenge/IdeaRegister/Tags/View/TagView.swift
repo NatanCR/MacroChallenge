@@ -26,7 +26,10 @@ struct TagView: View {
                 .padding(.vertical)
             HStack{
                 //Text Field
-                TextField("addTag", text: $tagName)
+                TextField("addTag", text: $tagName, onCommit: { viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff") })
+                    .onSubmit {
+                        self.tagName = ""
+                    }
                     .font(.custom("Sen-Regular", size: 17))
                     .foregroundColor(Color("labelColor"))
                     .padding(.vertical, 12)
@@ -42,10 +45,9 @@ struct TagView: View {
                         if isFocused{
                             Button{//TODO: LIMPAR OS ESPAÇOS EM BRANCO ANTES DE SALVAR O NOME DA TAG
                                 //adicionando tags
-                                IdeaSaver.saveTag(tag: viewModel.addTag(text: tagName, color: "#fff"))
+                                viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
                                 tagName = ""
                                 isFocused = false
-                                viewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
                             } label: {
                                 Image(systemName: "arrow.right.circle.fill")
                                     .font(.system(size: 30))
@@ -70,7 +72,6 @@ struct TagView: View {
                 isFocused = false
             }
         }
-        
     }
     
     

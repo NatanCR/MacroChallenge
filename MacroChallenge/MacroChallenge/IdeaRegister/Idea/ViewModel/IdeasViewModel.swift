@@ -137,5 +137,10 @@ class IdeasViewModel: ObservableObject {
         }
         return updatedTags
     }
+    /**Função que salva uma nova tag e recarrega a lista com as tags recentes**/
+    func saveTagAndUpdateListView(tagName: String, tagColor: String) {
+        IdeaSaver.saveTag(tag: addTag(text: tagName, color: tagColor))
+        tagsLoadedData = IdeaSaver.getAllSavedTags()
+    }
 }
 
