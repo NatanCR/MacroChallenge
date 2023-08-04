@@ -18,8 +18,10 @@ class IdeasViewModel: ObservableObject {
     @Published var isSortedByCreation: Bool = false
     @Published var isShowingCamera = false
     @Published var searchText: String = ""
+    @Published var searchTag: String = ""
     @StateObject var cameraViewModel = CameraViewModel()
     @Published var tagsLoadedData: [Tag] = IdeaSaver.getAllSavedTags()
+    @Published var tagsFiltered: [Tag] = IdeaSaver.getAllSavedTags()
     static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     
     func DismissKeyboard(){
@@ -64,6 +66,30 @@ class IdeasViewModel: ObservableObject {
     func reloadLoadedData() {
         self.loadedData = IdeaSaver.getAllSavedIdeas()
         self.disposedData = loadedData
+    }
+    
+    var filteringTags: [Tag] {
+        if searchTag.isEmpty {
+            return tagsLoadedData
+        } else {
+            return tagsLoadedData.filter { tag in
+                let isMachingTag = tag.name.localizedCaseInsensitiveContains(searchTag)
+                
+                return isMachingTag
+            }
+            .sorted { tag1, tag2 in
+                let tagMach1 = tag1.name.localizedCaseInsensitiveContains(searchTag)
+                let tagMach2 = tag2.name.localizedCaseInsensitiveContains(searchTag)
+                
+                if tagMach1 && !tagMach2 {
+                    return true
+                } else if !tagMach1 && tagMach2 {
+                    return false
+                } else {
+                    return tag1.name > tag2.name
+                }
+            }
+        }
     }
     
     var filteringIdeas: [any Idea] {

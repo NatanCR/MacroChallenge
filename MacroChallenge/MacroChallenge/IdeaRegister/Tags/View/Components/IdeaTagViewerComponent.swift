@@ -18,7 +18,7 @@ struct IdeaTagViewerComponent<T: Idea>: View {
         } else if idea.tag!.count >= 2 {
             ZStack {
                 //segunda
-                TagLabelComponent(tagName: idea.tag?.first?.name ?? "", isSelected: true)
+                TagLabelComponent(tagName: idea.tag?.first?.name ?? "", isSelected: true, colorName: "AccentColor")
                 //primeira
                 TagLabelComponent(tagName: idea.tag?.first?.name ?? "", isSelected: true)
                     .offset(x: -5, y: -5)
