@@ -38,6 +38,9 @@ struct TagComponent: View {
             //função para comparar as tags que ja existem e coloca-las com borda no array usado com all tags
             self.allTags = viewModel.updateSelectedTags(allTags: self.allTags, tagSelected: self.tagArraySelected)
         }
+        .onChange(of: self.allTags.count, perform: { newValue in
+            self.allTags = viewModel.updateSelectedTags(allTags: self.allTags, tagSelected: self.tagArraySelected)
+        })
         .frame(width: screenSize.width * 0.9, alignment: .leading)
         .animation(.easeInOut, value: allTags)
         
