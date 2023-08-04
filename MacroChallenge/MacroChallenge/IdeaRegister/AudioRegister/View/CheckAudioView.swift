@@ -100,6 +100,9 @@ struct CheckAudioView: View {
             }
             
         })
+        .onAppear {
+            viewModel.tagsFiltered = viewModel.tagsLoadedData
+        }
         .navigationBarBackButtonHidden()
         
         .toolbar {

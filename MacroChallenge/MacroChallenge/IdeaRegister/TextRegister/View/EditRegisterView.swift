@@ -75,6 +75,10 @@ struct EditRegisterView: View {
                 }
             }
         })
+        
+        .onAppear {
+            viewModel.tagsFiltered = viewModel.tagsLoadedData
+        }
         .navigationBarBackButtonHidden()
         .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!))
         .navigationBarTitleDisplayMode(.large)

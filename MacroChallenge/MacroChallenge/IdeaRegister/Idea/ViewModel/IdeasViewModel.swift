@@ -72,6 +72,7 @@ class IdeasViewModel: ObservableObject {
         if searchTag.isEmpty {
             return tagsLoadedData
         } else {
+            
             return tagsLoadedData.filter { tag in
                 let isMachingTag = tag.name.localizedCaseInsensitiveContains(searchTag)
                 

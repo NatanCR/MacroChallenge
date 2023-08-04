@@ -84,6 +84,7 @@ struct PhotoIdeaView: View {
                     }
                     print(photoURL!.path)
                 }
+                viewModel.tagsFiltered = viewModel.tagsLoadedData
             }
             .onChange(of: photoModel.textComplete) { newValue in
                 self.tagsArray = photoModel.tag ?? []

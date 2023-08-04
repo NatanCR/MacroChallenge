@@ -15,14 +15,6 @@ struct TagView: View {
     @Binding var tagsArrayReceived: [Tag]
     @State private var thatTagExist: Bool = false
     
-    private func resetSearchTag(_ clearTag: Bool = true) {
-        if clearTag {
-            self.tagName = String()
-        }
-        
-        self.viewModel.searchTag = self.tagName
-    }
-    
     var body: some View {
         VStack {
             RoundedRectangle(cornerRadius: 20)
@@ -36,18 +28,24 @@ struct TagView: View {
             HStack{
                 //Text Field
                 TextField("addTag", text: $tagName, onCommit: {
-                    self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
-                    if !thatTagExist {
-                        viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
+                    self.tagName = self.tagName.trimmingCharacters(in: .whitespaces)
+                    
+                    if tagName.isEmpty {
+                       print("esta vazio")
+                    } else {
+                        self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
+                        if !thatTagExist {
+                            viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
+                        }
                     }
                 })
                 .onSubmit {
                     self.tagName = ""
                 }
                 //realize a busca da tag 
-                .onChange(of: tagName, perform: { newValue in
+                .onChange(of: tagName, perform: { _ in
                     self.resetSearchTag(false)
-                    self.viewModel.tagsFiltered = viewModel.filteringTags
+                    self.viewModel.tagsFiltered = viewModel.updateSelectedTags(allTags: viewModel.filteringTags, tagSelected: self.tagsArrayReceived)
                 })
                 .font(.custom("Sen-Regular", size: 17))
                 .foregroundColor(Color("labelColor"))
@@ -62,12 +60,18 @@ struct TagView: View {
                 
                 //mostra o botão de adicionar quando clica no text field
                 if isFocused{
-                    Button{//TODO: LIMPAR OS ESPAÇOS EM BRANCO ANTES DE SALVAR O NOME DA TAG
+                    Button{
                         //adicionando tags
-                        self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
-                        if !thatTagExist {
-                            viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
+                        self.tagName = self.tagName.trimmingCharacters(in: .whitespaces)
+                        if tagName.isEmpty {
+                           print("esta vazio")
+                        } else {
+                            self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
+                            if !thatTagExist {
+                                viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
+                            }
                         }
+                        
                         tagName = ""
                         isFocused = false
                     } label: {
@@ -102,6 +106,14 @@ struct TagView: View {
         }, message: {
             Text("msgTag")
         })
+    }
+    
+    private func resetSearchTag(_ clearTag: Bool = true) {
+        if clearTag {
+            self.tagName = String()
+        }
+        
+        self.viewModel.searchTag = self.tagName
     }
 }
 
