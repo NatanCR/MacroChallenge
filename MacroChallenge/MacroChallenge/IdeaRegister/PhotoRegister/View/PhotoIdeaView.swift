@@ -37,38 +37,41 @@ struct PhotoIdeaView: View {
     var body: some View {
         if let uiImage = UIImage(contentsOfFile: photoURL!.path) {
             
-            VStack (alignment: .center){
+            VStack (alignment: .leading){
                 
-                
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .cornerRadius(25)
-                    .scaledToFill()
-                    .rotationEffect(.degrees(90))
-                    .frame(maxWidth: screenSize.width * 0.5, alignment: .top)
-                    .padding([.top, .bottom], 50)
-                
-                TextEditor(text: $photoModel.textComplete)
-                    .font(.custom("Sen-Regular", size: 17))
-                    .multilineTextAlignment(.leading)
-                    .frame(alignment: .topLeading)
-                    .focused($isFocused)
-                    .overlay {
-                        PlaceholderComponent(idea: photoModel)
-                    }
-                    .padding(9)
-                    .onAppear {
-                        if !photoModel.textComplete.isEmpty {
-                            DispatchQueue.main.async {
-                                // Atualizar a view para exibir o conteúdo existente da variável description
-                                self.photoModel.textComplete = photoModel.textComplete
-                            }
-                            print(photoURL!.path)
+                VStack(alignment: .center){
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .cornerRadius(25)
+                        .scaledToFill()
+                        .rotationEffect(.degrees(90))
+                        .frame(maxWidth: screenSize.width * 0.5, alignment: .top)
+                        .padding([.top, .bottom], 50)
+                    
+                    TextEditor(text: $photoModel.textComplete)
+                        .font(.custom("Sen-Regular", size: 17))
+                        .multilineTextAlignment(.leading)
+                        .frame(alignment: .topLeading)
+                        .focused($isFocused)
+                        .overlay {
+                            PlaceholderComponent(idea: photoModel)
                         }
-                    }
-                    .onChange(of: photoModel.textComplete) { newValue in
-                        saveIdea(newTags: self.tagsArray)
-                    }
+                        .padding(9)
+                        .onAppear {
+                            if !photoModel.textComplete.isEmpty {
+                                DispatchQueue.main.async {
+                                    // Atualizar a view para exibir o conteúdo existente da variável description
+                                    self.photoModel.textComplete = photoModel.textComplete
+                                }
+                                print(photoURL!.path)
+                            }
+                        }
+                        .onChange(of: photoModel.textComplete) { newValue in
+                            saveIdea(newTags: self.tagsArray)
+                        }
+                    
+                }
+                //TODO: adicionar tag aqui
             }
             .navigationTitle(Text(text) + Text(photoModel.creationDate.toString(dateFormatter: self.dateFormatter)!))
             .navigationBarTitleDisplayMode(.large)
