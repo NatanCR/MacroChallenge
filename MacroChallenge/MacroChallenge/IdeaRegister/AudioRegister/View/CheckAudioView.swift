@@ -16,7 +16,7 @@ struct CheckAudioView: View {
     private var text: LocalizedStringKey = "ideaDay"
     
     //idea
-    @State var idea: AudioIdeia
+    @State var idea: AudioIdea
     
     // audio
     private let audioManager: AudioManager
@@ -36,7 +36,7 @@ struct CheckAudioView: View {
     @ObservedObject var viewModel: IdeasViewModel
     
     
-    init(audioIdea idea: AudioIdeia, viewModel: IdeasViewModel) {
+    init(audioIdea idea: AudioIdea, viewModel: IdeasViewModel) {
         self.audioManager = AudioManager()
         self._idea = State(initialValue: idea)
         self.viewModel = viewModel
@@ -105,8 +105,11 @@ struct CheckAudioView: View {
         .toolbar {
             
             //menu de favoritar e excluir
-            ToolbarItem(placement: .navigationBarTrailing){
-                MenuEditComponent(type: AudioIdeia.self, idea: self.$idea)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                ButtonFavoriteComponent(type: AudioIdea.self, idea: $idea.wrappedValue)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                DeleteIdeaComponent(idea: $idea, type: AudioIdea.self)
             }
             
             //botão que dá dismiss no teclado após edição
@@ -123,7 +126,7 @@ struct CheckAudioView: View {
             
             //back button personalizado
             ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtonComponent(type: AudioIdeia.self, idea: $idea)
+                CustomBackButtonComponent(type: AudioIdea.self, idea: $idea)
             }
         }
     }
@@ -138,6 +141,6 @@ struct CheckAudioView: View {
         self.idea.tag = newTags
         
         TextViewModel.setTextsFromIdea(idea: &self.idea)
-        IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: self.idea)
+        IdeaSaver.changeSavedValue(type: AudioIdea.self, idea: self.idea)
     }
 }

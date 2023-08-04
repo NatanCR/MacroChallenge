@@ -143,7 +143,7 @@ struct HomeGridView: View {
                         case .text:
                             EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
+                            CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
                         case .photo:
                             PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
                         }
@@ -183,7 +183,7 @@ struct HomeListView: View {
                         case .text:
                             EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
+                            CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
                         case .photo:
                             PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
                         }
@@ -209,7 +209,7 @@ struct HomeListView: View {
                         case .text:
                             EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
                         case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
+                            CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
                         case .photo:
                             PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
                         }

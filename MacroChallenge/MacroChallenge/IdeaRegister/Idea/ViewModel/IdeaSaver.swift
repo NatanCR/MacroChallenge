@@ -28,15 +28,15 @@ class IdeaSaver {
     
     //MARK: - Audio Saves
     /**Save an audio idea in UserDefaults that stores all AudioIdeas**/
-    public static func saveAudioIdea(idea: AudioIdeia) {
-        saveUniqueIdea(idea: idea, type: AudioIdeia.self, key: audioModelKey)
+    public static func saveAudioIdea(idea: AudioIdea) {
+        saveUniqueIdea(idea: idea, type: AudioIdea.self, key: audioModelKey)
     }
     
     /**Save a collection of audio ideas in UserDefaults that stores all AudioIdeas**/
-    public static func saveAudioIdeas(ideas: [AudioIdeia]) {
+    public static func saveAudioIdeas(ideas: [AudioIdea]) {
         if ideas.isEmpty { print("Ideas to save is empty."); return }
         
-        saveMultipleIdeas(ideas: ideas, type: AudioIdeia.self, key: audioModelKey)
+        saveMultipleIdeas(ideas: ideas, type: AudioIdea.self, key: audioModelKey)
     }
     
     //MARK: Text Saves
@@ -71,7 +71,7 @@ class IdeaSaver {
         var key = ""
         let ideaType: IdeaType
         
-        if type == AudioIdeia.self { key = audioModelKey; ideaType = .audio }
+        if type == AudioIdea.self { key = audioModelKey; ideaType = .audio }
         else if type == ModelText.self { key = textModelKey; ideaType = .text }
         else { key = photoModelKey; ideaType = .photo }
         
@@ -86,7 +86,7 @@ class IdeaSaver {
         ideas[ideaIndex] = idea
         
         switch ideaType {
-        case .audio: clearUniqueTypeIdea(type: .audio); saveAudioIdeas(ideas: (ideas as? [AudioIdeia] ?? []))
+        case .audio: clearUniqueTypeIdea(type: .audio); saveAudioIdeas(ideas: (ideas as? [AudioIdea] ?? []))
         case .text: clearUniqueTypeIdea(type: .text); saveTextIdeas(ideas: ideas as? [ModelText] ?? [])
         case .photo: clearUniqueTypeIdea(type: .photo); savePhotoIdeas(ideas: ideas as? [PhotoModel] ?? [])
         }
@@ -99,7 +99,7 @@ class IdeaSaver {
         
         // verify if have content for each model and append to the array
         if defaults.object(forKey: audioModelKey) != nil {
-            ideas.append(contentsOf: getSavedUniqueIdeasType(type: AudioIdeia.self, key: audioModelKey))
+            ideas.append(contentsOf: getSavedUniqueIdeasType(type: AudioIdea.self, key: audioModelKey))
         }
         
         if defaults.object(forKey: textModelKey) != nil {
@@ -186,7 +186,7 @@ class IdeaSaver {
         var key = ""
         let ideaType: IdeaType
         
-        if type == AudioIdeia.self { key = audioModelKey; ideaType = .audio }
+        if type == AudioIdea.self { key = audioModelKey; ideaType = .audio }
         else if type == ModelText.self { key = textModelKey; ideaType = .text }
         else { key = photoModelKey; ideaType = .photo }
         
@@ -201,7 +201,7 @@ class IdeaSaver {
         ideas.remove(at: ideaIndex)
         
         switch ideaType {
-        case .audio: clearUniqueTypeIdea(type: .audio); saveAudioIdeas(ideas: (ideas as? [AudioIdeia] ?? []))
+        case .audio: clearUniqueTypeIdea(type: .audio); saveAudioIdeas(ideas: (ideas as? [AudioIdea] ?? []))
         case .text: clearUniqueTypeIdea(type: .text); saveTextIdeas(ideas: ideas as? [ModelText] ?? [])
         case .photo: clearUniqueTypeIdea(type: .photo); savePhotoIdeas(ideas: ideas as? [PhotoModel] ?? [])
         }
@@ -218,8 +218,8 @@ class IdeaSaver {
                     
                     if let idea = ideas[i] as? ModelText {
                         changeSavedValue(type: ModelText.self, idea: idea)
-                    } else if let idea = ideas[i] as? AudioIdeia {
-                        changeSavedValue(type: AudioIdeia.self, idea: idea)
+                    } else if let idea = ideas[i] as? AudioIdea {
+                        changeSavedValue(type: AudioIdea.self, idea: idea)
                     } else if let idea = ideas[i] as? PhotoModel {
                         changeSavedValue(type: PhotoModel.self, idea: idea)
                     }
@@ -345,9 +345,9 @@ class IdeaSaver {
     
     //MARK: - TESTS
     /**TEST POURPOSES. Receive an audio idea and get its value saved in user default.*/
-    public static func getSavedAudio(audio: AudioIdeia) -> AudioIdeia {
-        let audio: [AudioIdeia] = getSavedUniqueIdeasType(type: AudioIdeia.self, key: audioModelKey)
-        return audio.last! as AudioIdeia
+    public static func getSavedAudio(audio: AudioIdea) -> AudioIdea {
+        let audio: [AudioIdea] = getSavedUniqueIdeasType(type: AudioIdea.self, key: audioModelKey)
+        return audio.last! as AudioIdea
     }
     
     /**TEST POURPOSES. Receive a photo idea and get its value saved in user default.*/

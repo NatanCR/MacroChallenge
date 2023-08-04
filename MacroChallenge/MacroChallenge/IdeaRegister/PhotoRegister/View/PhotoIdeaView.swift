@@ -74,8 +74,11 @@ struct PhotoIdeaView: View {
             .navigationBarTitleDisplayMode(.large)
             .navigationBarBackButtonHidden()
             .toolbar {
-                ToolbarItem (placement: .navigationBarTrailing){
-                    MenuEditComponent(type: PhotoModel.self, idea: self.$photoModel)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    ButtonFavoriteComponent(type: PhotoModel.self, idea: $photoModel.wrappedValue)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    DeleteIdeaComponent(idea: $photoModel, type: PhotoModel.self)
                 }
                 
                 ToolbarItem (placement: .navigationBarTrailing){

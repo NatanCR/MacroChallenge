@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AudioIdeia : Idea {
+struct AudioIdea : Idea {
     var id: UUID
     var ideiaType: IdeaType = .audio
     var title: String

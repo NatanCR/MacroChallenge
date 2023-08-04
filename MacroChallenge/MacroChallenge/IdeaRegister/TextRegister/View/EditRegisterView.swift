@@ -80,8 +80,12 @@ struct EditRegisterView: View {
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                MenuEditComponent(type: ModelText.self, idea: $modelText)
+                ButtonFavoriteComponent(type: ModelText.self, idea: $modelText.wrappedValue)
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                DeleteIdeaComponent(idea: $modelText, type: ModelText.self)
+            }
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isFocused{
                     Button{

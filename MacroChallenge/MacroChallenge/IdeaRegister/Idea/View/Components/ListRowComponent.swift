@@ -62,7 +62,7 @@ struct ListRowComponent: View {
                 case .text:
                     IdeaSaver.clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
                 case .audio:
-                    IdeaSaver.clearOneIdea(type: AudioIdeia.self, idea: idea as! AudioIdeia)
+                    IdeaSaver.clearOneIdea(type: AudioIdea.self, idea: idea as! AudioIdea)
                 case .photo:
                     IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: idea as! PhotoModel)
                 }
@@ -78,7 +78,7 @@ struct ListRowComponent: View {
                 case .text:
                     IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
                 case .audio:
-                    IdeaSaver.changeSavedValue(type: AudioIdeia.self, idea: idea as! AudioIdeia)
+                    IdeaSaver.changeSavedValue(type: AudioIdea.self, idea: idea as! AudioIdea)
                 case .photo:
                     IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
                 }

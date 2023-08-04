@@ -17,7 +17,7 @@ struct MenuEditComponent<T: Idea>: View {
         
         Menu{
             //TODO: aplicar ação de favoritar e trocar o ícone para "heart.fill" quando estiver favoritado
-            ButtonFavoriteComponent(type: type, text: "fav", idea: $idea.wrappedValue)
+            ButtonFavoriteComponent(type: type, idea: $idea.wrappedValue)
             
             Divider()
             
@@ -38,7 +38,7 @@ struct MenuEditComponent<T: Idea>: View {
                 //deletar
                 IdeaSaver.clearOneIdea(type: self.type, idea: self.idea)
                 
-                if let audioIdea = idea as? AudioIdeia {
+                if let audioIdea = idea as? AudioIdea {
                     ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: audioIdea.audioPath)
                 }
                 else if let photoIdea = idea as? PhotoModel {
