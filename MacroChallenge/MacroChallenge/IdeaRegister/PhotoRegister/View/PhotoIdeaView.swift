@@ -75,10 +75,14 @@ struct PhotoIdeaView: View {
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    ButtonFavoriteComponent(type: PhotoModel.self, idea: $photoModel.wrappedValue)
+                    if !isFocused {
+                        ButtonFavoriteComponent(type: PhotoModel.self, idea: $photoModel.wrappedValue)
+                    }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    DeleteIdeaComponent(idea: $photoModel, type: PhotoModel.self)
+                    if !isFocused {
+                        DeleteIdeaComponent(idea: $photoModel, type: PhotoModel.self)
+                    }
                 }
                 
                 ToolbarItem (placement: .navigationBarTrailing){

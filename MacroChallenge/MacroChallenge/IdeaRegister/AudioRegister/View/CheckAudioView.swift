@@ -106,10 +106,14 @@ struct CheckAudioView: View {
             
             //menu de favoritar e excluir
             ToolbarItem(placement: .navigationBarTrailing) {
-                ButtonFavoriteComponent(type: AudioIdea.self, idea: $idea.wrappedValue)
+                if !isFocused {
+                    ButtonFavoriteComponent(type: AudioIdea.self, idea: $idea.wrappedValue)
+                }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                DeleteIdeaComponent(idea: $idea, type: AudioIdea.self)
+                if !isFocused {
+                    DeleteIdeaComponent(idea: $idea, type: AudioIdea.self)
+                }
             }
             
             //botão que dá dismiss no teclado após edição
