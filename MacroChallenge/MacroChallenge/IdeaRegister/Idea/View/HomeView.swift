@@ -15,6 +15,7 @@ struct HomeView: View {
     //quando for true altera para view de seleção de ideias
     @State var isAdding: Bool = false
     @FocusState private var searchInFocus: Bool
+    @State var scrollValue: Double = 10
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -26,84 +27,88 @@ struct HomeView: View {
     //MARK: - HOME BODY
     var body: some View {
         NavigationView {
-            ZStack {
-                VStack {
-                    HStack {
-                        SearchBarComponent(ideasViewModel: ideasViewModel)
-                            .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                            .focused($searchInFocus)
-                        FilterComponent(ideasViewModel: ideasViewModel)
-                            .padding(.trailing)
-                    }
-                    .padding(.vertical)
-                    
-                    SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
-                    
-                    //navigation bar
-                        .toolbar{
-                            ToolbarItem(placement: .navigationBarTrailing){
-                                
-                                if isAdding == false{
-                                    //leva para a InfoView
-                                    NavigationLink {
-                                        InfoView()
-                                    } label: {
-                                        Image(systemName: "info.circle.fill")
-                                            .font(.system(size: 20))
-                                    }
+            ScrollView {
+                ZStack {
+                    VStack {
+                        
+                        
+                        SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
+                        
+                        //navigation bar
+                            .toolbar{
+                                ToolbarItem(placement: .navigationBarTrailing){
                                     
-                                } else {
-                                    //leva para a FolderView
-                                    NavigationLink{
-                                        FolderView(isAdding: $isAdding)
-                                    } label: {
-                                        Text("OK")
+                                    if isAdding == false{
+                                        //leva para a InfoView
+                                        NavigationLink {
+                                            InfoView()
+                                        } label: {
+                                            Image(systemName: "info.circle.fill")
+                                                .font(.system(size: 20))
+                                        }
+                                        
+                                    } else {
+                                        //leva para a FolderView
+                                        NavigationLink{
+                                            FolderView(isAdding: $isAdding)
+                                        } label: {
+                                            Text("OK")
+                                        }
                                     }
                                 }
-                            }
-                            
-                            ToolbarItem(placement: .navigationBarLeading){
-                                //volta para a tela padrão
-                                if isAdding{
-                                    Button("Cancel"){
-                                        isAdding = false
+                                
+                                ToolbarItem(placement: .navigationBarLeading){
+                                    //volta para a tela padrão
+                                    if isAdding{
+                                        Button("Cancel"){
+                                            isAdding = false
+                                        }
                                     }
                                 }
+                                
+                                ToolbarItem(placement: .bottomBar) {
+                                    ToolbarComponent(ideasViewModel: ideasViewModel)
+                                }
                             }
-                            
-                            ToolbarItem(placement: .bottomBar) {
-                                ToolbarComponent(ideasViewModel: ideasViewModel)
-                            }
+                    }
+                    .navigationTitle(isAdding ? "New folder" : "ideas")
+                    .navigationBarTitleDisplayMode(isAdding ? .inline : .large)
+                    .safeAreaInset(edge: .top) {
+                        HStack {
+                            SearchBarComponent(ideasViewModel: ideasViewModel)
+                                .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                                .focused($searchInFocus)
+                            FilterComponent(ideasViewModel: ideasViewModel)
+                                .padding(.trailing)
                         }
-                    
-                }
-                .navigationTitle(isAdding ? "New folder" : "ideas")
-                .navigationBarTitleDisplayMode(isAdding ? .inline : .large)
-                .background(Color("backgroundColor"))
-                .ignoresSafeArea(.keyboard)
-                .onAppear() {
-                    self.appearInitialization()
-                    //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
-                    ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
-                }
-                //atualizando a view quando fechar a camera
-                .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
-                    if !newValue {
-                        if self.ideasViewModel.isFiltered {
-                            self.ideasViewModel.reloadLoadedData()
-                            self.ideasViewModel.orderBy(byCreation: self.ideasViewModel.isSortedByCreation, sortedByAscendent: self.ideasViewModel.isSortedByAscendent)
-                        } else {
-                            self.appearInitialization()
+                        .padding(.vertical)
+                    }
+                    .background(Color("backgroundColor"))
+                    .ignoresSafeArea(.keyboard)
+                    .onAppear() {
+                        self.appearInitialization()
+                        //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
+                        ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
+                    }
+                    //atualizando a view quando fechar a camera
+                    .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
+                        if !newValue {
+                            if self.ideasViewModel.isFiltered {
+                                self.ideasViewModel.reloadLoadedData()
+                                self.ideasViewModel.orderBy(byCreation: self.ideasViewModel.isSortedByCreation, sortedByAscendent: self.ideasViewModel.isSortedByAscendent)
+                            } else {
+                                self.appearInitialization()
+                            }
                         }
                     }
-                }
-                
-                if searchInFocus != false{
-                    Rectangle()
-                        .fill(Color.pink)
-                        .opacity(0.001)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .onTapGesture(perform: ideasViewModel.DismissKeyboard)
+                    
+                    if searchInFocus != false{
+                        Rectangle()
+                            .fill(Color.pink)
+                            .opacity(0.001)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .onTapGesture(perform: ideasViewModel.DismissKeyboard)
+                    }
                 }
             }
         }
