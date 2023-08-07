@@ -141,7 +141,7 @@ struct HomeGridView: View {
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
-                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
+                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel, titleDateFormat: ideasViewModel.isSortedByCreation)
                         case .audio:
                             CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
@@ -181,7 +181,7 @@ struct HomeListView: View {
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
-                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
+                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel, titleDateFormat: ideasViewModel.isSortedByCreation)
                         case .audio:
                             CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
@@ -207,7 +207,7 @@ struct HomeListView: View {
                     NavigationLink {
                         switch ideas.ideiaType {
                         case .text:
-                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
+                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel, titleDateFormat: ideasViewModel.isSortedByCreation)
                         case .audio:
                             CheckAudioView(audioIdea: ideas as! AudioIdeia, viewModel: ideasViewModel)
                         case .photo:
