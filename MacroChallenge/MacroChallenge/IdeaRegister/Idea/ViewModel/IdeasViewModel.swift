@@ -18,7 +18,7 @@ class IdeasViewModel: ObservableObject {
     @Published var isSortedByCreation: Bool = false
     @Published var isShowingCamera = false
     @Published var searchText: String = ""
-    @StateObject var cameraViewModel = CameraViewModel()
+    var cameraViewModel = CameraViewModel()
     @Published var tagsLoadedData: [Tag] = IdeaSaver.getAllSavedTags()
     static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     

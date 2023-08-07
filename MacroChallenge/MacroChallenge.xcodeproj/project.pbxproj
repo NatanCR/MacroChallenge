@@ -26,7 +26,6 @@
 		4097FE052A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
 		4097FE062A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
 		4097FE072A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
-		40A347942A5C5FFB0027B2C4 /* InsertPhotoIdeaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A347932A5C5FFB0027B2C4 /* InsertPhotoIdeaView.swift */; };
 		40AAA7ED2A3103DE00943CBF /* SegmentedPickerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */; };
 		40E859562A3B8FC500F2BC0E /* MenuEditComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E859552A3B8FC500F2BC0E /* MenuEditComponent.swift */; };
 		40E8595A2A3BAD2900F2BC0E /* CustomBackButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E859592A3BAD2900F2BC0E /* CustomBackButtonComponent.swift */; };
@@ -118,7 +117,6 @@
 		4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewComponent.swift; sourceTree = "<group>"; };
 		4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreviewComponent.swift; sourceTree = "<group>"; };
 		4097FE042A2FD3B3001EAB03 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		40A347932A5C5FFB0027B2C4 /* InsertPhotoIdeaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertPhotoIdeaView.swift; sourceTree = "<group>"; };
 		40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPickerComponent.swift; sourceTree = "<group>"; };
 		40E859552A3B8FC500F2BC0E /* MenuEditComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuEditComponent.swift; sourceTree = "<group>"; };
 		40E859592A3BAD2900F2BC0E /* CustomBackButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackButtonComponent.swift; sourceTree = "<group>"; };
@@ -287,7 +285,6 @@
 			isa = PBXGroup;
 			children = (
 				430A99862A27C8DD00D2F773 /* PhotoIdeaView.swift */,
-				40A347932A5C5FFB0027B2C4 /* InsertPhotoIdeaView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -712,7 +709,6 @@
 				91DB2B4E2A2A5FA300EC8176 /* ContentDirectoryHelper.swift in Sources */,
 				912811F02A29275400010872 /* DateHelper.swift in Sources */,
 				916E0FC82A268C2000F4FA87 /* RecordAudioPrototype.swift in Sources */,
-				40A347942A5C5FFB0027B2C4 /* InsertPhotoIdeaView.swift in Sources */,
 				916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */,
 				401292872A40F155006DB4CF /* SplashScreenView.swift in Sources */,
 				D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */,
@@ -953,7 +949,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 66824UF4JS;
+				DEVELOPMENT_TEAM = V32Q5HA7F8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
@@ -987,7 +983,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 66824UF4JS;
+				DEVELOPMENT_TEAM = V32Q5HA7F8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;

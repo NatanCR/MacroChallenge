@@ -13,6 +13,7 @@ import Foundation
 struct CameraRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = UIImagePickerController
     @Binding var tookPicture: Bool
+    @Binding var photoModel: PhotoModel
     @ObservedObject var viewModel: CameraViewModel
     @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
     @Environment(\.dismiss) var dismiss
@@ -24,8 +25,9 @@ struct CameraRepresentable: UIViewControllerRepresentable {
         }
     }()
     
-    init(tookPicture: Binding<Bool>,viewModel: CameraViewModel) {
+    init(tookPicture: Binding<Bool>, photoModel: Binding<PhotoModel> ,viewModel: CameraViewModel) {
         self._tookPicture = tookPicture
+        self._photoModel = photoModel
         self.viewModel = viewModel
     }
     
@@ -106,7 +108,7 @@ struct CameraRepresentable: UIViewControllerRepresentable {
             }
             
             do {
-                try parent.viewModel.captureImage(image: image) // Chama o método captureImage do ViewModel
+                parent.photoModel = try parent.viewModel.captureImage(image: image) // Chama o método captureImage do ViewModel
                 
             } catch {
                 print(error.localizedDescription)
