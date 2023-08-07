@@ -71,6 +71,7 @@ struct TextPreviewComponent: View {
                 //TODO: atualizar a view assim que deleta a ideia
                 //deletar
                 IdeaSaver.clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
+                self.ideasViewModel.resetDisposedData()
                 
             }
 

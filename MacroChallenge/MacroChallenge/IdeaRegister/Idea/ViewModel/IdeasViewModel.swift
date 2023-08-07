@@ -66,6 +66,12 @@ class IdeasViewModel: ObservableObject {
         self.disposedData = loadedData
     }
     
+    func resetDisposedData() {
+        self.reloadLoadedData()
+        self.filteredIdeas = self.loadedData
+        self.orderBy(byCreation: self.isSortedByCreation, sortedByAscendent: self.isSortedByAscendent)
+    }
+    
     var filteringIdeas: [any Idea] {
         if searchText.isEmpty {
             return disposedData
