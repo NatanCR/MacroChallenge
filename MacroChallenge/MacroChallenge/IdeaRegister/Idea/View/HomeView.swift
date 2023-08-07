@@ -15,7 +15,7 @@ struct HomeView: View {
     //quando for true altera para view de seleção de ideias
     @State var isAdding: Bool = false
     @FocusState private var searchInFocus: Bool
-    @State var scrollValue: Double = 10
+    @State var scrollValue: Double = 0
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -30,7 +30,8 @@ struct HomeView: View {
             ScrollView {
                 ZStack {
                     VStack {
-                        
+                        HomeNavigationBar(ideasVM: ideasViewModel)
+                            .scaleEffect(y: 1)
                         
                         SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
                         
@@ -73,16 +74,6 @@ struct HomeView: View {
                     }
                     .navigationTitle(isAdding ? "New folder" : "ideas")
                     .navigationBarTitleDisplayMode(isAdding ? .inline : .large)
-                    .safeAreaInset(edge: .top) {
-                        HStack {
-                            SearchBarComponent(ideasViewModel: ideasViewModel)
-                                .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                                .focused($searchInFocus)
-                            FilterComponent(ideasViewModel: ideasViewModel)
-                                .padding(.trailing)
-                        }
-                        .padding(.vertical)
-                    }
                     .background(Color("backgroundColor"))
                     .ignoresSafeArea(.keyboard)
                     .onAppear() {
@@ -110,7 +101,16 @@ struct HomeView: View {
                             .onTapGesture(perform: ideasViewModel.DismissKeyboard)
                     }
                 }
+                .background(GeometryReader { proxy -> Color in
+                    DispatchQueue.main.async {
+                        scrollValue = proxy.frame(in: .named("scroll")).origin.y
+                        print(scrollValue)
+                    }
+                    
+                    return Color.clear
+                })
             }
+            .coordinateSpace(name: "scroll")
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

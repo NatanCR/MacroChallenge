@@ -54,6 +54,7 @@
 		918C7DC52A27D00900C36A53 /* AudioReprodutionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918C7DC42A27D00900C36A53 /* AudioReprodutionComponent.swift */; };
 		918C7DC82A27EDB000C36A53 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918C7DC72A27EDB000C36A53 /* ColorHelper.swift */; };
 		918E6A132A40CA800017CF1B /* BackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918E6A122A40CA800017CF1B /* BackAction.swift */; };
+		91BE32BC2A81883D00B3A864 /* HomeNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BE32BB2A81883D00B3A864 /* HomeNavigationBar.swift */; };
 		91C237122A4CD91600C9208C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91C237142A4CD91600C9208C /* InfoPlist.strings */; };
 		91DB2B4E2A2A5FA300EC8176 /* ContentDirectoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DB2B4D2A2A5FA300EC8176 /* ContentDirectoryHelper.swift */; };
 		91EDECC92A424B2E008E5CAA /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC62A424B2E008E5CAA /* Sen-Bold.ttf */; };
@@ -146,6 +147,7 @@
 		918C7DC42A27D00900C36A53 /* AudioReprodutionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioReprodutionComponent.swift; sourceTree = "<group>"; };
 		918C7DC72A27EDB000C36A53 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		918E6A122A40CA800017CF1B /* BackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackAction.swift; sourceTree = "<group>"; };
+		91BE32BB2A81883D00B3A864 /* HomeNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationBar.swift; sourceTree = "<group>"; };
 		91C237132A4CD91600C9208C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		91C237152A4CD91900C9208C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		91DB2B4D2A2A5FA300EC8176 /* ContentDirectoryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDirectoryHelper.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				40EAF0FB2A572B53006E102F /* NewFolderComponent.swift */,
 				40EAF0FF2A5735BF006E102F /* SelectionButtonComponent.swift */,
 				40EAF1032A5767B7006E102F /* OverlayComponent.swift */,
+				91BE32BB2A81883D00B3A864 /* HomeNavigationBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 				40AAA7ED2A3103DE00943CBF /* SegmentedPickerComponent.swift in Sources */,
 				912811EE2A291D1300010872 /* CheckAudioView.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
+				91BE32BC2A81883D00B3A864 /* HomeNavigationBar.swift in Sources */,
 				40EAF1002A5735BF006E102F /* SelectionButtonComponent.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
