@@ -10,7 +10,6 @@ import SwiftUI
 struct TextPreviewComponent: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.screenSize) var screenSize
-    private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var text: String
     var title: String
     @Binding var idea: any Idea
@@ -32,7 +31,7 @@ struct TextPreviewComponent: View {
             ZStack{
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundColor(Color("backgroundItem"))
-                    .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
+                    .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                     .overlay(alignment: .topTrailing){
                         
                         OverlayComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText, isAdding: $isAdding)
@@ -58,14 +57,17 @@ struct TextPreviewComponent: View {
             }
             
             Text(title)
-                .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
-            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
-                .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
-            
+                .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
+            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!)
+                .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
+            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())! : idea.modifiedDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())!)
+                .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
             
         }
+        
         .confirmationDialog("delMsg", isPresented: $isAlertActive) {
             Button("delIdea", role: .destructive) {
                 //TODO: atualizar a view assim que deleta a ideia

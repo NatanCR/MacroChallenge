@@ -10,7 +10,6 @@ import SwiftUI
 //MARK: - AUDIO PREVIEW
 struct AudioPreviewComponent: View {
     @Environment(\.screenSize) var screenSize
-    private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var title: String
     @State var idea: any Idea
     @ObservedObject var ideasViewModel: IdeasViewModel
@@ -24,7 +23,7 @@ struct AudioPreviewComponent: View {
             ZStack{
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundColor(Color("backgroundItem"))
-                    .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
+                    .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                     .overlay(alignment: .topTrailing){
                         
                         OverlayComponent(type: AudioIdeia.self, text: "", idea: idea as! AudioIdeia, isAdding: $isAdding)
@@ -51,15 +50,17 @@ struct AudioPreviewComponent: View {
             }
 
             Text(title)
-                .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
-            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
-                .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
+                .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
+            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!)
+                .font(.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
+            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())! : idea.modifiedDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())!)
+                .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
         }
         .confirmationDialog("delMsg", isPresented: $isAlertActive) {
             Button("delIdea", role: .destructive) {
-                //TODO: atualizar a view assim que deleta a ideia
                 //deletar
                 IdeaSaver.clearOneIdea(type: AudioIdeia.self, idea: idea as! AudioIdeia)
                 

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ImagePreviewComponent: View {
     @Environment(\.screenSize) var screenSize
-    private let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     var image: UIImage
     var title: String
     @State var idea: any Idea
@@ -24,7 +23,7 @@ struct ImagePreviewComponent: View {
                 .resizable()
                 .scaledToFill()
                 .opacity(0.8)
-                .frame(width: screenSize.width * 0.29, height: screenSize.width * 0.29)
+                .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                 .cornerRadius(20)
                 .rotationEffect(.degrees(90))
                 .overlay(content: {
@@ -54,13 +53,14 @@ struct ImagePreviewComponent: View {
                 }
             
             Text(title)
-                .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
-                
-            
-            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
-                .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.02)
+                .font(Font.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
+            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!)
+                .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
+            Text(self.ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())! : idea.modifiedDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())!)
+                .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
         }
         
         .confirmationDialog("delMsg", isPresented: $isAlertActive) {

@@ -184,3 +184,5 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 "cancel" = "Cancelar";
 
 "openConfig" = "Abrir configurações";
+
+"hourFormat" = "HH:mm";

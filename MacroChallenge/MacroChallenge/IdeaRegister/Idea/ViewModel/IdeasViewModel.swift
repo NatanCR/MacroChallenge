@@ -28,6 +28,15 @@ class IdeasViewModel: ObservableObject {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
+    static func hourDateLanguageFormat() -> DateFormatter {
+        var formatter = DateFormatter()
+        if dateFormatter.locale.identifier == "en_PT" || dateFormatter.locale.identifier == "en_BR" {
+            return DateFormatter(format: "HH:mm")
+        } else {
+            return DateFormatter(format: "hh:mm a")
+        }
+    }
+    
     func orderBy(byCreation: Bool, sortedByAscendent: Bool) {
         DispatchQueue.main.async { [self] in
             self.isSortedByAscendent = sortedByAscendent

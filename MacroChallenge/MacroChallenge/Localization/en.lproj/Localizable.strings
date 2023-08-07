@@ -184,3 +184,5 @@ d) Use the application fraudulently or for illegal or unauthorized purposes.
 "cancel" = "Cancel";
 
 "openConfig" = "Open configurations";
+
+"hourFormat" = "hh:mm a";
