@@ -49,57 +49,61 @@ struct RecordAudioView: View {
     
     //MARK: - BODY
     var body: some View {
-        VStack {
-            if isAllowed {
-                // recording indicator
-                if self.isRecording {
-                    Text("record")
-                        .foregroundColor(Color("deleteColor"))
-                        .padding()
-                } else if (self.recorded) {
-                    HStack(alignment: .top) {
-                        AudioReprodutionComponent(audioManager: self.audioManager, audioURL: ContentDirectoryHelper.getDirectoryContent(contentPath: self.audioUrl!.lastPathComponent))
-                            .frame(maxHeight: screenSize.height * 0.05)
-                        
-                        Button {
-                            self.deleteAction()
+        VStack(alignment: .leading){
+            VStack(alignment: .center) {
+                if isAllowed {
+                    // recording indicator
+                    if self.isRecording {
+                        Text("record")
+                            .foregroundColor(Color("deleteColor"))
+                            .padding()
+                    } else if (self.recorded) {
+                        HStack(alignment: .top) {
+                            AudioReprodutionComponent(audioManager: self.audioManager, audioURL: ContentDirectoryHelper.getDirectoryContent(contentPath: self.audioUrl!.lastPathComponent))
+                                .frame(maxHeight: screenSize.height * 0.05)
                             
-    //                        self.recordAudio.deleteAllAudios()
-    //                        IdeaSaver.clearAll()
-                        } label: {
-                            Image(systemName: "trash.fill")
-                                .resizable()
-                                .foregroundColor(Color("deleteColor"))
-                                .frame(width: 23, height: 23)
-                        }
-                    }
-                    .padding()
-                }
-                
-                // record and stop button
-                Button {
-                    self.recordAction()
-                } label: {
-                    Image(systemName: self.isRecording ? "stop.fill" : "mic.badge.plus")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 23, height: 23)
-                }.disabled(self.recorded)
-                
-                TextEditor(text: $textComplete)
-                    .frame(maxWidth: screenSize.width, maxHeight: screenSize.height * 0.8, alignment: .topLeading)
-                    .focused($isFocused)
-                    .overlay {
-                        Text(self.textComplete.isEmpty ? "typeNote" : "")
-                            .multilineTextAlignment(.leading)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                            .padding(8)
-                            .foregroundColor(.gray)
-                            .onTapGesture {
-                                self.isFocused = true
+                            Button {
+                                self.deleteAction()
+                                
+                                //                        self.recordAudio.deleteAllAudios()
+                                //                        IdeaSaver.clearAll()
+                            } label: {
+                                Image(systemName: "trash.fill")
+                                    .resizable()
+                                    .foregroundColor(Color("deleteColor"))
+                                    .frame(width: 23, height: 23)
                             }
+                        }
+                        .padding()
                     }
-                    .padding()
+                    
+                    // record and stop button
+                    Button {
+                        self.recordAction()
+                    } label: {
+                        Image(systemName: self.isRecording ? "stop.fill" : "mic.badge.plus")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 23, height: 23)
+                    }.disabled(self.recorded)
+                    
+                    TextEditor(text: $textComplete)
+                        .frame(maxWidth: screenSize.width, maxHeight: screenSize.height * 0.8, alignment: .topLeading)
+                        .focused($isFocused)
+                        .overlay {
+                            Text(self.textComplete.isEmpty ? "typeNote" : "")
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                                .padding(8)
+                                .foregroundColor(.gray)
+                                .onTapGesture {
+                                    self.isFocused = true
+                                }
+                        }
+                        .padding()
+            }
+        }
+
                 if tagsArray.isEmpty {
                     Button{
                         self.showModal = true
@@ -117,7 +121,6 @@ struct RecordAudioView: View {
                 }
                     
                     
-            }
         }
         .sheet(isPresented: $showModal) {
             TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)

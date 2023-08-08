@@ -48,26 +48,30 @@ struct CheckAudioView: View {
     //MARK: - BODY
     var body: some View {
         
-        VStack (alignment: .center) {
-            IdeaDateTitleComponent(willBeByCreation: viewModel.isSortedByCreation, idea: idea)
-            AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
-                .frame(maxHeight: screenSize.height * 0.05)
-                .padding(.top, 70)
-                .padding(.bottom, 30)
+        VStack (alignment: .leading){
+            VStack(alignment: .center){
+                IdeaDateTitleComponent(willBeByCreation: viewModel.isSortedByCreation, idea: idea)
+                AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
+                    .frame(maxHeight: screenSize.height * 0.05)
+                    .padding(.top, 70)
+                    .padding(.bottom, 30)
+                
+                Text("note")
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.leading)
+                    .frame(width: screenSize.width * 0.9, alignment: .topLeading)
+                
+                TextEditor(text: $idea.textComplete)
+                    .font(.custom("Sen-Regular", size: 17))
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: screenSize.width * 0.95, maxHeight: screenSize.height * 0.8)
+                    .focused($isFocused)
+                    .overlay {
+                        PlaceholderComponent(idea: idea)
+                    }
+                
+            }
             
-            Text("note")
-                .fontWeight(.bold)
-                .multilineTextAlignment(.leading)
-                .frame(width: screenSize.width * 0.9, alignment: .topLeading)
-            
-            TextEditor(text: $idea.textComplete)
-                .font(.custom("Sen-Regular", size: 17))
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: screenSize.width * 0.95, maxHeight: screenSize.height * 0.8)
-                .focused($isFocused)
-                .overlay {
-                    PlaceholderComponent(idea: idea)
-                }
             
             
             VStack (alignment: .leading) {

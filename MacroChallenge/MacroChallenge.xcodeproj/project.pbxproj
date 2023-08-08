@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		401292872A40F155006DB4CF /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401292862A40F155006DB4CF /* SplashScreenView.swift */; };
+		4022B6402A7D819400E92A03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4022B63D2A7D819400E92A03 /* Sen-Regular.ttf */; };
+		4022B6412A7D819400E92A03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4022B63D2A7D819400E92A03 /* Sen-Regular.ttf */; };
+		4022B6422A7D819400E92A03 /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4022B63D2A7D819400E92A03 /* Sen-Regular.ttf */; };
+		4022B6432A7D819400E92A03 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4022B63E2A7D819400E92A03 /* Sen-ExtraBold.ttf */; };
+		4022B6442A7D819400E92A03 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4022B63E2A7D819400E92A03 /* Sen-ExtraBold.ttf */; };
+		4022B6452A7D819400E92A03 /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4022B63E2A7D819400E92A03 /* Sen-ExtraBold.ttf */; };
+		4022B6462A7D819400E92A03 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4022B63F2A7D819400E92A03 /* Sen-Bold.ttf */; };
+		4022B6472A7D819400E92A03 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4022B63F2A7D819400E92A03 /* Sen-Bold.ttf */; };
+		4022B6482A7D819400E92A03 /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4022B63F2A7D819400E92A03 /* Sen-Bold.ttf */; };
 		40497BAA2A31259900E6D3B5 /* ListRowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BA92A31259900E6D3B5 /* ListRowComponent.swift */; };
 		40497BAC2A32E5F600E6D3B5 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BAB2A32E5F600E6D3B5 /* InfoView.swift */; };
 		40497BAE2A32E68500E6D3B5 /* ButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */; };
@@ -56,15 +65,6 @@
 		918E6A132A40CA800017CF1B /* BackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918E6A122A40CA800017CF1B /* BackAction.swift */; };
 		91C237122A4CD91600C9208C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91C237142A4CD91600C9208C /* InfoPlist.strings */; };
 		91DB2B4E2A2A5FA300EC8176 /* ContentDirectoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DB2B4D2A2A5FA300EC8176 /* ContentDirectoryHelper.swift */; };
-		91EDECC92A424B2E008E5CAA /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC62A424B2E008E5CAA /* Sen-Bold.ttf */; };
-		91EDECCA2A424B2E008E5CAA /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC62A424B2E008E5CAA /* Sen-Bold.ttf */; };
-		91EDECCB2A424B2E008E5CAA /* Sen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC62A424B2E008E5CAA /* Sen-Bold.ttf */; };
-		91EDECCC2A424B2E008E5CAA /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC72A424B2E008E5CAA /* Sen-ExtraBold.ttf */; };
-		91EDECCD2A424B2E008E5CAA /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC72A424B2E008E5CAA /* Sen-ExtraBold.ttf */; };
-		91EDECCE2A424B2E008E5CAA /* Sen-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC72A424B2E008E5CAA /* Sen-ExtraBold.ttf */; };
-		91EDECCF2A424B2E008E5CAA /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC82A424B2E008E5CAA /* Sen-Regular.ttf */; };
-		91EDECD02A424B2E008E5CAA /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC82A424B2E008E5CAA /* Sen-Regular.ttf */; };
-		91EDECD12A424B2E008E5CAA /* Sen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91EDECC82A424B2E008E5CAA /* Sen-Regular.ttf */; };
 		D12495472A268A720063C634 /* MacroChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12495462A268A720063C634 /* MacroChallengeApp.swift */; };
 		D12495492A268A720063C634 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12495482A268A720063C634 /* ContentView.swift */; };
 		D124954B2A268A730063C634 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D124954A2A268A730063C634 /* Assets.xcassets */; };
@@ -106,6 +106,9 @@
 
 /* Begin PBXFileReference section */
 		401292862A40F155006DB4CF /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		4022B63D2A7D819400E92A03 /* Sen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-Regular.ttf"; sourceTree = "<group>"; };
+		4022B63E2A7D819400E92A03 /* Sen-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-ExtraBold.ttf"; sourceTree = "<group>"; };
+		4022B63F2A7D819400E92A03 /* Sen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sen-Bold.ttf"; sourceTree = "<group>"; };
 		40497BA92A31259900E6D3B5 /* ListRowComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowComponent.swift; sourceTree = "<group>"; };
 		40497BAB2A32E5F600E6D3B5 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonComponent.swift; sourceTree = "<group>"; };
@@ -150,9 +153,6 @@
 		91C237132A4CD91600C9208C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		91C237152A4CD91900C9208C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		91DB2B4D2A2A5FA300EC8176 /* ContentDirectoryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDirectoryHelper.swift; sourceTree = "<group>"; };
-		91EDECC62A424B2E008E5CAA /* Sen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Bold.ttf"; path = "MacroChallenge/Fonts/Sen-Bold.ttf"; sourceTree = SOURCE_ROOT; };
-		91EDECC72A424B2E008E5CAA /* Sen-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-ExtraBold.ttf"; path = "MacroChallenge/Fonts/Sen-ExtraBold.ttf"; sourceTree = SOURCE_ROOT; };
-		91EDECC82A424B2E008E5CAA /* Sen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Sen-Regular.ttf"; path = "MacroChallenge/Fonts/Sen-Regular.ttf"; sourceTree = SOURCE_ROOT; };
 		D12495432A268A720063C634 /* MacroChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12495462A268A720063C634 /* MacroChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroChallengeApp.swift; sourceTree = "<group>"; };
 		D12495482A268A720063C634 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -279,9 +279,9 @@
 		4097FDEE2A2FC59F001EAB03 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				91EDECC62A424B2E008E5CAA /* Sen-Bold.ttf */,
-				91EDECC72A424B2E008E5CAA /* Sen-ExtraBold.ttf */,
-				91EDECC82A424B2E008E5CAA /* Sen-Regular.ttf */,
+				4022B63F2A7D819400E92A03 /* Sen-Bold.ttf */,
+				4022B63E2A7D819400E92A03 /* Sen-ExtraBold.ttf */,
+				4022B63D2A7D819400E92A03 /* Sen-Regular.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -673,11 +673,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91EDECCF2A424B2E008E5CAA /* Sen-Regular.ttf in Resources */,
+				4022B6402A7D819400E92A03 /* Sen-Regular.ttf in Resources */,
+				4022B6462A7D819400E92A03 /* Sen-Bold.ttf in Resources */,
+				4022B6432A7D819400E92A03 /* Sen-ExtraBold.ttf in Resources */,
 				91C237122A4CD91600C9208C /* InfoPlist.strings in Resources */,
-				91EDECC92A424B2E008E5CAA /* Sen-Bold.ttf in Resources */,
 				D153ACD32A3CDE9600DE9A79 /* Localizable.strings in Resources */,
-				91EDECCC2A424B2E008E5CAA /* Sen-ExtraBold.ttf in Resources */,
 				D124954E2A268A730063C634 /* Preview Assets.xcassets in Resources */,
 				D124954B2A268A730063C634 /* Assets.xcassets in Resources */,
 			);
@@ -687,9 +687,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91EDECD02A424B2E008E5CAA /* Sen-Regular.ttf in Resources */,
-				91EDECCA2A424B2E008E5CAA /* Sen-Bold.ttf in Resources */,
-				91EDECCD2A424B2E008E5CAA /* Sen-ExtraBold.ttf in Resources */,
+				4022B6412A7D819400E92A03 /* Sen-Regular.ttf in Resources */,
+				4022B6442A7D819400E92A03 /* Sen-ExtraBold.ttf in Resources */,
+				4022B6472A7D819400E92A03 /* Sen-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,9 +697,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91EDECD12A424B2E008E5CAA /* Sen-Regular.ttf in Resources */,
-				91EDECCB2A424B2E008E5CAA /* Sen-Bold.ttf in Resources */,
-				91EDECCE2A424B2E008E5CAA /* Sen-ExtraBold.ttf in Resources */,
+				4022B6422A7D819400E92A03 /* Sen-Regular.ttf in Resources */,
+				4022B6452A7D819400E92A03 /* Sen-ExtraBold.ttf in Resources */,
+				4022B6482A7D819400E92A03 /* Sen-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -957,7 +957,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 66824UF4JS;
+				DEVELOPMENT_TEAM = 7UT3KQHPCK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
@@ -991,7 +991,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 66824UF4JS;
+				DEVELOPMENT_TEAM = 7UT3KQHPCK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
