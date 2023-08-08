@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SearchBarComponent: View {    
     @State var searchText: String = String()
@@ -45,5 +46,60 @@ struct SearchBarComponent: View {
         }
         
         self.ideasViewModel.searchText = self.searchText
+    }
+}
+
+struct NavigationSearchController: UIViewControllerRepresentable {
+    typealias UIViewControllerType = Wrapper
+    
+    //MARK: - FUNCs
+    func makeCoordinator() -> Coordinator {
+        Coordinator(representable: self)
+    }
+    
+    func makeUIViewController(context: Context) -> Wrapper {
+        Wrapper()
+    }
+    
+    func updateUIViewController(_ wrapper: Wrapper, context: Context) {
+        wrapper.searchController = context.coordinator.searchController
+    }
+    
+    //MARK: - COORDINATOR
+    class Coordinator : NSObject, UISearchResultsUpdating {
+        let representable: NavigationSearchController
+        let searchController: UISearchController
+        
+        init(representable: NavigationSearchController) {
+            self.representable = representable
+            self.searchController = UISearchController(searchResultsController: nil)
+            super.init()
+            
+            // Set up search bar properties
+            searchController.searchResultsUpdater = self
+            searchController.searchBar.placeholder = "Search"
+            searchController.searchBar.searchBarStyle = .default
+        }
+        
+        func updateSearchResults(for searchController: UISearchController) {
+            print("update search")
+        }
+    }
+    
+    //MARK: - WRAPPER
+    class Wrapper : UIViewController {
+        var searchController : UISearchController? {
+            get {
+                self.parent?.navigationItem.searchController
+            }
+            set {
+                self.parent?.navigationItem.searchController = newValue
+            }
+        }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            searchController?.isActive = true
+        }
     }
 }

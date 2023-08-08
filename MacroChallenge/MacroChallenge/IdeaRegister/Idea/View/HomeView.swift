@@ -31,7 +31,6 @@ struct HomeView: View {
                 ZStack {
                     VStack {
                         HomeNavigationBar(ideasVM: ideasViewModel)
-                            .scaleEffect(y: 1)
                         
                         SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
                         
@@ -72,9 +71,7 @@ struct HomeView: View {
                                 }
                             }
                     }
-                    .navigationTitle(isAdding ? "New folder" : "ideas")
-                    .navigationBarTitleDisplayMode(isAdding ? .inline : .large)
-                    .background(Color("backgroundColor"))
+                    // nav tava aqui
                     .ignoresSafeArea(.keyboard)
                     .onAppear() {
                         self.appearInitialization()
@@ -101,16 +98,20 @@ struct HomeView: View {
                             .onTapGesture(perform: ideasViewModel.DismissKeyboard)
                     }
                 }
-                .background(GeometryReader { proxy -> Color in
-                    DispatchQueue.main.async {
-                        scrollValue = proxy.frame(in: .named("scroll")).origin.y
-                        print(scrollValue)
-                    }
-                    
-                    return Color.clear
-                })
+//                .background(GeometryReader { proxy -> Color in
+//                    DispatchQueue.main.async {
+//                        scrollValue = proxy.frame(in: .named("scroll")).origin.y
+//                        print(scrollValue)
+//                    }
+//
+//                    return Color.clear
+//                })
             }
             .coordinateSpace(name: "scroll")
+            .background(Color("backgroundColor"))
+            .navigationTitle(isAdding ? "New folder" : "ideas")
+            .navigationBarTitleDisplayMode(isAdding ? .inline : .large)
+            .overlay(NavigationSearchController().frame(width: 0, height: 0))
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
