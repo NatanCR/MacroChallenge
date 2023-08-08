@@ -88,6 +88,7 @@ struct PhotoIdeaView: View {
                         }.padding(.horizontal)
                     }
             }
+            .frame(width: screenSize.width, height: screenSize.height * 0.95, alignment: .top)
             .sheet(isPresented: $showSheet) {
                 TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
             }

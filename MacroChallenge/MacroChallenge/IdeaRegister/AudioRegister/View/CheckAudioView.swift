@@ -53,8 +53,7 @@ struct CheckAudioView: View {
                 IdeaDateTitleComponent(willBeByCreation: viewModel.isSortedByCreation, idea: idea)
                 AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
                     .frame(maxHeight: screenSize.height * 0.05)
-                    .padding(.top, 70)
-                    .padding(.bottom, 30)
+                    .padding(.vertical, 30)
                 
                 Text("note")
                     .fontWeight(.bold)
@@ -86,6 +85,7 @@ struct CheckAudioView: View {
                 }
             }
         }
+        .frame(width: screenSize.width, height: screenSize.height * 0.95, alignment: .top)
         .sheet(isPresented: $showSheet, content: {
             TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
         })
