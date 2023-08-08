@@ -46,7 +46,7 @@ struct EditRegisterView: View {
                         self.showSheet = true
                     } label: {
                         Image("tag_icon")
-                    }
+                    }.padding(.vertical)
                 } else {
                     Button {
                         //envio as tags que ja existem na ideia para a sheet viu exibir pro usuário
@@ -54,7 +54,7 @@ struct EditRegisterView: View {
                         self.showSheet = true
                     } label: {
                         IdeaTagViewerComponent(idea: modelText)
-                    }
+                    }.padding(.vertical)
                 }
             }
         }

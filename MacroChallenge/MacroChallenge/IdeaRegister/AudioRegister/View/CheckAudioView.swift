@@ -71,23 +71,18 @@ struct CheckAudioView: View {
                     }
                 
             }
-            
-            
-            
-            VStack (alignment: .leading) {
-                if idea.tag!.isEmpty {
-                    Button {
-                        self.showSheet = true
-                    } label: {
-                        Image("tag_icon")
-                    }
-                } else {
-                    Button {
-                        self.tagsArray = idea.tag ?? []
-                        self.showSheet = true
-                    } label: {
-                        IdeaTagViewerComponent(idea: idea)
-                    }
+            if idea.tag!.isEmpty {
+                Button {
+                    self.showSheet = true
+                } label: {
+                    Image("tag_icon")
+                }
+            } else {
+                Button {
+                    self.tagsArray = idea.tag ?? []
+                    self.showSheet = true
+                } label: {
+                    IdeaTagViewerComponent(idea: idea)
                 }
             }
         }
@@ -124,7 +119,6 @@ struct CheckAudioView: View {
                 if isFocused{
                     Button{
                         isFocused = false
-                        saveIdea(newTags: self.tagsArray)
                     } label: {
                         Text("OK")
                     }

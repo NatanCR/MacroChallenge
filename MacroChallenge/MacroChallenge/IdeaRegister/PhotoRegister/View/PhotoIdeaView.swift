@@ -72,13 +72,12 @@ struct PhotoIdeaView: View {
                         }
                     
                 }
-                //TODO: adicionar tag aqui
                 if photoModel.tag!.isEmpty {
                         Button {
                             self.showSheet = true
                         } label: {
                             Image("tag_icon")
-                        }
+                        }.padding(.horizontal)
                     } else {
                         Button {
                             //envio as tags que ja existem na ideia para a sheet viu exibir pro usuário
@@ -86,7 +85,7 @@ struct PhotoIdeaView: View {
                             self.showSheet = true
                         } label: {
                             IdeaTagViewerComponent(idea: photoModel)
-                        }
+                        }.padding(.horizontal)
                     }
             }
             .sheet(isPresented: $showSheet) {
