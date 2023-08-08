@@ -48,8 +48,8 @@ struct CheckAudioView: View {
     //MARK: - BODY
     var body: some View {
         
-        VStack (alignment: .center){
-            
+        VStack (alignment: .center) {
+            IdeaDateTitleComponent(willBeByCreation: viewModel.isSortedByCreation, idea: idea)
             AudioReprodutionComponent(audioManager: self.audioManager, audioURL: self.audioUrl)
                 .frame(maxHeight: screenSize.height * 0.05)
                 .padding(.top, 70)
@@ -69,27 +69,30 @@ struct CheckAudioView: View {
                     PlaceholderComponent(idea: idea)
                 }
             
-            if idea.tag!.isEmpty {
-                Button {
-                    self.showSheet = true
-                } label: {
-                    Image("tag_icon")
-                }
-            } else {
-                Button {
-                    self.tagsArray = idea.tag ?? []
-                    self.showSheet = true
-                } label: {
-                    IdeaTagViewerComponent(idea: idea)
+            
+            VStack (alignment: .leading) {
+                if idea.tag!.isEmpty {
+                    Button {
+                        self.showSheet = true
+                    } label: {
+                        Image("tag_icon")
+                    }
+                } else {
+                    Button {
+                        self.tagsArray = idea.tag ?? []
+                        self.showSheet = true
+                    } label: {
+                        IdeaTagViewerComponent(idea: idea)
+                    }
                 }
             }
         }
         .sheet(isPresented: $showSheet, content: {
             TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
         })
-        .navigationTitle(Text(text) + Text(idea.creationDate.toString(dateFormatter: self.dateFormatter)!))
-        .navigationBarTitleDisplayMode(.large)
+        
         .onChange(of: idea.textComplete) { newValue in
+            self.tagsArray = idea.tag ?? []
             saveIdea(newTags: self.tagsArray)
         }
         .onChange(of: showSheet, perform: { newValue in
@@ -104,7 +107,7 @@ struct CheckAudioView: View {
             viewModel.tagsFiltered = viewModel.tagsLoadedData
         }
         .navigationBarBackButtonHidden()
-        
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             
             //menu de favoritar e excluir

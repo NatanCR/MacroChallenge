@@ -155,6 +155,10 @@ d) Use the application fraudulently or for illegal or unauthorized purposes.
 
 "addTag" = "Add a new tag";
 
+"ideaCreate" = "Created:";
+
+"ideaEdit" = "Edited:";
+
 //MARK: Alerts
 
 "denied" = "Permission denied";

@@ -155,6 +155,10 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 
 "addTag" = "Adicione uma tag";
 
+"ideaCreate" = "Criado em:";
+
+"ideaEdit" = "Editado em:";
+
 //MARK: Alerts
 
 "denied" = "Permissão negada";

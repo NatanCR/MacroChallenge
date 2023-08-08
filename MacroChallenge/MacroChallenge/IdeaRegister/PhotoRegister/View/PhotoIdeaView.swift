@@ -37,9 +37,8 @@ struct PhotoIdeaView: View {
     var body: some View {
         if let uiImage = UIImage(contentsOfFile: photoURL!.path) {
             
-            VStack (alignment: .center){
-                
-                
+            VStack (alignment: .center) {
+                IdeaDateTitleComponent(willBeByCreation: viewModel.isSortedByCreation, idea: photoModel)
                 Image(uiImage: uiImage)
                     .resizable()
                     .cornerRadius(25)
@@ -57,21 +56,27 @@ struct PhotoIdeaView: View {
                         PlaceholderComponent(idea: photoModel)
                     }
                     .padding(9)
-                if photoModel.tag!.isEmpty {
-                    Button {
-                        self.showSheet = true
-                    } label: {
-                        Image("tag_icon")
+                
+                VStack (alignment: .leading) {
+                    
+                    if photoModel.tag!.isEmpty {
+                        Button {
+                            self.showSheet = true
+                        } label: {
+                            Image("tag_icon")
+                        }
+                    } else {
+                        Button {
+                            //envio as tags que ja existem na ideia para a sheet viu exibir pro usuário
+                            self.tagsArray = photoModel.tag ?? []
+                            self.showSheet = true
+                        } label: {
+                            IdeaTagViewerComponent(idea: photoModel)
+                        }
                     }
-                } else {
-                    Button {
-                        //envio as tags que ja existem na ideia para a sheet viu exibir pro usuário
-                        self.tagsArray = photoModel.tag ?? []
-                        self.showSheet = true
-                    } label: {
-                        IdeaTagViewerComponent(idea: photoModel)
-                    }
+                    
                 }
+                
             }
             .sheet(isPresented: $showSheet) {
                 TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
@@ -100,8 +105,7 @@ struct PhotoIdeaView: View {
                     }
                 }
             })
-            .navigationTitle(Text(text) + Text(photoModel.creationDate.toString(dateFormatter: self.dateFormatter)!))
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem (placement: .navigationBarTrailing){

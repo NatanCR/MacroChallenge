@@ -11,10 +11,6 @@ struct EditRegisterView: View {
     // config
     @Environment(\.dismiss) private var dismiss
     @Environment(\.screenSize) private var screenSize
-    // title
-    private let text: LocalizedStringKey = "ideaDay"
-    @State var itsBySorted: Bool = true
-    @State var willBeByCreation: Bool
     // idea
     @State var modelText: ModelText
     // text
@@ -25,41 +21,15 @@ struct EditRegisterView: View {
     // view model functions and arrays
     @ObservedObject var viewModel: IdeasViewModel
     
-    init(modelText: ModelText, viewModel: IdeasViewModel, titleDateFormat: Bool) {
+    init(modelText: ModelText, viewModel: IdeasViewModel) {
         self._modelText = State(initialValue: modelText)
         self.viewModel = viewModel
-        self._willBeByCreation = State(initialValue: titleDateFormat)
     }
     
     
     var body: some View {
         VStack(alignment: .center) {
-            Button {
-                self.itsBySorted = false
-                if !itsBySorted {
-                    self.willBeByCreation.toggle()
-                }
-            } label: {
-                if itsBySorted {
-                    HStack {
-                        Text(self.viewModel.isSortedByCreation ? "Criado em: " : "Editado em: ")
-                        Text(self.viewModel.isSortedByCreation ? modelText.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)! : modelText.modifiedDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!)
-                        Text(self.viewModel.isSortedByCreation ? modelText.creationDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())! : modelText.modifiedDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())!)
-                    }
-                } else {
-                    if !self.willBeByCreation {
-                        //edicao
-                            Text("Editado em: ")
-                            Text(modelText.modifiedDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!)
-                            Text(modelText.modifiedDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())!)
-                    } else {
-                        //criacao
-                        Text("Criado em: ")
-                        Text(modelText.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!)
-                        Text(modelText.creationDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())!)
-                    }
-                }
-            }
+            IdeaDateTitleComponent(willBeByCreation: viewModel.isSortedByCreation, idea: modelText)
             VStack(alignment: .leading) {
                 
                 TextEditor(text: $modelText.textComplete)
@@ -114,8 +84,6 @@ struct EditRegisterView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
-        //        .navigationTitle(Text(text) + Text(modelText.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!))
-        //        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 MenuEditComponent(type: ModelText.self, idea: $modelText)
