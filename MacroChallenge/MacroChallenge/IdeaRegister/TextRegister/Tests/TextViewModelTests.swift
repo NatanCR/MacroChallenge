@@ -42,7 +42,7 @@ final class TextViewModelTests: XCTestCase {
                         Descricao
                         """
         
-        var audioIdea = AudioIdeia(title: "", description: "", textComplete: complete, creationDate: Date(), modifiedDate: Date(), audioPath: "")
+        var audioIdea = AudioIdea(title: "", description: "", textComplete: complete, creationDate: Date(), modifiedDate: Date(), audioPath: "")
         var textIdea = ModelText(title: "", creationDate: Date(), modifiedDate: Date(), description: "", textComplete: complete)
         var photoIdea = PhotoModel(title: "", description: "", textComplete: complete, creationDate: Date(), modifiedDate: Date(), capturedImages: [])
         

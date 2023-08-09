@@ -26,13 +26,13 @@ struct AudioPreviewComponent: View {
                     .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                     .overlay(alignment: .topTrailing){
                         
-                        OverlayComponent(type: AudioIdeia.self, text: "", idea: idea as! AudioIdeia, isAdding: $isAdding)
+                        OverlayComponent(type: AudioIdea.self, text: "", idea: idea as! AudioIdea, isAdding: $isAdding)
                         .padding(8)
                     }
                 
                 VStack{
                     
-                    PlayPreviewComponent(audioManager: self.audioManager, idea: idea as! AudioIdeia)
+                    PlayPreviewComponent(audioManager: self.audioManager, idea: idea as! AudioIdea)
                 }
             }
             .padding(.bottom, 5)
@@ -62,10 +62,10 @@ struct AudioPreviewComponent: View {
         .confirmationDialog("delMsg", isPresented: $isAlertActive) {
             Button("delIdea", role: .destructive) {
                 //deletar
-                IdeaSaver.clearOneIdea(type: AudioIdeia.self, idea: idea as! AudioIdeia)
+                IdeaSaver.clearOneIdea(type: AudioIdea.self, idea: idea as! AudioIdea)
                 self.ideasViewModel.resetDisposedData()
                 
-                if let audioIdea = idea as? AudioIdeia {
+                if let audioIdea = idea as? AudioIdea {
                     ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: audioIdea.audioPath)
                 }
 
@@ -89,7 +89,7 @@ struct PlayPreviewComponent: View {
     
     // instances
     let audioManager: AudioManager
-    let idea: AudioIdeia
+    let idea: AudioIdea
     
     // receivers
     private let sliderTime = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
@@ -97,7 +97,7 @@ struct PlayPreviewComponent: View {
     private let playedAnotherAudioNotification = NotificationCenter.default.publisher(for: NSNotification.Name("PlayedAnotherAudio"))
     
     //MARK: - INIT
-    init(audioManager: AudioManager, idea: AudioIdeia) {
+    init(audioManager: AudioManager, idea: AudioIdea) {
         self.audioManager = audioManager
         self.idea = idea
         

@@ -119,8 +119,15 @@ struct PhotoIdeaView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .toolbar {
-                ToolbarItem (placement: .navigationBarTrailing){
-                    MenuEditComponent(type: PhotoModel.self, idea: self.$photoModel)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if !isFocused {
+                        ButtonFavoriteComponent(type: PhotoModel.self, idea: $photoModel.wrappedValue)
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if !isFocused {
+                        DeleteIdeaComponent(idea: $photoModel, type: PhotoModel.self)
+                    }
                 }
                 
                 ToolbarItem (placement: .navigationBarTrailing){

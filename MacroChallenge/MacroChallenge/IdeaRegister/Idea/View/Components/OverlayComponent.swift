@@ -18,7 +18,7 @@ struct OverlayComponent<T: Idea>: View {
         if isAdding{
             SelectionButtonComponent(type: type.self, idea: idea.self)
         } else {
-            ButtonFavoriteComponent(type: type.self, text: text, idea: idea.self)
+            ButtonFavoriteComponent(type: type.self, idea: idea.self, text: text)
         }
     }
 }

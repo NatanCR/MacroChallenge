@@ -12,6 +12,12 @@ struct ButtonFavoriteComponent<T: Idea>: View {
     var text: String
     @State var idea: T
     
+    init(type: T.Type, idea: T, text: String = String()) {
+        self.type = type
+        self.text = text
+        self._idea = State(initialValue: idea)
+    }
+    
     //MARK: - BODY
     var body: some View {
         Button{
