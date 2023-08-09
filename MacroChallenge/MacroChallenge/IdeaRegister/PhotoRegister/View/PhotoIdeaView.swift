@@ -77,7 +77,7 @@ struct PhotoIdeaView: View {
                             self.showSheet = true
                         } label: {
                             Image("tag_icon")
-                        }.padding(.horizontal)
+                        }.padding()
                     } else {
                         Button {
                             //envio as tags que ja existem na ideia para a sheet viu exibir pro usuário
@@ -85,7 +85,7 @@ struct PhotoIdeaView: View {
                             self.showSheet = true
                         } label: {
                             IdeaTagViewerComponent(idea: photoModel)
-                        }.padding(.horizontal)
+                        }.padding()
                     }
             }
             .frame(width: screenSize.width, height: screenSize.height * 0.95, alignment: .top)

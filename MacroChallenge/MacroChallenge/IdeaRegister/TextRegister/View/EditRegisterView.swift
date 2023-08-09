@@ -54,6 +54,7 @@ struct EditRegisterView: View {
                         self.showSheet = true
                     } label: {
                         IdeaTagViewerComponent(idea: modelText)
+//                        HorizontalTagScrollComponent(ideaTags: modelText.tag ?? self.tagsArray, activeSheet: $showSheet)
                     }.padding(.vertical)
                 }
             }

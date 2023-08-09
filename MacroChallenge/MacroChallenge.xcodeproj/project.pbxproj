@@ -85,6 +85,7 @@
 		D19B4FEF2A82B3290042440D /* IdeaDateTitleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */; };
 		D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */; };
 		D1ECF5382A421A2600631333 /* ButtonFavoriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */; };
+		D1F5ADF82A84244700942C8D /* HorizontalTagScrollComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F5ADF72A84244700942C8D /* HorizontalTagScrollComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +178,7 @@
 		D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaDateTitleComponent.swift; sourceTree = "<group>"; };
 		D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteIdeaSpec.swift; sourceTree = "<group>"; };
 		D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFavoriteComponent.swift; sourceTree = "<group>"; };
+		D1F5ADF72A84244700942C8D /* HorizontalTagScrollComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTagScrollComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +238,7 @@
 				D189F12E2A5C983C009F6488 /* IdeaTagViewerComponent.swift */,
 				D189F12C2A5C7A07009F6488 /* TagLabelComponent.swift */,
 				4074E0442A5611C400C5A46E /* TagComponent.swift */,
+				D1F5ADF72A84244700942C8D /* HorizontalTagScrollComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -735,6 +738,7 @@
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				40EAF1002A5735BF006E102F /* SelectionButtonComponent.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
+				D1F5ADF82A84244700942C8D /* HorizontalTagScrollComponent.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
 				D19B4FEF2A82B3290042440D /* IdeaDateTitleComponent.swift in Sources */,
 				4085CBAB2A30106A00DAC6CA /* ToolbarComponent.swift in Sources */,
@@ -957,7 +961,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = V32Q5HA7F8;
+				DEVELOPMENT_TEAM = 66824UF4JS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
@@ -991,7 +995,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = V32Q5HA7F8;
+				DEVELOPMENT_TEAM = 66824UF4JS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;

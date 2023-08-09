@@ -68,8 +68,7 @@ struct TagComponent: View {
             }
             
         } label: {
-            // definindo se a tag terá borda de acordo com sua variavel isActive
-            if tag.wrappedValue.isTagSelected {
+            // definindo se a tag terá background de acordo com sua variavel isActive
                 TagLabelComponent(tagName: tag.wrappedValue.name, isSelected: tag.wrappedValue.isTagSelected)
 
                 //Deletar
@@ -84,7 +83,8 @@ struct TagComponent: View {
                                 IdeaSaver.clearOneTag(tag: tag.wrappedValue)
                             }
                             
-                            allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
+                            self.tagArraySelected.remove(at: getIndex(tag: tag.wrappedValue))
+                            self.allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
                         } label: {
                             HStack{
                                 Text("Delete")
@@ -92,29 +92,6 @@ struct TagComponent: View {
                             }
                         }
                     }
-            } else {
-                TagLabelComponent(tagName: tag.wrappedValue.name, isSelected: tag.wrappedValue.isTagSelected)
-                //Deletar
-                    .contentShape(Capsule())
-                    .contextMenu {
-                        Button(role: .destructive){
-                            IdeaSaver.removeTagFromIdeas(tagToRemove: tag.wrappedValue)
-                            
-                            if allTags.count <= 1 {
-                                IdeaSaver.clearUniqueTag()
-                            } else {
-                                IdeaSaver.clearOneTag(tag: tag.wrappedValue)
-                            }
-                            
-                            allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
-                        } label: {
-                            HStack{
-                                Text("Delete")
-                                Image(systemName: "trash.fill")
-                            }
-                        }
-                    }
-            }
         }
     }
     
