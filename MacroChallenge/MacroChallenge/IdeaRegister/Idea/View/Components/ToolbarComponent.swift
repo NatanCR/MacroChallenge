@@ -39,7 +39,7 @@ struct ToolbarComponent: View {
                 TextRegisterView(ideasViewModel: ideasViewModel)
             } label: {
                 Image(systemName: "square.and.pencil")
-            }.padding()
+            }
             
             NavigationLink("", destination: PhotoIdeaView(photoModel: photoModel, viewModel: ideasViewModel), isActive: $tookPicture)
         }

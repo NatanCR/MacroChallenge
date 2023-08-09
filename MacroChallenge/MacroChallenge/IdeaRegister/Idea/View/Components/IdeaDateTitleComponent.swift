@@ -39,6 +39,8 @@ struct IdeaDateTitleComponent<T: Idea>: View {
                 }
             }
         }.font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
+            .foregroundColor(Color("labelColor"))
+            .opacity(0.8)
     }
 }
 
