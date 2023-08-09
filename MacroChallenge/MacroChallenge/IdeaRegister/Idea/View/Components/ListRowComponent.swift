@@ -66,6 +66,8 @@ struct ListRowComponent: View {
                 case .photo:
                     IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: idea as! PhotoModel)
                 }
+                self.ideasViewModel.resetDisposedData()
+                
             } label: {
                 Image(systemName: "trash.fill")
             }

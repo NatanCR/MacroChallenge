@@ -144,6 +144,12 @@ class IdeasViewModel: ObservableObject {
         }
     }
     
+    func resetDisposedData() {
+        self.reloadLoadedData()
+        self.filteredIdeas = self.loadedData
+        self.orderBy(byCreation: self.isSortedByCreation, sortedByAscendent: self.isSortedByAscendent)
+    }
+    
     /**Função para formatar e devolver uma tag estruturada para adicionar no banco de dados**/
     func addTag(text: String, color: String) -> Tag {
         

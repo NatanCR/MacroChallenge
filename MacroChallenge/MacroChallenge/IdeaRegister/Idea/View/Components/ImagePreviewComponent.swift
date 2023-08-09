@@ -68,6 +68,7 @@ struct ImagePreviewComponent: View {
                 //TODO: atualizar a view assim que deleta a ideia
                 //deletar
                 IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: idea as! PhotoModel)
+                self.ideasViewModel.resetDisposedData()
                 
                 if let photoIdea = idea as? PhotoModel {
                     ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: photoIdea.capturedImages)
