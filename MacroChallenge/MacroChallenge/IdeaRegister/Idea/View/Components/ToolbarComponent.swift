@@ -10,23 +10,22 @@ import SwiftUI
 struct ToolbarComponent: View {
     
     @ObservedObject var ideasViewModel: IdeasViewModel
-    var photoModel: PhotoModel
+    @State var photoModel: PhotoModel = PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: "", tag: [])
+    @State var tookPicture: Bool = false
     
     init(ideasViewModel: IdeasViewModel) {
         self.ideasViewModel = ideasViewModel
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileName = UUID().uuidString + ".png"
-        let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        let lastComponent = fileURL.lastPathComponent
-        self.photoModel = PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: lastComponent, tag: [])
     }
+    
     var body: some View {
         HStack{
-            
-            NavigationLink{
-                InsertPhotoIdeaView(ideasViewModel: ideasViewModel, photoModel: photoModel)
+            Button {
+                ideasViewModel.isShowingCamera = true
             } label: {
                 Image(systemName: "camera.fill")
+            }
+            .fullScreenCover(isPresented: $ideasViewModel.isShowingCamera) {
+                CameraRepresentable(tookPicture: $tookPicture, photoModel: $photoModel, viewModel: ideasViewModel.cameraViewModel)
             }
             .padding()
             Spacer()
@@ -41,6 +40,8 @@ struct ToolbarComponent: View {
             } label: {
                 Image(systemName: "square.and.pencil")
             }.padding()
+            
+            NavigationLink("", destination: PhotoIdeaView(photoModel: photoModel, viewModel: ideasViewModel), isActive: $tookPicture)
         }
     }
 }

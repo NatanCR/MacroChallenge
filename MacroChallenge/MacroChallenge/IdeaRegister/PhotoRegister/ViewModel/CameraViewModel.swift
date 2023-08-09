@@ -11,7 +11,7 @@ import AVFoundation
 
 class CameraViewModel: ObservableObject {
     
-    func captureImage(image: UIImage) throws {
+    func captureImage(image: UIImage) throws -> PhotoModel{
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileName = UUID().uuidString + ".png"
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
@@ -30,6 +30,8 @@ class CameraViewModel: ObservableObject {
         do {
             let photoModel = try PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: lastComponent, tag: [])
             IdeaSaver.savePhotoIdea(idea: photoModel)
+            
+            return photoModel
         } catch PhotoModelError.imageSaveError(let error) {
             print("Erro ao salvar a imagem: \(error)")
         } catch PhotoModelError.invalidImageData {
