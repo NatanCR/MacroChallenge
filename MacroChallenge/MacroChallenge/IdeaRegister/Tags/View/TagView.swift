@@ -16,53 +16,21 @@ struct TagView: View {
     @State private var thatTagExist: Bool = false
     
     var body: some View {
-        VStack {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color("labelColor"))
-                .frame(width: screenSize.width * 0.5, height: screenSize.height * 0.005)
-            Text("Tags")
-                .font(.custom("Sen-Bold", size: 30))
-                .frame (maxWidth: .infinity, alignment:
-                        .leading)
-                .padding(.vertical)
-            HStack{
-                //Text Field
-                TextField("addTag", text: $tagName, onCommit: {
-                    self.tagName = self.tagName.trimmingCharacters(in: .whitespaces)
-                    
-                    if tagName.isEmpty {
-                       print("esta vazio")
-                    } else {
-                        self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
-                        if !thatTagExist {
-                            viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
-                        }
-                    }
-                })
-                .onSubmit {
-                    self.tagName = ""
-                }
-                //realize a busca da tag 
-                .onChange(of: tagName, perform: { _ in
-                    self.resetSearchTag(false)
-                    self.viewModel.tagsFiltered = viewModel.updateSelectedTags(allTags: viewModel.filteringTags, tagSelected: self.tagsArrayReceived)
-                })
-                .font(.custom("Sen-Regular", size: 17))
-                .foregroundColor(Color("labelColor"))
-                .padding(.vertical, 12)
-                .padding(.horizontal)
-                
-                .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .strokeBorder(Color("labelColor").opacity(0.5), lineWidth: 1)
-                )
-                .focused($isFocused)
-                
-                //mostra o botão de adicionar quando clica no text field
-                if isFocused{
-                    Button{
-                        //adicionando tags
+        GeometryReader { proxy in
+            VStack {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color("labelColor"))
+                    .frame(width: screenSize.width * 0.5, height: screenSize.height * 0.005)
+                Text("Tags")
+                    .font(.custom("Sen-Bold", size: 30))
+                    .frame (maxWidth: .infinity, alignment:
+                            .leading)
+                    .padding(.vertical)
+                HStack{
+                    //Text Field
+                    TextField("addTag", text: $tagName, onCommit: {
                         self.tagName = self.tagName.trimmingCharacters(in: .whitespaces)
+                        
                         if tagName.isEmpty {
                            print("esta vazio")
                         } else {
@@ -71,41 +39,76 @@ struct TagView: View {
                                 viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
                             }
                         }
-                        
-                        tagName = ""
-                        isFocused = false
-                    } label: {
-                        Image(systemName: "arrow.right.circle.fill")
-                            .font(.system(size: 30))
+                    })
+                    .onSubmit {
+                        self.tagName = ""
                     }
+                    //realize a busca da tag
+                    .onChange(of: tagName, perform: { _ in
+                        self.resetSearchTag(false)
+                        self.viewModel.tagsFiltered = viewModel.updateSelectedTags(allTags: viewModel.filteringTags, tagSelected: self.tagsArrayReceived)
+                    })
+                    .font(.custom("Sen-Regular", size: 17))
+                    .foregroundColor(Color("labelColor"))
+                    .padding(.vertical, 12)
+                    .padding(.horizontal)
                     
-                    //desabilitando botão quando o text field estiver vazio
-                    .disabled(tagName == "")
-                    .opacity (tagName == "" ? 0.6 : 1)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .strokeBorder(Color("labelColor").opacity(0.5), lineWidth: 1)
+                    )
+                    .focused($isFocused)
+                    
+                    //mostra o botão de adicionar quando clica no text field
+                    if isFocused{
+                        Button{
+                            //adicionando tags
+                            self.tagName = self.tagName.trimmingCharacters(in: .whitespaces)
+                            if tagName.isEmpty {
+                               print("esta vazio")
+                            } else {
+                                self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
+                                if !thatTagExist {
+                                    viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
+                                }
+                            }
+                            
+                            tagName = ""
+                            isFocused = false
+                        } label: {
+                            Image(systemName: "arrow.right.circle.fill")
+                                .font(.system(size: 30))
+                        }
+                        
+                        //desabilitando botão quando o text field estiver vazio
+                        .disabled(tagName == "")
+                        .opacity (tagName == "" ? 0.6 : 1)
+                    }
                 }
+                
+                //Lista de tag
+                TagComponent(allTags: $viewModel.tagsFiltered, tagArraySelected: $tagsArrayReceived, viewModel: viewModel)
+                    .padding(.top, 20)
             }
-            
-            //Lista de tag
-            TagComponent(allTags: $viewModel.tagsFiltered, tagArraySelected: $tagsArrayReceived, viewModel: viewModel)
-                .padding(.top, 20)
-        }
-        .onAppear {
-            self.resetSearchTag()
-        }
-        .padding(15)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Color("backgroundColor"))
-        .onTapGesture {
-            isFocused = false
-        }
-        .alert("sameTag", isPresented: $thatTagExist, actions: {
-            Button(role: .cancel) {
-            } label: {
-                Text("OK")
+            .onAppear {
+                self.resetSearchTag()
             }
-        }, message: {
-            Text("msgTag")
-        })
+            .padding(15)
+            .frame(maxWidth: proxy.size.width, maxHeight: proxy.size.height, alignment: .top)
+            .background(Color("backgroundColor"))
+            .onTapGesture {
+                isFocused = false
+            }
+            .alert("sameTag", isPresented: $thatTagExist, actions: {
+                Button(role: .cancel) {
+                } label: {
+                    Text("OK")
+                }
+            }, message: {
+                Text("msgTag")
+            })
+        }
+        
     }
     
     private func resetSearchTag(_ clearTag: Bool = true) {
