@@ -14,36 +14,36 @@ struct TagComponent: View {
     @ObservedObject var viewModel: IdeasViewModel
     
     var body: some View {
-        
-        VStack(alignment: .leading){
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 10) {
-                    //apresentando as tags
-                    ForEach(getRows(), id: \.self) { rows in
-                        
-                        HStack(spacing: 8) {
-                            // lendo e exibindo o array de todas as tags
-                            ForEach(rows, id: \.id) { tag in
-                                RowView(tag: $allTags[getIndex(tag: tag, allTags: true)])
+        GeometryReader { proxy in
+            VStack(alignment: .leading){
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 10) {
+                        //apresentando as tags
+                        ForEach(getRows(), id: \.self) { rows in
+                            
+                            HStack(spacing: 8) {
+                                // lendo e exibindo o array de todas as tags
+                                ForEach(rows, id: \.id) { tag in
+                                    RowView(tag: $allTags[getIndex(tag: tag, allTags: true)])
+                                }
                             }
+                            .frame(width: proxy.size.width * 0.9, alignment: .leading)
+                            .padding(.horizontal, 5)
                         }
-                        .frame(width: screenSize.width * 0.9, alignment: .leading)
-                        .padding(.horizontal, 5)
                     }
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
             }
+            .onAppear{
+                //função para comparar as tags que ja existem e coloca-las com borda no array usado com all tags
+                self.allTags = viewModel.updateSelectedTags(allTags: self.allTags, tagSelected: self.tagArraySelected)
+            }
+            .onChange(of: self.allTags.count, perform: { newValue in
+                self.allTags = viewModel.updateSelectedTags(allTags: self.allTags, tagSelected: self.tagArraySelected)
+            })
+            .frame(width: screenSize.width * 0.9, alignment: .leading)
+            .animation(.easeInOut, value: allTags)
         }
-        .onAppear{
-            //função para comparar as tags que ja existem e coloca-las com borda no array usado com all tags
-            self.allTags = viewModel.updateSelectedTags(allTags: self.allTags, tagSelected: self.tagArraySelected)
-        }
-        .onChange(of: self.allTags.count, perform: { newValue in
-            self.allTags = viewModel.updateSelectedTags(allTags: self.allTags, tagSelected: self.tagArraySelected)
-        })
-        .frame(width: screenSize.width * 0.9, alignment: .leading)
-        .animation(.easeInOut, value: allTags)
-        
     }
     
     @ViewBuilder
