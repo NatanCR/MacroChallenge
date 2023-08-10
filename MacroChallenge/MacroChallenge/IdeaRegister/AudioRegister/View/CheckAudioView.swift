@@ -80,7 +80,6 @@ struct CheckAudioView: View {
                     self.tagsArray = idea.tag ?? []
                     self.showSheet = true
                 } label: {
-//                    IdeaTagViewerComponent(idea: idea)
                     HorizontalTagScrollComponent(idea: idea)
                 }.padding(.vertical)
             }
