@@ -23,58 +23,58 @@
 "about" = "About";
 
 "aboutText"= "
-    Welcome to Ideeo, your space to capture and organize all your brilliant ideas!
+Welcome to Ideeo, your space to capture and organize all your brilliant ideas!
 
-    Ideeo was created with the purpose of helping you turn your ideas into reality. We know that the best ideas often come when we least expect them, which is why we've designed this intuitive and easy-to-use tool so you never miss a single idea.
+Ideeo was created with the purpose of helping you turn your ideas into reality. We know that the best ideas often come when we least expect them, which is why we've designed this intuitive and easy-to-use tool so you never miss a single idea.
              
-    With Ideeo, you can record your ideas anytime, anywhere. Whether it's a business concept, design inspiration, or even an idea for a book, Ideeo is your reliable companion to store everything in one place.
+With Ideeo, you can record your ideas anytime, anywhere. Whether it's a business concept, design inspiration, or even an idea for a book, Ideeo is your reliable companion to store everything in one place.
              
-    We understand that inspiration can come in many ways, so we've built a versatile tool that allows you to capture your ideas in audio, photos, and text, with the option to add detailed descriptions.
+We understand that inspiration can come in many ways, so we've built a versatile tool that allows you to capture your ideas in audio, photos, and text, with the option to add detailed descriptions.
              
-    Contact Us:
-    If you have any questions or suggestions, please contact us through the following e-mail: ideeoapp@gmail.com
+Contact Us:
+If you have any questions or suggestions, please contact us through the following e-mail: ideeoapp@gmail.com
                             
-    Thank you for using our Ideeo App.
+Thank you for using our Ideeo App.
              ";
 
 "privacy" = "Privacy policy";
 
 "privacyText"= "
-    This Privacy Policy describes how our iOS application for idea registration, Ideeo App, collects, uses, stores, and protects user information. By using our application, you agree to the practices described in this policy.
+This Privacy Policy describes how our iOS application for idea registration, Ideeo App, collects, uses, stores, and protects user information. By using our application, you agree to the practices described in this policy.
 
-    Information Collection:
+Information Collection:
 * Our application allows you to register your ideas through text, audio, and photos.
 * To record audio, we request permission to access your device's audio recorder.
 * To capture photos, we request permission to access your device's camera.
 * However, we want to clarify that we do not collect, store, or transmit any personally identifiable user data.
 * All audio recordings and photos are stored exclusively on the user's device, under the user's full control.
                
-    Information Usage:
+Information Usage:
 * The information you register, such as text, audio, and photos, is only used within the application to enable you to view and manage your ideas.
 * We do not use this information for personal identification, marketing, or sharing with third parties.
                
-    Information Security:
+Information Security:
 * We take the security of your data very seriously.
 * All audio recordings and photos remain stored locally on your device.
 * We recommend that you keep your device password-protected or use authentication features to ensure the security of the stored information.
                
-    Information Sharing:
+Information Sharing:
 * We do not share any information within the application with third parties.
 * All your ideas, including text, audio, and photos, are strictly confidential and can only be accessed by you on your device.
                
-    Changes to the Privacy Policy:
-    This Privacy Policy may be updated from time to time. Any changes to this policy will be reflected on this page, and the date of the last update will be modified at the top of this page. If the user continues to use the Ideeo App after any changes to the Privacy Policy, it indicates that the user accepts the changes.
+Changes to the Privacy Policy:
+This Privacy Policy may be updated from time to time. Any changes to this policy will be reflected on this page, and the date of the last update will be modified at the top of this page. If the user continues to use the Ideeo App after any changes to the Privacy Policy, it indicates that the user accepts the changes.
 
-    Contact Us:
-    If you have any questions or suggestions regarding our Privacy Policy, please contact us through the following e-mail: ideeoapp@gmail.com
+Contact Us:
+If you have any questions or suggestions regarding our Privacy Policy, please contact us through the following e-mail: ideeoapp@gmail.com
                
-    Thank you for using our Ideeo App.
+Thank you for using our Ideeo App.
                ";
 
 "terms" = "User terms";
 
 "termsText" = "
-    Welcome to Ideeo App. By using our application, you agree to comply with these Terms of Use. Please read them carefully before using the application.
+Welcome to Ideeo App. By using our application, you agree to comply with these Terms of Use. Please read them carefully before using the application.
 
 1 Use of the Application:
 1.1 Ideeo App is exclusively intended for idea registration through text, audio, and photos.
@@ -105,10 +105,10 @@ d) Use the application fraudulently or for illegal or unauthorized purposes.
 6.2 If any provision of these Terms of Use is deemed invalid or unenforceable, the remaining provisions shall remain in full force and effect.
 6.3 These Terms of Use shall be governed and interpreted in accordance with the laws of your country of residence.
 
-    Contact Us:
-    If you have any questions or suggestions regarding our Terms of Use, please contact us through the following e-mail: ideeoapp@gmail.com
+Contact Us:
+If you have any questions or suggestions regarding our Terms of Use, please contact us through the following e-mail: ideeoapp@gmail.com
               
-    Thank you for using Ideeo App.
+Thank you for using Ideeo App.
               ";
 
 //MARK: Search, Order and Filter

@@ -47,7 +47,7 @@ struct InfoText: View {
                 VStack (alignment: .leading){
                     Text(LocalizedStringKey(infoText))
                         .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                        .frame(width: screenSize.width * 0.9, alignment: .topLeading)
+                        .frame(maxWidth: screenSize.width * 0.9, maxHeight: .infinity, alignment: .leading)
                         .foregroundColor(Color("labelColor"))
                 }
                 .navigationTitle(LocalizedStringKey(infoTitle))
