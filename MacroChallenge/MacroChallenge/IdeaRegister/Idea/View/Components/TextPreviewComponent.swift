@@ -41,7 +41,7 @@ struct TextPreviewComponent: View {
                 Text(text)
                     .foregroundColor(Color("labelColor"))
                     .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
-                    .frame(width: screenSize.width * 0.25, height: screenSize.width * 0.15)
+                    .frame(width: screenSize.width * 0.22, height: screenSize.width * 0.15)
                 
             }
             .padding(.bottom, 5)
