@@ -17,7 +17,7 @@ struct NewFolderComponent: View {
             
             Button{
                 isAdding = true
-                print("ta passando aqui")
+//                print("ta passando aqui")
             } label: {
                 HStack{
                     Image(systemName: "folder.badge.plus")

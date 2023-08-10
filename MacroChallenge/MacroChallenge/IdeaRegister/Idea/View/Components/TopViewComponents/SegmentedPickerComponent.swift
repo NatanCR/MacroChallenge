@@ -44,7 +44,7 @@ struct SegmentedPickerComponent: View {
                     
                     Spacer()
 //                    if isAdding == false{
-//                        NewFolderComponent(isAdding: $isAdding)
+                        NewFolderComponent(isAdding: $isAdding)
 //                    }
                 }
             }else{

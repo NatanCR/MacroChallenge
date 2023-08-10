@@ -141,7 +141,7 @@ struct HomeGridView: View {
     let audioManager: AudioManager
     @Binding var isAdding: Bool
     @Environment(\.screenSize) var screenSize
-    
+    @State var selectedIdeas: [any Idea] = []
     
     //MARK: - GRID BODY
     var body: some View{
@@ -159,7 +159,7 @@ struct HomeGridView: View {
                     if ideasViewModel.favoriteIdeas.count != 0 {
                         //modo de expansão da grid de favoritos
                         DisclosureGroup(isExpanded: $ideasViewModel.revealSectionDetails) {
-                            GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas)
+                            GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas, selectedIdeas: $selectedIdeas)
                                 .padding(.bottom)
                         } label: {
                             Text("fav")
@@ -174,7 +174,7 @@ struct HomeGridView: View {
                         Text("week")
                             .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("labelColor"))
-                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.weekIdeas)
+                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.weekIdeas, selectedIdeas: $selectedIdeas)
                             .padding(.bottom)
                     }
                     
@@ -184,7 +184,7 @@ struct HomeGridView: View {
                             .foregroundColor(Color("labelColor"))
                             .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
                             .padding(.bottom)
-                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas)
+                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas, selectedIdeas: $selectedIdeas)
                     }
                 }.padding()
             }

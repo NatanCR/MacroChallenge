@@ -15,6 +15,7 @@ struct ImagePreviewComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State private var isAlertActive: Bool = false
     @Binding var isAdding: Bool
+    @Binding var selectedIdeas: [any Idea]
 
     
     var body: some View {
@@ -35,8 +36,9 @@ struct ImagePreviewComponent: View {
                 })
                 .overlay(alignment: .topTrailing){
 
-                    OverlayComponent(type: PhotoModel.self, text: "", idea: idea as! PhotoModel, isAdding: $isAdding, viewModel: ideasViewModel)
-                    .padding(8)
+
+                    OverlayComponent(type: PhotoModel.self, text: "", idea: idea as! PhotoModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, ideasViewModel: ideasViewModel)
+                        .padding(8)
                 }
                 .padding(.bottom, 5)
             

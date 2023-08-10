@@ -15,6 +15,7 @@ struct AudioPreviewComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State private var isAlertActive: Bool = false
     let audioManager: AudioManager
+    @Binding var selectedIdeas: [any Idea]
     
     @Binding var isAdding: Bool
     
@@ -26,8 +27,8 @@ struct AudioPreviewComponent: View {
                     .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                     .overlay(alignment: .topTrailing){
                         
-                        OverlayComponent(type: AudioIdea.self, text: "", idea: idea as! AudioIdea, isAdding: $isAdding, viewModel: ideasViewModel)
-                        .padding(8)
+                        OverlayComponent(type: AudioIdea.self, text: "", idea: idea as! AudioIdea, isAdding: $isAdding, selectedIdeas: $selectedIdeas, ideasViewModel: ideasViewModel)
+                            .padding(8)
                     }
                 
                 VStack{
