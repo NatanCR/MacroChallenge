@@ -11,12 +11,13 @@ struct OverlayComponent<T: Idea>: View {
     var type: T.Type
     var text: String
     @State var idea: T
-    @State var isSelected: Bool = false
+//    @State var isSelected: Bool = false
     @Binding var isAdding: Bool
+    @Binding var selectedIdeas: [any Idea]
     
     var body: some View {
         if isAdding{
-            SelectionButtonComponent(type: type.self, idea: idea.self)
+            SelectionButtonComponent(type: type.self, idea: idea.self, selectedIdeas: $selectedIdeas)
         } else {
             ButtonFavoriteComponent(type: type.self, idea: idea.self, text: text)
         }

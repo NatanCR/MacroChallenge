@@ -16,14 +16,16 @@ struct TextPreviewComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State private var isAlertActive: Bool = false
     @Binding var isAdding: Bool
+    @Binding var selectedIdeas: [any Idea]
 
     
-    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>) {
+    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>, selectedIdeas: Binding<[any Idea]>) {
         self.text = text
         self.title = title
         self._idea = idea
         self.ideasViewModel = ideasViewModel
         self._isAdding = isAdding
+        self._selectedIdeas = selectedIdeas
     }
     
     var body: some View {
@@ -34,7 +36,7 @@ struct TextPreviewComponent: View {
                     .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                     .overlay(alignment: .topTrailing){
                         
-                        OverlayComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText, isAdding: $isAdding)
+                        OverlayComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                                 .padding(8)
                     }
                 

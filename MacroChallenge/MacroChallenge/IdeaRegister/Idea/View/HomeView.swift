@@ -123,6 +123,7 @@ struct HomeGridView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     let audioManager: AudioManager
     @Binding var isAdding: Bool
+    @State var selectedIdeas: [any Idea] = []
     
     let columns = [
         GridItem(.flexible()),
@@ -136,24 +137,36 @@ struct HomeGridView: View {
         ScrollView{
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    NavigationLink {
-                        switch ideas.ideiaType {
-                        case .text:
-                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
-                        case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
-                        case .photo:
-                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
+                    if isAdding == false {
+                        NavigationLink {
+                            switch ideas.ideiaType {
+                            case .text:
+                                EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
+                            case .audio:
+                                CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
+                            case .photo:
+                                PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
+                            }
+                        } label: {
+                            switch ideas.ideiaType {
+                            case .text:
+                                TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                            case .audio:
+                                AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isAdding: $isAdding)
+                            case .photo:
+                                let photoIdea = ideas as! PhotoModel
+                                ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                            }
                         }
-                    } label: {
+                    } else {
                         switch ideas.ideiaType {
                         case .text:
-                            TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding)
+                            TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                         case .audio:
-                            AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
+                            AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isAdding: $isAdding)
                         case .photo:
                             let photoIdea = ideas as! PhotoModel
-                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding)
+                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                         }
                     }
                 }
