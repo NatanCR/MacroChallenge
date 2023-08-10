@@ -46,18 +46,19 @@ struct EditRegisterView: View {
                         self.showSheet = true
                     } label: {
                         Image("tag_icon")
-                    }.padding(.vertical)
+                    }
                 } else {
                     Button {
                         //envio as tags que ja existem na ideia para a sheet viu exibir pro usuário
                         self.tagsArray = modelText.tag ?? []
                         self.showSheet = true
                     } label: {
-                        IdeaTagViewerComponent(idea: modelText)
-//                        HorizontalTagScrollComponent(ideaTags: modelText.tag ?? self.tagsArray, activeSheet: $showSheet)
-                    }.padding(.vertical)
+//                        IdeaTagViewerComponent(idea: modelText)
+                        HorizontalTagScrollComponent(idea: modelText)
+                    }
                 }
             }
+            .padding()
         }
         //frame para usar o tamanho inteiro da tela
         .frame(width: screenSize.width, height: screenSize.height * 0.95, alignment: .top)
@@ -81,6 +82,7 @@ struct EditRegisterView: View {
         })
         
         .onAppear {
+            self.showSheet = false
             viewModel.tagsFiltered = viewModel.tagsLoadedData
         }
         .navigationBarBackButtonHidden()

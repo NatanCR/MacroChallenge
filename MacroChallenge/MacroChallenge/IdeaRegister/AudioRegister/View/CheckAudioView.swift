@@ -68,21 +68,21 @@ struct CheckAudioView: View {
                     .overlay {
                         PlaceholderComponent(idea: idea)
                     }
-                
             }
             if idea.tag!.isEmpty {
                 Button {
                     self.showSheet = true
                 } label: {
                     Image("tag_icon")
-                }
+                }.padding(.vertical)
             } else {
                 Button {
                     self.tagsArray = idea.tag ?? []
                     self.showSheet = true
                 } label: {
-                    IdeaTagViewerComponent(idea: idea)
-                }
+//                    IdeaTagViewerComponent(idea: idea)
+                    HorizontalTagScrollComponent(idea: idea)
+                }.padding(.vertical)
             }
         }
         .frame(width: screenSize.width, height: screenSize.height * 0.95, alignment: .top)

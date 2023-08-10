@@ -7,24 +7,33 @@
 
 import SwiftUI
 
-struct HorizontalTagScrollComponent: View {
-    @Environment(\.screenSize) private var screenSize
-    @State var ideaTags: [Tag]
-    @Binding var activeSheet: Bool
+struct HorizontalTagScrollComponent<T: Idea>: View {
+    @Environment(\.screenSize) var screenSize
+    var idea: T
     
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 10) {
-                ForEach(ideaTags, id: \.self) { tag in
-                    Button {
-                        self.activeSheet = true
-                    } label: {
-                        TagLabelComponent(tagName: tag.name, isSelected: tag.isTagSelected)
+        ZStack(alignment: .trailing) {
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 5) {
+                        ForEach(idea.tag ?? [], id: \.self) { tag in
+                            TagLabelComponent(tagName: tag.name, isSelected: tag.isTagSelected)
+                        }
                     }
-//                    .frame(width: screenSize.width * 0.7, height: screenSize.height * 0.7)
-                }
             }
+            Rectangle()
+                .fill(LinearGradient(
+                    stops: [
+                    Gradient.Stop(color: Color("backgroundColor"), location: 0.00),
+                    Gradient.Stop(color: Color("backgroundColor").opacity(0), location: 1.00),
+                    ],
+                    startPoint: UnitPoint(x: 1, y: 0.5),
+                    endPoint: UnitPoint(x: 0, y: 0.5)
+                    ))
+                .frame(width: 30, height: 38)
+
         }
+       
     }
 }
 

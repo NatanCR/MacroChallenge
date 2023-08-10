@@ -21,7 +21,7 @@ struct HomeView: View {
     init(){
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "Sen-Bold", size: 30)!]
         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: "Sen-Bold", size: 17)!]
-    }
+        }
     
     //MARK: - HOME BODY
     var body: some View {
