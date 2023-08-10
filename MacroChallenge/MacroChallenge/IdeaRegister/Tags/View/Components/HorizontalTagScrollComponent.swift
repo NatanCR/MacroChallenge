@@ -30,7 +30,7 @@ struct HorizontalTagScrollComponent<T: Idea>: View {
                         startPoint: UnitPoint(x: 1, y: 0.5),
                         endPoint: UnitPoint(x: 0, y: 0.5)
                         ))
-                    .frame(width: screenSize.width * 0.1, height: screenSize.height * 0.05)
+                    .frame(width: screenSize.width * 0.1, height: screenSize.height * 0.06)
             }
     }
 }
