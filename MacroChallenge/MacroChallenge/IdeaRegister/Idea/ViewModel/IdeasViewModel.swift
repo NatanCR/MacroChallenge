@@ -29,7 +29,7 @@ class IdeasViewModel: ObservableObject {
     }
     
     static func hourDateLanguageFormat() -> DateFormatter {
-        if dateFormatter.locale.identifier == "en_PT" || dateFormatter.locale.identifier == "en_BR" {
+        if dateFormatter.locale.identifier == "pt_BR" || dateFormatter.locale.identifier == "en_BR" {
             return DateFormatter(format: "HH:mm")
         } else {
             return DateFormatter(format: "hh:mm a")
