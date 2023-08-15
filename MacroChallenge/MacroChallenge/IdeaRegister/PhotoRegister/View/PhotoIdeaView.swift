@@ -84,7 +84,7 @@ struct PhotoIdeaView: View {
                             self.tagsArray = photoModel.tag ?? []
                             self.showSheet = true
                         } label: {
-                            HorizontalTagScrollComponent(idea: photoModel)
+                            HorizontalTagScrollComponent(tags: photoModel.tag ?? tagsArray)
                         }.padding()
                     }
             }
