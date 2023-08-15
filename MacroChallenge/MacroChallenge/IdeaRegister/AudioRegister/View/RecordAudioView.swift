@@ -115,7 +115,7 @@ struct RecordAudioView: View {
                     Button {
                         self.showModal = true
                     } label: {
-                        IdeaTagViewerComponent(idea: AudioIdea(title: textTitle, description: textDescription, textComplete: textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: self.tagsArray))
+                        HorizontalTagScrollComponent(tags: tagsArray)
                     }
 
                 }
