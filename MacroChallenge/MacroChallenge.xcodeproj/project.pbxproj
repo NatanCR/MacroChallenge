@@ -88,6 +88,7 @@
 		D1ECF5382A421A2600631333 /* ButtonFavoriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */; };
 		D1F5ADF82A84244700942C8D /* HorizontalTagScrollComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F5ADF72A84244700942C8D /* HorizontalTagScrollComponent.swift */; };
 		D1F5ADFA2A8EBCA700942C8D /* GridViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F5ADF92A8EBCA700942C8D /* GridViewComponent.swift */; };
+		D1F5ADFC2A8EBF9F00942C8D /* ListViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F5ADFB2A8EBF9F00942C8D /* ListViewComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +184,7 @@
 		D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFavoriteComponent.swift; sourceTree = "<group>"; };
 		D1F5ADF72A84244700942C8D /* HorizontalTagScrollComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTagScrollComponent.swift; sourceTree = "<group>"; };
 		D1F5ADF92A8EBCA700942C8D /* GridViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewComponent.swift; sourceTree = "<group>"; };
+		D1F5ADFB2A8EBF9F00942C8D /* ListViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +283,7 @@
 				D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */,
 				919C0C392A7D743A007F358F /* DeleteIdeaComponent.swift */,
 				D1F5ADF92A8EBCA700942C8D /* GridViewComponent.swift */,
+				D1F5ADFB2A8EBF9F00942C8D /* ListViewComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 				40AAA7ED2A3103DE00943CBF /* SegmentedPickerComponent.swift in Sources */,
 				912811EE2A291D1300010872 /* CheckAudioView.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
+				D1F5ADFC2A8EBF9F00942C8D /* ListViewComponent.swift in Sources */,
 				40EAF1002A5735BF006E102F /* SelectionButtonComponent.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D1F5ADF82A84244700942C8D /* HorizontalTagScrollComponent.swift in Sources */,
