@@ -23,6 +23,7 @@ class IdeasViewModel: ObservableObject {
     @Published var tagsLoadedData: [Tag] = IdeaSaver.getAllSavedTags()
     @Published var tagsFiltered: [Tag] = IdeaSaver.getAllSavedTags()
     static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
+    @Published var favoriteIdeas: [any Idea] = []
     
     func DismissKeyboard(){
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -75,6 +76,18 @@ class IdeasViewModel: ObservableObject {
         self.loadedData = IdeaSaver.getAllSavedIdeas()
         self.disposedData = loadedData
     }
+    
+    var filteringFavoriteIdeas: [any Idea] {
+        return self.filteredIdeas.filter { idea in
+            return idea.isFavorite == true
+        }
+    }
+    
+//    func filteringFavoriteIdeas() {
+//        self.favoriteIdeas = self.filteredIdeas.filter({ idea in
+//            return idea.isFavorite == true
+//        })
+//    }
     
     var filteringTags: [Tag] {
         if searchTag.isEmpty {
@@ -167,7 +180,7 @@ class IdeasViewModel: ObservableObject {
         // Cria uma cópia do array allTags
         var updatedTags = allTags
         
-        // Itera sobre as tags presentes em tagArraySelected
+        // Itera sobre as tags presentes em tagSelected
         for selectedTag in tagSelected {
             // Verifica se a tag selecionada está presente em allTags
             if let index = updatedTags.firstIndex(where: { $0.id == selectedTag.id }) {
@@ -179,16 +192,15 @@ class IdeasViewModel: ObservableObject {
         return updatedTags
     }
     
+    /**Função que verifica se a tag que esta sendo registrada ja existe**/
     func verifyExistTags(newTagName: String) -> Bool {
         for tag in self.tagsLoadedData {
             if tag.name == newTagName {
-                print("nome igual")
                 return true
             } else {
-                print("ainda nao existe")
+                
             }
         }
-        print("ta retornando falso")
         return false
     }
     

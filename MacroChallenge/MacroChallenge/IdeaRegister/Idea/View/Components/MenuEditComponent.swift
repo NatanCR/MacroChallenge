@@ -16,7 +16,6 @@ struct MenuEditComponent<T: Idea>: View {
     var body: some View {
         
         Menu{
-            //TODO: aplicar ação de favoritar e trocar o ícone para "heart.fill" quando estiver favoritado
             ButtonFavoriteComponent(type: type, idea: $idea.wrappedValue)
             
             Divider()

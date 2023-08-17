@@ -24,6 +24,7 @@ struct ButtonFavoriteComponent<T: Idea>: View {
             self.getIdea()
             idea.isFavorite.toggle()
             IdeaSaver.changeSavedValue(type: type, idea: idea)
+            
         } label: {
             HStack {
                 Text(LocalizedStringKey(text))
