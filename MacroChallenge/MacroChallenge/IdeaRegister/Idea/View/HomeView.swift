@@ -21,7 +21,7 @@ struct HomeView: View {
     init(){
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "Sen-Bold", size: 30)!]
         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: "Sen-Bold", size: 17)!]
-        }
+    }
     
     //MARK: - HOME BODY
     var body: some View {
@@ -85,6 +85,7 @@ struct HomeView: View {
                     self.appearInitialization()
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
+                    ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas
                 }
                 //atualizando a view quando fechar a camera
                 .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
@@ -132,34 +133,13 @@ struct HomeGridView: View {
     
     //MARK: - GRID BODY
     var body: some View{
-        
-        ScrollView{
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    NavigationLink {
-                        switch ideas.ideiaType {
-                        case .text:
-                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
-                        case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
-                        case .photo:
-                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
-                        }
-                    } label: {
-                        switch ideas.ideiaType {
-                        case .text:
-                            TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding)
-                        case .audio:
-                            AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
-                        case .photo:
-                            let photoIdea = ideas as! PhotoModel
-                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding)
-                        }
-                    }
-                }
-            }.padding()
+        VStack {
+            GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideas: $ideasViewModel.favoriteIdeas)
+            ScrollView{
+                GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideas: $ideasViewModel.filteredIdeas)
+                    .padding()
+            }
         }
-        
     }
 }
 
