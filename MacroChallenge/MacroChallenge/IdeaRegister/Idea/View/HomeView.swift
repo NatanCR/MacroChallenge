@@ -124,15 +124,24 @@ struct HomeGridView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     let audioManager: AudioManager
     @Binding var isAdding: Bool
+    @Environment(\.screenSize) var screenSize
     
     //MARK: - GRID BODY
     var body: some View{
-        VStack {
-            GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideasType: $ideasViewModel.favoriteIdeas)
-            ScrollView{
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text("Favorite")
+                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                    .frame(maxWidth: screenSize.width * 0.22, maxHeight: screenSize.height * 0.015)
+                    .padding(.bottom)
+                GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideasType: $ideasViewModel.favoriteIdeas)
+                    .padding(.bottom)
+                Text("All")
+                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                    .frame(maxWidth: screenSize.width * 0.1, maxHeight: screenSize.height * 0.015)
+                    .padding(.bottom)
                 GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideasType: $ideasViewModel.filteredIdeas)
-                    .padding()
-            }
+            }.padding()
         }
     }
 }
