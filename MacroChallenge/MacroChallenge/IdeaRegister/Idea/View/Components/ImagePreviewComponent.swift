@@ -35,7 +35,7 @@ struct ImagePreviewComponent: View {
                 })
                 .overlay(alignment: .topTrailing){
 
-                    OverlayComponent(type: PhotoModel.self, text: "", idea: idea as! PhotoModel, isAdding: $isAdding)
+                    OverlayComponent(type: PhotoModel.self, text: "", idea: idea as! PhotoModel, isAdding: $isAdding, viewModel: ideasViewModel)
                     .padding(8)
                 }
                 .padding(.bottom, 5)

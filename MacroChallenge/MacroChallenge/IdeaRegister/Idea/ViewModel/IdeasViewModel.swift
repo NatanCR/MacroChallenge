@@ -72,22 +72,16 @@ class IdeasViewModel: ObservableObject {
         
     }
     
-    func reloadLoadedData() {
-        self.loadedData = IdeaSaver.getAllSavedIdeas()
-        self.disposedData = loadedData
-    }
-    
     var filteringFavoriteIdeas: [any Idea] {
         return self.filteredIdeas.filter { idea in
             return idea.isFavorite == true
         }
     }
     
-//    func filteringFavoriteIdeas() {
-//        self.favoriteIdeas = self.filteredIdeas.filter({ idea in
-//            return idea.isFavorite == true
-//        })
-//    }
+    func updateFavoriteSectionIdeas() {
+        resetDisposedData()
+        self.favoriteIdeas = self.filteringFavoriteIdeas
+    }
     
     var filteringTags: [Tag] {
         if searchTag.isEmpty {
@@ -154,6 +148,11 @@ class IdeasViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func reloadLoadedData() {
+        self.loadedData = IdeaSaver.getAllSavedIdeas()
+        self.disposedData = loadedData
     }
     
     func resetDisposedData() {

@@ -11,11 +11,13 @@ struct ButtonFavoriteComponent<T: Idea>: View {
     var type: T.Type
     var text: String
     @State var idea: T
+    @ObservedObject var viewModel: IdeasViewModel
     
-    init(type: T.Type, idea: T, text: String = String()) {
+    init(type: T.Type, idea: T, text: String = String(), viewModel: IdeasViewModel) {
         self.type = type
         self.text = text
         self._idea = State(initialValue: idea)
+        self.viewModel = viewModel
     }
     
     //MARK: - BODY
@@ -24,7 +26,7 @@ struct ButtonFavoriteComponent<T: Idea>: View {
             self.getIdea()
             idea.isFavorite.toggle()
             IdeaSaver.changeSavedValue(type: type, idea: idea)
-            
+            viewModel.updateFavoriteSectionIdeas()
         } label: {
             HStack {
                 Text(LocalizedStringKey(text))

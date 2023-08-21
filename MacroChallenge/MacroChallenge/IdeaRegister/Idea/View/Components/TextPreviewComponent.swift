@@ -34,7 +34,7 @@ struct TextPreviewComponent: View {
                     .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                     .overlay(alignment: .topTrailing){
                         
-                        OverlayComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText, isAdding: $isAdding)
+                        OverlayComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText, isAdding: $isAdding, viewModel: ideasViewModel)
                                 .padding(8)
                     }
                 
@@ -70,13 +70,10 @@ struct TextPreviewComponent: View {
         
         .confirmationDialog("delMsg", isPresented: $isAlertActive) {
             Button("delIdea", role: .destructive) {
-                //TODO: atualizar a view assim que deleta a ideia
                 //deletar
                 IdeaSaver.clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
                 self.ideasViewModel.resetDisposedData()
-                
             }
-
         }
     }
 }

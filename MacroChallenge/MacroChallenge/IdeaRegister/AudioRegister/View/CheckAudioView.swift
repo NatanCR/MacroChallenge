@@ -111,7 +111,7 @@ struct CheckAudioView: View {
             //menu de favoritar e excluir
             ToolbarItem(placement: .navigationBarTrailing) {
                 if !isFocused {
-                    ButtonFavoriteComponent(type: AudioIdea.self, idea: $idea.wrappedValue)
+                    ButtonFavoriteComponent(type: AudioIdea.self, idea: $idea.wrappedValue, viewModel: viewModel)
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
