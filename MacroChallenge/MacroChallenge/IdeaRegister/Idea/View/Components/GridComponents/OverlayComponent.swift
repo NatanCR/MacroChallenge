@@ -13,8 +13,10 @@ struct OverlayComponent<T: Idea>: View {
     @State var idea: T
 //    @State var isSelected: Bool = false
     @Binding var isAdding: Bool
-    @Binding var selectedIdeas: [any Idea]
+
     @ObservedObject var ideasViewModel: IdeasViewModel
+    @Binding var selectedIdeas: [UUID]
+
     
     var body: some View {
         if isAdding{

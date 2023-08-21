@@ -16,10 +16,10 @@ struct TextPreviewComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State private var isAlertActive: Bool = false
     @Binding var isAdding: Bool
-    @Binding var selectedIdeas: [any Idea]
+    @Binding var selectedIdeas: [UUID]
 
     
-    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>, selectedIdeas: Binding<[any Idea]>) {
+    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>, selectedIdeas: Binding<[UUID]>) {
         self.text = text
         self.title = title
         self._idea = idea

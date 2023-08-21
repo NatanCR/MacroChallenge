@@ -22,6 +22,16 @@ struct GridViewComponent: View {
     
     var body: some View {
             LazyVGrid(columns: columns, spacing: 20) {
+                if isAdding == false {
+                    ForEach(groups, id: \.id) { group in
+                        NavigationLink{
+//                            FolderView(isAdding: $isAdding)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
+                        } label: {
+                            GroupPreviewComponent(group: group)
+                        }
+                    }
+                }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     if isAdding == false {
                         NavigationLink {

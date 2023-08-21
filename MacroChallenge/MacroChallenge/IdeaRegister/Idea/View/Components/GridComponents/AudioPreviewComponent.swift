@@ -15,7 +15,7 @@ struct AudioPreviewComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State private var isAlertActive: Bool = false
     let audioManager: AudioManager
-    @Binding var selectedIdeas: [any Idea]
+    @Binding var selectedIdeas: [UUID]
     
     @Binding var isAdding: Bool
     

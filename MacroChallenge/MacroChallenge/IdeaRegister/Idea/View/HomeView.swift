@@ -18,6 +18,7 @@ struct HomeView: View {
     @State var sortedByAscendent: Bool = false
     @State var byCreation: Bool = false
     @AppStorage("appVersion") private var appVersion = "1.20.1" // versão antes da atualização "1.20.2" -> correção do bug das tags
+    @State var selectedIdeas: [UUID] = []
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -141,7 +142,9 @@ struct HomeGridView: View {
     let audioManager: AudioManager
     @Binding var isAdding: Bool
     @Environment(\.screenSize) var screenSize
-    @State var selectedIdeas: [any Idea] = []
+    @State var selectedIdeas: [UUID] = []
+    @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
+    @State var groups: [GroupModel] = IdeaSaver.getAllSavedGroups()
     
     //MARK: - GRID BODY
     var body: some View{
@@ -195,6 +198,20 @@ struct HomeGridView: View {
                 self.ideasViewModel.revealSectionDetails = true
             } else {
                 self.ideasViewModel.revealSectionDetails = false
+            }
+        }
+        .onChange(of: isAdding) { newValue in
+            if newValue {
+                selectedIdeas = []
+                print("limpei")
+            } else {
+                newGroup = GroupModel(title: "Sem título", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
+                print(newGroup)
+                if newGroup.ideasIds.count > 0 {
+                    IdeaSaver.saveGroup(group: newGroup)
+                    groups = IdeaSaver.getAllSavedGroups()
+                    print(groups)
+                }
             }
         }
     }

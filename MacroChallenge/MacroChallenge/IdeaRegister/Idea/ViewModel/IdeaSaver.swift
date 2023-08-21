@@ -14,6 +14,12 @@ class IdeaSaver {
     private static let textModelKey: String = "textIdeas"
     private static let photoModelKey: String = "photoIdeas"
     private static let tagModelKey: String = "tags"
+    private static let groupModelKey: String = "groups"
+    
+    //MARK: - Groups saves
+    public static func saveGroup(group: GroupModel) {
+        saveUniqueGroup(group: group, key: groupModelKey)
+    }
     
     //MARK: - Tag's Saves
     public static func saveTag(tag: Tag) {
@@ -142,6 +148,16 @@ class IdeaSaver {
             }
         }
         print("error to GetSavedTags, or no saved tags of specified type exists in UserDefault")
+        return []
+    }
+    
+    public static func getAllSavedGroups() -> [GroupModel] {
+        if let savedGroups = defaults.object(forKey: groupModelKey) as? Data {
+            if let loadedGroups = try? JSONDecoder().decode([GroupModel].self, from: savedGroups) {
+                return loadedGroups
+            }
+        }
+        print("error to GetSavedGroups, or no saved groups of specified type exists in UserDefault")
         return []
     }
     
@@ -275,6 +291,24 @@ class IdeaSaver {
     }
     
     // MARK: - PRIVATE STATICS
+    
+    private static func saveUniqueGroup(group: GroupModel, key: String) {
+        let encoder = JSONEncoder()
+        var savedGroups: [GroupModel] = []
+        
+        if defaults.object(forKey: key) == nil {
+            defaults.set(savedGroups, forKey: key)
+        } else {
+            savedGroups = getAllSavedGroups()
+        }
+        
+        savedGroups.append(group)
+        
+        if let encoded = try? encoder.encode(savedGroups) {
+            defaults.set(encoded, forKey: key)
+        }
+    }
+    
     /**Save an unique tag.*/
     private static func saveUniqueTag(tag: Tag, key: String) {
         let encoder = JSONEncoder()

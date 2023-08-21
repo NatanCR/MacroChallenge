@@ -11,15 +11,15 @@ struct SelectionButtonComponent<T: Idea>: View {
     var type: T.Type
     @State var idea: T
     @State var isSelected: Bool = false
-    @Binding var selectedIdeas: [any Idea]
+    @Binding var selectedIdeas: [UUID]
     
     var body: some View {
         Button{
             isSelected.toggle()
-//            IdeaSaver.changeSavedValue(type: type, idea: idea)
             if isSelected {
-                selectedIdeas.append(idea)
+                selectedIdeas.append(idea.id)
                 
+                print("*****")
                 for selectedIdea in selectedIdeas {
                     print("""
                     -----
@@ -29,8 +29,9 @@ struct SelectionButtonComponent<T: Idea>: View {
                 }
                 print("*****")
             } else {
-                selectedIdeas.removeAll{ $0.id == idea.id }
+                selectedIdeas.removeAll{ $0 == idea.id }
                 
+                print("*****")
                 for selectedIdea in selectedIdeas {
                     print("""
                     -----
