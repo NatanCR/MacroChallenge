@@ -24,13 +24,13 @@ struct HorizontalTagScrollComponent<T: Idea>: View {
                 Rectangle()
                     .fill(LinearGradient(
                         stops: [
-                        Gradient.Stop(color: Color("backgroundColor"), location: 0.00),
-                        Gradient.Stop(color: Color("backgroundColor").opacity(0), location: 1.00),
+                        Gradient.Stop(color: Color("gradient"), location: 0.00),
+                        Gradient.Stop(color: Color("gradient").opacity(0), location: 1.00),
                         ],
                         startPoint: UnitPoint(x: 1, y: 0.5),
                         endPoint: UnitPoint(x: 0, y: 0.5)
                         ))
-                    .frame(width: screenSize.width * 0.1, height: screenSize.height * 0.06)
+                    .frame(width: screenSize.width * 0.1, height: screenSize.height * 0.08)
             }
     }
 }
