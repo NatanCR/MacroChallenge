@@ -43,9 +43,7 @@ struct SegmentedPickerComponent: View {
                     .padding()
                     
                     Spacer()
-//                    if isAdding == false{
-                        NewFolderComponent(isAdding: $isAdding)
-//                    }
+                    NewFolderComponent(isAdding: $isAdding)
                 }
             }else{
                 //apresenta texto para adicionar na pasta

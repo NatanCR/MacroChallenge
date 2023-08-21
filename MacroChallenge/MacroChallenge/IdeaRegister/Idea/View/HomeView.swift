@@ -15,6 +15,7 @@ struct HomeView: View {
     //quando for true altera para view de seleção de ideias
     @State var isAdding: Bool = false
     @FocusState private var searchInFocus: Bool
+    @State var selectedIdeas: [UUID] = []
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -123,7 +124,9 @@ struct HomeGridView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     let audioManager: AudioManager
     @Binding var isAdding: Bool
-    @State var selectedIdeas: [any Idea] = []
+    @State var selectedIdeas: [UUID] = []
+    @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
+    @State var groups: [GroupModel] = IdeaSaver.getAllSavedGroups()
     
     let columns = [
         GridItem(.flexible()),
@@ -136,6 +139,16 @@ struct HomeGridView: View {
         
         ScrollView{
             LazyVGrid(columns: columns, spacing: 20) {
+                if isAdding == false {
+                    ForEach(groups, id: \.id) { group in
+                        NavigationLink{
+//                            FolderView(isAdding: $isAdding)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
+                        } label: {
+                            GroupPreviewComponent(group: group)
+                        }
+                    }
+                }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     if isAdding == false {
                         NavigationLink {
@@ -172,7 +185,20 @@ struct HomeGridView: View {
                 }
             }.padding()
         }
-        
+        .onChange(of: isAdding) { newValue in
+            if newValue {
+                selectedIdeas = []
+                print("limpei")
+            } else {
+                newGroup = GroupModel(title: "Sem título", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
+                print(newGroup)
+                if newGroup.ideasIds.count > 0 {
+                    IdeaSaver.saveGroup(group: newGroup)
+                    groups = IdeaSaver.getAllSavedGroups()
+                    print(groups)
+                }
+            }
+        }
     }
 }
 

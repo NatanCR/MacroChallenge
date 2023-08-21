@@ -15,7 +15,7 @@ struct ImagePreviewComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State private var isAlertActive: Bool = false
     @Binding var isAdding: Bool
-    @Binding var selectedIdeas: [any Idea]
+    @Binding var selectedIdeas: [UUID]
 
     
     var body: some View {
