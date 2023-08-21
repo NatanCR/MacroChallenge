@@ -722,7 +722,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91DB2B4E2A2A5FA300EC8176 /* ContentDirectoryHelper.swift in Sources */,
 				4097FE012A2FCC15001EAB03 /* AudioPreviewComponent.swift in Sources */,
 				91DB2B4E2A2A5FA300EC8176 /* ContentDirectoryHelper.swift in Sources */,
 				912811F02A29275400010872 /* DateHelper.swift in Sources */,
@@ -732,13 +731,10 @@
 				D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */,
 				4074E0432A55FFBA00C5A46E /* TagView.swift in Sources */,
 				43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */,
-				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				40E859562A3B8FC500F2BC0E /* MenuEditComponent.swift in Sources */,
 				918E6A132A40CA800017CF1B /* BackAction.swift in Sources */,
 				4097FE052A2FD3B3001EAB03 /* HomeView.swift in Sources */,
-				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D1ECF5382A421A2600631333 /* ButtonFavoriteComponent.swift in Sources */,
-				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
 				D179E8CF2A549EB200E21A07 /* Tag.swift in Sources */,
 				4097FDFD2A2FC7C7001EAB03 /* ImagePreviewComponent.swift in Sources */,
 				918C7DC82A27EDB000C36A53 /* ColorHelper.swift in Sources */,
