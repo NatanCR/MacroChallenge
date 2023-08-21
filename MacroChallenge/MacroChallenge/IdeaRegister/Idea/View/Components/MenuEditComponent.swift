@@ -12,11 +12,12 @@ struct MenuEditComponent<T: Idea>: View {
     var type: T.Type
     @Binding var idea: T
     @State private var isAlertActive: Bool = false
+    @ObservedObject var viewModel: IdeasViewModel
     
     var body: some View {
         
         Menu{
-            ButtonFavoriteComponent(type: type, idea: $idea.wrappedValue)
+            ButtonFavoriteComponent(type: type, idea: $idea.wrappedValue, viewModel: viewModel)
             
             Divider()
             

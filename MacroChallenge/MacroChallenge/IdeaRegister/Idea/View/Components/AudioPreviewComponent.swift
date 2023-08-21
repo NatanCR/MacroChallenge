@@ -26,7 +26,7 @@ struct AudioPreviewComponent: View {
                     .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                     .overlay(alignment: .topTrailing){
                         
-                        OverlayComponent(type: AudioIdea.self, text: "", idea: idea as! AudioIdea, isAdding: $isAdding)
+                        OverlayComponent(type: AudioIdea.self, text: "", idea: idea as! AudioIdea, isAdding: $isAdding, viewModel: ideasViewModel)
                         .padding(8)
                     }
                 

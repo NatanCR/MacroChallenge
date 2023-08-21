@@ -121,7 +121,7 @@ struct PhotoIdeaView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !isFocused {
-                        ButtonFavoriteComponent(type: PhotoModel.self, idea: $photoModel.wrappedValue)
+                        ButtonFavoriteComponent(type: PhotoModel.self, idea: $photoModel.wrappedValue, viewModel: viewModel)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
