@@ -157,6 +157,7 @@ struct HomeGridView: View {
 //MARK: - LIST VIEW
 //view em forma de lista
 struct HomeListView: View {
+    @Environment(\.screenSize) var screenSize
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
@@ -168,10 +169,24 @@ struct HomeListView: View {
             ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
                 .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
                 .scrollContentBackground(.hidden)
+                .listRowBackground(
+                    RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color("labelColor"), lineWidth: 1)
+                    .padding(5)
+                )
+                .listRowSeparator(.hidden)
+            
             
         } else {
             ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
                 .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
+                .frame(width: screenSize.width, alignment: .top)
+                .listRowBackground(
+                    RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color("labelColor"), lineWidth: 1)
+                    .padding(5)
+                )
+                .listRowSeparator(.hidden)
         }
     }
 }
