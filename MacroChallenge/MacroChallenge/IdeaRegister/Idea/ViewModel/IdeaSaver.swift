@@ -34,8 +34,6 @@ class IdeaSaver {
     
     /**Save a collection of audio ideas in UserDefaults that stores all AudioIdeas**/
     public static func saveAudioIdeas(ideas: [AudioIdea]) {
-        if ideas.isEmpty { print("Ideas to save is empty."); return }
-        
         saveMultipleIdeas(ideas: ideas, type: AudioIdea.self, key: audioModelKey)
     }
     
@@ -47,8 +45,6 @@ class IdeaSaver {
     
     /**Save a collection of text ideas in UserDefaults that stores all TextIdeas**/
     public static func saveTextIdeas(ideas: [ModelText]) {
-        if ideas.isEmpty { print("Ideas to save is empty."); return }
-        
         saveMultipleIdeas(ideas: ideas, type: ModelText.self, key: textModelKey)
     }
     
@@ -60,8 +56,6 @@ class IdeaSaver {
     
     /**Save a collection of photo ideas in UserDefaults that stores all PhotoIdeas**/
     public static func savePhotoIdeas(ideas: [PhotoModel]) {
-        if ideas.isEmpty { print("Ideas to save is empty."); return }
-        
         saveMultipleIdeas(ideas: ideas, type: PhotoModel.self, key: photoModelKey)
     }
     
@@ -80,7 +74,6 @@ class IdeaSaver {
         var ideas: [T] = getSavedUniqueIdeasType(type: type, key: key)
         
         let ideaIndex: Int = ideas.firstIndex(where: { $0.id == idea.id }) ?? -1
-        
         if ideaIndex == -1 { print("Idea not found"); return }
         
         ideas[ideaIndex] = idea
@@ -121,7 +114,7 @@ class IdeaSaver {
             }
         }
         
-        print("error to GetSavedIdeas, or no saved ideas of specified type exists in UserDefault")
+        print("error to GetSavedIdeas, or no saved ideas of specified type exists in UserDefault - \(type)")
         return []
     }
     
@@ -335,7 +328,7 @@ class IdeaSaver {
         }
         
         // append the ideas in the array
-        savedIdeas.append(contentsOf: ideas)
+        if !ideas.isEmpty { savedIdeas.append(contentsOf: ideas) }
         
         // encoding and saving the idea array
         if let encoded = try? encoder.encode(savedIdeas) {

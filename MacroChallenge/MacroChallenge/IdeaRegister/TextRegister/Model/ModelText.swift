@@ -8,7 +8,7 @@
 import Foundation
 
 struct ModelText: Idea {
-    var id: UUID = UUID()
+    var id: UUID
     var ideiaType: IdeaType = .text
     var title: String
     var isFavorite: Bool = false
@@ -18,7 +18,8 @@ struct ModelText: Idea {
     var textComplete: String
     var tag: [Tag]?
     
-    init(title: String, creationDate: Date, modifiedDate: Date, description: String, textComplete: String, tag: [Tag]?) {
+    init(id: UUID = UUID(), title: String, creationDate: Date, modifiedDate: Date, description: String, textComplete: String, tag: [Tag]?) {
+        self.id = id
         self.title = title
         self.creationDate = creationDate
         self.modifiedDate = modifiedDate

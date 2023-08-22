@@ -125,6 +125,7 @@ struct EditRegisterView: View {
         
         TextViewModel.setTextsFromIdea(idea: &self.modelText)
         IdeaSaver.changeSavedValue(type: ModelText.self, idea: self.modelText)
+        
     }
     
     //    /**Função que filtra tags repetidas antes de adicionar no array da ideia**/
