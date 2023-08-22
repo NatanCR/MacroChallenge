@@ -11,7 +11,7 @@ struct GridViewComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     let audioManager: AudioManager
     @Binding var isAdding: Bool
-    @Binding var ideasType: [any Idea]
+    @Binding var ideaType: [any Idea]
     
     
     let columns = [
@@ -22,7 +22,7 @@ struct GridViewComponent: View {
     
     var body: some View {
         LazyVGrid(columns: columns, spacing: 20) {
-            ForEach(self.$ideasType, id: \.id) { $ideas in
+            ForEach(self.$ideaType, id: \.id) { $ideas in
                 NavigationLink {
                     switch ideas.ideiaType {
                     case .text:
