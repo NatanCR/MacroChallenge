@@ -86,6 +86,7 @@ struct HomeView: View {
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
                     ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas
+                    ideasViewModel.filteredIdeas = ideasViewModel.filteringNotFavoriteIdeas
                 }
                 //atualizando a view quando fechar a camera
                 .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
@@ -134,13 +135,13 @@ struct HomeGridView: View {
                     .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
                     .frame(maxWidth: screenSize.width * 0.22, maxHeight: screenSize.height * 0.015)
                     .padding(.bottom)
-                GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideasType: $ideasViewModel.favoriteIdeas)
+                GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas)
                     .padding(.bottom)
                 Text("All")
                     .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
                     .frame(maxWidth: screenSize.width * 0.1, maxHeight: screenSize.height * 0.015)
                     .padding(.bottom)
-                GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideasType: $ideasViewModel.filteredIdeas)
+                GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas)
             }.padding()
         }
     }

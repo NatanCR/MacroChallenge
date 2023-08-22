@@ -26,7 +26,9 @@ struct SearchBarComponent: View {
                 
                     .onChange(of: searchText) { _ in
                         self.resetSearchText(false)
-                        self.ideasViewModel.filteredIdeas = ideasViewModel.filteringIdeas
+//                        self.ideasViewModel.filteredIdeas = ideasViewModel.filteringIdeas
+                        self.ideasViewModel.filteredIdeas = ideasViewModel.filteringNotFavoriteIdeas
+                        self.ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas
                     }
             }
             .onAppear(perform: { self.resetSearchText() })

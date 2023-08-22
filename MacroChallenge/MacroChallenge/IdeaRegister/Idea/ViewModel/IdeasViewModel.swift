@@ -47,24 +47,30 @@ class IdeasViewModel: ObservableObject {
                 sortedByAscendent ? disposedData.sort(by: { $0.creationDate < $1.creationDate }) : disposedData.sort(by: { $0.creationDate > $1.creationDate })
                 
                 sortedByAscendent ? filteredIdeas.sort(by: { $0.creationDate < $1.creationDate }) : filteredIdeas.sort(by: { $0.creationDate > $1.creationDate })
+                
+                sortedByAscendent ? favoriteIdeas.sort(by: { $0.creationDate < $1.creationDate }) : favoriteIdeas.sort(by: { $0.creationDate > $1.creationDate })
             } else {
                 //se true ordena do mais recente ao mais antigo - data de edição
                 sortedByAscendent ? disposedData.sort(by: { $0.modifiedDate < $1.modifiedDate }) : disposedData.sort(by: { $0.modifiedDate > $1.modifiedDate })
                 
                 sortedByAscendent ? filteredIdeas.sort(by: { $0.modifiedDate < $1.modifiedDate }) : filteredIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate })
+                
+                sortedByAscendent ? favoriteIdeas.sort(by: { $0.modifiedDate < $1.modifiedDate }) : favoriteIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate })
             }
         }
     }
     
     func filterBy(_ type: IdeaType) {
         self.disposedData = self.loadedData
-        self.filteredIdeas = self.filteringIdeas
+        self.filteredIdeas = self.filteringNotFavoriteIdeas
+        self.favoriteIdeas = self.filteringFavoriteIdeas
         
         if (!isFiltered || (isFiltered && filterType != type)) {
             filterType = type
             isFiltered = true
             disposedData = loadedData.filter({ $0.ideiaType == type })
             filteredIdeas = filteredIdeas.filter({ $0.ideiaType == type })
+            favoriteIdeas = favoriteIdeas.filter({ $0.ideiaType == type })
             return
         }
         
@@ -73,14 +79,21 @@ class IdeasViewModel: ObservableObject {
     }
     
     var filteringFavoriteIdeas: [any Idea] {
-        return self.filteredIdeas.filter { idea in
+        return self.filteringIdeas.filter { idea in
             return idea.isFavorite == true
+        }
+    }
+    
+    var filteringNotFavoriteIdeas: [any Idea] {
+        return self.filteringIdeas.filter { idea in
+            return idea.isFavorite == false 
         }
     }
     
     func updateFavoriteSectionIdeas() {
         resetDisposedData()
         self.favoriteIdeas = self.filteringFavoriteIdeas
+        self.filteredIdeas = self.filteringNotFavoriteIdeas
     }
     
     var filteringTags: [Tag] {
