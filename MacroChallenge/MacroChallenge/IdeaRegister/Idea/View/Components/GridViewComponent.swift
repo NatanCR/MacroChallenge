@@ -13,7 +13,6 @@ struct GridViewComponent: View {
     @Binding var isAdding: Bool
     @Binding var ideaType: [any Idea]
     
-    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -21,30 +20,30 @@ struct GridViewComponent: View {
     ]
     
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 20) {
-            ForEach(self.$ideaType, id: \.id) { $ideas in
-                NavigationLink {
-                    switch ideas.ideiaType {
-                    case .text:
-                        EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
-                    case .audio:
-                        CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
-                    case .photo:
-                        PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
-                    }
-                } label: {
-                    switch ideas.ideiaType {
-                    case .text:
-                        TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding)
-                    case .audio:
-                        AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
-                    case .photo:
-                        let photoIdea = ideas as! PhotoModel
-                        ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding)
+            LazyVGrid(columns: columns, spacing: 20) {
+                ForEach(self.$ideaType, id: \.id) { $ideas in
+                    NavigationLink {
+                        switch ideas.ideiaType {
+                        case .text:
+                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
+                        case .audio:
+                            CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
+                        case .photo:
+                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
+                        }
+                    } label: {
+                        switch ideas.ideiaType {
+                        case .text:
+                            TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding)
+                        case .audio:
+                            AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
+                        case .photo:
+                            let photoIdea = ideas as! PhotoModel
+                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding)
+                        }
                     }
                 }
             }
-        }
     }
 }
 
