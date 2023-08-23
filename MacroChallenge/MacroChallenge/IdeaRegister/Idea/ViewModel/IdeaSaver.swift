@@ -21,6 +21,12 @@ class IdeaSaver {
         saveUniqueGroup(group: group, key: groupModelKey)
     }
     
+    public static func saveGroups(groups: [GroupModel]) {
+        if groups.isEmpty { print("Groups to save is empty."); return }
+        
+        saveMultiplesGroups(groups: groups, key: groupModelKey)
+    }
+    
     //MARK: - Tag's Saves
     public static func saveTag(tag: Tag) {
         saveUniqueTag(tag: tag, key: tagModelKey)
@@ -270,6 +276,28 @@ class IdeaSaver {
         saveTags(tags: tags)
     }
     
+    public static func clearUniqueGroup() {
+        let emptyGroup: [GroupModel] = []
+        
+        if defaults.object(forKey: groupModelKey) != nil { defaults.set(emptyGroup, forKey: groupModelKey)};
+    }
+    
+    public static func clearOneGroup(group: GroupModel) {
+        
+        if defaults.object(forKey: groupModelKey) == nil { print("No saved Group"); return }
+        
+        var groups: [GroupModel] = getAllSavedGroups()
+        
+        let groupIndex: Int = groups.firstIndex(where: { $0.id == group.id }) ?? -1
+        
+        if groupIndex == -1 { print("Group not found"); return }
+        
+        groups.remove(at: groupIndex)
+        
+        clearUniqueGroup()
+        saveGroups(groups: groups)
+    }
+    
     // MARK: - PRIVATE STATICS
     
     private static func saveUniqueGroup(group: GroupModel, key: String) {
@@ -329,6 +357,26 @@ class IdeaSaver {
         
         // encoding and saving the idea array
         if let encoded = try? encoder.encode(savedIdeas) {
+            defaults.set(encoded, forKey: key)
+        }
+    }
+    
+    /**Save multiple groups*/
+    private static func saveMultiplesGroups(groups: [GroupModel], key: String) {
+        let encoder = JSONEncoder()
+        var savedGroups: [GroupModel] = []
+        
+        if defaults.object(forKey: key) == nil {
+            defaults.set(savedGroups, forKey: key)
+        }
+        
+        else {
+            savedGroups = getAllSavedGroups()
+        }
+        
+        savedGroups.append(contentsOf: groups)
+        
+        if let encoded = try? encoder.encode(savedGroups) {
             defaults.set(encoded, forKey: key)
         }
     }

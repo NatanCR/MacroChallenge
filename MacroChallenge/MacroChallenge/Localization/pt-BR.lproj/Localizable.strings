@@ -173,6 +173,8 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 
 "delIdea" = "Apagar ideia";
 
+"delFolder" = "Apagar Pasta";
+
 "delMsg" = "Voçê realmente deseja deletar essa ideia?";
 
 "sucess" = "Sucesso";

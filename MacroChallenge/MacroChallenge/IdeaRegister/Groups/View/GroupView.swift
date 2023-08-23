@@ -60,44 +60,45 @@ struct GroupView: View {
                     }
                 }
             }
-        }.navigationBarBackButtonHidden()
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    //                MenuEditComponent(type: , idea: )
+        }
+        .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                //                MenuEditComponent(type: , idea: )
+//                Button{
+//                    
+//                } label: {
+//                    Image(systemName: "ellipsis.circle")
+//                }
+//                
+//            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if isFocused{
                     Button{
-                        
+                        isFocused = false
                     } label: {
-                        Image(systemName: "ellipsis.circle")
-                    }
-                    
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if isFocused{
-                        Button{
-                            isFocused = false
-                        } label: {
-                            Text("OK")
-                        }
-                    }
-                }
-                
-                ToolbarItem(placement: .navigationBarLeading) {
-                    //TODO: transformar isAdding em false quando arrastar para voltar
-                    //back button
-                    Button{
-                        if isAdding{
-                            isAdding = false
-                        } else {
-                            dismiss()
-                        }
-                    } label: {
-                        Image(systemName: "chevron.left")
+                        Text("OK")
                     }
                 }
             }
-            .background(Color("backgroundColor"))
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                //TODO: transformar isAdding em false quando arrastar para voltar
+                //back button
+                Button{
+                    if isAdding{
+                        isAdding = false
+                    } else {
+                        dismiss()
+                    }
+                } label: {
+                    Image(systemName: "chevron.left")
+                }
+            }
+        }
+        .background(Color("backgroundColor"))
     }
 }
 

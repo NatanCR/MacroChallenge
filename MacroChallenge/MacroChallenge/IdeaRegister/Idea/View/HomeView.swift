@@ -126,7 +126,6 @@ struct HomeGridView: View {
     @Binding var isAdding: Bool
     @State var selectedIdeas: [UUID] = []
     @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
-    @State var groups: [GroupModel] = IdeaSaver.getAllSavedGroups()
     
     let columns = [
         GridItem(.flexible()),
@@ -140,12 +139,11 @@ struct HomeGridView: View {
         ScrollView{
             LazyVGrid(columns: columns, spacing: 20) {
                 if isAdding == false {
-                    ForEach(groups, id: \.id) { group in
+                    ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-//                            FolderView(isAdding: $isAdding)
                             GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
                         } label: {
-                            GroupPreviewComponent(group: group)
+                            GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                         }
                     }
                 }
@@ -194,8 +192,7 @@ struct HomeGridView: View {
                 print(newGroup)
                 if newGroup.ideasIds.count > 0 {
                     IdeaSaver.saveGroup(group: newGroup)
-                    groups = IdeaSaver.getAllSavedGroups()
-                    print(groups)
+                    ideasViewModel.groups = IdeaSaver.getAllSavedGroups()
                 }
             }
         }
@@ -214,6 +211,17 @@ struct HomeListView: View {
         
         if #available(iOS 16.0, *){
             List {
+                if isAdding == false {
+                    ForEach(ideasViewModel.groups, id: \.id) { group in
+                        NavigationLink{
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
+                        } label: {
+//                            GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
+                            ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
+                        }
+                    }
+                    .listRowBackground(Color("backgroundItem"))
+                }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     NavigationLink {
                         switch ideas.ideiaType {
@@ -239,6 +247,17 @@ struct HomeListView: View {
             .scrollContentBackground(.hidden)
             
         } else {
+            if isAdding == false {
+                ForEach(ideasViewModel.groups, id: \.id) { group in
+                    NavigationLink{
+                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
+                    } label: {
+//                        GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
+                        ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
+                    }
+                    .listRowBackground(Color("backgroundItem"))
+                }
+            }
             List {
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     NavigationLink {
