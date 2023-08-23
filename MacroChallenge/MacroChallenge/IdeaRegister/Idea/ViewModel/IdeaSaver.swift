@@ -294,8 +294,37 @@ class IdeaSaver {
         
         groups.remove(at: groupIndex)
         
+        clearIdeasInGroup(group: group)
         clearUniqueGroup()
         saveGroups(groups: groups)
+    }
+    
+    public static func clearIdeasInGroup(group: GroupModel) {
+        let ideas = getAllSavedIdeas()
+        
+        for ideaId in group.ideasIds {
+            for idea in ideas {
+                if ideaId == idea.id {
+                    switch idea {
+                    case is ModelText:
+                        clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
+                    case is AudioIdea:
+                        clearOneIdea(type: AudioIdea.self, idea: idea as! AudioIdea)
+                    case is PhotoModel:
+                        clearOneIdea(type: PhotoModel.self, idea: idea as! PhotoModel)
+                    default:
+                        break
+                    }
+                    
+                    if let audioIdea = idea as? AudioIdea {
+                        ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: audioIdea.audioPath)
+                    }
+                    else if let photoIdea = idea as? PhotoModel {
+                        ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: photoIdea.capturedImages)
+                    }
+                }
+            }
+        }
     }
     
     // MARK: - PRIVATE STATICS

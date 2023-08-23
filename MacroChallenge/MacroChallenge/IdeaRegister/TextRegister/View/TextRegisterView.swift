@@ -37,7 +37,7 @@ struct TextRegisterView: View {
                     self.showModal = true
                 } label: {
                     //define a formatação das tags
-                    IdeaTagViewerComponent<ModelText>(idea: ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray))
+                    IdeaTagViewerComponent<ModelText>(idea: ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray, grouped: false))
                 }.padding()
 
             }
@@ -71,7 +71,7 @@ struct TextRegisterView: View {
                         TextViewModel.setTitleDescriptionAndCompleteText(title: &title, description: &description, complete: &textComplete)
                         
                         //coloca os dados no formato da estrutura
-                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray)
+                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray, grouped: false)
                         
                         
                         //salva o dados registrados

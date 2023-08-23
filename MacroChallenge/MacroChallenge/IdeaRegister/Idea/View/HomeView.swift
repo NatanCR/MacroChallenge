@@ -16,6 +16,7 @@ struct HomeView: View {
     @State var isAdding: Bool = false
     @FocusState private var searchInFocus: Bool
     @State var selectedIdeas: [UUID] = []
+    @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -38,7 +39,7 @@ struct HomeView: View {
                     }
                     .padding(.vertical)
                     
-                    SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
+                    SegmentedPickerComponent(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                     
                     //navigation bar
                         .toolbar{
@@ -56,7 +57,9 @@ struct HomeView: View {
                                 } else {
                                     //leva para a FolderView
                                     NavigationLink{
-                                        FolderView(isAdding: $isAdding)
+//                                        FolderView(isAdding: $isAdding)
+                                        let newGroup = GroupModel(title: "Sem Titulo", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
+                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup)
                                     } label: {
                                         Text("OK")
                                     }
@@ -109,6 +112,19 @@ struct HomeView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .onChange(of: isAdding) { newValue in
+            if newValue {
+                selectedIdeas = []
+                print("limpei")
+            } else {
+                newGroup = GroupModel(title: "Sem título", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
+                print(newGroup)
+                if newGroup.ideasIds.count > 0 {
+                    IdeaSaver.saveGroup(group: newGroup)
+                    ideasViewModel.groups = IdeaSaver.getAllSavedGroups().reversed()
+                }
+            }
+        }
     }
     
     //MARK: - HOME FUNC's
@@ -124,8 +140,8 @@ struct HomeGridView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     let audioManager: AudioManager
     @Binding var isAdding: Bool
-    @State var selectedIdeas: [UUID] = []
-    @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
+    @Binding var selectedIdeas: [UUID]
+//    @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
     
     let columns = [
         GridItem(.flexible()),
@@ -148,17 +164,29 @@ struct HomeGridView: View {
                     }
                 }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    if isAdding == false {
-                        NavigationLink {
-                            switch ideas.ideiaType {
-                            case .text:
-                                EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
-                            case .audio:
-                                CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
-                            case .photo:
-                                PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
+                    if ideas.grouped == false {
+                        if isAdding == false {
+                            NavigationLink {
+                                switch ideas.ideiaType {
+                                case .text:
+                                    EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
+                                case .audio:
+                                    CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
+                                case .photo:
+                                    PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
+                                }
+                            } label: {
+                                switch ideas.ideiaType {
+                                case .text:
+                                    TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                                case .audio:
+                                    AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isAdding: $isAdding)
+                                case .photo:
+                                    let photoIdea = ideas as! PhotoModel
+                                    ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                                }
                             }
-                        } label: {
+                        } else {
                             switch ideas.ideiaType {
                             case .text:
                                 TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
@@ -169,32 +197,9 @@ struct HomeGridView: View {
                                 ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                             }
                         }
-                    } else {
-                        switch ideas.ideiaType {
-                        case .text:
-                            TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
-                        case .audio:
-                            AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isAdding: $isAdding)
-                        case .photo:
-                            let photoIdea = ideas as! PhotoModel
-                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
-                        }
                     }
                 }
             }.padding()
-        }
-        .onChange(of: isAdding) { newValue in
-            if newValue {
-                selectedIdeas = []
-                print("limpei")
-            } else {
-                newGroup = GroupModel(title: "Sem título", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                print(newGroup)
-                if newGroup.ideasIds.count > 0 {
-                    IdeaSaver.saveGroup(group: newGroup)
-                    ideasViewModel.groups = IdeaSaver.getAllSavedGroups()
-                }
-            }
         }
     }
 }
@@ -223,21 +228,23 @@ struct HomeListView: View {
                     .listRowBackground(Color("backgroundItem"))
                 }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    NavigationLink {
-                        switch ideas.ideiaType {
-                        case .text:
-                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
-                        case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
-                        case .photo:
-                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
-                        }
-                    } label: {
-                        if let photoIdea = ideas as? PhotoModel {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
-                        }
-                        else {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
+                    if ideas.grouped == false {
+                        NavigationLink {
+                            switch ideas.ideiaType {
+                            case .text:
+                                EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
+                            case .audio:
+                                CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
+                            case .photo:
+                                PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
+                            }
+                        } label: {
+                            if let photoIdea = ideas as? PhotoModel {
+                                ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
+                            }
+                            else {
+                                ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
+                            }
                         }
                     }
                 }
@@ -247,37 +254,39 @@ struct HomeListView: View {
             .scrollContentBackground(.hidden)
             
         } else {
-            if isAdding == false {
-                ForEach(ideasViewModel.groups, id: \.id) { group in
-                    NavigationLink{
-                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
-                    } label: {
-//                        GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
-                        ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
-                    }
-                    .listRowBackground(Color("backgroundItem"))
-                }
-            }
             List {
-                ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    NavigationLink {
-                        switch ideas.ideiaType {
-                        case .text:
-                            EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
-                        case .audio:
-                            CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
-                        case .photo:
-                            PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
+                if isAdding == false {
+                    ForEach(ideasViewModel.groups, id: \.id) { group in
+                        NavigationLink{
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
+                        } label: {
+                            //                        GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
+                            ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
                         }
-                    } label: {
-                        if let photoIdea = ideas as? PhotoModel {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
-                        }
-                        else {
-                            ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
-                        }
+                        .listRowBackground(Color("backgroundItem"))
                     }
-                    .listRowBackground(Color("backgroundItem"))
+                }
+                ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
+                    if ideas.grouped == false {
+                        NavigationLink {
+                            switch ideas.ideiaType {
+                            case .text:
+                                EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
+                            case .audio:
+                                CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
+                            case .photo:
+                                PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
+                            }
+                        } label: {
+                            if let photoIdea = ideas as? PhotoModel {
+                                ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
+                            }
+                            else {
+                                ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
+                            }
+                        }
+                        .listRowBackground(Color("backgroundItem"))
+                    }
                 }
                 .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
             }

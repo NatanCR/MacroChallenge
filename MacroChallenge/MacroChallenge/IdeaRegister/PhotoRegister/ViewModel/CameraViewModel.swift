@@ -28,7 +28,7 @@ class CameraViewModel: ObservableObject {
         }
         
         do {
-            let photoModel = try PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: lastComponent, tag: [])
+            let photoModel = try PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: lastComponent, tag: [], grouped: false)
             IdeaSaver.savePhotoIdea(idea: photoModel)
             
             return photoModel

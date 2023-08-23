@@ -17,29 +17,13 @@ struct SelectionButtonComponent<T: Idea>: View {
         Button{
             isSelected.toggle()
             if isSelected {
+                idea.grouped = true
+                saveIdea(idea: idea)
                 selectedIdeas.append(idea.id)
-                
-                print("*****")
-                for selectedIdea in selectedIdeas {
-                    print("""
-                    -----
-                    \(selectedIdea)
-                    -----
-                    """)
-                }
-                print("*****")
             } else {
+                idea.grouped = false
+                saveIdea(idea: idea)
                 selectedIdeas.removeAll{ $0 == idea.id }
-                
-                print("*****")
-                for selectedIdea in selectedIdeas {
-                    print("""
-                    -----
-                    \(selectedIdea)
-                    -----
-                    """)
-                }
-                print("*****")
             }
         } label: {
             HStack {
@@ -56,6 +40,19 @@ struct SelectionButtonComponent<T: Idea>: View {
                 }
             }
         }
+    }
+}
+
+func saveIdea(idea: any Idea) {
+    switch idea {
+    case is ModelText:
+        IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
+    case is AudioIdea:
+        IdeaSaver.changeSavedValue(type: AudioIdea.self, idea: idea as! AudioIdea)
+    case is PhotoModel:
+        IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
+    default:
+        break
     }
 }
 
