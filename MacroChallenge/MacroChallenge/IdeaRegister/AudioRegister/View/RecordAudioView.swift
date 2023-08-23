@@ -119,7 +119,7 @@ struct RecordAudioView: View {
                             Button {
                                 self.showModal = true
                             } label: {
-                                IdeaTagViewerComponent(colorName: colorName, idea: AudioIdea(title: textTitle, description: textDescription, textComplete: textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: self.tagsArray))
+                                IdeaTagViewerComponent(colorName: colorName, idea: AudioIdea(title: textTitle, description: textDescription, textComplete: textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: self.tagsArray, grouped: false))
                             }
                         }
                         
@@ -137,8 +137,6 @@ struct RecordAudioView: View {
                         
                     }
                     .padding(30)
-                    
-                    
                 }
             }
         }
@@ -247,7 +245,7 @@ struct RecordAudioView: View {
         if recorded {
             TextViewModel.setTitleDescriptionAndCompleteText(title: &self.textTitle, description: &self.textDescription, complete: &self.textComplete)
             
-            let idea = AudioIdea(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: tagsArray)
+            let idea = AudioIdea(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: tagsArray, grouped: false)
             IdeaSaver.saveAudioIdea(idea: idea)
             dismiss()
         }

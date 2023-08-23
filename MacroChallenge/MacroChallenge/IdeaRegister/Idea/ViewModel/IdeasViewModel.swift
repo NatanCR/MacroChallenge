@@ -22,7 +22,7 @@ class IdeasViewModel: ObservableObject {
     var cameraViewModel = CameraViewModel()
     @Published var tagsLoadedData: [Tag] = IdeaSaver.getAllSavedTags()
     @Published var tagsFiltered: [Tag] = IdeaSaver.getAllSavedTags()
-    @Published var groups: [GroupModel] = IdeaSaver.getAllSavedGroups()
+    @Published var groups: [GroupModel] = IdeaSaver.getAllSavedGroups().reversed()
     static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     @Published var favoriteIdeas: [any Idea] = []
     @Published var weekIdeas: [any Idea] = []
@@ -166,7 +166,7 @@ class IdeasViewModel: ObservableObject {
         
     func reloadLoadedData() {
         self.loadedData = IdeaSaver.getAllSavedIdeas()
-        self.groups = IdeaSaver.getAllSavedGroups()
+        self.groups = IdeaSaver.getAllSavedGroups().reversed()
         self.disposedData = loadedData
     }
     

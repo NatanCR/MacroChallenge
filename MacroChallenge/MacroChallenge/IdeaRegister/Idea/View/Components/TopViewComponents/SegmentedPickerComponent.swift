@@ -13,14 +13,16 @@ struct SegmentedPickerComponent: View {
     @State var index = 1
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
+    @Binding var selectedIdeas: [UUID]
     
     let audioManager: AudioManager
     
     //altera as cores do segmented picker
-    init(ideasViewModel: IdeasViewModel, audioManager: AudioManager, isAdding: Binding<Bool>){
+    init(ideasViewModel: IdeasViewModel, audioManager: AudioManager, isAdding: Binding<Bool>, selectedIdeas: Binding<[UUID]>){
         self.ideasViewModel = ideasViewModel
         self.audioManager = audioManager
         self._isAdding = isAdding
+        self._selectedIdeas = selectedIdeas
         
         UISegmentedControl.appearance().backgroundColor = UIColor(Color("AccentColor")).withAlphaComponent(0.19)
         UISegmentedControl.appearance().setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
@@ -56,7 +58,7 @@ struct SegmentedPickerComponent: View {
             if index == 0{
                 HomeListView(ideasViewModel: ideasViewModel, isAdding: $isAdding)
             } else{
-                HomeGridView(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding)
+                HomeGridView(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
             }
         }
     }

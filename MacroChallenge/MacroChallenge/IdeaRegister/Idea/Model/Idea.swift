@@ -22,5 +22,6 @@ protocol Idea : Codable, Hashable, Identifiable {
     var creationDate: Date { get }
     var modifiedDate: Date { get set }
     var isFavorite: Bool { get set }
-    var tag: [Tag]? { get set } 
+    var tag: [Tag]? { get set }
+    var grouped: Bool { get set }
 }

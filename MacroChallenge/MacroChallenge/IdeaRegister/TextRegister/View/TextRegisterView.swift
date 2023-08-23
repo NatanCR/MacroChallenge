@@ -45,7 +45,7 @@ struct TextRegisterView: View {
                 } label: {
                     //define a formatação das tags
 
-                    IdeaTagViewerComponent<ModelText>(colorName: colorName, idea: ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray))
+                    IdeaTagViewerComponent<ModelText>(colorName: colorName, idea: ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray, grouped: false))
                 }.padding()
 
             }
@@ -92,6 +92,22 @@ struct TextRegisterView: View {
                 Button {
                     self.saveIdea(savedByButton: true)
                     if !self.textComplete.isEmpty {dismiss()}
+                    //tira espaços em brancos do texto
+                    textComplete = textComplete.trimmingCharacters(in: .whitespacesAndNewlines)
+                    //verifica se o texto está vazio
+                    if textComplete.isEmpty {
+                        self.isActive.toggle()
+                    } else {
+                        TextViewModel.setTitleDescriptionAndCompleteText(title: &title, description: &description, complete: &textComplete)
+                        
+                        //coloca os dados no formato da estrutura
+                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray, grouped: false)
+                        
+                        
+                        //salva o dados registrados
+                        IdeaSaver.saveTextIdea(idea: currentModel)
+                        dismiss()
+                    }
                 } label: {
                     Text("save")
                 }

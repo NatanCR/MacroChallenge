@@ -10,7 +10,7 @@ import SwiftUI
 struct ToolbarComponent: View {
     
     @ObservedObject var ideasViewModel: IdeasViewModel
-    @State var photoModel: PhotoModel = PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: "", tag: [])
+    @State var photoModel: PhotoModel = PhotoModel(title: "", description: "", textComplete: "", creationDate: Date(), modifiedDate: Date(), capturedImage: "", tag: [], grouped: false)
     @State var tookPicture: Bool = false
     
     init(ideasViewModel: IdeasViewModel) {
