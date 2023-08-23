@@ -144,7 +144,6 @@ struct HomeGridView: View {
     @Environment(\.screenSize) var screenSize
     @State var selectedIdeas: [UUID] = []
     @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
-    @State var groups: [GroupModel] = IdeaSaver.getAllSavedGroups()
     
     //MARK: - GRID BODY
     var body: some View{
@@ -209,8 +208,7 @@ struct HomeGridView: View {
                 print(newGroup)
                 if newGroup.ideasIds.count > 0 {
                     IdeaSaver.saveGroup(group: newGroup)
-                    groups = IdeaSaver.getAllSavedGroups()
-                    print(groups)
+                    ideasViewModel.groups = IdeaSaver.getAllSavedGroups()
                 }
             }
         }

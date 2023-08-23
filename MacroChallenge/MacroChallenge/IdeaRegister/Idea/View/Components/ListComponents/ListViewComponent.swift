@@ -13,6 +13,17 @@ struct ListViewComponent: View {
     
     var body: some View {
         List {
+            if isAdding == false {
+                ForEach(ideasViewModel.groups, id: \.id) { group in
+                    NavigationLink{
+                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
+                    } label: {
+//                            GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
+                        ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
+                    }
+                }
+                .listRowBackground(Color("backgroundItem"))
+            }
             //MARK: - SECTION FAVORITE IDEAS
             //mostra apenas se houver ideias favoritadas
             if ideasViewModel.favoriteIdeas.count != 0 {

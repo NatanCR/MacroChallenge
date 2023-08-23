@@ -22,6 +22,7 @@ class IdeasViewModel: ObservableObject {
     var cameraViewModel = CameraViewModel()
     @Published var tagsLoadedData: [Tag] = IdeaSaver.getAllSavedTags()
     @Published var tagsFiltered: [Tag] = IdeaSaver.getAllSavedTags()
+    @Published var groups: [GroupModel] = IdeaSaver.getAllSavedGroups()
     static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     @Published var favoriteIdeas: [any Idea] = []
     @Published var weekIdeas: [any Idea] = []
@@ -147,7 +148,7 @@ class IdeasViewModel: ObservableObject {
         if newOrderArray.isEmpty {
             return filteringNotFavoriteIdeas().filter { idea in
                 !(calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
-                calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear))
+                  calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear))
             }
         } else {
             //utiliza o array que foi ordenado pelo filtro que o usuário escolheu
@@ -161,6 +162,12 @@ class IdeasViewModel: ObservableObject {
                 }
             }
         }
+    }
+        
+    func reloadLoadedData() {
+        self.loadedData = IdeaSaver.getAllSavedIdeas()
+        self.groups = IdeaSaver.getAllSavedGroups()
+        self.disposedData = loadedData
     }
     
     /**Função para atualizar a seção de favoritos ao favoritar novas ideias e obter mudanças**/

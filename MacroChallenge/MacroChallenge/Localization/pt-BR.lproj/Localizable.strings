@@ -177,6 +177,8 @@ Obrigado por usar o aplicativo Ideeo App.
 
 "delIdea" = "Apagar ideia";
 
+"delFolder" = "Apagar Pasta";
+
 "delMsg" = "Voçê realmente deseja deletar essa ideia?";
 
 "sucess" = "Sucesso";
