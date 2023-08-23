@@ -83,7 +83,10 @@ struct TagComponent: View {
                                 IdeaSaver.clearOneTag(tag: tag.wrappedValue)
                             }
                             
-                            self.tagArraySelected.remove(at: getIndex(tag: tag.wrappedValue))
+                            if getIndex(tag: tag.wrappedValue) != -1 {
+                                self.tagArraySelected.remove(at: getIndex(tag: tag.wrappedValue))
+                            }
+                            
                             self.allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
                         } label: {
                             HStack{
