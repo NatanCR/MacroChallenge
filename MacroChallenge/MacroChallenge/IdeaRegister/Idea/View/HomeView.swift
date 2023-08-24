@@ -84,7 +84,8 @@ struct HomeView: View {
                 .onAppear() {
                     self.appearInitialization()
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
-                    ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
+                    ideasViewModel.tagsFiltered = IdeaSaver.getAllSavedTags()
+                    
                     ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas
                     ideasViewModel.filteredIdeas = ideasViewModel.filteringNotFavoriteIdeas
                 }
