@@ -183,6 +183,8 @@ Thank you for using Ideeo App.
 
 "msgTag" = "This tag already exists, you can choose it from the list.";
 
+"cancelIdea" = "Are you sure you want to discard your new idea?";
+
 //MARK: General
 
 "cancel" = "Cancel";

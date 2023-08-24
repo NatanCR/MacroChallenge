@@ -52,10 +52,7 @@ struct CustomActionBackButtonComponent : View {
         
         Button {
             action()
-            
-            if willDismiss {
-                dismiss()                
-            }
+            if willDismiss { dismiss() }
         } label: {
             HStack {
                 Image(systemName: "chevron.backward")

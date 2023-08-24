@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TextRegisterView: View {
     @Environment(\.dismiss) private var dismiss
+    
     @State private var textComplete: String = ""
     @State private var title: String = ""
     @State private var description: String = ""
@@ -21,8 +22,9 @@ struct TextRegisterView: View {
     @State var showModal: Bool = false
     @State var tagsArray: [Tag] = []
     @State var createDate: Date = Date()
-    let ideaID: UUID = UUID()
+    @State var ideaID: UUID = UUID()
     
+    //MARK: - BODY
     var body: some View {
         VStack (alignment: .leading){
             TextEditor(text: $textComplete)
@@ -76,7 +78,6 @@ struct TextRegisterView: View {
             
             Button(role: .cancel) {
                 self.cancelAlertIsActive = false
-                print(currentModel?.id)
             } label: {
                 Text("no")
             }
@@ -107,7 +108,7 @@ struct TextRegisterView: View {
     //MARK: - FUNCs
     private func saveIdea(savedByButton: Bool = false) {
         if let lastCharacter = self.textComplete.last, lastCharacter.isWhitespace { return }
-        
+
         //tira espaços em brancos do texto
         self.textComplete = textComplete.trimmingCharacters(in: .whitespacesAndNewlines)
         //verifica se o texto está vazio
@@ -122,6 +123,12 @@ struct TextRegisterView: View {
             if self.currentModel == nil {
                 self.createDate = Date()
                 createdIdea = true
+            } else {
+                // to prevent re-init from alert
+                if self.currentModel?.id != self.ideaID {
+                    self.ideaID = self.currentModel?.id ?? UUID()
+                    self.createDate = self.currentModel?.creationDate ?? Date()
+                }
             }
             
             self.currentModel = ModelText(id: self.ideaID, title: title, creationDate: self.createDate, modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray)
