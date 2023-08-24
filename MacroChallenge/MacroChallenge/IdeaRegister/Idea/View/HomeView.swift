@@ -138,12 +138,14 @@ struct HomeGridView: View {
                 } label: {
                     Text("fav")
                         .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("labelColor"))
                         .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
                         .padding(.bottom)
                 }
                 
                 Text("all")
                     .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                    .foregroundColor(Color("labelColor"))
                     .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
                     .padding(.bottom)
                 GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas)

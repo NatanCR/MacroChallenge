@@ -117,7 +117,7 @@ struct RecordAudioView: View {
                     } label: {
                         HorizontalTagScrollComponent(tags: tagsArray)
                     }
-
+                    .padding()
                 }
                     
                     
