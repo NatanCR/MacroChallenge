@@ -136,13 +136,13 @@ struct HomeGridView: View {
                     GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas)
                         .padding(.bottom)
                 } label: {
-                    Text("Favorite")
+                    Text("fav")
                         .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
                         .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
                         .padding(.bottom)
                 }
                 
-                Text("All")
+                Text("all")
                     .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
                     .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
                     .padding(.bottom)
