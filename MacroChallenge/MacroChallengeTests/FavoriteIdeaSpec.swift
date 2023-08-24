@@ -29,7 +29,8 @@ final class FavoriteIdeaSpec: XCTestCase {
     
     func testIsFavoriteIdea() {
         var idea: [any Idea] = []
-        let textModel = ModelText(title: "Title test", creationDate: Date(), modifiedDate: Date(), description: "Description test", textComplete: "Title test\nDescription test", tag: <#[Tag]?#>)
+
+        let textModel = ModelText(title: "Title test", creationDate: Date(), modifiedDate: Date(), description: "Description test", textComplete: "Title test\nDescription test", tag: [])
         
         IdeaSaver.saveTextIdea(idea: textModel)
         idea = IdeaSaver.getAllSavedIdeas()

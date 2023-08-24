@@ -38,17 +38,25 @@ struct CustomBackButtonComponent<T: Idea>: View {
 
 struct CustomActionBackButtonComponent : View {
     @Environment(\.dismiss) var dismiss
+    let buttonText: String
     let action: () -> Void
+    let willDismiss: Bool
+    
+    init(buttonText: String = "back", willDismiss: Bool = true, action: @escaping () -> Void) {
+        self.buttonText = buttonText
+        self.willDismiss = willDismiss
+        self.action = action
+    }
     
     var body: some View {
         
         Button {
             action()
-            dismiss()
+            if willDismiss { dismiss() }
         } label: {
             HStack {
                 Image(systemName: "chevron.backward")
-                Text("back")
+                Text(String(localized: String.LocalizationValue(stringLiteral: self.buttonText)))
                     .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
             }
         }

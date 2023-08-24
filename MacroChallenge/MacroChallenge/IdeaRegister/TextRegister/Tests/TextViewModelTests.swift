@@ -37,14 +37,14 @@ final class TextViewModelTests: XCTestCase {
     }
 
     func testSetTextsFromIdea() {
-        var complete = """
+        let complete = """
                         Titulo
                         Descricao
                         """
         
-        var audioIdea = AudioIdea(title: "", description: "", textComplete: complete, creationDate: Date(), modifiedDate: Date(), audioPath: "")
-        var textIdea = ModelText(title: "", creationDate: Date(), modifiedDate: Date(), description: "", textComplete: complete)
-        var photoIdea = PhotoModel(title: "", description: "", textComplete: complete, creationDate: Date(), modifiedDate: Date(), capturedImages: [])
+        var audioIdea = AudioIdea(title: "", description: "", textComplete: complete, creationDate: Date(), modifiedDate: Date(), audioPath: "", tag: [])
+        var textIdea = ModelText(title: "", creationDate: Date(), modifiedDate: Date(), description: "", textComplete: complete, tag: [])
+        var photoIdea = PhotoModel(title: "", description: "", textComplete: complete, creationDate: Date(), modifiedDate: Date(), capturedImage: "", tag: [])
         
         TextViewModel.setTextsFromIdea(idea: &audioIdea)
         TextViewModel.setTextsFromIdea(idea: &textIdea)

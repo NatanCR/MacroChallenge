@@ -118,7 +118,7 @@ Thank you for using Ideeo App.
 //MARK: Order
 "order" = "Order by:";
 
-"addDate" = "Add date (default)";
+"addDate" = "Add date";
 
 "editDate" = "Edit date";
 
@@ -183,6 +183,8 @@ Thank you for using Ideeo App.
 
 "msgTag" = "This tag already exists, you can choose it from the list.";
 
+"cancelIdea" = "Are you sure you want to discard your new idea?";
+
 //MARK: General
 
 "cancel" = "Cancel";
@@ -192,3 +194,7 @@ Thank you for using Ideeo App.
 "hourFormat" = "hh:mm a";
 
 "all" = "All";
+
+"yes" = "Yes";
+
+"no" = "No";
