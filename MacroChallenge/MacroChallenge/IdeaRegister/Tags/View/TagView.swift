@@ -14,6 +14,7 @@ struct TagView: View {
     @ObservedObject var viewModel: IdeasViewModel //pego as tags ja salvas
     @Binding var tagsArrayReceived: [Tag]
     @State private var thatTagExist: Bool = false
+    @State private var newTag: Tag?
     
     var body: some View {
         GeometryReader { proxy in
@@ -36,7 +37,12 @@ struct TagView: View {
                         } else {
                             self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
                             if !thatTagExist {
-                                viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
+                                newTag = Tag(name: self.tagName, color: "fff")
+//                                viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
+                                viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: "fff"))
+                                
+                                self.newTag?.isTagSelected = true
+                                self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: "fff"))
                             }
                         }
                     })
@@ -60,7 +66,7 @@ struct TagView: View {
                     .focused($isFocused)
                     
                     //mostra o botão de adicionar quando clica no text field
-                    if isFocused{
+                    if isFocused {
                         Button{
                             //adicionando tags
                             self.tagName = self.tagName.trimmingCharacters(in: .whitespaces)
@@ -69,7 +75,12 @@ struct TagView: View {
                             } else {
                                 self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
                                 if !thatTagExist {
-                                    viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
+                                    newTag = Tag(name: self.tagName, color: "fff")
+//                                    viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
+                                    viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: "fff"))
+                                    
+                                    self.newTag?.isTagSelected = true
+                                    self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: "fff"))
                                 }
                             }
                             
@@ -93,6 +104,7 @@ struct TagView: View {
             .onAppear {
                 self.resetSearchTag()
             }
+            
             .padding(15)
             .frame(maxWidth: proxy.size.width, maxHeight: proxy.size.height, alignment: .top)
             .background(Color("backgroundColor"))
@@ -108,7 +120,6 @@ struct TagView: View {
                 Text("msgTag")
             })
         }
-        
     }
     
     private func resetSearchTag(_ clearTag: Bool = true) {

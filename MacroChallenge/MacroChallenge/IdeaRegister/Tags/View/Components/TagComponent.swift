@@ -17,6 +17,7 @@ struct TagComponent: View {
         GeometryReader { proxy in
             VStack(alignment: .leading){
                 ScrollView(.vertical, showsIndicators: false) {
+                    
                     VStack(alignment: .leading, spacing: 10) {
                         //apresentando as tags
                         ForEach(getRows(), id: \.self) { rows in

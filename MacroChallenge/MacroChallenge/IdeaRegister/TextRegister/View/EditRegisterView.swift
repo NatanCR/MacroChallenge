@@ -79,11 +79,6 @@ struct EditRegisterView: View {
                 }
             }
         })
-        
-        .onAppear {
-            self.showSheet = false
-            viewModel.tagsFiltered = viewModel.tagsLoadedData
-        }
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

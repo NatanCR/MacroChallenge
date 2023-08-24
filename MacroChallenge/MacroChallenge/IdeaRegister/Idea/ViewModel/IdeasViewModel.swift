@@ -175,16 +175,19 @@ class IdeasViewModel: ObservableObject {
     }
     
     /**Função para formatar e devolver uma tag estruturada para adicionar no banco de dados**/
-    func addTag(text: String, color: String) -> Tag {
+    func addTag(tagToAdd: Tag) -> Tag {
+        var tagAdding = tagToAdd
         
         //pegando tamanho do texto
         let font = UIFont.systemFont(ofSize: 16)
         
         let attributes = [NSAttributedString.Key.font: font]
         
-        let size = (text as NSString).size(withAttributes: attributes)
+        let size = (tagAdding.name as NSString).size(withAttributes: attributes)
         
-        return Tag(name: text, color: color, size: size.width)
+        tagAdding.size = size.width
+        
+        return tagAdding
     }
     
     /**Função que verifica se existem tags já usadas na ideia que está sendo visualizada, para exibi-las com borda pro usuário.**/
@@ -217,8 +220,8 @@ class IdeasViewModel: ObservableObject {
     }
     
     /**Função que salva uma nova tag e recarrega a lista com as tags recentes**/
-    func saveTagAndUpdateListView(tagName: String, tagColor: String) {
-        IdeaSaver.saveTag(tag: addTag(text: tagName, color: tagColor))
+    func saveTagAndUpdateListView(tagToSave: Tag) {
+        IdeaSaver.saveTag(tag: addTag(tagToAdd: tagToSave))
         tagsLoadedData = IdeaSaver.getAllSavedTags()
     }
 }

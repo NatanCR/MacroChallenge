@@ -50,7 +50,9 @@ struct TextRegisterView: View {
         .navigationBarBackButtonHidden()
         .onAppear {
             isFocused = true
+//            ideasViewModel.tagsFiltered = ideasViewModel.tagsLoadedData
         }
+      
         .alert("writeIdea", isPresented: $isActive, actions: {
             Button(role: .cancel) {
             } label: {
