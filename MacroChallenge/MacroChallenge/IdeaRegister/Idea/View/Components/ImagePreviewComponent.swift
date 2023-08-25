@@ -29,7 +29,7 @@ struct ImagePreviewComponent: View {
                 .overlay(content: {
                     Rectangle()
                         .cornerRadius(20)
-                        .foregroundColor(Color("backgroundColor"))
+                        .foregroundColor(Color.black)
                         .opacity(0.35)
                         .blur(radius: 2)
                 })

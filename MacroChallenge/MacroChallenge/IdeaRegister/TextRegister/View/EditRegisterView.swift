@@ -18,8 +18,11 @@ struct EditRegisterView: View {
     // tag
     @State private var showSheet: Bool = false
     @State var tagsArray: [Tag] = []
+    @State var colorName: String = "" //recebe a cor da tag
+    
     // view model functions and arrays
     @ObservedObject var viewModel: IdeasViewModel
+    
     
     init(modelText: ModelText, viewModel: IdeasViewModel) {
         self._modelText = State(initialValue: modelText)
@@ -62,7 +65,7 @@ struct EditRegisterView: View {
         //frame para usar o tamanho inteiro da tela
         .frame(width: screenSize.width, height: screenSize.height * 0.95, alignment: .top)
         .sheet(isPresented: $showSheet) {
-            TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
+            TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray, colorName: $colorName)
         }
         .onChange(of: modelText.textComplete, perform: { newValue in
             //passando as tags que ja existem antes de salvar a mudança de texto
@@ -79,20 +82,28 @@ struct EditRegisterView: View {
                 }
             }
         })
-        .navigationBarBackButtonHidden()
-        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            self.showSheet = false
+            viewModel.tagsFiltered = viewModel.tagsLoadedData
+        }
+        .navigationBarBackButtonHidden() //esconde botão de voltar padrão
+        .navigationBarTitleDisplayMode(.inline) //define estilo do título
         .toolbar {
+            //botão de favoritar ideia
             ToolbarItem(placement: .navigationBarTrailing) {
                 if !isFocused {
                     ButtonFavoriteComponent(type: ModelText.self, idea: $modelText.wrappedValue, viewModel: viewModel)
                 }
             }
+            
+            //botão de excluir ideia
             ToolbarItem(placement: .navigationBarTrailing) {
                 if !isFocused {
                     DeleteIdeaComponent(idea: $modelText, type: ModelText.self)
                 }
             }
             
+            //botão de "ok" que dá dismiss no teclado
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isFocused{
                     Button{
@@ -102,9 +113,19 @@ struct EditRegisterView: View {
                     }
                 }
             }
+            
+            //botão de voltar
             ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtonComponent(type: ModelText.self, idea: $modelText)
+                    CustomBackButtonComponent(type: ModelText.self, idea: $modelText)
             }
+            
+            //botões para selecionar cor da tag
+            ToolbarItem(placement: .keyboard) {
+                if showSheet{
+                    SelectColorView(colorName: $colorName)
+                }
+            }
+
         }
     }
     
@@ -123,22 +144,4 @@ struct EditRegisterView: View {
         
     }
     
-    //    /**Função que filtra tags repetidas antes de adicionar no array da ideia**/
-    //    func verifyAndUpdateTags(newTags: [Tag]) {
-    //
-    //        if let existingTags = modelText.tag {
-    //            // Verifica se cada tag em newTags já existe em existingTags
-    //            let duplicateTags = newTags.filter { existingTags.contains($0) }
-    //
-    //            // Adiciona apenas as tags não duplicadas em modelText.tag
-    //            for tag in newTags where !duplicateTags.contains(tag) {
-    //                modelText.tag?.append(tag)
-    //            }
-    //
-    //        } else {
-    //            // Se modelText.tag é nulo, simplesmente adiciona todas as tags de newTags
-    //            modelText.tag = newTags
-    //            print("can't add new tags in idea")
-    //        }
-    //    }
 }

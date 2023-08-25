@@ -74,7 +74,7 @@ struct ListRowComponent: View {
 
         //arrastar para deletar e para favoritar na lista
         .swipeActions(edge: .trailing) {
-            //TODO: atualizar a view assim que deleta a ideia
+            
             Button(role: .destructive) {
                 print("delete")
                 switch typeIdea {
@@ -107,9 +107,9 @@ struct ListRowComponent: View {
                     IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
                 }
             } label: {
-                Image(systemName: "heart")
+                Image(systemName: "star")
             }
-            .tint(Color("splashScreen"))
+            .tint(Color("tagColor3"))
         }
         
     }

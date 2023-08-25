@@ -24,6 +24,8 @@ struct PhotoIdeaView: View {
     // tag sheet and array
     @State private var showSheet: Bool = false
     @State var tagsArray: [Tag] = []
+    @State var colorName: String = "" //recebe a cor da tag
+
     // view model functions and arrays
     @ObservedObject var viewModel: IdeasViewModel
     
@@ -90,7 +92,7 @@ struct PhotoIdeaView: View {
             }
             .frame(width: screenSize.width, height: screenSize.height * 0.95, alignment: .top)
             .sheet(isPresented: $showSheet) {
-                TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
+                TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray, colorName: $colorName)
             }
             .onAppear {
                 if !photoModel.textComplete.isEmpty {
@@ -119,17 +121,21 @@ struct PhotoIdeaView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .toolbar {
+                //botão de favoritar ideia
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !isFocused {
                         ButtonFavoriteComponent(type: PhotoModel.self, idea: $photoModel.wrappedValue, viewModel: viewModel)
                     }
                 }
+                
+                //botão de excluir ideia
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !isFocused {
                         DeleteIdeaComponent(idea: $photoModel, type: PhotoModel.self)
                     }
                 }
                 
+                //botão de "ok" que dá dismiss no teclado
                 ToolbarItem (placement: .navigationBarTrailing){
                     if isFocused{
                         Button{
@@ -139,9 +145,19 @@ struct PhotoIdeaView: View {
                         }
                     }
                 }
+                
+                //botão de voltar
                 ToolbarItem(placement: .navigationBarLeading) {
                     CustomBackButtonComponent(type: PhotoModel.self, idea: $photoModel)
                 }
+                
+                //botões para selecionar cor da tag
+                ToolbarItem(placement: .keyboard) {
+                    if showSheet{
+                        SelectColorView(colorName: $colorName)
+                    }
+                }
+
             }
             .alert(isPresented: $showAlert) {
                 Alert(

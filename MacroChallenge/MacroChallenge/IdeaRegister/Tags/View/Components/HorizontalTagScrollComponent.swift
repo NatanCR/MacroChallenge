@@ -7,19 +7,21 @@
 
 import SwiftUI
 
-struct HorizontalTagScrollComponent: View {
+struct HorizontalTagScrollComponent<T: Idea>: View {
+    
     @Environment(\.screenSize) var screenSize
-    var tags: [Tag]
+    var idea: T
     
     var body: some View {
             ZStack(alignment: .trailing) {
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 5) {
-                            ForEach(tags, id: \.self) { tag in
-                                TagLabelComponent(tagName: tag.name, isSelected: tag.isTagSelected)
+                            ForEach(idea.tag ?? [], id: \.self) { tag in
+                                TagLabelComponent(tagName: tag.name, isSelected: tag.isTagSelected, colorName: tag.color)
                             }
                         }
+
                 }
                 Rectangle()
                     .fill(LinearGradient(

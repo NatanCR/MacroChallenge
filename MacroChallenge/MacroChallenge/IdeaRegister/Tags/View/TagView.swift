@@ -15,13 +15,16 @@ struct TagView: View {
     @Binding var tagsArrayReceived: [Tag]
     @State private var thatTagExist: Bool = false
     @State private var newTag: Tag?
+    @Binding var colorName: String //recebe a cor da tag
     
     var body: some View {
         GeometryReader { proxy in
             VStack {
+                //indicador da sheet
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color("labelColor"))
                     .frame(width: screenSize.width * 0.5, height: screenSize.height * 0.005)
+                //título
                 Text("Tags")
                     .font(.custom("Sen-Bold", size: 30))
                     .frame (maxWidth: .infinity, alignment:
@@ -31,18 +34,21 @@ struct TagView: View {
                     //Text Field
                     TextField("addTag", text: $tagName, onCommit: {
                         self.tagName = self.tagName.trimmingCharacters(in: .whitespaces)
+
                         
                         if tagName.isEmpty {
                            print("esta vazio")
                         } else {
                             self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
                             if !thatTagExist {
-                                newTag = Tag(name: self.tagName, color: "fff")
+                                newTag = Tag(name: self.tagName, color: self.colorName)
 //                                viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
                                 viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: "fff"))
                                 
                                 self.newTag?.isTagSelected = true
                                 self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: "fff"))
+                                //viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: self.colorName)
+                                self.colorName = ""
                             }
                         }
                     })
@@ -75,12 +81,14 @@ struct TagView: View {
                             } else {
                                 self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
                                 if !thatTagExist {
-                                    newTag = Tag(name: self.tagName, color: "fff")
+                                    newTag = Tag(name: self.tagName, color: self.colorName)
 //                                    viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
                                     viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: "fff"))
                                     
                                     self.newTag?.isTagSelected = true
                                     self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: "fff"))
+                                    //viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: colorName)
+                                    colorName = ""
                                 }
                             }
                             
@@ -98,7 +106,7 @@ struct TagView: View {
                 }
                 
                 //Lista de tag
-                TagComponent(allTags: $viewModel.tagsFiltered, tagArraySelected: $tagsArrayReceived, viewModel: viewModel)
+                TagComponent(allTags: $viewModel.tagsFiltered, tagArraySelected: $tagsArrayReceived, viewModel: viewModel, colorName: colorName)
                     .padding(.top, 20)
             }
             .onAppear {
@@ -110,6 +118,7 @@ struct TagView: View {
             .background(Color("backgroundColor"))
             .onTapGesture {
                 isFocused = false
+                colorName = ""
             }
             .alert("sameTag", isPresented: $thatTagExist, actions: {
                 Button(role: .cancel) {

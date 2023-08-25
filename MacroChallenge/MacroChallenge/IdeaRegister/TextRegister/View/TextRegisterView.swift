@@ -23,6 +23,7 @@ struct TextRegisterView: View {
     @State var tagsArray: [Tag] = []
     @State var createDate: Date = Date()
     @State var ideaID: UUID = UUID()
+    @State var colorName: String = ""
     
     //MARK: - BODY
     var body: some View {
@@ -43,7 +44,8 @@ struct TextRegisterView: View {
                     self.showModal = true
                 } label: {
                     //define a formatação das tags
-                    HorizontalTagScrollComponent(tags: tagsArray)
+
+                    IdeaTagViewerComponent<ModelText>(colorName: colorName, idea: ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray))
                 }.padding()
 
             }
@@ -52,7 +54,7 @@ struct TextRegisterView: View {
             self.saveIdea()
         })
         .sheet(isPresented: $showModal) {
-            TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
+            TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray, colorName: $colorName)
         }
         .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)
@@ -100,6 +102,13 @@ struct TextRegisterView: View {
                     }
                 })
             }
+            
+            ToolbarItem(placement: .keyboard) {
+                if showModal{
+                    SelectColorView(colorName: $colorName)
+                }
+            }
+
         }.font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
     }
     

@@ -36,6 +36,8 @@ struct RecordAudioView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State var showModal: Bool = false
     @State var tagsArray: [Tag] = []
+    @State var colorName: String = ""
+
     
     // audio
     private let audioManager: AudioManager
@@ -115,7 +117,7 @@ struct RecordAudioView: View {
                     Button {
                         self.showModal = true
                     } label: {
-                        HorizontalTagScrollComponent(tags: tagsArray)
+                        IdeaTagViewerComponent(colorName: colorName, idea: AudioIdea(title: textTitle, description: textDescription, textComplete: textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: self.tagsArray))
                     }
                     .padding()
                 }
@@ -123,7 +125,7 @@ struct RecordAudioView: View {
                     
         }
         .sheet(isPresented: $showModal) {
-            TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
+            TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray, colorName: $colorName)
         }
         .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
         .navigationTitle("Inserir áudio")
@@ -140,6 +142,12 @@ struct RecordAudioView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 CustomActionBackButtonComponent {
                     self.backAction()
+                }
+            }
+            
+            ToolbarItem(placement: .keyboard) {
+                if showModal{
+                    SelectColorView(colorName: $colorName)
                 }
             }
         }.onAppear {

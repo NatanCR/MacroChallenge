@@ -31,6 +31,7 @@ struct CheckAudioView: View {
     // tag
     @State private var showSheet: Bool = false
     @State var tagsArray: [Tag] = []
+    @State var colorName: String = ""
     
     // view model functions
     @ObservedObject var viewModel: IdeasViewModel
@@ -87,7 +88,7 @@ struct CheckAudioView: View {
         .padding()
         .frame(width: screenSize.width, height: screenSize.height * 0.95, alignment: .top)
         .sheet(isPresented: $showSheet, content: {
-            TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray)
+            TagView(viewModel: viewModel, tagsArrayReceived: $tagsArray, colorName: $colorName)
         })
         
         .onChange(of: idea.textComplete) { newValue in
@@ -132,6 +133,13 @@ struct CheckAudioView: View {
             //back button personalizado
             ToolbarItem(placement: .navigationBarLeading) {
                 CustomBackButtonComponent(type: AudioIdea.self, idea: $idea)
+            }
+            
+            //botões para selecionar cor da tag
+            ToolbarItem(placement: .keyboard) {
+                if showSheet{
+                    SelectColorView(colorName: $colorName)
+                }
             }
         }
     }

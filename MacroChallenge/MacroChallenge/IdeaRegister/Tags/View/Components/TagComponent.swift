@@ -12,6 +12,7 @@ struct TagComponent: View {
     @Binding var allTags: [Tag]
     @Binding var tagArraySelected: [Tag]
     @ObservedObject var viewModel: IdeasViewModel
+    @State var colorName: String
     
     var body: some View {
         GeometryReader { proxy in
@@ -70,7 +71,7 @@ struct TagComponent: View {
             
         } label: {
             // definindo se a tag terá background de acordo com sua variavel isActive
-                TagLabelComponent(tagName: tag.wrappedValue.name, isSelected: tag.wrappedValue.isTagSelected)
+            TagLabelComponent(tagName: tag.wrappedValue.name, isSelected: tag.wrappedValue.isTagSelected, colorName: tag.wrappedValue.color)
 
                 //Deletar
                     .contentShape(Capsule())
