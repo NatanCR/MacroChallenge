@@ -16,7 +16,7 @@ class IdeasViewModel: ObservableObject {
     @Published var isFiltered: Bool = false
     @Published var isSortedByAscendent: Bool = false
     @Published var isSortedByCreation: Bool = false
-    @Published var isShowingCamera = false
+    @Published var isShowingCamera: Bool = false
     @Published var searchText: String = ""
     @Published var searchTag: String = ""
     var cameraViewModel = CameraViewModel()
@@ -24,6 +24,7 @@ class IdeasViewModel: ObservableObject {
     @Published var tagsFiltered: [Tag] = IdeaSaver.getAllSavedTags()
     static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     @Published var favoriteIdeas: [any Idea] = []
+    @Published var revealSectionDetails: Bool = false
     
     func DismissKeyboard(){
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)

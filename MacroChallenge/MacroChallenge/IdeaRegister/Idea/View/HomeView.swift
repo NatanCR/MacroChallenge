@@ -127,7 +127,7 @@ struct HomeGridView: View {
     let audioManager: AudioManager
     @Binding var isAdding: Bool
     @Environment(\.screenSize) var screenSize
-    @State private var revealDetails: Bool = true
+    
     
     //MARK: - GRID BODY
     var body: some View{
@@ -136,7 +136,7 @@ struct HomeGridView: View {
                 //mostra apenas se houver ideias favoritadas
                 if ideasViewModel.favoriteIdeas.count != 0 {
                     //modo de expansão da grid de favoritos
-                    DisclosureGroup(isExpanded: $revealDetails) {
+                    DisclosureGroup(isExpanded: $ideasViewModel.revealSectionDetails) {
                         GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas)
                             .padding(.bottom)
                     } label: {
@@ -157,6 +157,13 @@ struct HomeGridView: View {
                 GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas)
             }.padding()
         }
+        .onAppear {
+            if self.ideasViewModel.favoriteIdeas.count != 0 {
+                self.ideasViewModel.revealSectionDetails = true
+            } else {
+                self.ideasViewModel.revealSectionDetails = false
+            }
+        }
     }
 }
 
@@ -166,7 +173,6 @@ struct HomeListView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
-    @Environment(\.screenSize) var screenSize
     
     //MARK: - LIST BODY
     var body: some View{
