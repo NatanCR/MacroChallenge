@@ -127,21 +127,27 @@ struct HomeGridView: View {
     let audioManager: AudioManager
     @Binding var isAdding: Bool
     @Environment(\.screenSize) var screenSize
+    @State private var revealDetails: Bool = true
     
     //MARK: - GRID BODY
     var body: some View{
         ScrollView {
             VStack(alignment: .leading) {
-                DisclosureGroup {
-                    GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas)
-                        .padding(.bottom)
-                } label: {
-                    Text("fav")
-                        .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                        .foregroundColor(Color("labelColor"))
-                        .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
-                        .padding(.bottom)
+                //mostra apenas se houver ideias favoritadas
+                if ideasViewModel.favoriteIdeas.count != 0 {
+                    //modo de expansão da grid de favoritos
+                    DisclosureGroup(isExpanded: $revealDetails) {
+                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas)
+                            .padding(.bottom)
+                    } label: {
+                        Text("fav")
+                            .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                            .foregroundColor(Color("labelColor"))
+                            .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
+                            .padding(.bottom)
+                    }
                 }
+                
                 
                 Text("all")
                     .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
@@ -160,19 +166,22 @@ struct HomeListView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
+    @Environment(\.screenSize) var screenSize
     
     //MARK: - LIST BODY
     var body: some View{
-        
-        if #available(iOS 16.0, *){
-            ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
-                .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
-                .scrollContentBackground(.hidden)
-            
-        } else {
-            ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
-                .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
-        }
+        VStack(alignment: .leading) {
+            if #available(iOS 16.0, *){
+                ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
+                    .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
+                    .scrollContentBackground(.hidden)
+                
+            } else {
+                //MARK: - OTHER iOS VERSION
+                ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
+                    .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
+            }
+        }.padding(.horizontal)
     }
 }
 

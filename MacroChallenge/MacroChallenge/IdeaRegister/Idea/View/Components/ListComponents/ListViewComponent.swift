@@ -10,31 +10,36 @@ import SwiftUI
 struct ListViewComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
-    @State var selection = Set<UUID>()
     
     var body: some View {
         List {
-            ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                NavigationLink {
-                    switch ideas.ideiaType {
-                    case .text:
-                        EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
-                    case .audio:
-                        CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
-                    case .photo:
-                        PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
-                    }
-                } label: {
-                    if let photoIdea = ideas as? PhotoModel {
-                        ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage())
-                    }
-                    else {
-                        ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
-                    }
+            //MARK: - SECTION FAVORITE IDEAS
+            //mostra apenas se houver ideias favoritadas
+            if ideasViewModel.favoriteIdeas.count != 0 {
+                Section {
+                    ForEachListComponent(viewModel: ideasViewModel, ideaType: $ideasViewModel.favoriteIdeas)
+                    
+                } header: {
+                    Text("fav")
+                        .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("labelColor"))
                 }
+                .listRowBackground(Color("backgroundItem"))
+            }
+            
+            //MARK: - SECTION ALL IDEAS
+            Section {
+                ForEachListComponent(viewModel: ideasViewModel, ideaType: $ideasViewModel.filteredIdeas)
+                
+            } header: {
+                Text("all")
+                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                    .foregroundColor(Color("labelColor"))
             }
             .listRowBackground(Color("backgroundItem"))
         }
+        //modo de expansão da lista
+        .listStyle(SidebarListStyle())
     }
 }
 
