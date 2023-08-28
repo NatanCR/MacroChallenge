@@ -258,26 +258,11 @@
 		4097FDEB2A2FC239001EAB03 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */,
-				4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */,
-				4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */,
+				D15C5E002A9CE50D00287D10 /* ListComponents */,
+				D15C5DFF2A9CE4E200287D10 /* Buttons */,
+				D15C5DFE2A9AB37000287D10 /* TopViewComponents */,
+				D15C5DFD2A9AB34900287D10 /* GridComponents */,
 				4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */,
-				4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */,
-				4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */,
-				40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */,
-				40497BA92A31259900E6D3B5 /* ListRowComponent.swift */,
-				40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */,
-				40E859552A3B8FC500F2BC0E /* MenuEditComponent.swift */,
-				40E859592A3BAD2900F2BC0E /* CustomBackButtonComponent.swift */,
-				40E8595B2A3BB6AD00F2BC0E /* PlaceholderComponent.swift */,
-				D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */,
-				40EAF0FB2A572B53006E102F /* NewFolderComponent.swift */,
-				40EAF0FF2A5735BF006E102F /* SelectionButtonComponent.swift */,
-				40EAF1032A5767B7006E102F /* OverlayComponent.swift */,
-				D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */,
-				919C0C392A7D743A007F358F /* DeleteIdeaComponent.swift */,
-				D1F5ADF92A8EBCA700942C8D /* GridViewComponent.swift */,
-				D1F5ADFB2A8EBF9F00942C8D /* ListViewComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -572,6 +557,53 @@
 				D135A6D02A2690F8009C1938 /* EditRegisterView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D15C5DFD2A9AB34900287D10 /* GridComponents */ = {
+			isa = PBXGroup;
+			children = (
+				919C0C392A7D743A007F358F /* DeleteIdeaComponent.swift */,
+				40EAF0FF2A5735BF006E102F /* SelectionButtonComponent.swift */,
+				40E8595B2A3BB6AD00F2BC0E /* PlaceholderComponent.swift */,
+				40EAF1032A5767B7006E102F /* OverlayComponent.swift */,
+				D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */,
+				D1F5ADF92A8EBCA700942C8D /* GridViewComponent.swift */,
+				4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */,
+				4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */,
+				4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */,
+			);
+			path = GridComponents;
+			sourceTree = "<group>";
+		};
+		D15C5DFE2A9AB37000287D10 /* TopViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */,
+				4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */,
+				40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */,
+				40EAF0FB2A572B53006E102F /* NewFolderComponent.swift */,
+			);
+			path = TopViewComponents;
+			sourceTree = "<group>";
+		};
+		D15C5DFF2A9CE4E200287D10 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				40E859552A3B8FC500F2BC0E /* MenuEditComponent.swift */,
+				D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */,
+				40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */,
+				40E859592A3BAD2900F2BC0E /* CustomBackButtonComponent.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		D15C5E002A9CE50D00287D10 /* ListComponents */ = {
+			isa = PBXGroup;
+			children = (
+				D1F5ADFB2A8EBF9F00942C8D /* ListViewComponent.swift */,
+				40497BA92A31259900E6D3B5 /* ListRowComponent.swift */,
+			);
+			path = ListComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
