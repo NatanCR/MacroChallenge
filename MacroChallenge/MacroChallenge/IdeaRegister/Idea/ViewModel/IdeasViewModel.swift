@@ -24,6 +24,7 @@ class IdeasViewModel: ObservableObject {
     @Published var tagsFiltered: [Tag] = IdeaSaver.getAllSavedTags()
     static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     @Published var favoriteIdeas: [any Idea] = []
+    @Published var weekIdeas: [any Idea] = []
     @Published var revealSectionDetails: Bool = false
     
     func DismissKeyboard(){
@@ -50,6 +51,8 @@ class IdeasViewModel: ObservableObject {
                 sortedByAscendent ? filteredIdeas.sort(by: { $0.creationDate < $1.creationDate }) : filteredIdeas.sort(by: { $0.creationDate > $1.creationDate })
                 
                 sortedByAscendent ? favoriteIdeas.sort(by: { $0.creationDate < $1.creationDate }) : favoriteIdeas.sort(by: { $0.creationDate > $1.creationDate })
+                
+                sortedByAscendent ? weekIdeas.sort(by: { $0.creationDate < $1.creationDate }) : weekIdeas.sort(by: { $0.creationDate > $1.creationDate })
             } else {
                 //se true ordena do mais recente ao mais antigo - data de edição
                 sortedByAscendent ? disposedData.sort(by: { $0.modifiedDate < $1.modifiedDate }) : disposedData.sort(by: { $0.modifiedDate > $1.modifiedDate })
@@ -57,14 +60,17 @@ class IdeasViewModel: ObservableObject {
                 sortedByAscendent ? filteredIdeas.sort(by: { $0.modifiedDate < $1.modifiedDate }) : filteredIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate })
                 
                 sortedByAscendent ? favoriteIdeas.sort(by: { $0.modifiedDate < $1.modifiedDate }) : favoriteIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate })
+                
+                sortedByAscendent ? weekIdeas.sort(by: { $0.modifiedDate < $1.modifiedDate }) : weekIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate })
             }
         }
     }
     
     func filterBy(_ type: IdeaType) {
         self.disposedData = self.loadedData
-        self.filteredIdeas = self.filteringNotFavoriteIdeas
+        self.filteredIdeas = self.notWeekIdeas
         self.favoriteIdeas = self.filteringFavoriteIdeas
+        self.weekIdeas = self.weekCorrentlyIdeas
         
         if (!isFiltered || (isFiltered && filterType != type)) {
             filterType = type
@@ -72,11 +78,11 @@ class IdeasViewModel: ObservableObject {
             disposedData = loadedData.filter({ $0.ideiaType == type })
             filteredIdeas = filteredIdeas.filter({ $0.ideiaType == type })
             favoriteIdeas = favoriteIdeas.filter({ $0.ideiaType == type })
+            weekIdeas = weekIdeas.filter({ $0.ideiaType == type })
             return
         }
         
         self.isFiltered = false
-        
     }
     
     var filteringFavoriteIdeas: [any Idea] {
@@ -87,14 +93,25 @@ class IdeasViewModel: ObservableObject {
     
     var filteringNotFavoriteIdeas: [any Idea] {
         return self.filteringIdeas.filter { idea in
-            return idea.isFavorite == false 
+            return idea.isFavorite == false
+        }
+    }
+    
+    var notWeekIdeas: [any Idea] {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        return self.filteringNotFavoriteIdeas.filter { idea in
+            !(calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
+              calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear))
         }
     }
     
     func updateFavoriteSectionIdeas() {
         resetDisposedData()
         self.favoriteIdeas = self.filteringFavoriteIdeas
-        self.filteredIdeas = self.filteringNotFavoriteIdeas
+        self.filteredIdeas = self.notWeekIdeas
+        self.weekIdeas = self.weekCorrentlyIdeas
     }
     
     var filteringTags: [Tag] {
@@ -119,6 +136,16 @@ class IdeasViewModel: ObservableObject {
                     return tag1.name > tag2.name
                 }
             }
+        }
+    }
+    
+    var weekCorrentlyIdeas: [any Idea] {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        return filteringNotFavoriteIdeas.filter { idea in
+            calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
+            calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
         }
     }
     

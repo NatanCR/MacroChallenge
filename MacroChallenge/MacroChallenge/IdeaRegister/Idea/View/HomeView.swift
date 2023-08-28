@@ -86,8 +86,9 @@ struct HomeView: View {
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsFiltered = IdeaSaver.getAllSavedTags()
                     
+                    ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas
                     ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas
-                    ideasViewModel.filteredIdeas = ideasViewModel.filteringNotFavoriteIdeas
+                    ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas
                 }
                 //atualizando a view quando fechar a camera
                 .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
@@ -148,6 +149,13 @@ struct HomeGridView: View {
                     }
                 }
                 
+                Text("Da semana")
+                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                    .foregroundColor(Color("labelColor"))
+//                    .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
+                    .padding(.bottom)
+                GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.weekIdeas)
+                    .padding(.bottom)
                 
                 Text("all")
                     .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
