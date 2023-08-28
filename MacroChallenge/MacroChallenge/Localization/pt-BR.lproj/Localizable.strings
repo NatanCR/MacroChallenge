@@ -179,7 +179,9 @@ Obrigado por usar o aplicativo Ideeo App.
 
 "delFolder" = "Apagar Pasta";
 
-"delMsg" = "Voçê realmente deseja deletar essa ideia?";
+"delFolderMsg" = "Esta ação apaga todas as ideias contidas nesta pasta, deseja continuar?";
+
+"delMsg" = "Você realmente deseja deletar essa ideia?";
 
 "sucess" = "Sucesso";
 

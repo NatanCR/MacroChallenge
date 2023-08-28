@@ -131,7 +131,6 @@ struct HomeView: View {
         .onChange(of: isAdding) { newValue in
             if newValue {
                 selectedIdeas = []
-                print("limpei")
             } 
         }
     }

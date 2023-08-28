@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   MacroChallenge
 
@@ -178,6 +178,8 @@ Thank you for using Ideeo App.
 "delIdea" = "Delete idea";
 
 "delFolder" = "Delete folder";
+
+"delFolderMsg" = "This action deletes all ideas contained in this folder, continue?";
 
 "delMsg" = "Do you really wanna do this?";
 
