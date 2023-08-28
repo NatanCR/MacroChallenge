@@ -63,6 +63,10 @@ struct GroupView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: group.title, perform: { newValue in
+            group.modifiedDate = Date()
+            IdeaSaver.changeSavedGroup(newGroup: group)
+        })
         .toolbar {
 //            ToolbarItem(placement: .navigationBarTrailing) {
 //                //                MenuEditComponent(type: , idea: )
@@ -90,6 +94,7 @@ struct GroupView: View {
                 Button{
                     if isAdding{
                         isAdding = false
+                        IdeaSaver.saveGroup(group: group)
                     } else {
                         dismiss()
                     }
@@ -101,7 +106,6 @@ struct GroupView: View {
         .background(Color("backgroundColor"))
     }
 }
-
 
 //struct GroupView_Previews: PreviewProvider {
 //    static var previews: some View {

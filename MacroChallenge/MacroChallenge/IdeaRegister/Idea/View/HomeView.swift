@@ -16,7 +16,6 @@ struct HomeView: View {
     @State var isAdding: Bool = false
     @FocusState private var searchInFocus: Bool
     @State var selectedIdeas: [UUID] = []
-    @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -116,14 +115,7 @@ struct HomeView: View {
             if newValue {
                 selectedIdeas = []
                 print("limpei")
-            } else {
-                newGroup = GroupModel(title: "Sem título", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                print(newGroup)
-                if newGroup.ideasIds.count > 0 {
-                    IdeaSaver.saveGroup(group: newGroup)
-                    ideasViewModel.groups = IdeaSaver.getAllSavedGroups().reversed()
-                }
-            }
+            } 
         }
     }
     
@@ -141,7 +133,6 @@ struct HomeGridView: View {
     let audioManager: AudioManager
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
-//    @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
     
     let columns = [
         GridItem(.flexible()),

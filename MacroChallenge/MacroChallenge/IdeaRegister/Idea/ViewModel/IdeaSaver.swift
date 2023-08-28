@@ -104,6 +104,19 @@ class IdeaSaver {
         }
     }
     
+    public static func changeSavedGroup (newGroup: GroupModel) {
+        var groups = getAllSavedGroups()
+        
+        for i in 0..<groups.count {
+            if groups[i].id == newGroup.id {
+                groups[i] = newGroup
+            }
+        }
+        
+        clearGroups()
+        saveGroups(groups: groups)
+    }
+    
     //MARK: - LOADS
     /**Return  a list of all types of ideas saved in user default (text, audio and photo).*/
     public static func getAllSavedIdeas() -> [any Idea] {
@@ -276,7 +289,7 @@ class IdeaSaver {
         saveTags(tags: tags)
     }
     
-    public static func clearUniqueGroup() {
+    public static func clearGroups() {
         let emptyGroup: [GroupModel] = []
         
         if defaults.object(forKey: groupModelKey) != nil { defaults.set(emptyGroup, forKey: groupModelKey)};
@@ -295,7 +308,7 @@ class IdeaSaver {
         groups.remove(at: groupIndex)
         
         clearIdeasInGroup(group: group)
-        clearUniqueGroup()
+        clearGroups()
         saveGroups(groups: groups)
     }
     
