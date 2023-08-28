@@ -62,12 +62,17 @@ struct GroupPreviewComponent: View {
                     .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
             }
         }
-        .confirmationDialog("delMsg", isPresented: $isAlertActive) {
-            Button("delFolder", role: .destructive) {
-                //deletar
-                IdeaSaver.clearOneGroup(group: group)
-                self.ideasViewModel.resetDisposedData()
-            }
+        .alert(isPresented: $isAlertActive) {
+            Alert(
+                title: Text("delFolder"),
+                message: Text("delFolderMsg"),
+                primaryButton: .cancel(),
+                secondaryButton: .destructive(Text("delFolder")) {
+                    //deletar
+                    IdeaSaver.clearOneGroup(group: group)
+                    self.ideasViewModel.resetDisposedData()
+                }
+            )
         }
     }
 }
