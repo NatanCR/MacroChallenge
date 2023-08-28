@@ -192,9 +192,7 @@ struct RecordAudioView: View {
     /**The action that is realised when pressing the save button.*/
     private func saveAction() {
         if isRecording {
-            self.recordAudio.stopRecordingAudio()
-            self.recordAudio.deleteAudio(audioPath: self.recordAudio.recordedAudioPath)
-            self.recorded = false
+            self.recordAction()
         }
         
         if recorded {
@@ -214,6 +212,7 @@ struct RecordAudioView: View {
         // if started recording
         if isRecording {
             self.recordAudio.startRecordingAudio()
+            
         } else { // if stop the record
             self.recordAudio.stopRecordingAudio()
             self.audioUrl = ContentDirectoryHelper.getDirectoryContent(contentPath: self.recordAudio.recordedAudioPath)
