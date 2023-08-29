@@ -27,6 +27,16 @@ struct ListViewComponent: View {
                 .listRowBackground(Color("backgroundItem"))
             }
             
+            //MARK: - SECTION WEEK DATE 
+            Section {
+                ForEachListComponent(viewModel: ideasViewModel, ideaType: $ideasViewModel.weekIdeas)
+            } header: {
+                Text("Da semana")
+                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                    .foregroundColor(Color("labelColor"))
+            }
+            .listRowBackground(Color("backgroundItem"))
+            
             //MARK: - SECTION ALL IDEAS
             Section {
                 ForEachListComponent(viewModel: ideasViewModel, ideaType: $ideasViewModel.filteredIdeas)
