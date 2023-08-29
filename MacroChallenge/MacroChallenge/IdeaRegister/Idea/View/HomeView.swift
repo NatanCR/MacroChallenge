@@ -135,6 +135,8 @@ struct HomeGridView: View {
         ScrollView {
             if ideasViewModel.disposedData.count == 0 {
                 Text("noIdeas")
+                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                    .foregroundColor(Color("labelColor"))
             } else {
                 VStack(alignment: .leading) {
                     //mostra apenas se houver ideias favoritadas
@@ -189,6 +191,8 @@ struct HomeListView: View {
         VStack(alignment: .leading) {
             if ideasViewModel.disposedData.count == 0 {
                 Text("noIdeas")
+                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                    .foregroundColor(Color("labelColor"))
             } else {
                 if #available(iOS 16.0, *){
                     ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
