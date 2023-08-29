@@ -106,6 +106,7 @@ struct RecordAudioView: View {
                                 self.showModal = true
                             } label: {
                                 HorizontalTagScrollComponent(tags: tagsArray)
+//                                IdeaTagViewerComponent(idea: <#T##Idea#>)
                             }
                         }
                         
@@ -180,6 +181,7 @@ struct RecordAudioView: View {
                 Button("Salvar") {
                     self.saveAction()
                 }
+                .font(.custom("Sen-Regular", size: 17))
             }
             
             //back button personalizado

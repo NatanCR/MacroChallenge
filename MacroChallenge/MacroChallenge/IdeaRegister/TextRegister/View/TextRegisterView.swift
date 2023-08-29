@@ -90,6 +90,8 @@ struct TextRegisterView: View {
                 } label: {
                     Text("save")
                 }
+                .font(.custom("Sen-Regular", size: 17))
+
             }
             
             ToolbarItem(placement: .navigationBarLeading) {
