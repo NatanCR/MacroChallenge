@@ -133,36 +133,39 @@ struct HomeGridView: View {
     //MARK: - GRID BODY
     var body: some View{
         ScrollView {
-            VStack(alignment: .leading) {
-                //mostra apenas se houver ideias favoritadas
-                if ideasViewModel.favoriteIdeas.count != 0 {
-                    //modo de expansão da grid de favoritos
-                    DisclosureGroup(isExpanded: $ideasViewModel.revealSectionDetails) {
-                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas)
-                            .padding(.bottom)
-                    } label: {
-                        Text("fav")
-                            .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                            .foregroundColor(Color("labelColor"))
-                            .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
-                            .padding(.bottom)
+            if ideasViewModel.disposedData.count == 0 {
+                Text("noIdeas")
+            } else {
+                VStack(alignment: .leading) {
+                    //mostra apenas se houver ideias favoritadas
+                    if ideasViewModel.favoriteIdeas.count != 0 {
+                        //modo de expansão da grid de favoritos
+                        DisclosureGroup(isExpanded: $ideasViewModel.revealSectionDetails) {
+                            GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas)
+                                .padding(.bottom)
+                        } label: {
+                            Text("fav")
+                                .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                                .foregroundColor(Color("labelColor"))
+                                .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
+                                .padding(.bottom)
+                        }
                     }
-                }
-                
-                Text("Da semana")
-                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                    .foregroundColor(Color("labelColor"))
-//                    .padding(.bottom)
-                GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.weekIdeas)
-                    .padding(.bottom)
-                
-                Text("all")
-                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                    .foregroundColor(Color("labelColor"))
-                    .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
-                    .padding(.bottom)
-                GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas)
-            }.padding()
+                    
+                    Text("Da semana")
+                        .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("labelColor"))
+                    GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.weekIdeas)
+                        .padding(.bottom)
+                    
+                    Text("all")
+                        .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("labelColor"))
+                        .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
+                        .padding(.bottom)
+                    GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas)
+                }.padding()
+            }
         }
         .onAppear {
             if self.ideasViewModel.favoriteIdeas.count != 0 {
@@ -184,16 +187,21 @@ struct HomeListView: View {
     //MARK: - LIST BODY
     var body: some View{
         VStack(alignment: .leading) {
-            if #available(iOS 16.0, *){
-                ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
-                    .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
-                    .scrollContentBackground(.hidden)
-                
+            if ideasViewModel.disposedData.count == 0 {
+                Text("noIdeas")
             } else {
-                //MARK: - OTHER iOS VERSION
-                ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
-                    .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
+                if #available(iOS 16.0, *){
+                    ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
+                        .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
+                        .scrollContentBackground(.hidden)
+                    
+                } else {
+                    //MARK: - OTHER iOS VERSION
+                    ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
+                        .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
+                }
             }
+            Spacer()
         }.padding(.horizontal)
     }
 }
