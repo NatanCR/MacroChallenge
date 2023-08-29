@@ -75,6 +75,15 @@ struct RecordAudioView: View {
                         Text("record")
                             .foregroundColor(Color("deleteColor"))
                             .padding()
+                        
+                            Button{
+                                self.recordAction()
+                            } label: {
+                                Image(systemName: "stop.fill")
+                                    .font(.system(size: 28))
+                            }
+
+
                     } else if (self.recorded) {
                         HStack(alignment: .center) {
                             AudioReprodutionComponent(audioManager: self.audioManager, audioURL: ContentDirectoryHelper.getDirectoryContent(contentPath: self.audioUrl!.lastPathComponent))
@@ -105,24 +114,14 @@ struct RecordAudioView: View {
                             Button {
                                 self.showModal = true
                             } label: {
-                                HorizontalTagScrollComponent(tags: tagsArray)
-//                                IdeaTagViewerComponent(idea: <#T##Idea#>)
+                                IdeaTagViewerComponent(idea: AudioIdea(title: textTitle, description: textDescription, textComplete: textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: self.tagsArray))
                             }
                         }
                         
                         Spacer()
                         
-                        //botão de gravar e parar
-                        if isRecording{
-                            Button{
-                                self.recordAction()
-                            } label: {
-                                Image(systemName: "stop.fill")
-                                    .font(.system(size: 28))
-                            }
-                            .padding(.trailing, 40)
-                            Spacer()
-                        } else if !isRecording && !recorded {
+                        //botão de gravar
+                        if !isRecording && !recorded {
                             Button{
                                 self.recordAction()
                             } label: {
@@ -130,17 +129,6 @@ struct RecordAudioView: View {
                                     .font(.system(size: 28))
                             }
                         }
-//                        // record and stop button
-//                        Button {
-//                            self.recordAction()
-//                        } label: {
-//                            Image(systemName: self.isRecording ? "stop.fill" : "mic.badge.plus")
-//                                .resizable()
-//                                .scaledToFit()
-//                                .frame(width: 23, height: 23)
-//                        }.disabled(self.recorded)
-                        
-
 
                     }
                     .padding(30)
