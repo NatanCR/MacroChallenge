@@ -79,6 +79,7 @@
 		D189F12D2A5C7A07009F6488 /* TagLabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D189F12C2A5C7A07009F6488 /* TagLabelComponent.swift */; };
 		D189F12F2A5C983C009F6488 /* IdeaTagViewerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D189F12E2A5C983C009F6488 /* IdeaTagViewerComponent.swift */; };
 		D19B4FEF2A82B3290042440D /* IdeaDateTitleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */; };
+		D1AEE0E42A9EB1DC008FF73B /* WeekSectionIdeasSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AEE0E32A9EB1DC008FF73B /* WeekSectionIdeasSpec.swift */; };
 		D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */; };
 		D1ECF5382A421A2600631333 /* ButtonFavoriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */; };
 		D1F5ADF82A84244700942C8D /* HorizontalTagScrollComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F5ADF72A84244700942C8D /* HorizontalTagScrollComponent.swift */; };
@@ -176,6 +177,7 @@
 		D189F12C2A5C7A07009F6488 /* TagLabelComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelComponent.swift; sourceTree = "<group>"; };
 		D189F12E2A5C983C009F6488 /* IdeaTagViewerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaTagViewerComponent.swift; sourceTree = "<group>"; };
 		D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaDateTitleComponent.swift; sourceTree = "<group>"; };
+		D1AEE0E32A9EB1DC008FF73B /* WeekSectionIdeasSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSectionIdeasSpec.swift; sourceTree = "<group>"; };
 		D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteIdeaSpec.swift; sourceTree = "<group>"; };
 		D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFavoriteComponent.swift; sourceTree = "<group>"; };
 		D1F5ADF72A84244700942C8D /* HorizontalTagScrollComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTagScrollComponent.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 			children = (
 				D12495572A268A730063C634 /* MacroChallengeTests.swift */,
 				D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */,
+				D1AEE0E32A9EB1DC008FF73B /* WeekSectionIdeasSpec.swift */,
 			);
 			path = MacroChallengeTests;
 			sourceTree = "<group>";
@@ -817,6 +820,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				916E0FCA2A268CAC00F4FA87 /* IdeaSaverTests.swift in Sources */,
+				D1AEE0E42A9EB1DC008FF73B /* WeekSectionIdeasSpec.swift in Sources */,
 				D12495582A268A730063C634 /* MacroChallengeTests.swift in Sources */,
 				D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */,
 				91761CBC2A31231400BD1417 /* TextViewModelTests.swift in Sources */,
