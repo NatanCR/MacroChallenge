@@ -33,6 +33,8 @@ struct RecordAudioView: View {
             return true
         }
     }()
+    @State private var cancelAlertIsActive: Bool = false
+    
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State var showModal: Bool = false
     @State var tagsArray: [Tag] = []
@@ -51,6 +53,22 @@ struct RecordAudioView: View {
     var body: some View {
         VStack(alignment: .leading){
             VStack(alignment: .center) {
+                
+                TextEditor(text: $textComplete)
+                    .frame(maxWidth: screenSize.width, maxHeight: screenSize.height * 0.8, alignment: .topLeading)
+                    .focused($isFocused)
+                    .overlay {
+                        Text(self.textComplete.isEmpty ? "typeNote" : "")
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                            .padding(8)
+                            .foregroundColor(.gray)
+                            .onTapGesture {
+                                self.isFocused = true
+                            }
+                    }
+                    .padding()
+                
                 if isAllowed {
                     // recording indicator
                     if self.isRecording {
@@ -58,10 +76,9 @@ struct RecordAudioView: View {
                             .foregroundColor(Color("deleteColor"))
                             .padding()
                     } else if (self.recorded) {
-                        HStack(alignment: .top) {
+                        HStack(alignment: .center) {
                             AudioReprodutionComponent(audioManager: self.audioManager, audioURL: ContentDirectoryHelper.getDirectoryContent(contentPath: self.audioUrl!.lastPathComponent))
                                 .frame(maxHeight: screenSize.height * 0.05)
-                            
                             Button {
                                 self.deleteAction()
                                 
@@ -69,62 +86,91 @@ struct RecordAudioView: View {
                                 //                        IdeaSaver.clearAll()
                             } label: {
                                 Image(systemName: "trash.fill")
-                                    .resizable()
+                                    .font(.system(size: 23))
                                     .foregroundColor(Color("deleteColor"))
-                                    .frame(width: 23, height: 23)
                             }
+
                         }
                         .padding()
                     }
                     
-                    // record and stop button
-                    Button {
-                        self.recordAction()
-                    } label: {
-                        Image(systemName: self.isRecording ? "stop.fill" : "mic.badge.plus")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 23, height: 23)
-                    }.disabled(self.recorded)
-                    
-                    TextEditor(text: $textComplete)
-                        .frame(maxWidth: screenSize.width, maxHeight: screenSize.height * 0.8, alignment: .topLeading)
-                        .focused($isFocused)
-                        .overlay {
-                            Text(self.textComplete.isEmpty ? "typeNote" : "")
-                                .multilineTextAlignment(.leading)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                                .padding(8)
-                                .foregroundColor(.gray)
-                                .onTapGesture {
-                                    self.isFocused = true
-                                }
+                    HStack{
+                        if tagsArray.isEmpty {
+                            Button{
+                                self.showModal = true
+                            } label: {
+                                Image("tag_icon")
+                            }
+                        } else {
+                            Button {
+                                self.showModal = true
+                            } label: {
+                                HorizontalTagScrollComponent(tags: tagsArray)
+                            }
                         }
-                        .padding()
+                        
+                        Spacer()
+                        
+                        //botão de gravar e parar
+                        if isRecording{
+                            Button{
+                                self.recordAction()
+                            } label: {
+                                Image(systemName: "stop.fill")
+                                    .font(.system(size: 28))
+                            }
+                            .padding(.trailing, 40)
+                            Spacer()
+                        } else if !isRecording && !recorded {
+                            Button{
+                                self.recordAction()
+                            } label: {
+                                Image(systemName: "mic.badge.plus")
+                                    .font(.system(size: 28))
+                            }
+                        }
+//                        // record and stop button
+//                        Button {
+//                            self.recordAction()
+//                        } label: {
+//                            Image(systemName: self.isRecording ? "stop.fill" : "mic.badge.plus")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(width: 23, height: 23)
+//                        }.disabled(self.recorded)
+                        
+
+
+                    }
+                    .padding(30)
+                    
+
             }
         }
 
-                if tagsArray.isEmpty {
-                    Button{
-                        self.showModal = true
-                    } label: {
-                        Image("tag_icon")
-                    }
-                    .padding()
-                } else {
-                    Button {
-                        self.showModal = true
-                    } label: {
-                        HorizontalTagScrollComponent(tags: tagsArray)
-                    }
-                    .padding()
-                }
+
                     
                     
         }
         .sheet(isPresented: $showModal) {
             TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray)
         }
+        .alert("cancelIdea", isPresented: $cancelAlertIsActive, actions: {
+            Button(role: .destructive) {
+                self.backAction()
+                dismiss()
+            } label: {
+                Text("yes")
+            }
+            
+            Button(role: .cancel) {
+                self.cancelAlertIsActive = false
+            } label: {
+                Text("no")
+            }
+
+
+        })
         .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
         .navigationTitle("Inserir áudio")
         .navigationBarTitleDisplayMode(.inline)
@@ -138,9 +184,9 @@ struct RecordAudioView: View {
             
             //back button personalizado
             ToolbarItem(placement: .navigationBarLeading) {
-                CustomActionBackButtonComponent {
-                    self.backAction()
-                }
+                CustomActionBackButtonComponent (image:"", buttonText: "cancel", willDismiss: false, action: {
+                    cancelAlertIsActive = true
+                })
             }
         }.onAppear {
             self.recordAudio.requestPermission { isAllowed in

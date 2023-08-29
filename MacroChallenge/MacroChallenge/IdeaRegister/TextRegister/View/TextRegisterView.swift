@@ -93,7 +93,7 @@ struct TextRegisterView: View {
             }
             
             ToolbarItem(placement: .navigationBarLeading) {
-                CustomActionBackButtonComponent(buttonText: "cancel", willDismiss: false, action: {
+                CustomActionBackButtonComponent(image:"",buttonText: "cancel", willDismiss: false, action: {
                     if self.textComplete.isEmpty { self.cancelRegister(); dismiss() }
                     else {
                         self.cancelAlertIsActive = true
