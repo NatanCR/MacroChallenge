@@ -340,21 +340,16 @@ class IdeaSaver {
         }
     }
     
-    public static func removeIdeaIdFromGroup (group: GroupModel, ideaId: UUID) {
+    public static func removeIdeasIdFromGroup (group: GroupModel, ideaId: UUID) {
         var changedGroup = group
         
         for id in 0..<changedGroup.ideasIds.count {
             if changedGroup.ideasIds[id] == ideaId {
                 changedGroup.ideasIds.remove(at: id)
-                break
             }
         }
         
-        if changedGroup.ideasIds.count > 0 {
-            changeSavedGroup(newGroup: changedGroup)
-        } else {
-            clearOneGroup(group: changedGroup)
-        }
+        changeSavedGroup(newGroup: changedGroup)
     }
     
     // MARK: - PRIVATE STATICS

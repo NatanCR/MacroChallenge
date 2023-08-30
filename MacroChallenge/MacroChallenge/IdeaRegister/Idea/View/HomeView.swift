@@ -58,7 +58,7 @@ struct HomeView: View {
                                     NavigationLink{
 //                                        FolderView(isAdding: $isAdding)
                                         let newGroup = GroupModel(title: "Sem Titulo", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup, isNewIdea: true)
+                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup)
                                     } label: {
                                         Text("OK")
                                     }
@@ -132,7 +132,6 @@ struct HomeGridView: View {
     let audioManager: AudioManager
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
-//    @State var groupNil: GroupModel? = nil
     
     let columns = [
         GridItem(.flexible()),
@@ -148,7 +147,7 @@ struct HomeGridView: View {
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewIdea: false)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
                         } label: {
                             GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                         }
@@ -169,7 +168,7 @@ struct HomeGridView: View {
                             } label: {
                                 switch ideas.ideiaType {
                                 case .text:
-                                    TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: nil)
+                                    TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                                 case .audio:
                                     AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isAdding: $isAdding)
                                 case .photo:
@@ -180,7 +179,7 @@ struct HomeGridView: View {
                         } else {
                             switch ideas.ideiaType {
                             case .text:
-                                TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: nil)
+                                TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                             case .audio:
                                 AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isAdding: $isAdding)
                             case .photo:
@@ -210,7 +209,7 @@ struct HomeListView: View {
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewIdea: false)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
                         } label: {
 //                            GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                             ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
@@ -249,7 +248,7 @@ struct HomeListView: View {
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewIdea: false)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
                         } label: {
                             //                        GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                             ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
