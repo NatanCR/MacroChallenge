@@ -68,7 +68,7 @@ struct HomeView: View {
                             ToolbarItem(placement: .navigationBarLeading){
                                 //volta para a tela padrão
                                 if isAdding{
-                                    Button("Cancel"){
+                                    Button("cancel"){
                                         isAdding = false
                                     }
                                 }
@@ -80,7 +80,7 @@ struct HomeView: View {
                         }
                     
                 }
-                .navigationTitle(isAdding ? "New folder" : "ideas")
+                .navigationTitle(isAdding ? "newFolder" : "ideas")
                 .navigationBarTitleDisplayMode(isAdding ? .inline : .large)
                 .background(Color("backgroundColor"))
                 .ignoresSafeArea(.keyboard)

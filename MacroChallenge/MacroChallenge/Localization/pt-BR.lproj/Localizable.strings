@@ -16,6 +16,8 @@
 
 "fav" = "Favorito";
 
+"newFolder" = "Nova Pasta";
+
 //MARK: Info page
 
 "info" = "Info";
@@ -159,6 +161,8 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 
 "ideaEdit" = "Editado em:";
 
+"selectIdeas" = "Selecione suas ideias";
+
 //MARK: Alerts
 
 "denied" = "Permissão negada";
@@ -173,7 +177,7 @@ d) Utilizar o aplicativo de forma fraudulenta ou para fins ilegais ou não autor
 
 "delIdea" = "Apagar ideia";
 
-"delFolder" = "Apagar Pasta";
+"delFolder" = "Apagar pasta";
 
 "delFolderMsg" = "Esta ação apaga todas as ideias contidas nesta pasta, deseja continuar?";
 

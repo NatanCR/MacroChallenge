@@ -49,7 +49,7 @@ struct SegmentedPickerComponent: View {
                 }
             }else{
                 //apresenta texto para adicionar na pasta
-                Text("Select your ideas")
+                Text("selectIdeas")
                     .font(.custom("Sen-Regular", size: 20))
                     .frame(width: screenSize.width * 0.9, alignment: .leading)
             }

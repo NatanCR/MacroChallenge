@@ -17,12 +17,11 @@ struct NewFolderComponent: View {
             
             Button{
                 isAdding = true
-//                print("ta passando aqui")
             } label: {
                 HStack{
                     Image(systemName: "folder.badge.plus")
                     //TODO: localizar texto
-                    Text("New Folder")
+                    Text("newFolder")
                         .font(.custom("Sen-Regular", size: 17))
                 }
             }

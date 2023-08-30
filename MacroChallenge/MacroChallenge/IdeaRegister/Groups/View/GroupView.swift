@@ -99,7 +99,11 @@ struct GroupView: View {
                         dismiss()
                     }
                 } label: {
-                    Image(systemName: "chevron.left")
+                    HStack {
+                        Image(systemName: "chevron.backward")
+                        Text("back")
+                            .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                    }
                 }
             }
         }
