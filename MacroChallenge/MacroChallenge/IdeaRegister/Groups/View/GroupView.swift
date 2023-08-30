@@ -47,7 +47,7 @@ struct GroupView: View {
                                 } label: {
                                     switch ideas.ideiaType {
                                     case .text:
-                                        TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                                        TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group)
                                     case .audio:
                                         AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isAdding: $isAdding)
                                     case .photo:
