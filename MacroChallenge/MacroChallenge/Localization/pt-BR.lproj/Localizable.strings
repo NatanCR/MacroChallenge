@@ -12,7 +12,9 @@
 
 "save" = "Salvar";
 
-"del" = "Apagar"; 
+"del" = "Apagar";
+
+"remove" = "Remover da pasta";
 
 "fav" = "Favorito";
 
