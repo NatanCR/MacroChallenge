@@ -49,27 +49,28 @@ struct TextPreviewComponent: View {
             }
             .padding(.bottom, 5)
             .contextMenu {
+                if idea.grouped {
+                    Button(role: .none){
+                        if group != nil {
+                            IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
+                        }
+                        idea.grouped = false
+                        IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
+                        ideasViewModel.resetDisposedData()
+                    } label: {
+                        HStack{
+                            Text("remove")
+                            Image(systemName: "minus.circle")
+                        }
+                    }
+                }
+                
                 Button(role: .destructive){
                     isAlertActive = true
                 } label: {
                     HStack{
                         Text("del")
                         Image(systemName: "trash")
-                    }
-                }
-                
-                if idea.grouped {
-                    Button(role: .none){
-                        idea.grouped = false
-                        IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
-                        if group != nil {
-                            IdeaSaver.removeIdeasIdFromGroup(group: self.group!, ideaId: idea.id)
-                        }
-                    } label: {
-                        HStack{
-                            Text("del")
-                            Image(systemName: "minus.circle")
-                        }
                     }
                 }
             }
