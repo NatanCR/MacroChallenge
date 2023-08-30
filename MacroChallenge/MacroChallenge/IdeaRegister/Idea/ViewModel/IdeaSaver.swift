@@ -360,6 +360,18 @@ class IdeaSaver {
         }
     }
     
+    public static func removeIdeasIdFromGroup (group: GroupModel, ideaId: UUID) {
+        var changedGroup = group
+        
+        for id in 0..<changedGroup.ideasIds.count {
+            if changedGroup.ideasIds[id] == ideaId {
+                changedGroup.ideasIds.remove(at: id)
+            }
+        }
+        
+        changeSavedGroup(newGroup: changedGroup)
+    }
+    
     // MARK: - PRIVATE STATICS
     
     private static func saveUniqueGroup(group: GroupModel, key: String) {
