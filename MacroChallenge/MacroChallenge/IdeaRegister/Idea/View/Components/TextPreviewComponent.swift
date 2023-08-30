@@ -17,15 +17,16 @@ struct TextPreviewComponent: View {
     @State private var isAlertActive: Bool = false
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
-
+    var group: GroupModel?
     
-    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>, selectedIdeas: Binding<[UUID]>) {
+    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>, selectedIdeas: Binding<[UUID]>, group: GroupModel? = nil) {
         self.text = text
         self.title = title
         self._idea = idea
         self.ideasViewModel = ideasViewModel
         self._isAdding = isAdding
         self._selectedIdeas = selectedIdeas
+        self.group = group
     }
     
     var body: some View {
@@ -61,6 +62,9 @@ struct TextPreviewComponent: View {
                     Button(role: .none){
                         idea.grouped = false
                         IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
+                        if group != nil {
+                            IdeaSaver.removeIdeasIdFromGroup(group: self.group!, ideaId: idea.id)
+                        }
                     } label: {
                         HStack{
                             Text("del")
