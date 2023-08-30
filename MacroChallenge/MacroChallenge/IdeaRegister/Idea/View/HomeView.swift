@@ -134,9 +134,12 @@ struct HomeGridView: View {
     var body: some View{
         ScrollView {
             if ideasViewModel.disposedData.count == 0 {
-                Text("noIdeas")
-                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                    .foregroundColor(Color("labelColor"))
+                VStack(alignment: .center) {
+                    Text("noIdeas")
+                        .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("labelColor"))
+                }.frame(height: screenSize.height * 0.5)
+                
             } else {
                 VStack(alignment: .leading) {
                     //mostra apenas se houver ideias favoritadas
@@ -154,22 +157,27 @@ struct HomeGridView: View {
                         }
                     }
                     
-                    Text("Da semana")
-                        .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                        .foregroundColor(Color("labelColor"))
-                    GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.weekIdeas)
-                        .padding(.bottom)
+                    if ideasViewModel.weekIdeas.count != 0 {
+                        Text("week")
+                            .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                            .foregroundColor(Color("labelColor"))
+                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.weekIdeas)
+                            .padding(.bottom)
+                    }
                     
-                    Text("all")
-                        .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                        .foregroundColor(Color("labelColor"))
-                        .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
-                        .padding(.bottom)
-                    GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas)
+                    if ideasViewModel.filteredIdeas.count != 0 {
+                        Text("prev")
+                            .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                            .foregroundColor(Color("labelColor"))
+                            .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
+                            .padding(.bottom)
+                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas)
+                    }
                 }.padding()
             }
         }
         .onAppear {
+            //faz a verificação para expandir a seção de favoritos caso haja ideia favoritada
             if self.ideasViewModel.favoriteIdeas.count != 0 {
                 self.ideasViewModel.revealSectionDetails = true
             } else {
@@ -185,14 +193,18 @@ struct HomeListView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
+    @Environment(\.screenSize) var screenSize
     
     //MARK: - LIST BODY
     var body: some View{
         VStack(alignment: .leading) {
             if ideasViewModel.disposedData.count == 0 {
-                Text("noIdeas")
-                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                    .foregroundColor(Color("labelColor"))
+                VStack(alignment: .center) {
+                    Text("noIdeas")
+                        .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("labelColor"))
+                }.frame(height: screenSize.height * 0.5)
+                
             } else {
                 if #available(iOS 16.0, *){
                     ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)

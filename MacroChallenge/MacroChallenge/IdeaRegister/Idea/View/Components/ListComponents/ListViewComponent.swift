@@ -18,7 +18,6 @@ struct ListViewComponent: View {
             if ideasViewModel.favoriteIdeas.count != 0 {
                 Section {
                     ForEachListComponent(viewModel: ideasViewModel, ideaType: $ideasViewModel.favoriteIdeas)
-                    
                 } header: {
                     Text("fav")
                         .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
@@ -27,26 +26,29 @@ struct ListViewComponent: View {
                 .listRowBackground(Color("backgroundItem"))
             }
             
-            //MARK: - SECTION WEEK DATE 
-            Section {
-                ForEachListComponent(viewModel: ideasViewModel, ideaType: $ideasViewModel.weekIdeas)
-            } header: {
-                Text("Da semana")
-                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                    .foregroundColor(Color("labelColor"))
+            //MARK: - SECTION WEEK DATE
+            if ideasViewModel.weekIdeas.count != 0 {
+                Section {
+                    ForEachListComponent(viewModel: ideasViewModel, ideaType: $ideasViewModel.weekIdeas)
+                } header: {
+                    Text("week")
+                        .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("labelColor"))
+                }
+                .listRowBackground(Color("backgroundItem"))
             }
-            .listRowBackground(Color("backgroundItem"))
             
             //MARK: - SECTION ALL IDEAS
-            Section {
-                ForEachListComponent(viewModel: ideasViewModel, ideaType: $ideasViewModel.filteredIdeas)
-                
-            } header: {
-                Text("all")
-                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                    .foregroundColor(Color("labelColor"))
+            if ideasViewModel.filteredIdeas.count != 0 {
+                Section {
+                    ForEachListComponent(viewModel: ideasViewModel, ideaType: $ideasViewModel.filteredIdeas)
+                } header: {
+                    Text("prev")
+                        .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("labelColor"))
+                }
+                .listRowBackground(Color("backgroundItem"))
             }
-            .listRowBackground(Color("backgroundItem"))
         }
         //modo de expansão da lista
         .listStyle(SidebarListStyle())

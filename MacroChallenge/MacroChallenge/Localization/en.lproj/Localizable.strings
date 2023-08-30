@@ -193,11 +193,11 @@ Thank you for using Ideeo App.
 
 "hourFormat" = "hh:mm a";
 
-"all" = "All";
+"prev" = "Previous";
 
 "week" = "Week ideas";
 
-"noIdeas" = "Register yours ideas.";
+"noIdeas" = "Register your ideas.";
 
 "yes" = "Yes";
 
