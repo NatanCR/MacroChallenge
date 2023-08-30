@@ -61,7 +61,7 @@ struct HomeView: View {
                                     NavigationLink{
 //                                        FolderView(isAdding: $isAdding)
                                         let newGroup = GroupModel(title: "Sem Titulo", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup)
+                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup, isNewIdea: true)
                                     } label: {
                                         Text("OK")
                                     }
@@ -151,6 +151,7 @@ struct HomeGridView: View {
     @Environment(\.screenSize) var screenSize
     @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
     @Binding var selectedIdeas: [UUID]
+//    @State var groupNil: GroupModel? = nil
     
     //MARK: - GRID BODY
     var body: some View{
