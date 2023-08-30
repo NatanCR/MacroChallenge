@@ -15,8 +15,7 @@ struct GroupView: View {
     @Binding var isAdding: Bool
     @FocusState var isFocused: Bool
     @State var selectedIdeas: [UUID] = []
-    @State var group: GroupModel? = nil
-    var isNewIdea: Bool
+    @State var group: GroupModel
     
     let columns = [
         GridItem(.flexible()),
@@ -26,7 +25,7 @@ struct GroupView: View {
     
     var body: some View {
         VStack{
-            TextField("Folder Name", text: group!.title)
+            TextField("Folder Name", text: $group.title)
                 .font(.custom("Sen-Bold", size: 30))
                 .padding()
                 .focused($isFocused)
@@ -48,7 +47,7 @@ struct GroupView: View {
                                 } label: {
                                     switch ideas.ideiaType {
                                     case .text:
-                                        TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: $group)
+                                        TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group)
                                     case .audio:
                                         AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isAdding: $isAdding)
                                     case .photo:
@@ -64,16 +63,20 @@ struct GroupView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: group, perform: { newValue in
+        .onChange(of: group.title, perform: { newValue in
             group.modifiedDate = Date()
             IdeaSaver.changeSavedGroup(newGroup: group)
         })
-        .onAppear() {
-            if isNewIdea {
-                IdeaSaver.saveGroup(group: group)
-            }
-        }
         .toolbar {
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                //                MenuEditComponent(type: , idea: )
+//                Button{
+//                    
+//                } label: {
+//                    Image(systemName: "ellipsis.circle")
+//                }
+//                
+//            }
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isFocused{
@@ -91,6 +94,7 @@ struct GroupView: View {
                 Button{
                     if isAdding{
                         isAdding = false
+                        IdeaSaver.saveGroup(group: group)
                     } else {
                         dismiss()
                     }
