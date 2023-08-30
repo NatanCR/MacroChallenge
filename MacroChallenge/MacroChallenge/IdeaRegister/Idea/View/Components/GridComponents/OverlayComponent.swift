@@ -11,7 +11,6 @@ struct OverlayComponent<T: Idea>: View {
     var type: T.Type
     var text: String
     @State var idea: T
-//    @State var isSelected: Bool = false
     @Binding var isAdding: Bool
 
     @ObservedObject var ideasViewModel: IdeasViewModel
