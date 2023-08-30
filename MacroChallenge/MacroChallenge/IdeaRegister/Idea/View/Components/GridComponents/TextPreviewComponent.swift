@@ -56,6 +56,18 @@ struct TextPreviewComponent: View {
                         Image(systemName: "trash")
                     }
                 }
+                
+                if idea.grouped {
+                    Button(role: .none){
+                        idea.grouped = false
+                        IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
+                    } label: {
+                        HStack{
+                            Text("del")
+                            Image(systemName: "minus.circle")
+                        }
+                    }
+                }
             }
             
             Text(title)

@@ -16,6 +16,8 @@
 
 "fav" = "Favorite";
 
+"newFolder" = "Nova Pasta";
+
 //MARK: Info page
 
 "info" = "Info";
@@ -160,6 +162,8 @@ Thank you for using Ideeo App.
 "ideaCreate" = "Created:";
 
 "ideaEdit" = "Edited:";
+
+"selectIdeas" = "Select your ideas";
 
 //MARK: Alerts
 

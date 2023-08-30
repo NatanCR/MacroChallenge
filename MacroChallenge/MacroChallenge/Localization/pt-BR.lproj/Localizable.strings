@@ -16,6 +16,8 @@
 
 "fav" = "Favorito";
 
+"newFolder" = "Nova Pasta";
+
 //MARK: Info page
 
 "info" = "Info";
@@ -161,6 +163,8 @@ Obrigado por usar o aplicativo Ideeo App.
 
 "ideaEdit" = "Editado em:";
 
+"selectIdeas" = "Selecione suas ideias";
+
 //MARK: Alerts
 
 "denied" = "Permissão negada";
@@ -177,7 +181,7 @@ Obrigado por usar o aplicativo Ideeo App.
 
 "delIdea" = "Apagar ideia";
 
-"delFolder" = "Apagar Pasta";
+"delFolder" = "Apagar pasta";
 
 "delFolderMsg" = "Esta ação apaga todas as ideias contidas nesta pasta, deseja continuar?";
 
