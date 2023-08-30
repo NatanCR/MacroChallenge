@@ -57,6 +57,7 @@ struct TextPreviewComponent: View {
                         idea.grouped = false
                         IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
                         ideasViewModel.resetDisposedData()
+                        NotificationCenter.default.post(name: Notification.Name("RemovedIdeaFromGroup"), object: self)
                     } label: {
                         HStack{
                             Text("remove")

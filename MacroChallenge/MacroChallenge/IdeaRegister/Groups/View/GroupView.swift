@@ -17,6 +17,7 @@ struct GroupView: View {
     @State var selectedIdeas: [UUID] = []
     @State var group: GroupModel
     var isNewIdea: Bool
+    private let removedIdeaNotification = NotificationCenter.default.publisher(for: NSNotification.Name("RemovedIdeaFromGroup"))
     
     let columns = [
         GridItem(.flexible()),
@@ -73,6 +74,9 @@ struct GroupView: View {
                 IdeaSaver.saveGroup(group: group)
             }
         }
+        .onReceive(removedIdeaNotification, perform: { _ in
+            removeIdea()
+        })
         .toolbar {
             
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -106,7 +110,16 @@ struct GroupView: View {
         }
         .background(Color("backgroundColor"))
     }
+    
+    func removeIdea() {
+        self.ideasViewModel.resetDisposedData()
+        let index = self.ideasViewModel.groups.firstIndex(where: {$0.id == group.id}) ?? -1
+        if index != -1 {
+            group.ideasIds = self.ideasViewModel.groups[index].ideasIds
+        }
+    }
 }
+
 
 //struct GroupView_Previews: PreviewProvider {
 //    static var previews: some View {
