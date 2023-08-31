@@ -171,6 +171,8 @@ Obrigado por usar o aplicativo Ideeo App.
 
 "msgIdea" = "É necessário que você escreva uma ideia para salvar.";
 
+"saveNoAudio" = "É necessário que você grave um áudio para salvar.";
+
 "delIdea" = "Apagar ideia";
 
 "delMsg" = "Voçê realmente deseja deletar essa ideia?";

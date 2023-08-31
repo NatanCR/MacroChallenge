@@ -33,7 +33,10 @@ struct RecordAudioView: View {
             return true
         }
     }()
+    
+    // alerts
     @State private var cancelAlertIsActive: Bool = false
+    @State private var saveAlertIsActive: Bool = false
     
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State var showModal: Bool = false
@@ -142,6 +145,7 @@ struct RecordAudioView: View {
         .sheet(isPresented: $showModal) {
             TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray, colorName: $colorName)
         }
+        // alerts
         .alert("cancelIdea", isPresented: $cancelAlertIsActive, actions: {
             Button(role: .destructive) {
                 self.backAction()
@@ -155,16 +159,21 @@ struct RecordAudioView: View {
             } label: {
                 Text("no")
             }
-            
-            
+        })
+        .alert("saveNoAudio", isPresented: $saveAlertIsActive, actions: {
+            Button(role: .cancel) {
+                self.saveAlertIsActive = false
+            } label: {
+                Text("OK")
+            }
         })
         .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
-        .navigationTitle("Inserir áudio")
+        .navigationTitle("insertAud")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Salvar") {
+                Button("save") {
                     self.saveAction()
                 }
                 .font(.custom("Sen-Regular", size: 17))
@@ -240,9 +249,12 @@ struct RecordAudioView: View {
             
             let idea = AudioIdea(title: self.textTitle, description: self.textDescription, textComplete: self.textComplete, creationDate: Date(), modifiedDate: Date(), audioPath: self.audioUrl?.lastPathComponent ?? "", tag: tagsArray)
             IdeaSaver.saveAudioIdea(idea: idea)
+            dismiss()
+        }
+        else {
+            self.saveAlertIsActive = true
         }
         
-        dismiss()
     }
     
     /**The action that is realised when pressing the record/stop button.*/

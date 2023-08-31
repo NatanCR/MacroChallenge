@@ -171,6 +171,8 @@ Thank you for using Ideeo App.
 
 "msgIdea" = "You are required to write an idea to save.";
 
+"saveNoAudio" = "You are required to record an audio to save.";
+
 "delIdea" = "Delete idea";
 
 "delMsg" = "Do you really wanna do this?";
