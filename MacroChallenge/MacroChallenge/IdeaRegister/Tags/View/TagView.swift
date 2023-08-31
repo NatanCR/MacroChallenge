@@ -43,10 +43,10 @@ struct TagView: View {
                             if !thatTagExist {
                                 newTag = Tag(name: self.tagName, color: self.colorName)
 //                                viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
-                                viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: "fff"))
+                                viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: self.colorName))
                                 
                                 self.newTag?.isTagSelected = true
-                                self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: "fff"))
+                                self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: self.colorName))
                                 //viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: self.colorName)
                                 self.colorName = ""
                             }
@@ -83,10 +83,10 @@ struct TagView: View {
                                 if !thatTagExist {
                                     newTag = Tag(name: self.tagName, color: self.colorName)
 //                                    viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
-                                    viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: "fff"))
+                                    viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: self.colorName))
                                     
                                     self.newTag?.isTagSelected = true
-                                    self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: "fff"))
+                                    self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: self.colorName))
                                     //viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: colorName)
                                     colorName = ""
                                 }

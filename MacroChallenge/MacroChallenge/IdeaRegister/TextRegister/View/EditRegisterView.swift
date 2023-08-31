@@ -56,7 +56,7 @@ struct EditRegisterView: View {
                         self.tagsArray = modelText.tag ?? []
                         self.showSheet = true
                     } label: {
-                        HorizontalTagScrollComponent(tags: modelText.tag ?? tagsArray)
+                        HorizontalTagScrollComponent(idea: modelText)
                     }
                 }
             }

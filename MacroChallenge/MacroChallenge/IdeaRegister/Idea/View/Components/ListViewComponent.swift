@@ -32,8 +32,14 @@ struct ListViewComponent: View {
                         ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                     }
                 }
+                
             }
-            .listRowBackground(Color("backgroundItem"))
+            .listRowBackground(
+                RoundedRectangle(cornerRadius: 20)
+                .stroke(Color("labelColor"), lineWidth: 1)
+                .padding(5)
+            )
+            .listRowSeparator(.hidden)
         }
     }
 }
