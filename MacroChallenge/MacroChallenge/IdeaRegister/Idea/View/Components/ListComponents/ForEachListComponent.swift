@@ -31,6 +31,12 @@ struct ForEachListComponent: View {
                 }
             }
         }
+        .listRowBackground(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color("labelColor"), lineWidth: 1)
+                .padding(5)
+        )
+        .listRowSeparator(.hidden)
     }
 }
 

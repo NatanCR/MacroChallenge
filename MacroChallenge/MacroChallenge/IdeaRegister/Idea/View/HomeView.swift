@@ -194,7 +194,6 @@ struct HomeListView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
-    @Environment(\.screenSize) var screenSize
     
     //MARK: - LIST BODY
     var body: some View{
