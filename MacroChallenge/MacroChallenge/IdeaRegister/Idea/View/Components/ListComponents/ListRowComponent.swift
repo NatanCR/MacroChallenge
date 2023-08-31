@@ -106,6 +106,8 @@ struct ListRowComponent: View {
                 case .photo:
                     IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
                 }
+                
+                self.ideasViewModel.updateSectionIdeas()
             } label: {
                 Image(systemName: "star")
             }
