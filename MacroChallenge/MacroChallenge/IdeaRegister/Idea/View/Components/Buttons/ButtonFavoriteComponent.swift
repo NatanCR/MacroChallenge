@@ -28,7 +28,7 @@ struct ButtonFavoriteComponent<T: Idea>: View {
             self.getIdea()
             idea.isFavorite.toggle()
             IdeaSaver.changeSavedValue(type: type, idea: idea)
-            if resetData {viewModel.updateFavoriteSectionIdeas()}
+            if resetData {viewModel.updateSectionIdeas()}
             viewModel.revealSectionDetails = true
         } label: {
             HStack {

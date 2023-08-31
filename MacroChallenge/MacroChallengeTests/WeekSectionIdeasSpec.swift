@@ -55,7 +55,7 @@ final class WeekSectionIdeasSpec: XCTestCase {
         //pega todas as ideias para o array
         ideas = IdeaSaver.getAllSavedIdeas()
         //carrega os arrays separados por favoritos, dessa semana e demais ideias
-        viewModel.updateFavoriteSectionIdeas()
+        viewModel.updateSectionIdeas()
         
         //verifica se as ideias conseguiram ser salvas e atribuidas ao array
         XCTAssertNotNil(ideas)

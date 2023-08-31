@@ -123,7 +123,7 @@ class IdeasViewModel: ObservableObject {
     }
     
     /**Função para atualizar a seção de favoritos ao favoritar novas ideias e obter mudanças**/
-    func updateFavoriteSectionIdeas() {
+    func updateSectionIdeas() {
         resetDisposedData()
         
         self.favoriteIdeas = self.filteringFavoriteIdeas

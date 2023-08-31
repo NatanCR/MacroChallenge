@@ -63,7 +63,7 @@ struct AudioPreviewComponent: View {
             Button("delIdea", role: .destructive) {
                 //deletar
                 IdeaSaver.clearOneIdea(type: AudioIdea.self, idea: idea as! AudioIdea)
-                self.ideasViewModel.resetDisposedData()
+                self.ideasViewModel.updateSectionIdeas()
                 
                 if let audioIdea = idea as? AudioIdea {
                     ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: audioIdea.audioPath)

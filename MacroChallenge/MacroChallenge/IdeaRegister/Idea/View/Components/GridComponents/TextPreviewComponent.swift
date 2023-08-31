@@ -72,7 +72,7 @@ struct TextPreviewComponent: View {
             Button("delIdea", role: .destructive) {
                 //deletar
                 IdeaSaver.clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
-                self.ideasViewModel.resetDisposedData()
+                self.ideasViewModel.updateSectionIdeas()
             }
         }
     }
