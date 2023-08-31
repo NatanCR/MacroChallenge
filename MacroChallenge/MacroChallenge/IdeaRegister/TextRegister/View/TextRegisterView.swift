@@ -53,6 +53,9 @@ struct TextRegisterView: View {
         .onChange(of: textComplete, perform: { newValue in
             self.saveIdea()
         })
+        .onAppear {
+            self.isFocused = true
+        }
         .sheet(isPresented: $showModal) {
             TagView(viewModel: ideasViewModel, tagsArrayReceived: $tagsArray, colorName: $colorName)
         }

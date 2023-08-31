@@ -86,7 +86,7 @@ struct PhotoIdeaView: View {
                             self.tagsArray = photoModel.tag ?? []
                             self.showSheet = true
                         } label: {
-                            HorizontalTagScrollComponent(idea: photoModel)
+                            HorizontalTagScrollComponent(tags: photoModel.tag ?? tagsArray)
                         }.padding()
                     }
             }
@@ -102,7 +102,7 @@ struct PhotoIdeaView: View {
                     }
                     print(photoURL!.path)
                 }
-                viewModel.tagsFiltered = viewModel.tagsLoadedData
+//                viewModel.tagsFiltered = viewModel.tagsLoadedData
             }
             .onChange(of: photoModel.textComplete) { newValue in
                 self.tagsArray = photoModel.tag ?? []

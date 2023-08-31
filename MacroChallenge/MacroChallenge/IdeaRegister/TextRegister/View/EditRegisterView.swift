@@ -56,7 +56,7 @@ struct EditRegisterView: View {
                         self.tagsArray = modelText.tag ?? []
                         self.showSheet = true
                     } label: {
-                        HorizontalTagScrollComponent(idea: modelText)
+                        HorizontalTagScrollComponent(tags: modelText.tag ?? tagsArray)
                     }
                 }
             }
@@ -82,10 +82,7 @@ struct EditRegisterView: View {
                 }
             }
         })
-        .onAppear {
-            self.showSheet = false
-            viewModel.tagsFiltered = viewModel.tagsLoadedData
-        }
+        
         .navigationBarBackButtonHidden() //esconde botão de voltar padrão
         .navigationBarTitleDisplayMode(.inline) //define estilo do título
         .toolbar {
