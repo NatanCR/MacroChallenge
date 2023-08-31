@@ -41,8 +41,10 @@ struct CustomActionBackButtonComponent : View {
     let buttonText: String
     let action: () -> Void
     let willDismiss: Bool
+    let image: String
     
-    init(buttonText: String = "back", willDismiss: Bool = true, action: @escaping () -> Void) {
+    init(image: String = "chevron.backward", buttonText: String = "back", willDismiss: Bool = true, action: @escaping () -> Void) {
+        self.image = image
         self.buttonText = buttonText
         self.willDismiss = willDismiss
         self.action = action
@@ -55,7 +57,7 @@ struct CustomActionBackButtonComponent : View {
             if willDismiss { dismiss() }
         } label: {
             HStack {
-                Image(systemName: "chevron.backward")
+                Image(systemName: image)
                 Text(String(localized: String.LocalizationValue(stringLiteral: self.buttonText)))
                     .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
             }
