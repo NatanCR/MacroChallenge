@@ -10,14 +10,16 @@ import SwiftUI
 struct ButtonFavoriteComponent<T: Idea>: View {
     var type: T.Type
     var text: String
+    let resetData: Bool
     @State var idea: T
     @ObservedObject var viewModel: IdeasViewModel
     
-    init(type: T.Type, idea: T, text: String = String(), viewModel: IdeasViewModel) {
+    init(type: T.Type, idea: T, text: String = String(), viewModel: IdeasViewModel, resetData: Bool = true) {
         self.type = type
         self.text = text
         self._idea = State(initialValue: idea)
         self.viewModel = viewModel
+        self.resetData = resetData
     }
     
     //MARK: - BODY
@@ -26,8 +28,8 @@ struct ButtonFavoriteComponent<T: Idea>: View {
             self.getIdea()
             idea.isFavorite.toggle()
             IdeaSaver.changeSavedValue(type: type, idea: idea)
-            viewModel.updateFavoriteSectionIdeas()
-            viewModel.revealSectionDetails = true 
+            if resetData {viewModel.updateFavoriteSectionIdeas()}
+            viewModel.revealSectionDetails = true
         } label: {
             HStack {
                 Text(LocalizedStringKey(text))

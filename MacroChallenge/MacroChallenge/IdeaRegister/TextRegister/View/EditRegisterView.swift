@@ -92,7 +92,7 @@ struct EditRegisterView: View {
             //botão de favoritar ideia
             ToolbarItem(placement: .navigationBarTrailing) {
                 if !isFocused {
-                    ButtonFavoriteComponent(type: ModelText.self, idea: $modelText.wrappedValue, viewModel: viewModel)
+                    ButtonFavoriteComponent(type: ModelText.self, idea: $modelText.wrappedValue, viewModel: viewModel, resetData: false)
                 }
             }
             
