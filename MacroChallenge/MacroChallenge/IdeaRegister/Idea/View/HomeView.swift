@@ -60,11 +60,12 @@ struct HomeView: View {
                                     //leva para a FolderView
                                     NavigationLink{
 //                                        FolderView(isAdding: $isAdding)
-                                        let newGroup = GroupModel(title: "Sem Titulo", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
+                                        let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
                                         GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup, isNewIdea: true)
                                     } label: {
                                         Text("OK")
                                     }
+                                    .disabled(selectedIdeas.count <= 0)
                                 }
                             }
                             
@@ -216,6 +217,7 @@ struct HomeListView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
+    @Binding var selectedIdeas: [UUID]
     
     //MARK: - LIST BODY
     var body: some View{
