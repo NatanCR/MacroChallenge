@@ -57,11 +57,12 @@ struct HomeView: View {
                                     //leva para a FolderView
                                     NavigationLink{
 //                                        FolderView(isAdding: $isAdding)
-                                        let newGroup = GroupModel(title: "Sem Titulo", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
+                                        let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
                                         GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup, isNewIdea: true)
                                     } label: {
                                         Text("OK")
                                     }
+                                    .disabled(selectedIdeas.count <= 0)
                                 }
                             }
                             
@@ -200,12 +201,13 @@ struct HomeListView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
+    @Binding var selectedIdeas: [UUID]
     
     //MARK: - LIST BODY
     var body: some View{
         
         if #available(iOS 16.0, *){
-            List {
+            List (selection: $selection){
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
@@ -216,9 +218,11 @@ struct HomeListView: View {
                         }
                     }
                     .listRowBackground(Color("backgroundItem"))
+                    .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
+
                 }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    if ideas.grouped == false {
+                    if ideas.grouped == false || ideas.grouped && isAdding {
                         NavigationLink {
                             switch ideas.ideiaType {
                             case .text:
@@ -236,6 +240,15 @@ struct HomeListView: View {
                                 ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                             }
                         }
+                        .onChange(of: selection) { newValue in
+                            selectedIdeas = []
+                            ideas.grouped = false
+                            for id in selection {
+                                ideas.grouped = true
+                                saveIdea(idea: ideas)
+                                selectedIdeas.append(id)
+                            }
+                        }
                     }
                 }
                 .listRowBackground(Color("backgroundItem"))
@@ -244,7 +257,7 @@ struct HomeListView: View {
             .scrollContentBackground(.hidden)
             
         } else {
-            List {
+            List (selection: $selection){
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
@@ -257,7 +270,7 @@ struct HomeListView: View {
                     }
                 }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    if ideas.grouped == false {
+                    if ideas.grouped == false || ideas.grouped && isAdding {
                         NavigationLink {
                             switch ideas.ideiaType {
                             case .text:
@@ -275,12 +288,20 @@ struct HomeListView: View {
                                 ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                             }
                         }
+                        .onChange(of: selection) { newValue in
+                            selectedIdeas = []
+                            ideas.grouped = false
+                            for id in selection {
+                                ideas.grouped = true
+                                saveIdea(idea: ideas)
+                                selectedIdeas.append(id)
+                            }
+                        }
                         .listRowBackground(Color("backgroundItem"))
                     }
                 }
                 .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
             }
-            
         }
     }
 }

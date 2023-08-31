@@ -56,7 +56,7 @@ struct SegmentedPickerComponent: View {
             
                 //define o tipo de visualização
             if index == 0{
-                HomeListView(ideasViewModel: ideasViewModel, isAdding: $isAdding)
+                HomeListView(ideasViewModel: ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
             } else{
                 HomeGridView(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
             }
