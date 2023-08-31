@@ -75,10 +75,12 @@
 		D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1519E0D2A27E9D000CE84E1 /* TextViewModel.swift */; };
 		D153ACD02A3B82D500DE9A79 /* IdeasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D153ACCF2A3B82D500DE9A79 /* IdeasViewModel.swift */; };
 		D153ACD32A3CDE9600DE9A79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D153ACD52A3CDE9600DE9A79 /* Localizable.strings */; };
+		D15C5E022A9D23A100287D10 /* ForEachListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15C5E012A9D23A100287D10 /* ForEachListComponent.swift */; };
 		D179E8CF2A549EB200E21A07 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179E8CE2A549EB200E21A07 /* Tag.swift */; };
 		D189F12D2A5C7A07009F6488 /* TagLabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D189F12C2A5C7A07009F6488 /* TagLabelComponent.swift */; };
 		D189F12F2A5C983C009F6488 /* IdeaTagViewerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D189F12E2A5C983C009F6488 /* IdeaTagViewerComponent.swift */; };
 		D19B4FEF2A82B3290042440D /* IdeaDateTitleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */; };
+		D1AEE0E42A9EB1DC008FF73B /* WeekSectionIdeasSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AEE0E32A9EB1DC008FF73B /* WeekSectionIdeasSpec.swift */; };
 		D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */; };
 		D1ECF5382A421A2600631333 /* ButtonFavoriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */; };
 		D1F5ADF82A84244700942C8D /* HorizontalTagScrollComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F5ADF72A84244700942C8D /* HorizontalTagScrollComponent.swift */; };
@@ -172,10 +174,12 @@
 		D153ACCF2A3B82D500DE9A79 /* IdeasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeasViewModel.swift; sourceTree = "<group>"; };
 		D153ACD42A3CDE9600DE9A79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D153ACD62A3CDED200DE9A79 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D15C5E012A9D23A100287D10 /* ForEachListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForEachListComponent.swift; sourceTree = "<group>"; };
 		D179E8CE2A549EB200E21A07 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		D189F12C2A5C7A07009F6488 /* TagLabelComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelComponent.swift; sourceTree = "<group>"; };
 		D189F12E2A5C983C009F6488 /* IdeaTagViewerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaTagViewerComponent.swift; sourceTree = "<group>"; };
 		D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaDateTitleComponent.swift; sourceTree = "<group>"; };
+		D1AEE0E32A9EB1DC008FF73B /* WeekSectionIdeasSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSectionIdeasSpec.swift; sourceTree = "<group>"; };
 		D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteIdeaSpec.swift; sourceTree = "<group>"; };
 		D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFavoriteComponent.swift; sourceTree = "<group>"; };
 		D1F5ADF72A84244700942C8D /* HorizontalTagScrollComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTagScrollComponent.swift; sourceTree = "<group>"; };
@@ -261,26 +265,11 @@
 		4097FDEB2A2FC239001EAB03 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */,
-				4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */,
-				4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */,
+				D15C5E002A9CE50D00287D10 /* ListComponents */,
+				D15C5DFF2A9CE4E200287D10 /* Buttons */,
+				D15C5DFE2A9AB37000287D10 /* TopViewComponents */,
+				D15C5DFD2A9AB34900287D10 /* GridComponents */,
 				4085CBAA2A30106A00DAC6CA /* ToolbarComponent.swift */,
-				4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */,
-				4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */,
-				40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */,
-				40497BA92A31259900E6D3B5 /* ListRowComponent.swift */,
-				40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */,
-				40E859552A3B8FC500F2BC0E /* MenuEditComponent.swift */,
-				40E859592A3BAD2900F2BC0E /* CustomBackButtonComponent.swift */,
-				40E8595B2A3BB6AD00F2BC0E /* PlaceholderComponent.swift */,
-				D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */,
-				40EAF0FB2A572B53006E102F /* NewFolderComponent.swift */,
-				40EAF0FF2A5735BF006E102F /* SelectionButtonComponent.swift */,
-				40EAF1032A5767B7006E102F /* OverlayComponent.swift */,
-				D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */,
-				919C0C392A7D743A007F358F /* DeleteIdeaComponent.swift */,
-				D1F5ADF92A8EBCA700942C8D /* GridViewComponent.swift */,
-				D1F5ADFB2A8EBF9F00942C8D /* ListViewComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -527,6 +516,7 @@
 			children = (
 				D12495572A268A730063C634 /* MacroChallengeTests.swift */,
 				D1D409532A30B77B00F0B99B /* FavoriteIdeaSpec.swift */,
+				D1AEE0E32A9EB1DC008FF73B /* WeekSectionIdeasSpec.swift */,
 			);
 			path = MacroChallengeTests;
 			sourceTree = "<group>";
@@ -575,6 +565,54 @@
 				D135A6D02A2690F8009C1938 /* EditRegisterView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D15C5DFD2A9AB34900287D10 /* GridComponents */ = {
+			isa = PBXGroup;
+			children = (
+				919C0C392A7D743A007F358F /* DeleteIdeaComponent.swift */,
+				40EAF0FF2A5735BF006E102F /* SelectionButtonComponent.swift */,
+				40E8595B2A3BB6AD00F2BC0E /* PlaceholderComponent.swift */,
+				40EAF1032A5767B7006E102F /* OverlayComponent.swift */,
+				D19B4FEE2A82B3290042440D /* IdeaDateTitleComponent.swift */,
+				D1F5ADF92A8EBCA700942C8D /* GridViewComponent.swift */,
+				4097FDEC2A2FC28A001EAB03 /* TextPreviewComponent.swift */,
+				4097FDFC2A2FC7C7001EAB03 /* ImagePreviewComponent.swift */,
+				4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */,
+			);
+			path = GridComponents;
+			sourceTree = "<group>";
+		};
+		D15C5DFE2A9AB37000287D10 /* TopViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				4085CBAC2A30207200DAC6CA /* SearchBarComponent.swift */,
+				4085CBAE2A302B9000DAC6CA /* FilterComponent.swift */,
+				40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */,
+				40EAF0FB2A572B53006E102F /* NewFolderComponent.swift */,
+			);
+			path = TopViewComponents;
+			sourceTree = "<group>";
+		};
+		D15C5DFF2A9CE4E200287D10 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				40E859552A3B8FC500F2BC0E /* MenuEditComponent.swift */,
+				D1ECF5372A421A2600631333 /* ButtonFavoriteComponent.swift */,
+				40497BAD2A32E68500E6D3B5 /* ButtonComponent.swift */,
+				40E859592A3BAD2900F2BC0E /* CustomBackButtonComponent.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		D15C5E002A9CE50D00287D10 /* ListComponents */ = {
+			isa = PBXGroup;
+			children = (
+				D1F5ADFB2A8EBF9F00942C8D /* ListViewComponent.swift */,
+				40497BA92A31259900E6D3B5 /* ListRowComponent.swift */,
+				D15C5E012A9D23A100287D10 /* ForEachListComponent.swift */,
+			);
+			path = ListComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -719,6 +757,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D15C5E022A9D23A100287D10 /* ForEachListComponent.swift in Sources */,
 				4097FE012A2FCC15001EAB03 /* AudioPreviewComponent.swift in Sources */,
 				91DB2B4E2A2A5FA300EC8176 /* ContentDirectoryHelper.swift in Sources */,
 				912811F02A29275400010872 /* DateHelper.swift in Sources */,
@@ -785,6 +824,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				916E0FCA2A268CAC00F4FA87 /* IdeaSaverTests.swift in Sources */,
+				D1AEE0E42A9EB1DC008FF73B /* WeekSectionIdeasSpec.swift in Sources */,
 				D12495582A268A730063C634 /* MacroChallengeTests.swift in Sources */,
 				D1D409542A30B77B00F0B99B /* FavoriteIdeaSpec.swift in Sources */,
 				91761CBC2A31231400BD1417 /* TextViewModelTests.swift in Sources */,

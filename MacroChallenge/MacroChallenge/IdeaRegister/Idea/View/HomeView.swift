@@ -86,8 +86,9 @@ struct HomeView: View {
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsFiltered = IdeaSaver.getAllSavedTags()
                     
+                    ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas
                     ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas
-                    ideasViewModel.filteredIdeas = ideasViewModel.filteringNotFavoriteIdeas
+                    ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas
                 }
                 //atualizando a view quando fechar a camera
                 .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
@@ -128,28 +129,60 @@ struct HomeGridView: View {
     @Binding var isAdding: Bool
     @Environment(\.screenSize) var screenSize
     
+    
     //MARK: - GRID BODY
     var body: some View{
         ScrollView {
-            VStack(alignment: .leading) {
-                DisclosureGroup {
-                    GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas)
-                        .padding(.bottom)
-                } label: {
-                    Text("fav")
-                        .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+            if ideasViewModel.disposedData.count == 0 {
+                VStack(alignment: .center) {
+                    Text("noIdeas")
+                        .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
                         .foregroundColor(Color("labelColor"))
-                        .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
-                        .padding(.bottom)
-                }
+                }.frame(height: screenSize.height * 0.5)
                 
-                Text("all")
-                    .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
-                    .foregroundColor(Color("labelColor"))
-                    .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
-                    .padding(.bottom)
-                GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas)
-            }.padding()
+            } else {
+                VStack(alignment: .leading) {
+                    //mostra apenas se houver ideias favoritadas
+                    if ideasViewModel.favoriteIdeas.count != 0 {
+                        //modo de expansão da grid de favoritos
+                        DisclosureGroup(isExpanded: $ideasViewModel.revealSectionDetails) {
+                            GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas)
+                                .padding(.bottom)
+                        } label: {
+                            Text("fav")
+                                .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                                .foregroundColor(Color("labelColor"))
+                                .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
+                                .padding(.bottom)
+                        }
+                    }
+                    
+                    if ideasViewModel.weekIdeas.count != 0 {
+                        Text("week")
+                            .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                            .foregroundColor(Color("labelColor"))
+                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.weekIdeas)
+                            .padding(.bottom)
+                    }
+                    
+                    if ideasViewModel.filteredIdeas.count != 0 {
+                        Text("prev")
+                            .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
+                            .foregroundColor(Color("labelColor"))
+                            .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
+                            .padding(.bottom)
+                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas)
+                    }
+                }.padding()
+            }
+        }
+        .onAppear {
+            //faz a verificação para expandir a seção de favoritos caso haja ideia favoritada
+            if self.ideasViewModel.favoriteIdeas.count != 0 {
+                self.ideasViewModel.revealSectionDetails = true
+            } else {
+                self.ideasViewModel.revealSectionDetails = false
+            }
         }
     }
 }
@@ -161,19 +194,32 @@ struct HomeListView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
+    @Environment(\.screenSize) var screenSize
     
     //MARK: - LIST BODY
     var body: some View{
-        
-        if #available(iOS 16.0, *){
-            ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
-                .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
-                .scrollContentBackground(.hidden)
-            
-        } else {
-            ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
-                .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
-        }
+        VStack(alignment: .leading) {
+            if ideasViewModel.disposedData.count == 0 {
+                VStack(alignment: .center) {
+                    Text("noIdeas")
+                        .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("labelColor"))
+                }.frame(height: screenSize.height * 0.5)
+                
+            } else {
+                if #available(iOS 16.0, *){
+                    ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
+                        .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
+                        .scrollContentBackground(.hidden)
+                    
+                } else {
+                    //MARK: - OTHER iOS VERSION
+                    ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
+                        .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
+                }
+            }
+            Spacer()
+        }.padding(.horizontal)
     }
 }
 

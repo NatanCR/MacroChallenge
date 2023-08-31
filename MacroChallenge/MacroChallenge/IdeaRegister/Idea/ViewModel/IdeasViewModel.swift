@@ -16,7 +16,7 @@ class IdeasViewModel: ObservableObject {
     @Published var isFiltered: Bool = false
     @Published var isSortedByAscendent: Bool = false
     @Published var isSortedByCreation: Bool = false
-    @Published var isShowingCamera = false
+    @Published var isShowingCamera: Bool = false
     @Published var searchText: String = ""
     @Published var searchTag: String = ""
     var cameraViewModel = CameraViewModel()
@@ -24,6 +24,8 @@ class IdeasViewModel: ObservableObject {
     @Published var tagsFiltered: [Tag] = IdeaSaver.getAllSavedTags()
     static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
     @Published var favoriteIdeas: [any Idea] = []
+    @Published var weekIdeas: [any Idea] = []
+    @Published var revealSectionDetails: Bool = false
     
     func DismissKeyboard(){
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -49,6 +51,8 @@ class IdeasViewModel: ObservableObject {
                 sortedByAscendent ? filteredIdeas.sort(by: { $0.creationDate < $1.creationDate }) : filteredIdeas.sort(by: { $0.creationDate > $1.creationDate })
                 
                 sortedByAscendent ? favoriteIdeas.sort(by: { $0.creationDate < $1.creationDate }) : favoriteIdeas.sort(by: { $0.creationDate > $1.creationDate })
+                
+                sortedByAscendent ? weekIdeas.sort(by: { $0.creationDate < $1.creationDate }) : weekIdeas.sort(by: { $0.creationDate > $1.creationDate })
             } else {
                 //se true ordena do mais recente ao mais antigo - data de edição
                 sortedByAscendent ? disposedData.sort(by: { $0.modifiedDate < $1.modifiedDate }) : disposedData.sort(by: { $0.modifiedDate > $1.modifiedDate })
@@ -56,14 +60,18 @@ class IdeasViewModel: ObservableObject {
                 sortedByAscendent ? filteredIdeas.sort(by: { $0.modifiedDate < $1.modifiedDate }) : filteredIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate })
                 
                 sortedByAscendent ? favoriteIdeas.sort(by: { $0.modifiedDate < $1.modifiedDate }) : favoriteIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate })
+                
+                sortedByAscendent ? weekIdeas.sort(by: { $0.modifiedDate < $1.modifiedDate }) : weekIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate })
             }
         }
     }
     
+    /**Função para filtrar TODAS as ideias de acordo com o tipo de ideia escolhido pelo usuário em todas as seções**/
     func filterBy(_ type: IdeaType) {
         self.disposedData = self.loadedData
-        self.filteredIdeas = self.filteringNotFavoriteIdeas
+        self.filteredIdeas = self.notWeekIdeas
         self.favoriteIdeas = self.filteringFavoriteIdeas
+        self.weekIdeas = self.weekCorrentlyIdeas
         
         if (!isFiltered || (isFiltered && filterType != type)) {
             filterType = type
@@ -71,31 +79,58 @@ class IdeasViewModel: ObservableObject {
             disposedData = loadedData.filter({ $0.ideiaType == type })
             filteredIdeas = filteredIdeas.filter({ $0.ideiaType == type })
             favoriteIdeas = favoriteIdeas.filter({ $0.ideiaType == type })
+            weekIdeas = weekIdeas.filter({ $0.ideiaType == type })
             return
         }
         
         self.isFiltered = false
-        
     }
     
+    /**Variável para filtrar e devolver apenas ideias favoritadas pra exibir na seção de favoritos*/
     var filteringFavoriteIdeas: [any Idea] {
         return self.filteringIdeas.filter { idea in
             return idea.isFavorite == true
         }
     }
     
+    /**Variável que filtra e devolve as ideias não favoritadas pra serem exibidas na seção geral**/
     var filteringNotFavoriteIdeas: [any Idea] {
         return self.filteringIdeas.filter { idea in
-            return idea.isFavorite == false 
+            return idea.isFavorite == false
         }
     }
     
+    /**Variável que filtra e devolve as ideias da semana que não estão favoritadas.**/
+    var weekCorrentlyIdeas: [any Idea] {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        return filteringNotFavoriteIdeas.filter { idea in
+            calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
+            calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
+        }
+    }
+    
+    /**Variável que filtra e devolve as DEMAIS ideias que não estão favoritadas**/
+    var notWeekIdeas: [any Idea] {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        return self.filteringNotFavoriteIdeas.filter { idea in
+            !(calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
+              calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear))
+        }
+    }
+    
+    /**Função para atualizar a seção de favoritos ao favoritar novas ideias e obter mudanças**/
     func updateFavoriteSectionIdeas() {
         resetDisposedData()
         self.favoriteIdeas = self.filteringFavoriteIdeas
-        self.filteredIdeas = self.filteringNotFavoriteIdeas
+        self.filteredIdeas = self.notWeekIdeas
+        self.weekIdeas = self.weekCorrentlyIdeas
     }
     
+    /**Variável que filtra TODAS as tags para serem exibidas em suas ideias ao realizar uma pesquisa*/
     var filteringTags: [Tag] {
         if searchTag.isEmpty {
             return tagsLoadedData
@@ -121,6 +156,7 @@ class IdeasViewModel: ObservableObject {
         }
     }
     
+    /**Variável que filtra TODAS as ideias com certas prioridades para serem exibidas ao realizar uma pesquisa na Home**/
     var filteringIdeas: [any Idea] {
         if searchText.isEmpty {
             return disposedData
