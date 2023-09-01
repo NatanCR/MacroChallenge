@@ -34,26 +34,28 @@ struct TagView: View {
                     //Text Field
                     TextField("addTag", text: $tagName, onCommit: {
                         self.tagName = self.tagName.trimmingCharacters(in: .whitespaces)
-
                         
                         if tagName.isEmpty {
                            print("esta vazio")
                         } else {
                             self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
+                            
                             if !thatTagExist {
+                                
                                 newTag = Tag(name: self.tagName, color: self.colorName)
-//                                viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
+                                
                                 viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: self.colorName))
                                 
                                 self.newTag?.isTagSelected = true
+                                
                                 self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: self.colorName))
-                                //viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: self.colorName)
-                                self.colorName = ""
                             }
+                            
                         }
                     })
                     .onSubmit {
                         self.tagName = ""
+                        self.colorName = ""
                     }
                     //realize a busca da tag
                     .onChange(of: tagName, perform: { _ in

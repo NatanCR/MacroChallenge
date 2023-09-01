@@ -118,7 +118,7 @@ struct EditRegisterView: View {
             
             //botões para selecionar cor da tag
             ToolbarItem(placement: .keyboard) {
-                if showSheet{
+                if showSheet {
                     SelectColorView(colorName: $colorName)
                 }
             }

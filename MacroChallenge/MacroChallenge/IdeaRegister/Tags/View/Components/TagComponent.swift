@@ -77,19 +77,28 @@ struct TagComponent: View {
                     .contentShape(Capsule())
                     .contextMenu {
                         Button(role: .destructive){
+                            //remove essa tag de todas as ideias que ela estiver
                             IdeaSaver.removeTagFromIdeas(tagToRemove: tag.wrappedValue)
                             
+                            //verifica se é uma tag unica
                             if allTags.count <= 1 {
+                                //se for uma única tag chama essa função
                                 IdeaSaver.clearUniqueTag()
                             } else {
+                                //se existirem outras tags chama essa função
                                 IdeaSaver.clearOneTag(tag: tag.wrappedValue)
                             }
                             
+                            //se for uma tag que estava selecionada remove ela do array de "tags selecionadas"
                             if getIndex(tag: tag.wrappedValue) != -1 {
                                 self.tagArraySelected.remove(at: getIndex(tag: tag.wrappedValue))
                             }
                             
+                            //remove a tag do array geral dessa classe
                             self.allTags.remove(at: getIndex(tag: tag.wrappedValue, allTags: true))
+                            
+                            //recarrega o array geral de tags do app, pois ele alimenta a lista de tags que são usadas pra exibir na tela 
+                            self.viewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
                         } label: {
                             HStack{
                                 Text("Delete")
