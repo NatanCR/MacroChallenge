@@ -16,7 +16,7 @@ struct ImagePreviewComponent: View {
     @State private var isAlertActive: Bool = false
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
-
+    @Binding var isNewIdea: Bool
     
     var body: some View {
         VStack{
@@ -36,7 +36,7 @@ struct ImagePreviewComponent: View {
                 })
                 .overlay(alignment: .topTrailing){
 
-                    OverlayComponent(type: PhotoModel.self, text: "", idea: idea as! PhotoModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                    OverlayComponent(type: PhotoModel.self, text: "", idea: idea as! PhotoModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
                     .padding(8)
                 }
                 .padding(.bottom, 5)

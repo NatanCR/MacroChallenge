@@ -16,7 +16,7 @@ struct GroupView: View {
     @FocusState var isFocused: Bool
     @State var selectedIdeas: [UUID] = []
     @State var group: GroupModel
-    var isNewIdea: Bool
+    @Binding var isNewIdea: Bool
     private let removedIdeaNotification = NotificationCenter.default.publisher(for: NSNotification.Name("RemovedIdeaFromGroup"))
     
     let columns = [
@@ -49,12 +49,12 @@ struct GroupView: View {
                                 } label: {
                                     switch ideas.ideiaType {
                                     case .text:
-                                        TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group)
+                                        TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group, isNewIdea: $isNewIdea)
                                     case .audio:
-                                        AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isAdding: $isAdding)
+                                        AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea, isAdding: $isAdding)
                                     case .photo:
                                         let photoIdea = ideas as! PhotoModel
-                                        ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                                        ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
                                     }
                                 }
                             }

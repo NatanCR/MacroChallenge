@@ -16,6 +16,7 @@ struct AudioPreviewComponent: View {
     @State private var isAlertActive: Bool = false
     let audioManager: AudioManager
     @Binding var selectedIdeas: [UUID]
+    @Binding var isNewIdea: Bool
     
     @Binding var isAdding: Bool
     
@@ -27,7 +28,7 @@ struct AudioPreviewComponent: View {
                     .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                     .overlay(alignment: .topTrailing){
                         
-                        OverlayComponent(type: AudioIdea.self, text: "", idea: idea as! AudioIdea, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                        OverlayComponent(type: AudioIdea.self, text: "", idea: idea as! AudioIdea, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
                         .padding(8)
                     }
                 
