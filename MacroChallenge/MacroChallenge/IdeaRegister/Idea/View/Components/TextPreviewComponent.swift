@@ -51,12 +51,12 @@ struct TextPreviewComponent: View {
             }
             .padding(.bottom, 5)
             .contextMenu {
-                if idea.grouped {
+                if idea.isGrouped {
                     Button(role: .none){
                         if group != nil {
                             IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
                         }
-                        idea.grouped = false
+                        idea.isGrouped = false
                         IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
                         ideasViewModel.resetDisposedData()
                         NotificationCenter.default.post(name: Notification.Name("RemovedIdeaFromGroup"), object: self)
@@ -94,9 +94,12 @@ struct TextPreviewComponent: View {
             Button("delIdea", role: .destructive) {
                 //TODO: atualizar a view assim que deleta a ideia
                 //deletar
+                if group != nil {
+                    IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
+                }
                 IdeaSaver.clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
                 self.ideasViewModel.resetDisposedData()
-                
+                NotificationCenter.default.post(name: Notification.Name("RemovedIdeaFromGroup"), object: self)
             }
 
         }

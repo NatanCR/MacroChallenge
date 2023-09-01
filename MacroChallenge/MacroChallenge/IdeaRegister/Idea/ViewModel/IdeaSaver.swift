@@ -175,7 +175,7 @@ class IdeaSaver {
         let ideas = IdeaSaver.getAllSavedIdeas()
         if ideas.isEmpty {return true}
         for idea in ideas {
-            if !idea.grouped {return false}
+            if !idea.isGrouped {return false}
         }
 
         return true
@@ -356,6 +356,7 @@ class IdeaSaver {
         for id in 0..<changedGroup.ideasIds.count {
             if changedGroup.ideasIds[id] == ideaId {
                 changedGroup.ideasIds.remove(at: id)
+                print("to aqui")
                 break
             }
         }
@@ -363,6 +364,7 @@ class IdeaSaver {
         if changedGroup.ideasIds.count > 0 {
             changeSavedGroup(newGroup: changedGroup)
         } else {
+            print("to no else")
             clearOneGroup(group: changedGroup)
         }
     }

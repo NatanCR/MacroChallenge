@@ -90,6 +90,7 @@ struct HomeView: View {
                     self.appearInitialization()
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
+                    dump(ideasViewModel.groups)
                 }
                 //atualizando a view quando fechar a camera
                 .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
@@ -157,7 +158,7 @@ struct HomeGridView: View {
                     }
                 }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    if ideas.grouped == false {
+                    if ideas.isGrouped == false {
                         if isAdding == false {
                             NavigationLink {
                                 switch ideas.ideiaType {
@@ -173,7 +174,7 @@ struct HomeGridView: View {
                                 case .text:
                                     TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
                                 case .audio:
-                                    AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea, isAdding: $isAdding)
+                                    AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
                                 case .photo:
                                     let photoIdea = ideas as! PhotoModel
                                     ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
@@ -184,7 +185,7 @@ struct HomeGridView: View {
                             case .text:
                                 TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
                             case .audio:
-                                AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea, isAdding: $isAdding)
+                                AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
                             case .photo:
                                 let photoIdea = ideas as! PhotoModel
                                 ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
@@ -225,7 +226,7 @@ struct HomeListView: View {
 
                 }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    if ideas.grouped == false || ideas.grouped && isAdding {
+                    if ideas.isGrouped == false || ideas.isGrouped && isAdding {
                         NavigationLink {
                             switch ideas.ideiaType {
                             case .text:
@@ -245,9 +246,9 @@ struct HomeListView: View {
                         }
                         .onChange(of: selection) { newValue in
                             selectedIdeas = []
-                            ideas.grouped = false
+                            ideas.isGrouped = false
                             for id in selection {
-                                ideas.grouped = true
+                                ideas.isGrouped = true
                                 saveIdea(idea: ideas)
                                 selectedIdeas.append(id)
                             }
@@ -273,7 +274,7 @@ struct HomeListView: View {
                     }
                 }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    if ideas.grouped == false || ideas.grouped && isAdding {
+                    if ideas.isGrouped == false || ideas.isGrouped && isAdding {
                         NavigationLink {
                             switch ideas.ideiaType {
                             case .text:
@@ -293,9 +294,9 @@ struct HomeListView: View {
                         }
                         .onChange(of: selection) { newValue in
                             selectedIdeas = []
-                            ideas.grouped = false
+                            ideas.isGrouped = false
                             for id in selection {
-                                ideas.grouped = true
+                                ideas.isGrouped = true
                                 saveIdea(idea: ideas)
                                 selectedIdeas.append(id)
                             }

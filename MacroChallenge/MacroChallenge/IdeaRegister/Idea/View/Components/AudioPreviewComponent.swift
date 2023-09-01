@@ -15,10 +15,10 @@ struct AudioPreviewComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @State private var isAlertActive: Bool = false
     let audioManager: AudioManager
-    @Binding var selectedIdeas: [UUID]
-    @Binding var isNewIdea: Bool
-    
     @Binding var isAdding: Bool
+    @Binding var selectedIdeas: [UUID]
+    var group: GroupModel?
+    @Binding var isNewIdea: Bool
     
     var body: some View {
         VStack{
@@ -41,6 +41,23 @@ struct AudioPreviewComponent: View {
             
             //deletar
             .contextMenu{
+                if idea.isGrouped {
+                    Button(role: .none){
+                        if group != nil {
+                            IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
+                        }
+                        idea.isGrouped = false
+                        IdeaSaver.changeSavedValue(type: AudioIdea.self, idea: idea as! AudioIdea)
+                        ideasViewModel.resetDisposedData()
+                        NotificationCenter.default.post(name: Notification.Name("RemovedIdeaFromGroup"), object: self)
+                    } label: {
+                        HStack{
+                            Text("remove")
+                            Image(systemName: "minus.circle")
+                        }
+                    }
+                }
+                
                 Button(role: .destructive){
                     isAlertActive = true
                 } label: {
@@ -64,14 +81,17 @@ struct AudioPreviewComponent: View {
         .confirmationDialog("delMsg", isPresented: $isAlertActive) {
             Button("delIdea", role: .destructive) {
                 //deletar
+                if group != nil {
+                    IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
+                }
                 IdeaSaver.clearOneIdea(type: AudioIdea.self, idea: idea as! AudioIdea)
                 self.ideasViewModel.resetDisposedData()
                 
                 if let audioIdea = idea as? AudioIdea {
                     ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: audioIdea.audioPath)
                 }
-
-
+                
+                NotificationCenter.default.post(name: Notification.Name("RemovedIdeaFromGroup"), object: self)
             }
         }
     }

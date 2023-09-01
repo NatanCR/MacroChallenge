@@ -18,7 +18,7 @@ struct AudioIdea : Idea {
     var modifiedDate: Date
     var audioPath: String
     var tag: [Tag]?
-    var grouped: Bool
+    var isGrouped: Bool
     
     init(id: UUID = UUID(), title: String, description: String, textComplete: String, creationDate: Date, modifiedDate: Date, audioPath: String, tag: [Tag]?, grouped: Bool) {
         self.id = id
@@ -29,6 +29,6 @@ struct AudioIdea : Idea {
         self.modifiedDate = modifiedDate
         self.audioPath = audioPath
         self.tag = tag
-        self.grouped = grouped
+        self.isGrouped = grouped
     }
 }

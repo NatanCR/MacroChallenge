@@ -16,6 +16,7 @@ struct ImagePreviewComponent: View {
     @State private var isAlertActive: Bool = false
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
+    var group: GroupModel?
     @Binding var isNewIdea: Bool
     
     var body: some View {
@@ -43,6 +44,23 @@ struct ImagePreviewComponent: View {
             
             //deletar
                 .contextMenu{
+                    if idea.isGrouped {
+                        Button(role: .none){
+                            if group != nil {
+                                IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
+                            }
+                            idea.isGrouped = false
+                            IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
+                            ideasViewModel.resetDisposedData()
+                            NotificationCenter.default.post(name: Notification.Name("RemovedIdeaFromGroup"), object: self)
+                        } label: {
+                            HStack{
+                                Text("remove")
+                                Image(systemName: "minus.circle")
+                            }
+                        }
+                    }
+                    
                     Button(role: .destructive){
                         isAlertActive = true
                     } label: {
@@ -68,13 +86,17 @@ struct ImagePreviewComponent: View {
             Button("delIdea", role: .destructive) {
                 //TODO: atualizar a view assim que deleta a ideia
                 //deletar
+                if group != nil {
+                    IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
+                }
                 IdeaSaver.clearOneIdea(type: PhotoModel.self, idea: idea as! PhotoModel)
                 self.ideasViewModel.resetDisposedData()
                 
                 if let photoIdea = idea as? PhotoModel {
                     ContentDirectoryHelper.deleteAudioFromDirectory(audioPath: photoIdea.capturedImages)
                 }
-
+                
+                NotificationCenter.default.post(name: Notification.Name("RemovedIdeaFromGroup"), object: self)
             }
         }
     }
