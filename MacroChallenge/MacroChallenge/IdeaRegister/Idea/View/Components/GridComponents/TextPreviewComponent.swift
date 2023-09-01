@@ -18,8 +18,9 @@ struct TextPreviewComponent: View {
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
     var group: GroupModel?
+    @Binding var isNewIdea: Bool
     
-    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>, selectedIdeas: Binding<[UUID]>, group: GroupModel? = nil) {
+    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>, selectedIdeas: Binding<[UUID]>, group: GroupModel? = nil, isNewIdea: Binding<Bool>) {
         self.text = text
         self.title = title
         self._idea = idea
@@ -27,6 +28,7 @@ struct TextPreviewComponent: View {
         self._isAdding = isAdding
         self._selectedIdeas = selectedIdeas
         self.group = group
+        self._isNewIdea = isNewIdea
     }
     
     var body: some View {
@@ -36,7 +38,6 @@ struct TextPreviewComponent: View {
                     .foregroundColor(Color("backgroundItem"))
                     .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                     .overlay(alignment: .topTrailing){
-                        
                         OverlayComponent(type: ModelText.self, text: "", idea: $idea.wrappedValue as! ModelText, isAdding: $isAdding, selectedIdeas: $selectedIdeas, ideasViewModel: ideasViewModel)
                             .padding(8)
                     }

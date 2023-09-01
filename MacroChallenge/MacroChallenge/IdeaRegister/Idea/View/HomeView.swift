@@ -61,7 +61,7 @@ struct HomeView: View {
                                     NavigationLink{
 //                                        FolderView(isAdding: $isAdding)
                                         let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup, isNewIdea: true)
+                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup, isNewIdea: $isNewIdea)
                                     } label: {
                                         Text("OK")
                                     }
@@ -152,6 +152,7 @@ struct HomeGridView: View {
     @Environment(\.screenSize) var screenSize
     @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
     @Binding var selectedIdeas: [UUID]
+    @State var isNewIdea: Bool = false
     
     //MARK: - GRID BODY
     var body: some View{
@@ -179,7 +180,6 @@ struct HomeGridView: View {
                                 .padding(.bottom)
                         }
                     }
-                    
                     if ideasViewModel.weekIdeas.count != 0 {
                         Text("week")
                             .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
@@ -218,6 +218,7 @@ struct HomeListView: View {
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
     @Binding var selectedIdeas: [UUID]
+    @State var isNewIdea: Bool = false
     
     //MARK: - LIST BODY
     var body: some View{
