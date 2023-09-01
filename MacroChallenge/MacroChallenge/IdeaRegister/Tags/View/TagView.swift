@@ -42,13 +42,13 @@ struct TagView: View {
                             
                             if !thatTagExist {
                                 
-                                newTag = Tag(name: self.tagName, color: self.colorName)
+                                self.newTag = Tag(name: self.tagName, color: self.colorName)
                                 
-                                viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: self.colorName))
+                                viewModel.saveTagAndUpdateListView(tagToSave: self.newTag ?? Tag(name: "", color: self.colorName))
                                 
                                 self.newTag?.isTagSelected = true
                                 
-                                self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: self.colorName))
+                                self.tagsArrayReceived.append(self.newTag ?? Tag(name: "", color: self.colorName))
                             }
                             
                         }
@@ -83,12 +83,12 @@ struct TagView: View {
                             } else {
                                 self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
                                 if !thatTagExist {
-                                    newTag = Tag(name: self.tagName, color: self.colorName)
+                                    self.newTag = Tag(name: self.tagName, color: self.colorName)
 //                                    viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
-                                    viewModel.saveTagAndUpdateListView(tagToSave: newTag ?? Tag(name: "", color: self.colorName))
+                                    viewModel.saveTagAndUpdateListView(tagToSave: self.newTag ?? Tag(name: "", color: self.colorName))
                                     
                                     self.newTag?.isTagSelected = true
-                                    self.tagsArrayReceived.append(newTag ?? Tag(name: "", color: self.colorName))
+                                    self.tagsArrayReceived.append(self.newTag ?? Tag(name: "", color: self.colorName))
                                     //viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: colorName)
                                     colorName = ""
                                 }
