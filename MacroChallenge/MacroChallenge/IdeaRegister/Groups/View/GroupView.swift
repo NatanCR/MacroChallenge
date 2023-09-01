@@ -51,10 +51,10 @@ struct GroupView: View {
                                     case .text:
                                         TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group, isNewIdea: $isNewIdea)
                                     case .audio:
-                                        AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea, isAdding: $isAdding)
+                                        AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group, isNewIdea: $isNewIdea)
                                     case .photo:
                                         let photoIdea = ideas as! PhotoModel
-                                        ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
+                                        ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group, isNewIdea: $isNewIdea)
                                     }
                                 }
                             }

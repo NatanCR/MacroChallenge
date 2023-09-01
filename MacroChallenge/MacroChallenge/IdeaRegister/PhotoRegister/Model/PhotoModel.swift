@@ -19,7 +19,7 @@ struct PhotoModel: Idea {
     var modifiedDate: Date
     var capturedImages: String
     var tag: [Tag]?
-    var grouped: Bool
+    var isGrouped: Bool
     
     init(title: String, description: String, textComplete: String, creationDate: Date, modifiedDate: Date, capturedImage: String, tag: [Tag]?, grouped: Bool) {
         self.title = title
@@ -29,7 +29,7 @@ struct PhotoModel: Idea {
         self.modifiedDate = modifiedDate
         self.capturedImages = capturedImage
         self.tag = tag
-        self.grouped = grouped
+        self.isGrouped = grouped
     }
 }
 

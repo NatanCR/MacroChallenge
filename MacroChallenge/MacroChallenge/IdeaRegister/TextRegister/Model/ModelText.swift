@@ -17,7 +17,7 @@ struct ModelText: Idea {
     var description: String
     var textComplete: String
     var tag: [Tag]?
-    var grouped: Bool
+    var isGrouped: Bool
     
     init(title: String, creationDate: Date, modifiedDate: Date, description: String, textComplete: String, tag: [Tag]?, grouped: Bool) {
         self.title = title
@@ -26,6 +26,6 @@ struct ModelText: Idea {
         self.description = description
         self.textComplete = textComplete
         self.tag = tag
-        self.grouped = grouped
+        self.isGrouped = grouped
     }
 }

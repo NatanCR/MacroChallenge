@@ -17,11 +17,11 @@ struct SelectionButtonComponent<T: Idea>: View {
         Button{
             isSelected.toggle()
             if isSelected {
-                idea.grouped = true
+                idea.isGrouped = true
                 saveIdea(idea: idea)
                 selectedIdeas.append(idea.id)
             } else {
-                idea.grouped = false
+                idea.isGrouped = false
                 saveIdea(idea: idea)
                 selectedIdeas.removeAll{ $0 == idea.id }
             }

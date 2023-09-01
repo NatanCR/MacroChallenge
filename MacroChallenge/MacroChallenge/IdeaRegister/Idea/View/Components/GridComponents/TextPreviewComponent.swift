@@ -18,7 +18,6 @@ struct TextPreviewComponent: View {
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
     var group: GroupModel?
-    @Binding var isNewIdea: Bool
     
     init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>, selectedIdeas: Binding<[UUID]>, group: GroupModel? = nil, isNewIdea: Binding<Bool>) {
         self.text = text
@@ -50,12 +49,12 @@ struct TextPreviewComponent: View {
             }
             .padding(.bottom, 5)
             .contextMenu {
-                if idea.grouped {
+                if idea.isGrouped {
                     Button(role: .none){
                         if group != nil {
                             IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
                         }
-                        idea.grouped = false
+                        idea.isGrouped = false
                         IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
                         ideasViewModel.resetDisposedData()
                         NotificationCenter.default.post(name: Notification.Name("RemovedIdeaFromGroup"), object: self)
@@ -92,8 +91,13 @@ struct TextPreviewComponent: View {
         .confirmationDialog("delMsg", isPresented: $isAlertActive) {
             Button("delIdea", role: .destructive) {
                 //deletar
+                if group != nil {
+                    IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
+                }
                 IdeaSaver.clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
                 self.ideasViewModel.updateSectionIdeas()
+                self.ideasViewModel.resetDisposedData()
+                NotificationCenter.default.post(name: Notification.Name("RemovedIdeaFromGroup"), object: self)
             }
         }
     }
