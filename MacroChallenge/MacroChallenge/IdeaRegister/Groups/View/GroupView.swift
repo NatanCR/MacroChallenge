@@ -95,7 +95,6 @@ struct GroupView: View {
                 Button{
                     if isAdding{
                         isAdding = false
-//                        IdeaSaver.saveGroup(group: group)
                     } else {
                         dismiss()
                     }
