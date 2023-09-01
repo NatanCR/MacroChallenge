@@ -171,6 +171,16 @@ class IdeaSaver {
         return []
     }
     
+    public static func getIdeaNotGrouped() -> Bool {
+        let ideas = IdeaSaver.getAllSavedIdeas()
+        if ideas.isEmpty {return true}
+        for idea in ideas {
+            if !idea.grouped {return false}
+        }
+
+        return true
+    }
+    
     //MARK: - GETTERS
     /**Gets the key used for audio ideas saved in UserDefaults.**/
     public static func getAudioModelKey() -> String {

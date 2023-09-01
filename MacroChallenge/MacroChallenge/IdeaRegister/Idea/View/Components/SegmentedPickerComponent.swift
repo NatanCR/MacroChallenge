@@ -14,6 +14,7 @@ struct SegmentedPickerComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
+    @State var isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
     
     let audioManager: AudioManager
     
@@ -46,6 +47,7 @@ struct SegmentedPickerComponent: View {
                     
                     Spacer()
                     NewFolderComponent(isAdding: $isAdding)
+                        .disabled(isIdeaNotGrouped)
                 }
             }else{
                 //apresenta texto para adicionar na pasta
@@ -60,6 +62,12 @@ struct SegmentedPickerComponent: View {
             } else{
                 HomeGridView(ideasViewModel: ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
             }
+        }
+        .onAppear() {
+            isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
+        }
+        .onChange(of: self.ideasViewModel.disposedData.count) { newValue in
+            isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
         }
     }
 }
