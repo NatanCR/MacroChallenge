@@ -23,29 +23,57 @@ struct TextRegisterView: View {
     @State var tagsArray: [Tag] = []
     @State var createDate: Date = Date()
     @State var ideaID: UUID = UUID()
+    @State var font: UIFont? = UIFont(name: "Sen-Regular", size: 17)
+    @State var size: CGFloat = 17
+    @State var showEdit: Bool = false
+    
     
     //MARK: - BODY
     var body: some View {
         VStack (alignment: .leading){
-            TextEditor(text: $textComplete)
+//            TextEditor(text: $textComplete)
+//                .padding()
+//                .focused($isFocused)
+            TextEditorComponent(text: $textComplete, font: font)
                 .padding()
                 .focused($isFocused)
             
-            if tagsArray.isEmpty {
-                //chama a sheet
-                Button {
-                    showModal = true
-                } label: {
-                    Image("tag_icon")
-                }.padding()
-            } else {
-                Button {
-                    self.showModal = true
-                } label: {
-                    //define a formatação das tags
-                    HorizontalTagScrollComponent(tags: tagsArray)
-                }.padding()
-
+            HStack{
+                if tagsArray.isEmpty {
+                    //chama a sheet
+                    Button {
+                        showModal = true
+                    } label: {
+                        Image("tag_icon")
+                    }.padding()
+                } else {
+                    Button {
+                        self.showModal = true
+                    } label: {
+                        //define a formatação das tags
+                        HorizontalTagScrollComponent(tags: tagsArray)
+                    }.padding()
+                    
+                }
+                
+                //apresenta botão de edição quando o teclado está aberto
+                if isFocused{
+                    Spacer()
+                    
+                    Button{
+                        showEdit.toggle()
+                    } label: {
+                        Image(systemName: "textformat")
+                            .font(.system(size: 23, weight: .medium))
+                    }
+                    .padding(.trailing)
+                }
+            }
+            if showEdit{
+                EditView(font: $font)
+                    .onAppear{
+                        print("font")
+                    }
             }
         }
         .onChange(of: textComplete, perform: { newValue in
@@ -57,6 +85,7 @@ struct TextRegisterView: View {
         .navigationTitle("insertTxt")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
+        
 
         .alert("writeIdea", isPresented: $saveAlertIsActive, actions: {
             Button(role: .cancel) {

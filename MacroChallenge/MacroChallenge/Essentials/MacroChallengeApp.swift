@@ -14,6 +14,7 @@ struct MacroChallengeApp: App {
         WindowGroup {
             GeometryReader { geo in
                 SplashScreenView()
+//                TextEditorComponent()
                     .environment(\.screenSize, geo.size)
             }
         }

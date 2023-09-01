@@ -30,6 +30,8 @@
 		4097FE012A2FCC15001EAB03 /* AudioPreviewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */; };
 		4097FE052A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
 		40AAA7ED2A3103DE00943CBF /* SegmentedPickerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */; };
+		40B4831E2A9FB7A80057B711 /* TextEditorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B4831D2A9FB7A80057B711 /* TextEditorComponent.swift */; };
+		40B483202A9FC9590057B711 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B4831F2A9FC9590057B711 /* EditView.swift */; };
 		40E859562A3B8FC500F2BC0E /* MenuEditComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E859552A3B8FC500F2BC0E /* MenuEditComponent.swift */; };
 		40E8595A2A3BAD2900F2BC0E /* CustomBackButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E859592A3BAD2900F2BC0E /* CustomBackButtonComponent.swift */; };
 		40E8595C2A3BB6AD00F2BC0E /* PlaceholderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E8595B2A3BB6AD00F2BC0E /* PlaceholderComponent.swift */; };
@@ -121,6 +123,8 @@
 		4097FE002A2FCC15001EAB03 /* AudioPreviewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreviewComponent.swift; sourceTree = "<group>"; };
 		4097FE042A2FD3B3001EAB03 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		40AAA7EC2A3103DE00943CBF /* SegmentedPickerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPickerComponent.swift; sourceTree = "<group>"; };
+		40B4831D2A9FB7A80057B711 /* TextEditorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorComponent.swift; sourceTree = "<group>"; };
+		40B4831F2A9FC9590057B711 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		40E859552A3B8FC500F2BC0E /* MenuEditComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuEditComponent.swift; sourceTree = "<group>"; };
 		40E859592A3BAD2900F2BC0E /* CustomBackButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackButtonComponent.swift; sourceTree = "<group>"; };
 		40E8595B2A3BB6AD00F2BC0E /* PlaceholderComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderComponent.swift; sourceTree = "<group>"; };
@@ -251,6 +255,7 @@
 				40497BAB2A32E5F600E6D3B5 /* InfoView.swift */,
 				401292862A40F155006DB4CF /* SplashScreenView.swift */,
 				40EAF1052A5780B9006E102F /* FolderView.swift */,
+				40B4831F2A9FC9590057B711 /* EditView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 				919C0C392A7D743A007F358F /* DeleteIdeaComponent.swift */,
 				D1F5ADF92A8EBCA700942C8D /* GridViewComponent.swift */,
 				D1F5ADFB2A8EBF9F00942C8D /* ListViewComponent.swift */,
+				40B4831D2A9FB7A80057B711 /* TextEditorComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -737,6 +743,7 @@
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				D1F5ADFC2A8EBF9F00942C8D /* ListViewComponent.swift in Sources */,
 				40EAF1002A5735BF006E102F /* SelectionButtonComponent.swift in Sources */,
+				40B483202A9FC9590057B711 /* EditView.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
 				D1F5ADF82A84244700942C8D /* HorizontalTagScrollComponent.swift in Sources */,
 				D135A6CD2A2690B2009C1938 /* TextRegisterView.swift in Sources */,
@@ -759,6 +766,7 @@
 				430A99852A27C1C100D2F773 /* CameraViewModel.swift in Sources */,
 				D135A6BD2A268FC6009C1938 /* ModelText.swift in Sources */,
 				918C7DC32A27C29200C36A53 /* RecordAudioView.swift in Sources */,
+				40B4831E2A9FB7A80057B711 /* TextEditorComponent.swift in Sources */,
 				D135A6C32A26900F009C1938 /* AppState.swift in Sources */,
 				40497BAC2A32E5F600E6D3B5 /* InfoView.swift in Sources */,
 				D189F12F2A5C983C009F6488 /* IdeaTagViewerComponent.swift in Sources */,
@@ -957,7 +965,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 66824UF4JS;
+				DEVELOPMENT_TEAM = 7UT3KQHPCK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
@@ -992,7 +1000,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroChallenge/Essentials/Preview Content\"";
-				DEVELOPMENT_TEAM = 66824UF4JS;
+				DEVELOPMENT_TEAM = 7UT3KQHPCK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroChallenge/Info.plist;
