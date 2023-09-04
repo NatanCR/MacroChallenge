@@ -24,6 +24,7 @@ class IdeasViewModel: ObservableObject {
     @Published var tagsFiltered: [Tag] = IdeaSaver.getAllSavedTags()
     @Published var groups: [GroupModel] = IdeaSaver.getAllSavedGroups().reversed()
     static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
+    @Published var selectedGroup: GroupModel? = nil
     
     func DismissKeyboard(){
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)

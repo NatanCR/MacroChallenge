@@ -58,7 +58,7 @@ struct HomeView: View {
                                     //leva para a FolderView
                                     NavigationLink{
                                         let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup, isNewIdea: $isNewIdea)
+                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: (self.ideasViewModel.selectedGroup == nil ? newGroup : GroupModel(title: ideasViewModel.selectedGroup!.title, creationDate: ideasViewModel.selectedGroup!.creationDate, modifiedDate: ideasViewModel.selectedGroup!.modifiedDate, ideasIds: selectedIdeas)), isNewIdea: $isNewIdea)
                                     } label: {
                                         Text("OK")
                                     }
@@ -89,7 +89,6 @@ struct HomeView: View {
                     self.appearInitialization()
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
-                    dump(ideasViewModel.groups)
                 }
                 //atualizando a view quando fechar a camera
                 .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
@@ -100,6 +99,13 @@ struct HomeView: View {
                         } else {
                             self.appearInitialization()
                         }
+                    }
+                }
+                .onChange(of: self.ideasViewModel.selectedGroup) { newValue in
+                    if ideasViewModel.selectedGroup != nil{
+                        isNewIdea = false
+                    } else {
+                        isNewIdea = true
                     }
                 }
                 
@@ -115,7 +121,7 @@ struct HomeView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onChange(of: isAdding) { newValue in
             if newValue {
-                selectedIdeas = []
+                selectedIdeas = (self.ideasViewModel.selectedGroup == nil ? [] : self.ideasViewModel.selectedGroup?.ideasIds)!
             } 
         }
     }
