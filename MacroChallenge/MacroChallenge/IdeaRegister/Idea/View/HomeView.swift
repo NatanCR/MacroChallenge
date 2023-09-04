@@ -59,7 +59,6 @@ struct HomeView: View {
                                 } else {
                                     //leva para a FolderView
                                     NavigationLink{
-//                                        FolderView(isAdding: $isAdding)
                                         let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
                                         GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup, isNewIdea: $isNewIdea)
                                     } label: {

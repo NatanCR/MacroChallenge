@@ -18,6 +18,7 @@ struct GroupView: View {
     @State var group: GroupModel
     @Binding var isNewIdea: Bool
     private let removedIdeaNotification = NotificationCenter.default.publisher(for: NSNotification.Name("RemovedIdeaFromGroup"))
+    @State var isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
     
     let columns = [
         GridItem(.flexible()),
@@ -70,9 +71,13 @@ struct GroupView: View {
             IdeaSaver.changeSavedGroup(newGroup: group)
         })
         .onAppear() {
+            isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
             if isNewIdea {
                 IdeaSaver.saveGroup(group: group)
             }
+        }
+        .onChange(of: self.ideasViewModel.disposedData.count) { newValue in
+            isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
         }
         .onReceive(removedIdeaNotification, perform: { _ in
             removeIdea()
@@ -105,6 +110,17 @@ struct GroupView: View {
                             .font(.custom("Sen-Regular", size: 17, relativeTo: .headline))
                     }
                 }
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                //add button
+                Button {
+                    isAdding = true
+                    dismiss()
+                } label: {
+                    Image(systemName: "plus.circle")
+                }
+                .disabled(isIdeaNotGrouped)
             }
         }
         .background(Color("backgroundColor"))
