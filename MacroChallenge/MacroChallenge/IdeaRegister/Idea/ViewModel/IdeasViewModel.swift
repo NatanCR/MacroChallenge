@@ -27,6 +27,7 @@ class IdeasViewModel: ObservableObject {
     @Published var favoriteIdeas: [any Idea] = []
     @Published var weekIdeas: [any Idea] = []
     @Published var revealSectionDetails: Bool = false
+    @Published var selectedGroup: GroupModel? = nil
     
     func DismissKeyboard(){
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)

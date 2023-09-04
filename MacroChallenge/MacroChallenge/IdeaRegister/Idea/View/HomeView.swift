@@ -60,7 +60,7 @@ struct HomeView: View {
                                     //leva para a FolderView
                                     NavigationLink{
                                         let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: newGroup, isNewIdea: $isNewIdea)
+                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: (self.ideasViewModel.selectedGroup == nil ? newGroup : GroupModel(title: ideasViewModel.selectedGroup!.title, creationDate: ideasViewModel.selectedGroup!.creationDate, modifiedDate: ideasViewModel.selectedGroup!.modifiedDate, ideasIds: selectedIdeas)), isNewIdea: $isNewIdea)
                                     } label: {
                                         Text("OK")
                                     }
@@ -117,6 +117,13 @@ struct HomeView: View {
                         }
                     }
                 }
+                .onChange(of: self.ideasViewModel.selectedGroup) { newValue in
+                    if ideasViewModel.selectedGroup != nil{
+                        isNewIdea = false
+                    } else {
+                        isNewIdea = true
+                    }
+                }
                 
                 if searchInFocus != false{
                     Rectangle()
@@ -130,7 +137,7 @@ struct HomeView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onChange(of: isAdding) { newValue in
             if newValue {
-                selectedIdeas = []
+                selectedIdeas = (self.ideasViewModel.selectedGroup == nil ? [] : self.ideasViewModel.selectedGroup?.ideasIds)!
             } 
         }
     }

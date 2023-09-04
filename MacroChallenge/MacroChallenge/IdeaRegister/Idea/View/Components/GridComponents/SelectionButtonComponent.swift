@@ -12,6 +12,7 @@ struct SelectionButtonComponent<T: Idea>: View {
     @State var idea: T
     @State var isSelected: Bool = false
     @Binding var selectedIdeas: [UUID]
+    @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
     
     var body: some View {
         Button{

@@ -74,7 +74,11 @@ struct GroupView: View {
             isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
             if isNewIdea {
                 IdeaSaver.saveGroup(group: group)
+            } else {
+                print(group)
+                IdeaSaver.changeSavedGroup(newGroup: group)
             }
+            self.ideasViewModel.selectedGroup = self.group
         }
         .onChange(of: self.ideasViewModel.disposedData.count) { newValue in
             isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
@@ -100,6 +104,7 @@ struct GroupView: View {
                 Button{
                     if isAdding{
                         isAdding = false
+                        self.ideasViewModel.selectedGroup = nil
                     } else {
                         dismiss()
                     }
