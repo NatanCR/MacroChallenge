@@ -16,7 +16,7 @@ struct GroupView: View {
     @FocusState var isFocused: Bool
     @State var selectedIdeas: [UUID] = []
     @State var group: GroupModel
-    @Binding var isNewIdea: Bool
+    var isNewGroup: Bool
     private let removedIdeaNotification = NotificationCenter.default.publisher(for: NSNotification.Name("RemovedIdeaFromGroup"))
     @State var isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
     
@@ -50,12 +50,12 @@ struct GroupView: View {
                                 } label: {
                                     switch ideas.ideiaType {
                                     case .text:
-                                        TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group, isNewIdea: $isNewIdea)
+                                        TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group)
                                     case .audio:
-                                        AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group, isNewIdea: $isNewIdea)
+                                        AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group)
                                     case .photo:
                                         let photoIdea = ideas as! PhotoModel
-                                        ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group, isNewIdea: $isNewIdea)
+                                        ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group)
                                     }
                                 }
                             }
@@ -66,18 +66,19 @@ struct GroupView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: group, perform: { newValue in
+        .onChange(of: group.title, perform: { newValue in
             group.modifiedDate = Date()
             IdeaSaver.changeSavedGroup(newGroup: group)
+            print(newValue)
         })
         .onAppear() {
             isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
-            if isNewIdea {
+            
+            if isNewGroup {
+                self.ideasViewModel.selectedGroup = nil
                 IdeaSaver.saveGroup(group: group)
-            } else {
-                print(group)
-                IdeaSaver.changeSavedGroup(newGroup: group)
             }
+
             self.ideasViewModel.selectedGroup = self.group
         }
         .onChange(of: self.ideasViewModel.disposedData.count) { newValue in
@@ -102,12 +103,7 @@ struct GroupView: View {
                 //TODO: transformar isAdding em false quando arrastar para voltar
                 //back button
                 Button{
-                    if isAdding{
-                        isAdding = false
-                        self.ideasViewModel.selectedGroup = nil
-                    } else {
-                        dismiss()
-                    }
+                    dismiss()
                 } label: {
                     HStack {
                         Image(systemName: "chevron.backward")
@@ -136,6 +132,7 @@ struct GroupView: View {
         let index = self.ideasViewModel.groups.firstIndex(where: {$0.id == group.id}) ?? -1
         if index != -1 {
             group.ideasIds = self.ideasViewModel.groups[index].ideasIds
+            print(self.ideasViewModel.groups[index].ideasIds)
         }
     }
 }

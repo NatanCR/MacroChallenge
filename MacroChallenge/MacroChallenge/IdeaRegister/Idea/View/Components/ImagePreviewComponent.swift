@@ -17,7 +17,7 @@ struct ImagePreviewComponent: View {
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
     var group: GroupModel?
-    @Binding var isNewIdea: Bool
+//    @Binding var isNewGroup: Bool
     
     var body: some View {
         VStack{
@@ -37,7 +37,7 @@ struct ImagePreviewComponent: View {
                 })
                 .overlay(alignment: .topTrailing){
 
-                    OverlayComponent(type: PhotoModel.self, text: "", idea: idea as! PhotoModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
+                    OverlayComponent(type: PhotoModel.self, text: "", idea: idea as! PhotoModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, ideasViewModel: ideasViewModel)
                     .padding(8)
                 }
                 .padding(.bottom, 5)

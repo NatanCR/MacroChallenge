@@ -16,7 +16,7 @@ struct HomeView: View {
     @State var isAdding: Bool = false
     @FocusState private var searchInFocus: Bool
     @State var selectedIdeas: [UUID] = []
-    @State var isNewIdea: Bool = true
+    @State var createFolder: Bool = false
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -46,6 +46,9 @@ struct HomeView: View {
                             ToolbarItem(placement: .navigationBarTrailing){
                                 
                                 if isAdding == false{
+                                    let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
+                                    NavigationLink("", destination: GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: ((self.ideasViewModel.selectedGroup == nil ? newGroup : ideasViewModel.selectedGroup)!), isNewGroup: self.ideasViewModel.selectedGroup == nil), isActive: $createFolder)
+                                    
                                     //leva para a InfoView
                                     NavigationLink {
                                         InfoView()
@@ -55,10 +58,9 @@ struct HomeView: View {
                                     }
                                     
                                 } else {
-                                    //leva para a FolderView
-                                    NavigationLink{
-                                        let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: (self.ideasViewModel.selectedGroup == nil ? newGroup : GroupModel(title: ideasViewModel.selectedGroup!.title, creationDate: ideasViewModel.selectedGroup!.creationDate, modifiedDate: ideasViewModel.selectedGroup!.modifiedDate, ideasIds: selectedIdeas)), isNewIdea: $isNewIdea)
+                                    Button {
+                                        createFolder = true
+                                        isAdding = false
                                     } label: {
                                         Text("OK")
                                     }
@@ -89,7 +91,18 @@ struct HomeView: View {
                     self.appearInitialization()
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
+                    //                    print(ideasViewModel.selectedGroup)
+                    if !isAdding {
+                        self.ideasViewModel.selectedGroup = nil
+                    }
                 }
+                .onChange(of: createFolder, perform: { newValue in
+                    if let group = ideasViewModel.selectedGroup {
+//                        var newGroup = group
+//                        newGroup.modifiedDate = Date()
+                        IdeaSaver.changeSavedGroup(newGroup: group)
+                    }
+                })
                 //atualizando a view quando fechar a camera
                 .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
                     if !newValue {
@@ -101,14 +114,7 @@ struct HomeView: View {
                         }
                     }
                 }
-                .onChange(of: self.ideasViewModel.selectedGroup) { newValue in
-                    if ideasViewModel.selectedGroup != nil{
-                        isNewIdea = false
-                    } else {
-                        isNewIdea = true
-                    }
-                }
-                
+
                 if searchInFocus != false{
                     Rectangle()
                         .fill(Color.pink)
@@ -122,7 +128,9 @@ struct HomeView: View {
         .onChange(of: isAdding) { newValue in
             if newValue {
                 selectedIdeas = (self.ideasViewModel.selectedGroup == nil ? [] : self.ideasViewModel.selectedGroup?.ideasIds)!
-            } 
+            } else {
+//                self.ideasViewModel.selectedGroup = nil
+            }
         }
     }
     
@@ -140,7 +148,7 @@ struct HomeGridView: View {
     let audioManager: AudioManager
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
-    @State var isNewIdea: Bool = false
+    @State var isNewGroup: Bool = false
     
     let columns = [
         GridItem(.flexible()),
@@ -156,7 +164,7 @@ struct HomeGridView: View {
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewIdea: $isNewIdea)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false)
                         } label: {
                             GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                         }
@@ -177,23 +185,23 @@ struct HomeGridView: View {
                             } label: {
                                 switch ideas.ideiaType {
                                 case .text:
-                                    TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
+                                    TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                                 case .audio:
-                                    AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
+                                    AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                                 case .photo:
                                     let photoIdea = ideas as! PhotoModel
-                                    ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
+                                    ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                                 }
                             }
                         } else {
                             switch ideas.ideiaType {
                             case .text:
-                                TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
+                                TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                             case .audio:
-                                AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
+                                AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                             case .photo:
                                 let photoIdea = ideas as! PhotoModel
-                                ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
+                                ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                             }
                         }
                     }
@@ -210,7 +218,7 @@ struct HomeListView: View {
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
     @Binding var selectedIdeas: [UUID]
-    @State var isNewIdea: Bool = false
+    @State var isNewGroup: Bool = false
     
     //MARK: - LIST BODY
     var body: some View{
@@ -220,15 +228,15 @@ struct HomeListView: View {
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewIdea: $isNewIdea)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false)
                         } label: {
-//                            GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
+                            //                            GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                             ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
                         }
                     }
                     .listRowBackground(Color("backgroundItem"))
                     .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
-
+                    
                 }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
                     if ideas.isGrouped == false || ideas.isGrouped && isAdding {
@@ -270,7 +278,7 @@ struct HomeListView: View {
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewIdea: $isNewIdea)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false)
                         } label: {
                             //                        GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                             ListGroupComponent(group: group, ideasViewModel: ideasViewModel)

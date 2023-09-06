@@ -10,6 +10,7 @@ import SwiftUI
 struct NewFolderComponent: View {
 //    @Environment(\.editMode) var editMode
     @Binding var isAdding: Bool
+    @ObservedObject var ideasViewModel: IdeasViewModel
     
     var body: some View {
         HStack{

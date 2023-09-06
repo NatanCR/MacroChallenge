@@ -12,7 +12,7 @@ struct SelectionButtonComponent<T: Idea>: View {
     @State var idea: T
     @State var isSelected: Bool = false
     @Binding var selectedIdeas: [UUID]
-    @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
+    @ObservedObject var ideasViewModel: IdeasViewModel
     
     var body: some View {
         Button{
@@ -39,6 +39,11 @@ struct SelectionButtonComponent<T: Idea>: View {
                     Rectangle()
                         .opacity(0.001)
                 }
+            }
+        }
+        .onChange(of: selectedIdeas) { newValue in
+            if ideasViewModel.selectedGroup != nil {
+                self.ideasViewModel.selectedGroup?.ideasIds = selectedIdeas
             }
         }
     }

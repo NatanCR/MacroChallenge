@@ -18,7 +18,7 @@ struct AudioPreviewComponent: View {
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
     var group: GroupModel?
-    @Binding var isNewIdea: Bool
+//    @Binding var isNewGroup: Bool
     
     var body: some View {
         VStack{
@@ -28,7 +28,7 @@ struct AudioPreviewComponent: View {
                     .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
                     .overlay(alignment: .topTrailing){
                         
-                        OverlayComponent(type: AudioIdea.self, text: "", idea: idea as! AudioIdea, isAdding: $isAdding, selectedIdeas: $selectedIdeas, isNewIdea: $isNewIdea)
+                        OverlayComponent(type: AudioIdea.self, text: "", idea: idea as! AudioIdea, isAdding: $isAdding, selectedIdeas: $selectedIdeas, ideasViewModel: ideasViewModel)
                         .padding(8)
                     }
                 
@@ -45,6 +45,7 @@ struct AudioPreviewComponent: View {
                     Button(role: .none){
                         if group != nil {
                             IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
+                            print("aqui")
                         }
                         idea.isGrouped = false
                         IdeaSaver.changeSavedValue(type: AudioIdea.self, idea: idea as! AudioIdea)
