@@ -86,9 +86,9 @@ struct HomeView: View {
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsFiltered = IdeaSaver.getAllSavedTags()
                     
-                    ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas
+                    ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas()
                     ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas
-                    ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas
+                    ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas()
                 }
                 //atualizando a view quando fechar a camera
                 .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
