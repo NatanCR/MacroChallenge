@@ -19,7 +19,7 @@ struct TextPreviewComponent: View {
     @Binding var selectedIdeas: [UUID]
     var group: GroupModel?
     
-    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>, selectedIdeas: Binding<[UUID]>, group: GroupModel? = nil, isNewIdea: Binding<Bool>) {
+    init(text: String, title: String, idea: Binding<any Idea>, ideasViewModel: IdeasViewModel, isAdding: Binding<Bool>, selectedIdeas: Binding<[UUID]>, group: GroupModel? = nil) {
         self.text = text
         self.title = title
         self._idea = idea
@@ -27,7 +27,6 @@ struct TextPreviewComponent: View {
         self._isAdding = isAdding
         self._selectedIdeas = selectedIdeas
         self.group = group
-        self._isNewIdea = isNewIdea
     }
     
     var body: some View {

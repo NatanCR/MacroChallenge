@@ -18,7 +18,6 @@ struct AudioPreviewComponent: View {
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
     var group: GroupModel?
-    @Binding var isNewIdea: Bool
     
     var body: some View {
         VStack{
@@ -44,6 +43,7 @@ struct AudioPreviewComponent: View {
                     Button(role: .none){
                         if group != nil {
                             IdeaSaver.removeIdeaIdFromGroup(group: self.group!, ideaId: idea.id)
+                            print("aqui")
                         }
                         idea.isGrouped = false
                         IdeaSaver.changeSavedValue(type: AudioIdea.self, idea: idea as! AudioIdea)

@@ -17,7 +17,6 @@ struct ImagePreviewComponent: View {
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: [UUID]
     var group: GroupModel?
-    @Binding var isNewIdea: Bool
     
     var body: some View {
         VStack{

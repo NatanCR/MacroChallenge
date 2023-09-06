@@ -22,7 +22,7 @@ class IdeaSaver {
     }
     
     public static func saveGroups(groups: [GroupModel]) {
-        if groups.isEmpty { print("Groups to save is empty."); return }
+        //if groups.isEmpty { print("Groups to save is empty."); return }
         
         saveMultiplesGroups(groups: groups, key: groupModelKey)
     }
@@ -155,7 +155,7 @@ class IdeaSaver {
             }
         }
         
-        print("error to GetSavedIdeas, or no saved ideas of specified type exists in UserDefault - \(type)")
+        //print("error to GetSavedIdeas, or no saved ideas of specified type exists in UserDefault")
         return []
     }
     
@@ -166,7 +166,7 @@ class IdeaSaver {
                 return loadedTags
             }
         }
-        print("error to GetSavedTags, or no saved tags of specified type exists in UserDefault")
+        //print("error to GetSavedTags, or no saved tags of specified type exists in UserDefault")
         return []
     }
     
@@ -176,7 +176,7 @@ class IdeaSaver {
                 return loadedGroups
             }
         }
-        print("error to GetSavedGroups, or no saved groups of specified type exists in UserDefault")
+//        print("error to GetSavedGroups, or no saved groups of specified type exists in UserDefault")
         return []
     }
     
@@ -376,7 +376,6 @@ class IdeaSaver {
         for id in 0..<changedGroup.ideasIds.count {
             if changedGroup.ideasIds[id] == ideaId {
                 changedGroup.ideasIds.remove(at: id)
-                print("to aqui")
                 break
             }
         }
@@ -384,7 +383,6 @@ class IdeaSaver {
         if changedGroup.ideasIds.count > 0 {
             changeSavedGroup(newGroup: changedGroup)
         } else {
-            print("to no else")
             clearOneGroup(group: changedGroup)
         }
     }

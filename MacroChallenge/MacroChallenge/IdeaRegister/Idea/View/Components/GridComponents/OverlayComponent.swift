@@ -18,11 +18,7 @@ struct OverlayComponent<T: Idea>: View {
     
     var body: some View {
         if isAdding {
-            if isNewIdea {
-                ButtonFavoriteComponent(type: type.self, idea: idea.self, text: text)
-            } else {
-                SelectionButtonComponent(type: type.self, idea: idea.self, selectedIdeas: $selectedIdeas)
-            }
+            SelectionButtonComponent(type: type.self, idea: idea.self, selectedIdeas: $selectedIdeas, ideasViewModel: ideasViewModel)
         } else {
             ButtonFavoriteComponent(type: type.self, idea: idea.self, text: text, viewModel: ideasViewModel)
         }

@@ -19,6 +19,7 @@ struct HomeView: View {
     @State var byCreation: Bool = false
     @AppStorage("appVersion") private var appVersion = "1.20.1" // versão antes da atualização "1.20.2" -> correção do bug das tags
     @State var selectedIdeas: [UUID] = []
+    @State var createFolder: Bool = false
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -48,6 +49,9 @@ struct HomeView: View {
                             ToolbarItem(placement: .navigationBarTrailing){
                                 
                                 if isAdding == false{
+                                    let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
+                                    NavigationLink("", destination: GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: ((self.ideasViewModel.selectedGroup == nil ? newGroup : ideasViewModel.selectedGroup)!), isNewGroup: self.ideasViewModel.selectedGroup == nil), isActive: $createFolder)
+                                    
                                     //leva para a InfoView
                                     NavigationLink {
                                         InfoView()
@@ -57,10 +61,9 @@ struct HomeView: View {
                                     }
                                     
                                 } else {
-                                    //leva para a FolderView
-                                    NavigationLink{
-                                        let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: (self.ideasViewModel.selectedGroup == nil ? newGroup : GroupModel(title: ideasViewModel.selectedGroup!.title, creationDate: ideasViewModel.selectedGroup!.creationDate, modifiedDate: ideasViewModel.selectedGroup!.modifiedDate, ideasIds: selectedIdeas)), isNewIdea: $isNewIdea)
+                                    Button {
+                                        createFolder = true
+                                        isAdding = false
                                     } label: {
                                         Text("OK")
                                     }
@@ -105,7 +108,17 @@ struct HomeView: View {
                     ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas()
                     ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas()
                     ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas()
+                    if !isAdding {
+                        self.ideasViewModel.selectedGroup = nil
+                    }
                 }
+                .onChange(of: createFolder, perform: { newValue in
+                    if let group = ideasViewModel.selectedGroup {
+//                        var newGroup = group
+//                        newGroup.modifiedDate = Date()
+                        IdeaSaver.changeSavedGroup(newGroup: group)
+                    }
+                })
                 //atualizando a view quando fechar a camera
                 .onChange(of: self.ideasViewModel.isShowingCamera) { newValue in
                     if !newValue {
@@ -117,14 +130,7 @@ struct HomeView: View {
                         }
                     }
                 }
-                .onChange(of: self.ideasViewModel.selectedGroup) { newValue in
-                    if ideasViewModel.selectedGroup != nil{
-                        isNewIdea = false
-                    } else {
-                        isNewIdea = true
-                    }
-                }
-                
+
                 if searchInFocus != false{
                     Rectangle()
                         .fill(Color.pink)
@@ -138,7 +144,9 @@ struct HomeView: View {
         .onChange(of: isAdding) { newValue in
             if newValue {
                 selectedIdeas = (self.ideasViewModel.selectedGroup == nil ? [] : self.ideasViewModel.selectedGroup?.ideasIds)!
-            } 
+            } else {
+//                self.ideasViewModel.selectedGroup = nil
+            }
         }
     }
     
@@ -158,7 +166,7 @@ struct HomeGridView: View {
     @Environment(\.screenSize) var screenSize
     @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
     @Binding var selectedIdeas: [UUID]
-    @State var isNewIdea: Bool = false
+    @State var isNewGroup: Bool = false
     
     //MARK: - GRID BODY
     var body: some View{
@@ -224,7 +232,7 @@ struct HomeListView: View {
     @Binding var isAdding: Bool
     @State var selection = Set<UUID>()
     @Binding var selectedIdeas: [UUID]
-    @State var isNewIdea: Bool = false
+    @State var isNewGroup: Bool = false
     
     //MARK: - LIST BODY
     var body: some View{

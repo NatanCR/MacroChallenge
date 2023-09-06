@@ -46,7 +46,7 @@ struct SegmentedPickerComponent: View {
                     .padding()
                     
                     Spacer()
-                    NewFolderComponent(isAdding: $isAdding)
+                    NewFolderComponent(isAdding: $isAdding, ideasViewModel: ideasViewModel)
                         .disabled(isIdeaNotGrouped)
                 }
             }else{
