@@ -11,6 +11,8 @@ struct SearchBarComponent: View {
     @State var searchText: String = String()
     @State var textFieldEstaEditando: Bool = false
     @ObservedObject var ideasViewModel: IdeasViewModel
+    @Binding var sortedByAscendent: Bool
+    @Binding var byCreation: Bool
     
     //MARK: - BODY
     var body: some View {
@@ -26,9 +28,11 @@ struct SearchBarComponent: View {
                 
                     .onChange(of: searchText) { _ in
                         self.resetSearchText(false)
-                        self.ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas()
-                        self.ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas
-                        self.ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas()
+                        let currentOrdenedIdeas = ideasViewModel.orderBy(byCreation: byCreation, sortedByAscendent: sortedByAscendent)
+                        
+                        self.ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas(newOrderArray: currentOrdenedIdeas, byCreation: byCreation)
+                        self.ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas(newOrderArray: currentOrdenedIdeas, useCurrentArray: true)
+                        self.ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas(newOrderArray: currentOrdenedIdeas, byCreation: byCreation)
                     }
             }
             .onAppear(perform: { self.resetSearchText() })

@@ -39,7 +39,7 @@ class IdeasViewModel: ObservableObject {
         }
     }
     
-    func orderBy(byCreation: Bool, sortedByAscendent: Bool) {
+    func orderBy(byCreation: Bool, sortedByAscendent: Bool) -> [any Idea] {
         DispatchQueue.main.async { [self] in
             self.isSortedByAscendent = sortedByAscendent
             self.isSortedByCreation = byCreation
@@ -64,13 +64,15 @@ class IdeasViewModel: ObservableObject {
                 
             }
         }
+        
+        return disposedData
     }
     
     /**Função para filtrar TODAS as ideias de acordo com o tipo de ideia escolhido pelo usuário em todas as seções**/
     func filterBy(_ type: IdeaType) {
         self.disposedData = self.loadedData
         self.filteredIdeas = self.notWeekIdeas()
-        self.favoriteIdeas = self.filteringFavoriteIdeas
+        self.favoriteIdeas = self.filteringFavoriteIdeas()
         self.weekIdeas = self.weekCorrentlyIdeas()
         
         if (!isFiltered || (isFiltered && filterType != type)) {
@@ -87,26 +89,33 @@ class IdeasViewModel: ObservableObject {
     }
     
     /**Variável para filtrar e devolver apenas ideias favoritadas pra exibir na seção de favoritos*/
-    var filteringFavoriteIdeas: [any Idea] {
-        return self.filteringIdeas.filter { idea in
-            return idea.isFavorite == true
+    func filteringFavoriteIdeas(newOrderArray: [any Idea] = [], useCurrentArray: Bool = false) -> [any Idea] {
+        if useCurrentArray {
+            return self.filteringIdeas(newOrderArray: newOrderArray).filter { idea in
+                return idea.isFavorite == true
+            }
+        } else {
+            return self.filteringIdeas().filter { idea in
+                return idea.isFavorite == true
+            }
         }
     }
     
-    /**Variável que filtra e devolve as ideias não favoritadas pra serem exibidas na seção geral**/
-    func filteringNotFavoriteIdeas(newOrderArray: [any Idea] = []) -> [any Idea] {
-        if newOrderArray.isEmpty {
-            return self.filteringIdeas.filter { idea in
+    /**Função que filtra e devolve as ideias não favoritadas pra serem exibidas na seção geral**/
+    func filteringNotFavoriteIdeas(newOrderArray: [any Idea] = [], useCurrentArray: Bool = false) -> [any Idea] {
+        if useCurrentArray {
+            return self.filteringIdeas(newOrderArray: newOrderArray).filter { idea in
                 return idea.isFavorite == false
             }
         } else {
+            //utiliza o array que foi ordenado pelo filtro que o usuário escolheu
             return newOrderArray.filter { idea in
                 return idea.isFavorite == false
             }
         }
     }
     
-    /**Variável que filtra e devolve as ideias da semana que não estão favoritadas.**/
+    /**Função que filtra e devolve as ideias da semana que não estão favoritadas.**/
     func weekCorrentlyIdeas(newOrderArray: [any Idea] = [], byCreation: Bool = true) -> [any Idea] {
         let currentDate = Date()
         let calendar = Calendar.current
@@ -117,19 +126,20 @@ class IdeasViewModel: ObservableObject {
                 calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
             }
         } else {
+            //utiliza o array que foi ordenado pelo filtro que o usuário escolheu
             if byCreation {
-                return filteringNotFavoriteIdeas(newOrderArray: newOrderArray).filter { idea in
+                return filteringNotFavoriteIdeas(newOrderArray: newOrderArray, useCurrentArray: true).filter { idea in
                     calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear)
                 }
             } else {
-                return filteringNotFavoriteIdeas(newOrderArray: newOrderArray).filter { idea in
+                return filteringNotFavoriteIdeas(newOrderArray: newOrderArray, useCurrentArray: true).filter { idea in
                     calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
                 }
             }
         }
     }
     
-    /**Variável que filtra e devolve as DEMAIS ideias que não estão favoritadas**/
+    /**Função que filtra e devolve as DEMAIS ideias que não estão favoritadas**/
     func notWeekIdeas(newOrderArray: [any Idea] = [], byCreation: Bool = true) -> [any Idea] {
         let currentDate = Date()
         let calendar = Calendar.current
@@ -140,12 +150,13 @@ class IdeasViewModel: ObservableObject {
                 calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear))
             }
         } else {
+            //utiliza o array que foi ordenado pelo filtro que o usuário escolheu
             if byCreation {
-                return filteringNotFavoriteIdeas(newOrderArray: newOrderArray).filter { idea in
+                return filteringNotFavoriteIdeas(newOrderArray: newOrderArray, useCurrentArray: true).filter { idea in
                     !(calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear))
                 }
             } else {
-                return filteringNotFavoriteIdeas(newOrderArray: newOrderArray).filter { idea in
+                return filteringNotFavoriteIdeas(newOrderArray: newOrderArray, useCurrentArray: true).filter { idea in
                     !(calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear))
                 }
             }
@@ -156,7 +167,7 @@ class IdeasViewModel: ObservableObject {
     func updateSectionIdeas() {
         resetDisposedData()
         
-        self.favoriteIdeas = self.filteringFavoriteIdeas
+        self.favoriteIdeas = self.filteringFavoriteIdeas()
         self.filteredIdeas = self.notWeekIdeas()
         self.weekIdeas = self.weekCorrentlyIdeas()
     }
@@ -188,45 +199,16 @@ class IdeasViewModel: ObservableObject {
     }
     
     /**Variável que filtra TODAS as ideias com certas prioridades para serem exibidas ao realizar uma pesquisa na Home**/
-    var filteringIdeas: [any Idea] {
+    func filteringIdeas(newOrderArray: [any Idea] = [], useCurrentArray: Bool = false) -> [any Idea] {
         if searchText.isEmpty {
             return disposedData
         } else {
-            return disposedData.filter { idea in
-                //filtra com o que tem em cada propriedade e guarda na variavel
-                let isMatchingTitle = idea.title.localizedCaseInsensitiveContains(searchText)
-                let isMatchingDescription = idea.description.localizedCaseInsensitiveContains(searchText)
-                let isMatchingTag = idea.tag?.first(where: { $0.name.localizedCaseInsensitiveContains(searchText) })
-                
-                return isMatchingTitle || isMatchingDescription || (isMatchingTag != nil)
-                
-                //ordena na ordem de prioridade
+            if useCurrentArray {
+                return LogicFilterBySearchComponent.filterBySearch(newOrderArray: newOrderArray, searchText: searchText)
+            } else {
+                return LogicFilterBySearchComponent.filterBySearch(newOrderArray: disposedData, searchText: searchText)
             }
-            .sorted { idea1, idea2 in
-                let titleMatch1 = idea1.title.localizedCaseInsensitiveContains(searchText)
-                let titleMatch2 = idea2.title.localizedCaseInsensitiveContains(searchText)
-                let descriptionMatch1 = idea1.description.localizedCaseInsensitiveContains(searchText)
-                let descriptionMatch2 = idea2.description.localizedCaseInsensitiveContains(searchText)
-                let tagMatch1 = idea1.tag?.first(where: { $0.name.localizedCaseInsensitiveContains(searchText) })
-                let tagMatch2 = idea2.tag?.first(where: { $0.name.localizedCaseInsensitiveContains(searchText) })
-                
-                //compara pra saber qual ideia vem antes da outra
-                if titleMatch1 && !titleMatch2 {
-                    return true
-                } else if !titleMatch1 && titleMatch2 {
-                    return false
-                } else if descriptionMatch1 && !descriptionMatch2 {
-                    return true
-                } else if !descriptionMatch1 && descriptionMatch2 {
-                    return false
-                } else if (tagMatch1 != nil) && (tagMatch2 == nil) {
-                    return true
-                } else if (tagMatch1 == nil) && (tagMatch2 != nil) {
-                    return false
-                } else {
-                    return idea1.creationDate > idea2.creationDate
-                }
-            }
+            
         }
     }
     

@@ -13,8 +13,8 @@ struct FilterComponent: View {
     }
     
     @ObservedObject var ideasViewModel: IdeasViewModel
-    @State var sortedByAscendent: Bool = false
-    @State var byCreation: Bool = false
+    @Binding var sortedByAscendent: Bool
+    @Binding var byCreation: Bool 
     @State private var filterType: FilterType = .none
     
     var body: some View {        

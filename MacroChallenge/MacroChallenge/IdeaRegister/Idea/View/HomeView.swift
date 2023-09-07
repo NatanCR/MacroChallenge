@@ -15,6 +15,8 @@ struct HomeView: View {
     //quando for true altera para view de seleção de ideias
     @State var isAdding: Bool = false
     @FocusState private var searchInFocus: Bool
+    @State var sortedByAscendent: Bool = false
+    @State var byCreation: Bool = false
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -29,10 +31,10 @@ struct HomeView: View {
             ZStack {
                 VStack {
                     HStack {
-                        SearchBarComponent(ideasViewModel: ideasViewModel)
+                        SearchBarComponent(ideasViewModel: ideasViewModel, sortedByAscendent: $sortedByAscendent, byCreation: $byCreation)
                             .font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
                             .focused($searchInFocus)
-                        FilterComponent(ideasViewModel: ideasViewModel)
+                        FilterComponent(ideasViewModel: ideasViewModel, sortedByAscendent: $sortedByAscendent, byCreation: $byCreation)
                             .padding(.trailing)
                     }
                     .padding(.vertical)
@@ -87,7 +89,7 @@ struct HomeView: View {
                     ideasViewModel.tagsFiltered = IdeaSaver.getAllSavedTags()
                     
                     ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas()
-                    ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas
+                    ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas()
                     ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas()
                 }
                 //atualizando a view quando fechar a camera
