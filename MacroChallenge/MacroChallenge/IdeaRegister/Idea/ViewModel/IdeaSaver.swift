@@ -206,6 +206,18 @@ class IdeaSaver {
         return photoModelKey
     }
     
+    /**Gets the idea saved in UserDeafaults by the UUID .*/
+    public static func getIdeaByUUID(_ id: UUID) -> (any Idea)? {
+        let allIdeas = getAllSavedIdeas()
+        
+        if let matchedIdea = allIdeas.first(where: {$0.id == id}) {
+            return matchedIdea
+        }
+        
+        print("No idea found attempting to get by UUID.")
+        return nil
+    }
+    
     //MARK: - CLEARS
     /**Função para limpar todas as tags do user defaults*/
     public static func clearAllTags() {
