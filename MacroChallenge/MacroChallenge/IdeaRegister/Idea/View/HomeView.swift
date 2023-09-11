@@ -17,6 +17,7 @@ struct HomeView: View {
     @FocusState private var searchInFocus: Bool
     @State var sortedByAscendent: Bool = false
     @State var byCreation: Bool = false
+    @AppStorage("appVersion") private var appVersion = "1.20.1" // versão antes da atualização "1.20.2" -> correção do bug das tags
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -84,6 +85,16 @@ struct HomeView: View {
                 .background(Color("backgroundColor"))
                 .ignoresSafeArea(.keyboard)
                 .onAppear() {
+                    //pega a versão atual do app
+                    let currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+                    //verifica se a versão atual é diferente da antiga setada acima na variavel
+                    if appVersion != currentAppVersion {
+                        //executa a função de correção
+                        ideasViewModel.fixingTagColor()
+                        //atribui a nova versão para a variável, assim nao entrerá mais nesse if
+                        appVersion = currentAppVersion ?? ""
+                    }
+                    
                     self.appearInitialization()
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsFiltered = IdeaSaver.getAllSavedTags()
