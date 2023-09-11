@@ -339,7 +339,7 @@ class IdeaSaver {
         if defaults.object(forKey: groupModelKey) == nil { print("No saved Group"); return }
         
         var groups: [GroupModel] = getAllSavedGroups()
-        print("groups no clear: \(groups)")
+        
         
         let groupIndex: Int = groups.firstIndex(where: { $0.id == group.id }) ?? -1
         
@@ -350,6 +350,7 @@ class IdeaSaver {
         clearIdeasInGroup(group: group)
         clearGroups()
         saveGroups(groups: groups)
+        print("groups no clear: \(getAllSavedGroups())")
     }
     
     public static func clearIdeasInGroup(group: GroupModel) {

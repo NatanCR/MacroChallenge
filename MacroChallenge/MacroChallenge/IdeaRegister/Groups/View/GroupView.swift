@@ -69,7 +69,10 @@ struct GroupView: View {
         .onChange(of: group.title, perform: { newValue in
             group.modifiedDate = Date()
             IdeaSaver.changeSavedGroup(newGroup: group)
-            print(newValue)
+        })
+        .onChange(of: group.ideasIds, perform: { newValue in
+            group.modifiedDate = Date()
+            IdeaSaver.changeSavedGroup(newGroup: group)
         })
         .onAppear() {
             isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
@@ -80,6 +83,7 @@ struct GroupView: View {
             }
 
             self.ideasViewModel.selectedGroup = self.group
+            self.ideasViewModel.resetDisposedData()
         }
         .onChange(of: self.ideasViewModel.disposedData.count) { newValue in
             isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
@@ -88,16 +92,6 @@ struct GroupView: View {
             removeIdea()
         })
         .toolbar {
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if isFocused{
-                    Button{
-                        isFocused = false
-                    } label: {
-                        Text("OK")
-                    }
-                }
-            }
             
             ToolbarItem(placement: .navigationBarLeading) {
                 //TODO: transformar isAdding em false quando arrastar para voltar
@@ -114,26 +108,36 @@ struct GroupView: View {
             }
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                //add button
-                Button {
-                    isAdding = true
-                    dismiss()
-                } label: {
-                    Image(systemName: "plus.circle")
+                if isFocused{
+                    Button{
+                        isFocused = false
+                    } label: {
+                        Text("OK")
+                    }
+                } else {
+                    //add button
+                    Button {
+                        isAdding = true
+                        dismiss()
+                    } label: {
+                        Image(systemName: "plus.circle")
+                    }
+                    .disabled(isIdeaNotGrouped)
                 }
-                .disabled(isIdeaNotGrouped)
             }
         }
         .background(Color("backgroundColor"))
     }
     
     func removeIdea() {
-        self.ideasViewModel.resetDisposedData()
         let index = self.ideasViewModel.groups.firstIndex(where: {$0.id == group.id}) ?? -1
         if index != -1 {
             group.ideasIds = self.ideasViewModel.groups[index].ideasIds
             print(self.ideasViewModel.groups[index].ideasIds)
         }
+        isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
+        self.ideasViewModel.selectedGroup = group
+        self.ideasViewModel.resetDisposedData()
     }
 }
 

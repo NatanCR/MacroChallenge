@@ -59,6 +59,13 @@ struct HomeView: View {
                                     
                                 } else {
                                     Button {
+                                        for idea in selectedIdeas {
+                                            var newIdea = IdeaSaver.getIdeaByUUID(idea)
+                                            newIdea?.isGrouped = true
+                                            saveIdea(idea: newIdea!)
+//                                            var newType = IdeaSaver.getIdeaType(newIdea!)
+//                                            IdeaSaver.changeSavedValue(type: newType, idea: newIdea as! newType)
+                                        }
                                         createFolder = true
                                         isAdding = false
                                     } label: {
@@ -83,7 +90,7 @@ struct HomeView: View {
                         }
                     
                 }
-                .navigationTitle(isAdding ? "newFolder" : "ideas")
+                .navigationTitle(isAdding ? "" : "ideas")
                 .navigationBarTitleDisplayMode(isAdding ? .inline : .large)
                 .background(Color("backgroundColor"))
                 .ignoresSafeArea(.keyboard)
@@ -91,15 +98,12 @@ struct HomeView: View {
                     self.appearInitialization()
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsLoadedData = IdeaSaver.getAllSavedTags()
-                    //                    print(ideasViewModel.selectedGroup)
                     if !isAdding {
                         self.ideasViewModel.selectedGroup = nil
                     }
                 }
                 .onChange(of: createFolder, perform: { newValue in
                     if let group = ideasViewModel.selectedGroup {
-//                        var newGroup = group
-//                        newGroup.modifiedDate = Date()
                         IdeaSaver.changeSavedGroup(newGroup: group)
                     }
                 })
@@ -128,8 +132,6 @@ struct HomeView: View {
         .onChange(of: isAdding) { newValue in
             if newValue {
                 selectedIdeas = (self.ideasViewModel.selectedGroup == nil ? [] : self.ideasViewModel.selectedGroup?.ideasIds)!
-            } else {
-//                self.ideasViewModel.selectedGroup = nil
             }
         }
     }
@@ -230,7 +232,6 @@ struct HomeListView: View {
                         NavigationLink{
                             GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false)
                         } label: {
-                            //                            GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                             ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
                         }
                     }
@@ -239,7 +240,7 @@ struct HomeListView: View {
                     
                 }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    if ideas.isGrouped == false || ideas.isGrouped && isAdding {
+                    if ideas.isGrouped == false {
                         NavigationLink {
                             switch ideas.ideiaType {
                             case .text:
@@ -259,12 +260,7 @@ struct HomeListView: View {
                         }
                         .onChange(of: selection) { newValue in
                             selectedIdeas = []
-                            ideas.isGrouped = false
-                            for id in selection {
-                                ideas.isGrouped = true
-                                saveIdea(idea: ideas)
-                                selectedIdeas.append(id)
-                            }
+                            selectedIdeas.append(contentsOf: selection)
                         }
                     }
                 }
@@ -280,14 +276,13 @@ struct HomeListView: View {
                         NavigationLink{
                             GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false)
                         } label: {
-                            //                        GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                             ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
                         }
                         .listRowBackground(Color("backgroundItem"))
                     }
                 }
                 ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    if ideas.isGrouped == false || ideas.isGrouped && isAdding {
+                    if ideas.isGrouped == false {
                         NavigationLink {
                             switch ideas.ideiaType {
                             case .text:
@@ -307,12 +302,7 @@ struct HomeListView: View {
                         }
                         .onChange(of: selection) { newValue in
                             selectedIdeas = []
-                            ideas.isGrouped = false
-                            for id in selection {
-                                ideas.isGrouped = true
-                                saveIdea(idea: ideas)
-                                selectedIdeas.append(id)
-                            }
+                            selectedIdeas.append(contentsOf: selection)
                         }
                         .listRowBackground(Color("backgroundItem"))
                     }
