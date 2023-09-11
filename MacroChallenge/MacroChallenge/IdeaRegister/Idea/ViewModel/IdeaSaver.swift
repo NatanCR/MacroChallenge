@@ -209,6 +209,23 @@ class IdeaSaver {
         return nil
     }
     
+    /**Get the idea Type.self given the idea .*/
+    public static func getIdeaType<T: Idea>(_ idea: T) -> T.Type {
+        return T.self
+    }
+    
+    /**Get the idea Type.self given the idea type Enum .*/
+    public static func getIdeaTypeByEnum(_ ideaType: IdeaType) -> Any.Type {
+        switch ideaType {
+        case .text:
+            return ModelText.self
+        case .audio:
+            return AudioIdea.self
+        case .photo:
+            return PhotoModel.self
+        }
+    }
+    
     //MARK: - CLEARS
     /**Clears all user defaults ideas.*/
     public static func clearAll() {
