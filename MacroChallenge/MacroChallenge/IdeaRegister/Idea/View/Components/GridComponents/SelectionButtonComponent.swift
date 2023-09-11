@@ -17,15 +17,8 @@ struct SelectionButtonComponent<T: Idea>: View {
     var body: some View {
         Button{
             isSelected.toggle()
-            if isSelected {
-                idea.isGrouped = true
-                saveIdea(idea: idea)
-                selectedIdeas.append(idea.id)
-            } else {
-                idea.isGrouped = false
-                saveIdea(idea: idea)
-                selectedIdeas.removeAll{ $0 == idea.id }
-            }
+            print(idea.id)
+            isSelected ? selectedIdeas.append(idea.id) : selectedIdeas.removeAll{ $0 == idea.id }
         } label: {
             HStack {
                 Rectangle()
@@ -33,7 +26,7 @@ struct SelectionButtonComponent<T: Idea>: View {
                 VStack{
                     HStack {
                         Spacer()
-                        isSelected ? Image(systemName: "checkmark.circle.fill") : Image(systemName: "checkmark.circle")
+                        Image(systemName: isSelected ? "checkmark.circle.fill" : "checkmark.circle")
                     }
                     Spacer()
                     Rectangle()

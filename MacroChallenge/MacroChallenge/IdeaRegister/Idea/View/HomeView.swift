@@ -62,6 +62,11 @@ struct HomeView: View {
                                     
                                 } else {
                                     Button {
+                                        for idea in selectedIdeas {
+                                            var newIdea = IdeaSaver.getIdeaByUUID(idea)
+                                            newIdea?.isGrouped = true
+                                            saveIdea(idea: newIdea!)
+                                        }
                                         createFolder = true
                                         isAdding = false
                                     } label: {
@@ -86,7 +91,7 @@ struct HomeView: View {
                         }
                     
                 }
-                .navigationTitle(isAdding ? "newFolder" : "ideas")
+                .navigationTitle(isAdding ? "" : "ideas")
                 .navigationBarTitleDisplayMode(isAdding ? .inline : .large)
                 .background(Color("backgroundColor"))
                 .ignoresSafeArea(.keyboard)
@@ -114,8 +119,6 @@ struct HomeView: View {
                 }
                 .onChange(of: createFolder, perform: { newValue in
                     if let group = ideasViewModel.selectedGroup {
-//                        var newGroup = group
-//                        newGroup.modifiedDate = Date()
                         IdeaSaver.changeSavedGroup(newGroup: group)
                     }
                 })
@@ -144,8 +147,6 @@ struct HomeView: View {
         .onChange(of: isAdding) { newValue in
             if newValue {
                 selectedIdeas = (self.ideasViewModel.selectedGroup == nil ? [] : self.ideasViewModel.selectedGroup?.ideasIds)!
-            } else {
-//                self.ideasViewModel.selectedGroup = nil
             }
         }
     }
