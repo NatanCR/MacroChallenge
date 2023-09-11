@@ -60,6 +60,22 @@ class IdeaSaver {
     }
     
     //MARK: - CHANGERS
+    /**Função para alterar o valores de uma tag**/
+    public static func changeOneTagValue(tag: Tag) {
+        if defaults.object(forKey: tagModelKey) == nil { print("No saved Tags"); return }
+        
+        var currentTags: [Tag] = getAllSavedTags()
+        
+        let tagIndex: Int = currentTags.firstIndex(where: { $0.id == tag.id }) ?? -1
+        if tagIndex == -1 {print("Tag not found"); return}
+        
+        currentTags[tagIndex] = tag
+        
+        clearOneTag(tag: tag, willSaveTag: false)
+        saveTags(tags: currentTags)
+    }
+    
+    
     /**Changes an already saved idea in user default to a new idea value.**/
     public static func changeSavedValue<T: Idea>(type: T.Type, idea: T) {
         var key = ""
@@ -146,6 +162,15 @@ class IdeaSaver {
     }
     
     //MARK: - CLEARS
+    /**Função para limpar todas as tags do user defaults*/
+    public static func clearAllTags() {
+        let emptyTags: [Tag] = []
+        
+        if defaults.object(forKey: tagModelKey) != nil {
+            defaults.set(emptyTags, forKey: tagModelKey)
+        }
+    }
+    
     /**Clears all user defaults ideas.*/
     public static func clearAll() {
         let emptyIdea: [any Idea] = []
@@ -231,7 +256,7 @@ class IdeaSaver {
         if defaults.object(forKey: tagModelKey) != nil { defaults.set(emptyTag, forKey: tagModelKey)};
     }
     
-    public static func clearOneTag(tag: Tag) {
+    public static func clearOneTag(tag: Tag, willSaveTag: Bool = true) {
         
         if defaults.object(forKey: tagModelKey) == nil { print("No saved Tag"); return }
         
@@ -244,7 +269,9 @@ class IdeaSaver {
         tags.remove(at: tagIndex)
         
         clearUniqueTag()
-        saveTags(tags: tags)
+        if willSaveTag {
+            saveTags(tags: tags)
+        }
     }
     
     // MARK: - PRIVATE STATICS

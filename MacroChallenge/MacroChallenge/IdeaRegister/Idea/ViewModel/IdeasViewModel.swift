@@ -273,5 +273,16 @@ class IdeasViewModel: ObservableObject {
         IdeaSaver.saveTag(tag: addTag(tagToAdd: tagToSave))
         tagsLoadedData = IdeaSaver.getAllSavedTags()
     }
+    
+    func fixingTagColor() {
+        var newTags = IdeaSaver.getAllSavedTags()
+        
+        for i in 0..<newTags.count {
+            if newTags[i].color == "fff" {
+                newTags[i].color = ""
+                IdeaSaver.changeOneTagValue(tag: newTags[i])
+            }
+        }
+    }
 }
 
