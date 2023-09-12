@@ -257,8 +257,12 @@ struct HomeListView: View {
                             }
                         }
                         .onChange(of: selection) { newValue in
-                            selectedIdeas = []
-                            selectedIdeas.append(contentsOf: selection)
+                            if isAdding {
+                                selectedIdeas = []
+                                selectedIdeas.append(contentsOf: newValue)
+                            } else {
+                                selection = []
+                            }
                         }
                     }
                 }
@@ -299,8 +303,12 @@ struct HomeListView: View {
                             }
                         }
                         .onChange(of: selection) { newValue in
-                            selectedIdeas = []
-                            selectedIdeas.append(contentsOf: selection)
+                            if isAdding {
+                                selectedIdeas = []
+                                selectedIdeas.append(contentsOf: newValue)
+                            } else {
+                                selection = []
+                            }
                         }
                         .listRowBackground(Color("backgroundItem"))
                     }

@@ -57,7 +57,6 @@ struct ListRowComponent: View {
         .swipeActions(edge: .trailing) {
             //TODO: atualizar a view assim que deleta a ideia
             Button(role: .destructive) {
-                print("delete")
                 switch typeIdea {
                 case .text:
                     IdeaSaver.clearOneIdea(type: ModelText.self, idea: idea as! ModelText)
@@ -77,7 +76,6 @@ struct ListRowComponent: View {
         
         .swipeActions(edge: .leading) {
             Button {
-                print("fav")
                 idea.isFavorite.toggle()
                 switch typeIdea {
                 case .text:

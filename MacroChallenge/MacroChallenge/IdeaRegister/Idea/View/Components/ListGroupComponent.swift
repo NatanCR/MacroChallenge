@@ -57,7 +57,6 @@ struct ListGroupComponent: View {
         .swipeActions(edge: .trailing) {
             //TODO: atualizar a view assim que deleta a ideia
             Button(role: .destructive) {
-                print("delete")
                 IdeaSaver.clearOneGroup(group: group)
                 self.ideasViewModel.resetDisposedData()
             } label: {

@@ -17,7 +17,6 @@ struct SelectionButtonComponent<T: Idea>: View {
     var body: some View {
         Button{
             isSelected.toggle()
-            print(idea.id)
             isSelected ? selectedIdeas.append(idea.id) : selectedIdeas.removeAll{ $0 == idea.id }
         } label: {
             HStack {
