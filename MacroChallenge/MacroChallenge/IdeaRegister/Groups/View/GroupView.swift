@@ -134,6 +134,9 @@ struct GroupView: View {
         if index != -1 {
             group.ideasIds = self.ideasViewModel.groups[index].ideasIds
             print(self.ideasViewModel.groups[index].ideasIds)
+        } else {
+            group.ideasIds = []
+            dismiss()
         }
         isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
         self.ideasViewModel.selectedGroup = group

@@ -71,6 +71,19 @@ class IdeaSaver {
         saveMultipleIdeas(ideas: ideas, type: PhotoModel.self, key: photoModelKey)
     }
     
+    public static func saveIdea(idea: any Idea) {
+        switch idea {
+        case is ModelText:
+            IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
+        case is AudioIdea:
+            IdeaSaver.changeSavedValue(type: AudioIdea.self, idea: idea as! AudioIdea)
+        case is PhotoModel:
+            IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
+        default:
+            break
+        }
+    }
+    
     //MARK: - CHANGERS
     /**Função para alterar o valores de uma tag**/
     public static func changeOneTagValue(tag: Tag) {
