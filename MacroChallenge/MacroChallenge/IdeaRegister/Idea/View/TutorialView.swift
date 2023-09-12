@@ -68,7 +68,7 @@ struct TutorialView: View {
                             tutorialPresented = true
                             UserDefaults.standard.set(true, forKey: "hasShownTutorial")
                         } label: {
-                            Text("Pular")
+                            Text("skip")
                         }
                     }
                 }
@@ -82,7 +82,7 @@ struct TutorialView: View {
                                 Button{
                                     index = index - 1
                                 } label: {
-                                    Text("Anterior")
+                                    Text("previous")
                                         .padding(.leading)
                                 }
                             }
@@ -95,7 +95,7 @@ struct TutorialView: View {
                                 Button{
                                     index = index + 1
                                 } label: {
-                                    Text("Próximo")
+                                    Text("next")
                                         .padding(.trailing)
                                 }
                                 
