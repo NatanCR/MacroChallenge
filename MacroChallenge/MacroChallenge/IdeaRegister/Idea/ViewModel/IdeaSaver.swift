@@ -77,6 +77,19 @@ class IdeaSaver {
         saveMultipleIdeas(ideas: ideas, type: PhotoModel.self, key: photoModelKey)
     }
     
+    public static func saveIdea(idea: any Idea) {
+        switch idea {
+        case is ModelText:
+            IdeaSaver.changeSavedValue(type: ModelText.self, idea: idea as! ModelText)
+        case is AudioIdea:
+            IdeaSaver.changeSavedValue(type: AudioIdea.self, idea: idea as! AudioIdea)
+        case is PhotoModel:
+            IdeaSaver.changeSavedValue(type: PhotoModel.self, idea: idea as! PhotoModel)
+        default:
+            break
+        }
+    }
+    
     //MARK: - CHANGERS
     /**Changes an already saved idea in user default to a new idea value.**/
     public static func changeSavedValue<T: Idea>(type: T.Type, idea: T) {
@@ -387,7 +400,6 @@ class IdeaSaver {
         for id in 0..<changedGroup.ideasIds.count {
             if changedGroup.ideasIds[id] == ideaId {
                 changedGroup.ideasIds.remove(at: id)
-//                print("to aqui")
                 break
             }
         }
@@ -395,7 +407,6 @@ class IdeaSaver {
         if changedGroup.ideasIds.count > 0 {
             changeSavedGroup(newGroup: changedGroup)
         } else {
-//            print("to no else")
             clearOneGroup(group: changedGroup)
         }
     }

@@ -62,9 +62,7 @@ struct HomeView: View {
                                         for idea in selectedIdeas {
                                             var newIdea = IdeaSaver.getIdeaByUUID(idea)
                                             newIdea?.isGrouped = true
-                                            saveIdea(idea: newIdea!)
-//                                            var newType = IdeaSaver.getIdeaType(newIdea!)
-//                                            IdeaSaver.changeSavedValue(type: newType, idea: newIdea as! newType)
+                                            IdeaSaver.saveIdea(idea: newIdea!)
                                         }
                                         createFolder = true
                                         isAdding = false
