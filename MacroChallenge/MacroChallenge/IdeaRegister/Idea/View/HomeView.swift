@@ -9,7 +9,7 @@ import SwiftUI
 
 //MARK: - HOME VIEW
 struct HomeView: View {
-    
+    @Environment(\.screenSize) var screenSize
     @StateObject var ideasViewModel: IdeasViewModel = IdeasViewModel()
     let audioManager: AudioManager = AudioManager()
     //quando for true altera para view de seleção de ideias

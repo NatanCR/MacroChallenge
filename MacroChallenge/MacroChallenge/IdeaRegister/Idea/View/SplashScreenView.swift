@@ -12,11 +12,15 @@ struct SplashScreenView: View {
     @State private var isActive = false //inicia a animação
     @State private var nextView = false
     @State var index = 1
+    @State var tutorialPresented = UserDefaults.standard.bool(forKey: "hasShownTutorial")
     
     var body: some View {
         
-        if nextView {
+        if nextView && tutorialPresented{
             HomeView()
+            
+        } else if nextView && !tutorialPresented {
+            TutorialView(tutorialPresented: $tutorialPresented)
             
         } else {
             ZStack{
