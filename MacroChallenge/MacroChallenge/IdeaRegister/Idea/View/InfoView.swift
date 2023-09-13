@@ -10,8 +10,8 @@ import SwiftUI
 struct InfoView: View {
     @Environment(\.screenSize) var screenSize
     //variável que recebe o título do botão
-    var infoTitle: [String] = ["about", "privacy", "terms"]
-    var infoText: [String] = ["aboutText", "privacyText", "termsText"]
+    var infoTitle: [String] = ["about", "privacy", "terms", "tutorial"]
+    var infoText: [String] = ["aboutText", "privacyText", "termsText", ""]
     
     var body: some View {
         
@@ -19,7 +19,12 @@ struct InfoView: View {
             //botões da tela de info
             ForEach(0..<infoText.count, id: \.self) { i in
                 NavigationLink{
-                    InfoText(infoText: infoText[i], infoTitle: infoTitle[i])
+                    // if is the tutorial screen
+                    if i == 3 {
+                        TutorialView(tutorialPresented: nil)
+                    } else {
+                        InfoText(infoText: infoText[i], infoTitle: infoTitle[i])
+                    }
                 } label: {
                     ButtonComponent(title: infoTitle[i])
                 }.padding(5)

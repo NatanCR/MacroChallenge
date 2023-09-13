@@ -12,8 +12,12 @@ struct TutorialView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     
-    @Binding var tutorialPresented: Bool //reconhece se o tutorial ja foi apresentado
+    @Binding var tutorialPresented: Bool? //reconhece se o tutorial ja foi apresentado
     @State var index = 1 //index das imagens
+    
+    init(tutorialPresented: Binding<Bool?>?) {
+        self._tutorialPresented = tutorialPresented ?? Binding.constant(nil)
+    }
     
     var body: some View {
         
@@ -65,8 +69,13 @@ struct TutorialView: View {
                     // opção de pular tutorial, aparece se não for a última imagem
                     if index<=4{
                         Button{
-                            tutorialPresented = true
-                            UserDefaults.standard.set(true, forKey: "hasShownTutorial")
+                            let fromInfo = tutorialPresented == nil
+                            if !fromInfo {
+                                tutorialPresented = true
+                                UserDefaults.standard.set(true, forKey: "hasShownTutorial")
+                            } else {
+                                dismiss()
+                            }
                         } label: {
                             Text("skip")
                         }
@@ -102,9 +111,11 @@ struct TutorialView: View {
                             } else {
                                 Button{
                                     //na primeira vez que o tutorial for acessado, salva acesso
-                                    if !tutorialPresented{
-                                        tutorialPresented = true
-                                        UserDefaults.standard.set(true, forKey: "hasShownTutorial") //salva no user defaults para aparecer apenas no primeiro acesso
+                                    if let presented = tutorialPresented {
+                                        if !presented{
+                                            tutorialPresented = true
+                                            UserDefaults.standard.set(true, forKey: "hasShownTutorial") //salva no user defaults para aparecer apenas no primeiro acesso
+                                        }
                                     } else {
                                         dismiss() //se estiver visualizando da tela de info, dá dismiss
                                     }
@@ -133,6 +144,7 @@ struct TutorialView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .navigationBarHidden(true)
 
     }
 }

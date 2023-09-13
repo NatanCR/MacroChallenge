@@ -12,45 +12,50 @@ struct SplashScreenView: View {
     @State private var isActive = false //inicia a animação
     @State private var nextView = false
     @State var index = 1
-    @State var tutorialPresented = UserDefaults.standard.bool(forKey: "hasShownTutorial")
+    @State var tutorialPresented: Bool? = UserDefaults.standard.bool(forKey: "hasShownTutorial")
     
     var body: some View {
         
-        if nextView && tutorialPresented{
-            HomeView()
+        if let presented = tutorialPresented {
+            if nextView && presented{
+                HomeView()
+                
+            } else if nextView && !presented {
+                TutorialView(tutorialPresented: $tutorialPresented)
+            }
             
-        } else if nextView && !tutorialPresented {
-            TutorialView(tutorialPresented: $tutorialPresented)
-            
-        } else {
-            ZStack{
-                Color("splashScreen")
-                    .ignoresSafeArea()
-                //apresenta a animação
-                Image("splash_\(index)")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: screenSize.width)
-                    .ignoresSafeArea()
-                    .onAppear{
-                        
-                        //tempo entre as imagens
-                        Timer
-                            .scheduledTimer(withTimeInterval: 0.03, repeats: true){ _ in
-                                //condição que altera o index das imagens
-                                if(index < 49) {
-                                    index += 1
+            else {
+                ZStack{
+                    Color("splashScreen")
+                        .ignoresSafeArea()
+                    //apresenta a animação
+                    Image("splash_\(index)")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: screenSize.width)
+                        .ignoresSafeArea()
+                        .onAppear{
+                            
+                            //tempo entre as imagens
+                            Timer
+                                .scheduledTimer(withTimeInterval: 0.03, repeats: true){ _ in
+                                    //condição que altera o index das imagens
+                                    if(index < 49) {
+                                        index += 1
+                                    }
                                 }
-                            }
-                    }
-                    .onAppear{
-                        //chama a próxima view
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.4){
-                            self.nextView = true
                         }
-                    }
+                        .onAppear{
+                            //chama a próxima view
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.4){
+                                self.nextView = true
+                            }
+                        }
+                }
             }
         }
+        
+        
     }
 }
 
