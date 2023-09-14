@@ -15,8 +15,10 @@ struct HomeView: View {
     //quando for true altera para view de seleção de ideias
     @State var isAdding: Bool = false
     @FocusState private var searchInFocus: Bool
-    @State var selectedIdeas: [UUID] = []
+    @State var selectedIdeas = Set<UUID>()
     @State var createFolder: Bool = false
+    
+    @State var newGroup: GroupModel?
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -44,11 +46,10 @@ struct HomeView: View {
                     //navigation bar
                         .toolbar{
                             ToolbarItem(placement: .navigationBarTrailing){
-                                
-                                if isAdding == false{
-                                    let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                                    NavigationLink("", destination: GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: ((self.ideasViewModel.selectedGroup == nil ? newGroup : ideasViewModel.selectedGroup)!), isNewGroup: self.ideasViewModel.selectedGroup == nil), isActive: $createFolder)
-                                    
+                                if isAdding == false {
+                                    if createFolder {
+                                        NavigationLink("", destination: GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: ((self.ideasViewModel.selectedGroup == nil ? newGroup ?? GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: []) : ideasViewModel.selectedGroup)!), isNewGroup: self.ideasViewModel.selectedGroup == nil, selectedIdeas: $selectedIdeas), isActive: $createFolder)
+                                    }
                                     //leva para a InfoView
                                     NavigationLink {
                                         InfoView()
@@ -63,6 +64,22 @@ struct HomeView: View {
                                             var newIdea = IdeaSaver.getIdeaByUUID(idea)
                                             newIdea?.isGrouped = true
                                             IdeaSaver.saveIdea(idea: newIdea!)
+                                        }
+                                        if let groupVM = self.ideasViewModel.selectedGroup {
+                                            for idea in selectedIdeas {
+                                                var add = true
+                                                for i in 0..<groupVM.ideasIds.count {
+                                                    if idea == groupVM.ideasIds[i] {
+                                                        add = false
+                                                        break
+                                                    }
+                                                }
+                                                if add {
+                                                    self.ideasViewModel.selectedGroup?.ideasIds.append(contentsOf: Array(arrayLiteral: idea))
+                                                }
+                                            }
+                                        } else {
+                                            newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: Array(selectedIdeas))
                                         }
                                         createFolder = true
                                         isAdding = false
@@ -116,7 +133,7 @@ struct HomeView: View {
                         }
                     }
                 }
-
+                
                 if searchInFocus != false{
                     Rectangle()
                         .fill(Color.pink)
@@ -129,7 +146,7 @@ struct HomeView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onChange(of: isAdding) { newValue in
             if newValue {
-                selectedIdeas = (self.ideasViewModel.selectedGroup == nil ? [] : self.ideasViewModel.selectedGroup?.ideasIds)!
+                selectedIdeas = (self.ideasViewModel.selectedGroup == nil ? [] : Set(self.ideasViewModel.selectedGroup!.ideasIds))
             }
         }
     }
@@ -147,7 +164,7 @@ struct HomeGridView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     let audioManager: AudioManager
     @Binding var isAdding: Bool
-    @Binding var selectedIdeas: [UUID]
+    @Binding var selectedIdeas: Set<UUID>
     @State var isNewGroup: Bool = false
     
     let columns = [
@@ -164,7 +181,7 @@ struct HomeGridView: View {
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas)
                         } label: {
                             GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                         }
@@ -216,19 +233,18 @@ struct HomeGridView: View {
 struct HomeListView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
-    @State var selection = Set<UUID>()
-    @Binding var selectedIdeas: [UUID]
+    @Binding var selectedIdeas: Set<UUID>
     @State var isNewGroup: Bool = false
     
     //MARK: - LIST BODY
     var body: some View{
         
         if #available(iOS 16.0, *){
-            List (selection: $selection){
+            List (selection: $selectedIdeas){
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas)
                         } label: {
                             ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
                         }
@@ -256,14 +272,6 @@ struct HomeListView: View {
                                 ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
                             }
                         }
-                        .onChange(of: selection) { newValue in
-                            if isAdding {
-                                selectedIdeas = []
-                                selectedIdeas.append(contentsOf: newValue)
-                            } else {
-                                selection = []
-                            }
-                        }
                     }
                 }
                 .listRowBackground(Color("backgroundItem"))
@@ -272,11 +280,11 @@ struct HomeListView: View {
             .scrollContentBackground(.hidden)
             
         } else {
-            List (selection: $selection){
+            List (selection: $selectedIdeas){
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas)
                         } label: {
                             ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
                         }
@@ -300,14 +308,6 @@ struct HomeListView: View {
                             }
                             else {
                                 ListRowComponent(ideasViewModel: self.ideasViewModel, idea: $ideas, title: ideas.title, typeIdea: ideas.ideiaType, imageIdea: UIImage())
-                            }
-                        }
-                        .onChange(of: selection) { newValue in
-                            if isAdding {
-                                selectedIdeas = []
-                                selectedIdeas.append(contentsOf: newValue)
-                            } else {
-                                selection = []
                             }
                         }
                         .listRowBackground(Color("backgroundItem"))

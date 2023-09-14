@@ -14,9 +14,9 @@ struct GroupView: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
     @FocusState var isFocused: Bool
-    @State var selectedIdeas: [UUID] = []
     @State var group: GroupModel
     var isNewGroup: Bool
+    @Binding var selectedIdeas: Set<UUID>
     private let removedIdeaNotification = NotificationCenter.default.publisher(for: NSNotification.Name("RemovedIdeaFromGroup"))
     @State var isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
     

@@ -12,7 +12,7 @@ struct OverlayComponent<T: Idea>: View {
     var text: String
     @State var idea: T
     @Binding var isAdding: Bool
-    @Binding var selectedIdeas: [UUID]
+    @Binding var selectedIdeas: Set<UUID>
     @ObservedObject var ideasViewModel: IdeasViewModel
     
     var body: some View {
