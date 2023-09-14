@@ -18,8 +18,10 @@ struct HomeView: View {
     @State var sortedByAscendent: Bool = false
     @State var byCreation: Bool = false
     @AppStorage("appVersion") private var appVersion = "1.20.1" // versão antes da atualização "1.20.2" -> correção do bug das tags
-    @State var selectedIdeas: [UUID] = []
+    @State var selectedIdeas = Set<UUID>()
     @State var createFolder: Bool = false
+    
+    @State var newGroup: GroupModel?
     
     //MARK: - HOME INIT
     //alteração da fonte dos títulos
@@ -47,11 +49,10 @@ struct HomeView: View {
                     //navigation bar
                         .toolbar{
                             ToolbarItem(placement: .navigationBarTrailing){
-                                
-                                if isAdding == false{
-                                    let newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: selectedIdeas)
-                                    NavigationLink("", destination: GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: ((self.ideasViewModel.selectedGroup == nil ? newGroup : ideasViewModel.selectedGroup)!), isNewGroup: self.ideasViewModel.selectedGroup == nil), isActive: $createFolder)
-                                    
+                                if isAdding == false {
+                                    if createFolder {
+                                        NavigationLink("", destination: GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: ((self.ideasViewModel.selectedGroup == nil ? newGroup ?? GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: []) : ideasViewModel.selectedGroup)!), isNewGroup: self.ideasViewModel.selectedGroup == nil, selectedIdeas: $selectedIdeas), isActive: $createFolder)
+                                    }
                                     //leva para a InfoView
                                     NavigationLink {
                                         InfoView()
@@ -66,6 +67,22 @@ struct HomeView: View {
                                             var newIdea = IdeaSaver.getIdeaByUUID(idea)
                                             newIdea?.isGrouped = true
                                             IdeaSaver.saveIdea(idea: newIdea!)
+                                        }
+                                        if let groupVM = self.ideasViewModel.selectedGroup {
+                                            for idea in selectedIdeas {
+                                                var add = true
+                                                for i in 0..<groupVM.ideasIds.count {
+                                                    if idea == groupVM.ideasIds[i] {
+                                                        add = false
+                                                        break
+                                                    }
+                                                }
+                                                if add {
+                                                    self.ideasViewModel.selectedGroup?.ideasIds.append(contentsOf: Array(arrayLiteral: idea))
+                                                }
+                                            }
+                                        } else {
+                                            newGroup = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: Array(selectedIdeas))
                                         }
                                         createFolder = true
                                         isAdding = false
@@ -133,7 +150,7 @@ struct HomeView: View {
                         }
                     }
                 }
-
+                
                 if searchInFocus != false{
                     Rectangle()
                         .fill(Color.pink)
@@ -146,7 +163,7 @@ struct HomeView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onChange(of: isAdding) { newValue in
             if newValue {
-                selectedIdeas = (self.ideasViewModel.selectedGroup == nil ? [] : self.ideasViewModel.selectedGroup?.ideasIds)!
+                selectedIdeas = (self.ideasViewModel.selectedGroup == nil ? [] : Set(self.ideasViewModel.selectedGroup!.ideasIds))
             }
         }
     }
@@ -165,9 +182,7 @@ struct HomeGridView: View {
     let audioManager: AudioManager
     @Binding var isAdding: Bool
     @Environment(\.screenSize) var screenSize
-    @State var newGroup: GroupModel = GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: [])
-    @Binding var selectedIdeas: [UUID]
-    @State var isNewGroup: Bool = false
+    @Binding var selectedIdeas: Set<UUID>
     
     //MARK: - GRID BODY
     var body: some View{
@@ -231,8 +246,7 @@ struct HomeListView: View {
     @Environment(\.screenSize) var screenSize
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
-    @State var selection = Set<UUID>()
-    @Binding var selectedIdeas: [UUID]
+    @Binding var selectedIdeas: Set<UUID>
     @State var isNewGroup: Bool = false
     
     //MARK: - LIST BODY
@@ -247,13 +261,13 @@ struct HomeListView: View {
                 
             } else {
                 if #available(iOS 16.0, *){
-                    ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
+                    ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                         .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
                         .scrollContentBackground(.hidden)
                     
                 } else {
                     //MARK: - OTHER iOS VERSION
-                    ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding)
+                    ListViewComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                         .environment(\.editMode, .constant(self.isAdding ? EditMode.active : EditMode.inactive))
                 }
             }

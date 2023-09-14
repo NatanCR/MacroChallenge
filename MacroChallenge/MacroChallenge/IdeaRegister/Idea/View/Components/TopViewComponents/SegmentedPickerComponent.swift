@@ -13,13 +13,13 @@ struct SegmentedPickerComponent: View {
     @State var index = 1
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
-    @Binding var selectedIdeas: [UUID]
+    @Binding var selectedIdeas: Set<UUID>
     @State var isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
     
     let audioManager: AudioManager
     
     //altera as cores do segmented picker
-    init(ideasViewModel: IdeasViewModel, audioManager: AudioManager, isAdding: Binding<Bool>, selectedIdeas: Binding<[UUID]>){
+    init(ideasViewModel: IdeasViewModel, audioManager: AudioManager, isAdding: Binding<Bool>, selectedIdeas: Binding<Set<UUID>>){
         self.ideasViewModel = ideasViewModel
         self.audioManager = audioManager
         self._isAdding = isAdding

@@ -11,13 +11,17 @@ struct SelectionButtonComponent<T: Idea>: View {
     var type: T.Type
     @State var idea: T
     @State var isSelected: Bool = false
-    @Binding var selectedIdeas: [UUID]
+    @Binding var selectedIdeas: Set<UUID>
     @ObservedObject var ideasViewModel: IdeasViewModel
     
     var body: some View {
         Button{
             isSelected.toggle()
-            isSelected ? selectedIdeas.append(idea.id) : selectedIdeas.removeAll{ $0 == idea.id }
+            if isSelected {
+                selectedIdeas.insert(idea.id)
+            } else {
+                selectedIdeas.remove(idea.id)
+            }
         } label: {
             HStack {
                 Rectangle()
@@ -31,11 +35,6 @@ struct SelectionButtonComponent<T: Idea>: View {
                     Rectangle()
                         .opacity(0.001)
                 }
-            }
-        }
-        .onChange(of: selectedIdeas) { newValue in
-            if ideasViewModel.selectedGroup != nil {
-                self.ideasViewModel.selectedGroup?.ideasIds = selectedIdeas
             }
         }
     }

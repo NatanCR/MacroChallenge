@@ -10,15 +10,15 @@ import SwiftUI
 struct ListViewComponent: View {
     @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var isAdding: Bool
+    @Binding var selectedIdeas: Set<UUID>
     
     var body: some View {
-        List {
+        List(selection: $selectedIdeas) {
             if isAdding == false {
                 ForEach(ideasViewModel.groups, id: \.id) { group in
                     NavigationLink{
-                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group)
+                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas)
                     } label: {
-//                            GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                         ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
                     }
                 }
