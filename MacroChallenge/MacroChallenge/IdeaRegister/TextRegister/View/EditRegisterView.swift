@@ -38,7 +38,7 @@ struct EditRegisterView: View {
                 TextEditor(text: $modelText.textComplete)
                     .font(.custom("Sen-Regular", size: 17))
                     .multilineTextAlignment(.leading)
-                    .frame(width: screenSize.width * 0.95 ,height: screenSize.height * 0.7)
+                    .frame(width: screenSize.width * 0.95 ,height: screenSize.height * 0.8)
                     .focused($isFocused)
                     .overlay{
                         PlaceholderComponent(idea: modelText)
