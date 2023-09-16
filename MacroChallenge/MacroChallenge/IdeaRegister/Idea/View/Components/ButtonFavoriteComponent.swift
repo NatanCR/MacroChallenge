@@ -30,7 +30,7 @@ struct ButtonFavoriteComponent<T: Idea>: View {
         } label: {
             HStack {
                 Text(LocalizedStringKey(text))
-                idea.isFavorite ? Image(systemName: "heart.fill") : Image(systemName: "heart")
+                Image(systemName: idea.isFavorite ? "heart.fill" : "heart")
             }
         }
         .onAppear {

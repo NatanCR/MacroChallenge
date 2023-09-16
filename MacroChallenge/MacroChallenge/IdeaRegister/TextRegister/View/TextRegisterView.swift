@@ -11,6 +11,7 @@ struct TextRegisterView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var textComplete: String = ""
+    @State private var attributedTextComplete: NSAttributedString = NSAttributedString(string: "")
     @State private var title: String = ""
     @State private var description: String = ""
     @State private var saveAlertIsActive: Bool = false //variável para ativar o alerta
@@ -25,7 +26,6 @@ struct TextRegisterView: View {
     @State var ideaID: UUID = UUID()
     @State var font: UIFont? = UIFont(name: "Sen-Regular", size: 17)
     @State var size: CGFloat = 17
-    @State var showEdit: Bool = false
     
     
     //MARK: - BODY
@@ -34,7 +34,7 @@ struct TextRegisterView: View {
 //            TextEditor(text: $textComplete)
 //                .padding()
 //                .focused($isFocused)
-            TextEditorComponent(text: $textComplete, font: font)
+            TextEditorComponent(text: $attributedTextComplete)
                 .padding()
                 .focused($isFocused)
             
@@ -55,28 +55,10 @@ struct TextRegisterView: View {
                     }.padding()
                     
                 }
-                
-                //apresenta botão de edição quando o teclado está aberto
-                if isFocused{
-                    Spacer()
-                    
-                    Button{
-                        showEdit.toggle()
-                    } label: {
-                        Image(systemName: "textformat")
-                            .font(.system(size: 23, weight: .medium))
-                    }
-                    .padding(.trailing)
-                }
-            }
-            if showEdit{
-                EditView(font: $font)
-                    .onAppear{
-                        print("font")
-                    }
             }
         }
-        .onChange(of: textComplete, perform: { newValue in
+        .onChange(of: attributedTextComplete, perform: { newValue in
+            textComplete = attributedTextComplete.string
             self.saveIdea()
         })
         .sheet(isPresented: $showModal) {
