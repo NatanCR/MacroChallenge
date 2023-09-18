@@ -47,7 +47,6 @@ struct UITextViewRepresentable: UIViewRepresentable {
     class Coordinator: NSObject, UITextViewDelegate {
         @Binding var text: NSAttributedString
         @Binding var selectedText: String
-        var isFormattingApplied = false // Track if formatting is applied
 
         init(text: Binding<NSAttributedString>, selectedText: Binding<String>) {
             self._text = text
@@ -58,25 +57,21 @@ struct UITextViewRepresentable: UIViewRepresentable {
             // UIKit -> SwiftUI
             _text.wrappedValue = textView.attributedText
 
+        }
+        
+        func textViewDidChangeSelection(_ textView: UITextView) {
             // Reset typing attributes to default if formatting was applied
-            if isFormattingApplied {
                 textView.typingAttributes = [
                     NSAttributedString.Key.font: UIFont(name: "Sen-Regular", size: 17) ?? .systemFont(ofSize: 17),
                     NSAttributedString.Key.foregroundColor: UIColor.black
                 ]
-                isFormattingApplied = false
-            }
+
         }
 
         func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
             if !selectedText.isEmpty {
                 // Apply attributes to the selected range
                 let attributedText = NSMutableAttributedString(attributedString: textView.attributedText)
-                let attributes: [NSAttributedString.Key: Any] = [
-                    .font: UIFont(name: "Sen-Regular", size: 17) ?? .systemFont(ofSize: 17),
-                    .foregroundColor: UIColor.black
-                ]
-                attributedText.addAttributes(attributes, range: textView.selectedRange)
 
                 // Replace the selected text with the new text while preserving formatting
                 attributedText.replaceCharacters(in: textView.selectedRange, with: text)
@@ -84,9 +79,6 @@ struct UITextViewRepresentable: UIViewRepresentable {
                 textView.attributedText = attributedText
                 _text.wrappedValue = attributedText
                 selectedText = ""
-
-                // Set the flag to indicate formatting was applied
-                isFormattingApplied = true
 
                 return false
             }
