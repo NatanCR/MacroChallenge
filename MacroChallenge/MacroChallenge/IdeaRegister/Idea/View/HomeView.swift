@@ -133,6 +133,7 @@ struct HomeView: View {
                     if !isAdding {
                         self.ideasViewModel.selectedGroup = nil
                     }
+                    
                 }
                 .onChange(of: createFolder, perform: { newValue in
                     if let group = ideasViewModel.selectedGroup {

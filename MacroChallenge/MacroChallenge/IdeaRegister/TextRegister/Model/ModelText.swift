@@ -19,7 +19,8 @@ struct ModelText: Idea {
     var tag: [Tag]?
     var isGrouped: Bool
     
-    init(title: String, creationDate: Date, modifiedDate: Date, description: String, textComplete: String, tag: [Tag]?, grouped: Bool) {
+    init(id: UUID = UUID(), title: String, creationDate: Date, modifiedDate: Date, description: String, textComplete: String, tag: [Tag]?, grouped: Bool) {
+        self.id = id
         self.title = title
         self.creationDate = creationDate
         self.modifiedDate = modifiedDate

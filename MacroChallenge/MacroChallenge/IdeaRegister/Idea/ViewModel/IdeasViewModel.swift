@@ -123,6 +123,11 @@ class IdeasViewModel: ObservableObject {
         let calendar = Calendar.current
         
         if newOrderArray.isEmpty {
+            print("retorno 1")
+            print(filteringNotFavoriteIdeas().filter { idea in
+                calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
+                calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
+            })
             return filteringNotFavoriteIdeas().filter { idea in
                 calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
                 calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
@@ -130,10 +135,15 @@ class IdeasViewModel: ObservableObject {
         } else {
             //utiliza o array que foi ordenado pelo filtro que o usuário escolheu
             if byCreation {
+                print("retorno 2")
                 return filteringNotFavoriteIdeas(newOrderArray: newOrderArray, useCurrentArray: true).filter { idea in
                     calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear)
                 }
             } else {
+                print("retorno 3")
+                print(filteringNotFavoriteIdeas(newOrderArray: newOrderArray, useCurrentArray: true).filter { idea in
+                    calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
+                })
                 return filteringNotFavoriteIdeas(newOrderArray: newOrderArray, useCurrentArray: true).filter { idea in
                     calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
                 }
@@ -218,11 +228,6 @@ class IdeasViewModel: ObservableObject {
             }
             
         }
-    }
-    
-    func reloadLoadedData() {
-        self.loadedData = IdeaSaver.getAllSavedIdeas()
-        self.disposedData = loadedData
     }
     
     func resetDisposedData() {

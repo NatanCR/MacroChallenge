@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ForEachListComponent: View {
-    @ObservedObject var viewModel: IdeasViewModel
+    @ObservedObject var ideasViewModel: IdeasViewModel
     @Binding var ideaType: [any Idea]
     
     var body: some View {

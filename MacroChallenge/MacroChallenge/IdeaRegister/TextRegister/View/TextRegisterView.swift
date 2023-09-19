@@ -92,22 +92,6 @@ struct TextRegisterView: View {
                 Button {
                     self.saveIdea(savedByButton: true)
                     if !self.textComplete.isEmpty {dismiss()}
-                    //tira espaços em brancos do texto
-                    textComplete = textComplete.trimmingCharacters(in: .whitespacesAndNewlines)
-                    //verifica se o texto está vazio
-                    if textComplete.isEmpty {
-                        self.isActive.toggle()
-                    } else {
-                        TextViewModel.setTitleDescriptionAndCompleteText(title: &title, description: &description, complete: &textComplete)
-                        
-                        //coloca os dados no formato da estrutura
-                        let currentModel = ModelText(title: title, creationDate: Date(), modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray, grouped: false)
-                        
-                        
-                        //salva o dados registrados
-                        IdeaSaver.saveTextIdea(idea: currentModel)
-                        dismiss()
-                    }
                 } label: {
                     Text("save")
                 }
@@ -159,7 +143,7 @@ struct TextRegisterView: View {
                 }
             }
             
-            self.currentModel = ModelText(id: self.ideaID, title: title, creationDate: self.createDate, modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray)
+            self.currentModel = ModelText(title: title, creationDate: self.createDate, modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray, grouped: false)
             
             //salva o dados registrados
             guard let idea = self.currentModel else { return }
