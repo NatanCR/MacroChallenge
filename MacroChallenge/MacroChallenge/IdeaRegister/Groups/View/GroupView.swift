@@ -19,50 +19,22 @@ struct GroupView: View {
     @Binding var selectedIdeas: Set<UUID>
     private let removedIdeaNotification = NotificationCenter.default.publisher(for: NSNotification.Name("RemovedIdeaFromGroup"))
     @State var isIdeaNotGrouped = IdeaSaver.getIdeaNotGrouped()
-    
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-    
+    @Binding var ideaType: [any Idea]
+    var grid: Bool
+        
     var body: some View {
         VStack{
             TextField("Folder Name", text: $group.title)
                 .font(.custom("Sen-Bold", size: 30))
                 .padding()
                 .focused($isFocused)
-            ScrollView{
-                //TODO: apresentar ideias da pasta
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(group.ideasIds, id: \.self) { ideaID in
-                        ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                            if ideaID == ideas.id {
-                                NavigationLink {
-                                    switch ideas.ideiaType {
-                                    case .text:
-                                        EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
-                                    case .audio:
-                                        CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
-                                    case .photo:
-                                        PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
-                                    }
-                                } label: {
-                                    switch ideas.ideiaType {
-                                    case .text:
-                                        TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group)
-                                    case .audio:
-                                        AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group)
-                                    case .photo:
-                                        let photoIdea = ideas as! PhotoModel
-                                        ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas, group: group)
-                                    }
-                                }
-                            }
-                        }
+                if grid{
+                    ScrollView{
+                        GroupGridComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, selectedIdeas: $selectedIdeas, ideaType: $ideaType)
                     }
+                } else {
+                    GroupListComponent(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, selectedIdeas: $selectedIdeas, ideaType: $ideaType)
                 }
-            }
         }
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)

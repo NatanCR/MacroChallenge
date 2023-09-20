@@ -21,14 +21,11 @@ struct GroupPreviewComponent: View {
     
     var body: some View {
         VStack {
-            ZStack {
-                RoundedRectangle(cornerRadius: 20)
-                    .foregroundColor(Color("backgroundItem"))
+                Image("folder")
+                    .resizable()
+                    .scaledToFit()
                     .frame(width: screenSize.width * 0.26, height: screenSize.width * 0.26)
-                Image(systemName: "folder")
-                    .font(.title)
-            }
-            .padding(.bottom, 5)
+                    .padding(.bottom, 5)
             
             //deletar
             .contextMenu{

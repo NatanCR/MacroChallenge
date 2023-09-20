@@ -51,7 +51,7 @@ struct HomeView: View {
                             ToolbarItem(placement: .navigationBarTrailing){
                                 if isAdding == false {
                                     if createFolder {
-                                        NavigationLink("", destination: GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: ((self.ideasViewModel.selectedGroup == nil ? newGroup ?? GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: []) : ideasViewModel.selectedGroup)!), isNewGroup: self.ideasViewModel.selectedGroup == nil, selectedIdeas: $selectedIdeas), isActive: $createFolder)
+                                        NavigationLink("", destination: GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: ((self.ideasViewModel.selectedGroup == nil ? newGroup ?? GroupModel(title: "", creationDate: Date(), modifiedDate: Date(), ideasIds: []) : ideasViewModel.selectedGroup)!), isNewGroup: self.ideasViewModel.selectedGroup == nil, selectedIdeas: $selectedIdeas, ideaType: $ideasViewModel.disposedData, grid: true), isActive: $createFolder)
                                     }
                                     //leva para a InfoView
                                     NavigationLink {
@@ -127,9 +127,9 @@ struct HomeView: View {
                     //carrega o array de tags de novo para as ideias atualizarem quais tags elas tem
                     ideasViewModel.tagsFiltered = IdeaSaver.getAllSavedTags()
                     
-                    ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas()
-                    ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas()
-                    ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas()
+//                    ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas()
+//                    ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas()
+//                    ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas()
                     if !isAdding {
                         self.ideasViewModel.selectedGroup = nil
                     }

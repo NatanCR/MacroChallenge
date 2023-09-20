@@ -15,44 +15,56 @@ struct ListGroupComponent: View {
     
     var body: some View {
         HStack{
-            VStack(alignment: .leading){
-                Text(group.title)
-                    .font(Font.custom("Sen-Regular", size: 20, relativeTo: .headline))
-                    .foregroundColor(Color("labelColor"))
-                    .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.01, alignment: .leading)
-                    .padding(.bottom, 5)
-                
-                if group.modifiedDate == group.creationDate {
-                    Text(group.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!)
-                        .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
-                        .foregroundColor(Color("labelColor"))
-                        .opacity(0.5)
-                        .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.01, alignment: .leading)
-
-                    Text(group.creationDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())!)
-                        .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
-                        .foregroundColor(Color("labelColor"))
-                        .opacity(0.5)
-                        .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.01, alignment: .leading)
-
-                } else {
-                    Text(group.modifiedDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!)
-                        .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
-                        .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
-                    
-                    Text(group.modifiedDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())!)
-                        .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
-                        .frame(maxWidth: screenSize.width * 0.25, maxHeight: screenSize.height * 0.015)
-                }
-            }
+                Image(uiImage: UIImage(named: "folder") ?? UIImage())
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
+                    .cornerRadius(5)
+                    .padding(.trailing)
             
             Spacer()
-                Image(uiImage: UIImage(systemName: "folder") ?? UIImage())
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 25, height: 25)
+
+            VStack(alignment: .leading){
+                Text(group.title)
+                    .font(Font.custom("Sen-Bold", size: 20, relativeTo: .headline))
+                    .foregroundColor(Color("labelColor"))
+                    .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.008, alignment: .leading)
+                    .padding(.bottom, 10)
+                
+                if group.modifiedDate == group.creationDate {
+                    HStack{
+                        Text(group.creationDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!)
+                            .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                            .foregroundColor(Color("labelColor"))
+                            .opacity(0.5)
+                            .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.008, alignment: .leading)
+                        
+                        Text(group.creationDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())!)
+                            .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                            .foregroundColor(Color("labelColor"))
+                            .opacity(0.5)
+                            .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.008, alignment: .leading)
+                    }
+
+                } else {
+                    HStack{
+                        Text(group.modifiedDate.toString(dateFormatter: IdeasViewModel.dateFormatter)!)
+                            .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                            .foregroundColor(Color("labelColor"))
+                            .opacity(0.5)
+                            .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.008, alignment: .leading)
+                        
+                        Text(group.modifiedDate.toString(dateFormatter: IdeasViewModel.hourDateLanguageFormat())!)
+                            .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))
+                            .foregroundColor(Color("labelColor"))
+                            .opacity(0.5)
+                            .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.008, alignment: .leading)
+                    }
+                }
+            }
         }
-        .padding([.top, .bottom])
+        .padding([.top, .bottom], 25)
+        .padding(.leading, 5)
         //arrastar para deletar e para favoritar na lista
         .swipeActions(edge: .trailing) {
             //TODO: atualizar a view assim que deleta a ideia

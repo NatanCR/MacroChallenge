@@ -23,6 +23,9 @@
 		4097FE052A2FD3B3001EAB03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4097FE042A2FD3B3001EAB03 /* HomeView.swift */; };
 		40BBE09A2AAE860F00ACFB69 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BBE0992AAE860F00ACFB69 /* TutorialView.swift */; };
 		40C869022A97EA2B00514D85 /* SelectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C869012A97EA2B00514D85 /* SelectColorView.swift */; };
+		40CBA3782ABB689C000AC5F5 /* ForEachGroupComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CBA3772ABB689C000AC5F5 /* ForEachGroupComponent.swift */; };
+		40CBA37A2ABB6A05000AC5F5 /* GroupGridComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CBA3792ABB6A05000AC5F5 /* GroupGridComponent.swift */; };
+		40CBA37C2ABB6A12000AC5F5 /* GroupListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CBA37B2ABB6A12000AC5F5 /* GroupListComponent.swift */; };
 		430A99852A27C1C100D2F773 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99842A27C1C100D2F773 /* CameraViewModel.swift */; };
 		430A99872A27C8DD00D2F773 /* PhotoIdeaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A99862A27C8DD00D2F773 /* PhotoIdeaView.swift */; };
 		43211D3B2A268DAC005C85E5 /* CameraRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */; };
@@ -123,6 +126,9 @@
 		4097FE042A2FD3B3001EAB03 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		40BBE0992AAE860F00ACFB69 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		40C869012A97EA2B00514D85 /* SelectColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorView.swift; sourceTree = "<group>"; };
+		40CBA3772ABB689C000AC5F5 /* ForEachGroupComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForEachGroupComponent.swift; sourceTree = "<group>"; };
+		40CBA3792ABB6A05000AC5F5 /* GroupGridComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupGridComponent.swift; sourceTree = "<group>"; };
+		40CBA37B2ABB6A12000AC5F5 /* GroupListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListComponent.swift; sourceTree = "<group>"; };
 		430A99842A27C1C100D2F773 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		430A99862A27C8DD00D2F773 /* PhotoIdeaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoIdeaView.swift; sourceTree = "<group>"; };
 		43211D3A2A268DAC005C85E5 /* CameraRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRepresentable.swift; sourceTree = "<group>"; };
@@ -284,6 +290,16 @@
 			path = fonts;
 			sourceTree = "<group>";
 		};
+		40CBA37E2ABB7A08000AC5F5 /* GroupComponents */ = {
+			isa = PBXGroup;
+			children = (
+				40CBA3772ABB689C000AC5F5 /* ForEachGroupComponent.swift */,
+				40CBA3792ABB6A05000AC5F5 /* GroupGridComponent.swift */,
+				40CBA37B2ABB6A12000AC5F5 /* GroupListComponent.swift */,
+			);
+			path = GroupComponents;
+			sourceTree = "<group>";
+		};
 		430A99822A27C17100D2F773 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				43F470F32A9009F10071F5D4 /* GroupView.swift */,
+				40CBA37E2ABB7A08000AC5F5 /* GroupComponents */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -810,6 +827,7 @@
 				916E0FB42A268B3900F4FA87 /* AudioManager.swift in Sources */,
 				401292872A40F155006DB4CF /* SplashScreenView.swift in Sources */,
 				D1519E0E2A27E9D000CE84E1 /* TextViewModel.swift in Sources */,
+				40CBA37A2ABB6A05000AC5F5 /* GroupGridComponent.swift in Sources */,
 				40BBE09A2AAE860F00ACFB69 /* TutorialView.swift in Sources */,
 				917402B62ABA2E3E001BAAE3 /* ListViewComponent.swift in Sources */,
 				4074E0432A55FFBA00C5A46E /* TagView.swift in Sources */,
@@ -824,6 +842,7 @@
 				912811EE2A291D1300010872 /* CheckAudioView.swift in Sources */,
 				D12495492A268A720063C634 /* ContentView.swift in Sources */,
 				917402AE2ABA2E3E001BAAE3 /* PlaceholderComponent.swift in Sources */,
+				40CBA3782ABB689C000AC5F5 /* ForEachGroupComponent.swift in Sources */,
 				917402BC2ABA2E3E001BAAE3 /* SegmentedPickerComponent.swift in Sources */,
 				917402A92ABA2E3E001BAAE3 /* GridViewComponent.swift in Sources */,
 				438732F72A2694C000320451 /* PhotoModel.swift in Sources */,
@@ -837,6 +856,7 @@
 				917402BA2ABA2E3E001BAAE3 /* FilterComponent.swift in Sources */,
 				917402B12ABA2E3E001BAAE3 /* DeleteIdeaComponent.swift in Sources */,
 				917402AF2ABA2E3E001BAAE3 /* TextPreviewComponent.swift in Sources */,
+				40CBA37C2ABB6A12000AC5F5 /* GroupListComponent.swift in Sources */,
 				40C869022A97EA2B00514D85 /* SelectColorView.swift in Sources */,
 				916E0FC52A268C0400F4FA87 /* RecordAudio.swift in Sources */,
 				917402A72ABA2E3E001BAAE3 /* GroupPreviewComponent.swift in Sources */,

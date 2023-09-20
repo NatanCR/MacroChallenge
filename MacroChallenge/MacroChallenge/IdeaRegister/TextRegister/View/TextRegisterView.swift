@@ -143,7 +143,7 @@ struct TextRegisterView: View {
                 }
             }
             
-            self.currentModel = ModelText(title: title, creationDate: self.createDate, modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray, grouped: false)
+            self.currentModel = ModelText(id: self.ideaID, title: title, creationDate: self.createDate, modifiedDate: Date(), description: description, textComplete: textComplete, tag: tagsArray, grouped: false)
             
             //salva o dados registrados
             guard let idea = self.currentModel else { return }

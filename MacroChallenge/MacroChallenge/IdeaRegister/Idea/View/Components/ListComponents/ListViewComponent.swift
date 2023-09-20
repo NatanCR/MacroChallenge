@@ -14,21 +14,11 @@ struct ListViewComponent: View {
     
     var body: some View {
         List(selection: $selectedIdeas) {
-            if isAdding == false {
-                ForEach(ideasViewModel.groups, id: \.id) { group in
-                    NavigationLink{
-                        GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas)
-                    } label: {
-                        ListGroupComponent(group: group, ideasViewModel: ideasViewModel)
-                    }
-                }
-                .listRowBackground(Color("backgroundItem"))
-            }
             //MARK: - SECTION FAVORITE IDEAS
             //mostra apenas se houver ideias favoritadas
             if ideasViewModel.favoriteIdeas.count != 0 {
                 Section {
-                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.favoriteIdeas)
+                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.favoriteIdeas, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                 } header: {
                     Text("fav")
                         .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
@@ -40,7 +30,7 @@ struct ListViewComponent: View {
             //MARK: - SECTION WEEK DATE
             if ideasViewModel.weekIdeas.count != 0 {
                 Section {
-                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.weekIdeas)
+                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.weekIdeas, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                 } header: {
                     Text("week")
                         .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
@@ -52,7 +42,7 @@ struct ListViewComponent: View {
             //MARK: - SECTION ALL IDEAS
             if ideasViewModel.filteredIdeas.count != 0 {
                 Section {
-                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.filteredIdeas)
+                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.filteredIdeas, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                 } header: {
                     Text("prev")
                         .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))

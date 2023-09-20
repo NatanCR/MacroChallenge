@@ -52,6 +52,7 @@ struct ListRowComponent: View {
                     .foregroundColor(Color("labelColor"))
                     .frame(maxWidth: screenSize.width * 0.4, maxHeight: screenSize.height * 0.008, alignment: .leading)
                     .padding(.bottom, 10)
+                
                 HStack{
                     Text(ideasViewModel.isSortedByCreation ? idea.creationDate.toString(dateFormatter: self.dateFormatter)! : idea.modifiedDate.toString(dateFormatter: self.dateFormatter)!)
                         .font(Font.custom("Sen-Regular", size: 15, relativeTo: .headline))

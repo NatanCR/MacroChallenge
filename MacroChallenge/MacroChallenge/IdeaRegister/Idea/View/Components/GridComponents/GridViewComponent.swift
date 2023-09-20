@@ -26,24 +26,37 @@ struct GridViewComponent: View {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
 //                            FolderView(isAdding: $isAdding)
-                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas)
+                            GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas, ideaType: $ideaType, grid: true)
                         } label: {
                             GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
                         }
                     }
                 }
-                ForEach(self.$ideasViewModel.filteredIdeas, id: \.id) { $ideas in
-                    if isAdding == false {
-                        NavigationLink {
-                            switch ideas.ideiaType {
-                            case .text:
-                                EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
-                            case .audio:
-                                CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
-                            case .photo:
-                                PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
+                ForEach(self.$ideaType, id: \.id) { $ideas in
+                    if ideas.isGrouped == false {
+                        if isAdding == false {
+                            NavigationLink {
+                                switch ideas.ideiaType {
+                                case .text:
+                                    EditRegisterView(modelText: ideas as! ModelText, viewModel: ideasViewModel)
+                                case .audio:
+                                    CheckAudioView(audioIdea: ideas as! AudioIdea, viewModel: ideasViewModel)
+                                case .photo:
+                                    PhotoIdeaView(photoModel: ideas as! PhotoModel, viewModel: ideasViewModel)
+                                }
+                            } label: {
+                                switch ideas.ideiaType {
+                                case .text:
+                                    TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                                case .audio:
+                                    AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                                case .photo:
+                                    let photoIdea = ideas as! PhotoModel
+                                    ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                                }
                             }
-                        } label: {
+                            
+                        } else {
                             switch ideas.ideiaType {
                             case .text:
                                 TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
@@ -53,17 +66,6 @@ struct GridViewComponent: View {
                                 let photoIdea = ideas as! PhotoModel
                                 ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                             }
-                        }
-
-                    } else {
-                        switch ideas.ideiaType {
-                        case .text:
-                            TextPreviewComponent(text: ideas.textComplete, title: ideas.title, idea: $ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
-                        case .audio:
-                            AudioPreviewComponent(title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, audioManager: self.audioManager, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
-                        case .photo:
-                            let photoIdea = ideas as! PhotoModel
-                            ImagePreviewComponent(image: UIImage(contentsOfFile: ContentDirectoryHelper.getDirectoryContent(contentPath: photoIdea.capturedImages).path) ?? UIImage(), title: ideas.title, idea: ideas, ideasViewModel: self.ideasViewModel, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
                         }
                     }
                 }
