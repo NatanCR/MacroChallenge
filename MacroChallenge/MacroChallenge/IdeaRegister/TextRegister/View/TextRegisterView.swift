@@ -26,6 +26,7 @@ struct TextRegisterView: View {
     @State var ideaID: UUID = UUID()
     @State var font: UIFont? = UIFont(name: "Sen-Regular", size: 17)
     @State var size: CGFloat = 17
+    @State private var color = Color("AccentColor")
     
     
     //MARK: - BODY
@@ -54,6 +55,10 @@ struct TextRegisterView: View {
                         HorizontalTagScrollComponent(tags: tagsArray)
                     }.padding()
                     
+                }
+                if isFocused{
+                    ColorPicker("", selection: $color)
+                        .padding(.trailing)
                 }
             }
         }
@@ -111,6 +116,14 @@ struct TextRegisterView: View {
                     }
                 })
             }
+            
+//            ToolbarItem(placement: .keyboard) {
+//                ColorPicker(selection: $color, label: {
+//                    Circle()
+//                        .fill(Color.red)
+//                })
+//            }
+            
         }.font(Font.custom("Sen-Regular", size: 17, relativeTo: .headline))
     }
     
