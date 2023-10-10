@@ -90,7 +90,7 @@ class IdeasViewModel: ObservableObject {
         self.isFiltered = false
     }
     
-    /**Variável para filtrar e devolver apenas ideias favoritadas pra exibir na seção de favoritos*/
+    /**Função para filtrar e devolver apenas ideias favoritadas pra exibir na seção de favoritos*/
     func filteringFavoriteIdeas(newOrderArray: [any Idea] = [], useCurrentArray: Bool = false) -> [any Idea] {
         if useCurrentArray {
             return self.filteringIdeas(newOrderArray: newOrderArray).filter { idea in
