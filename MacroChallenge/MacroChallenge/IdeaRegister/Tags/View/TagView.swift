@@ -36,7 +36,7 @@ struct TagView: View {
                         self.tagName = self.tagName.trimmingCharacters(in: .whitespaces)
                         
                         if tagName.isEmpty {
-                           print("esta vazio")
+                            
                         } else {
                             self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
                             
@@ -79,17 +79,15 @@ struct TagView: View {
                             //adicionando tags
                             self.tagName = self.tagName.trimmingCharacters(in: .whitespaces)
                             if tagName.isEmpty {
-                               print("esta vazio")
+                                
                             } else {
                                 self.thatTagExist = viewModel.verifyExistTags(newTagName: self.tagName)
                                 if !thatTagExist {
                                     self.newTag = Tag(name: self.tagName, color: self.colorName)
-//                                    viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: "fff")
                                     viewModel.saveTagAndUpdateListView(tagToSave: self.newTag ?? Tag(name: "", color: self.colorName))
                                     
                                     self.newTag?.isTagSelected = true
                                     self.tagsArrayReceived.append(self.newTag ?? Tag(name: "", color: self.colorName))
-                                    //viewModel.saveTagAndUpdateListView(tagName: self.tagName, tagColor: colorName)
                                     colorName = ""
                                 }
                             }

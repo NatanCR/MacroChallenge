@@ -31,7 +31,6 @@ class ContentDirectoryHelper {
         let index: Int = contents.firstIndex(where: { $0.lastPathComponent == contentPath }) ?? -1
         
         if index == -1 {
-            //print("AUDIOHELPER: audio not found while getting.")
             return getDocumentDirectory()
         }
         
@@ -42,7 +41,6 @@ class ContentDirectoryHelper {
         let audioURL: URL = getDirectoryContent(contentPath: audioPath)
         
         if audioURL == getDocumentDirectory() {
-            //print("AUDIOHELPER: Error while deletig the audio.")
             return
         }
         

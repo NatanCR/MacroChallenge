@@ -29,9 +29,6 @@ struct TagLabelComponent: View {
                 
                 .foregroundColor(isSelected ? Color("backgroundColor") : Color(colorName.isEmpty ? "labelColor" : colorName))
                 .lineLimit(1)
-                .onAppear{
-                    print("cor\(colorName)")
-                }
     }
 }
 

@@ -25,7 +25,6 @@ struct GridViewComponent: View {
                 if isAdding == false {
                     ForEach(ideasViewModel.groups, id: \.id) { group in
                         NavigationLink{
-//                            FolderView(isAdding: $isAdding)
                             GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas, ideaType: $ideaType, grid: true)
                         } label: {
                             GroupPreviewComponent(group: group, ideasViewModel: ideasViewModel)
@@ -69,9 +68,6 @@ struct GridViewComponent: View {
                         }
                     }
                 }
-            }
-            .onAppear{
-                print("NESSE CARALHO AQUI \(isAdding)")
             }
     }
 }

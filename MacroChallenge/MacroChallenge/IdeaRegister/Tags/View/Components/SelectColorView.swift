@@ -25,7 +25,6 @@ struct SelectColorView: View {
                         } else {
                             colorName = "" //se clicar novamente, volta para a cor padrão
                         }
-                        print(colorName)
                     } label: {
                         Image(systemName: "circle.fill")
                             .font(.system(size: 20))

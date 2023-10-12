@@ -22,8 +22,6 @@ class IdeaSaver {
     }
     
     public static func saveGroups(groups: [GroupModel]) {
-        //if groups.isEmpty { print("Groups to save is empty."); return }
-        
         saveMultiplesGroups(groups: groups, key: groupModelKey)
     }
     
@@ -167,8 +165,6 @@ class IdeaSaver {
                 return loadedIdeas
             }
         }
-        
-        //print("error to GetSavedIdeas, or no saved ideas of specified type exists in UserDefault")
         return []
     }
     
@@ -179,7 +175,6 @@ class IdeaSaver {
                 return loadedTags
             }
         }
-        //print("error to GetSavedTags, or no saved tags of specified type exists in UserDefault")
         return []
     }
     
@@ -189,7 +184,6 @@ class IdeaSaver {
                 return loadedGroups
             }
         }
-//        print("error to GetSavedGroups, or no saved groups of specified type exists in UserDefault")
         return []
     }
     
