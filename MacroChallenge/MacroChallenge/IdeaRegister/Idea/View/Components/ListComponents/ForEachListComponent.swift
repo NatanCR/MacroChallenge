@@ -15,7 +15,7 @@ struct ForEachListComponent: View {
     
     var body: some View {
         if isAdding == false{
-            ForEach(ideasViewModel.groups, id: \.id) { group in
+            ForEach(ideasViewModel.groupsLoadedData, id: \.id) { group in
                 NavigationLink{
                     GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas, ideaType: $ideaType, grid: false)
                 } label: {

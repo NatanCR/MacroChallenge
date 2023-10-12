@@ -23,7 +23,7 @@ struct GridViewComponent: View {
     var body: some View {
             LazyVGrid(columns: columns, spacing: 20) {
                 if isAdding == false {
-                    ForEach(ideasViewModel.groups, id: \.id) { group in
+                    ForEach(ideasViewModel.groupsLoadedData, id: \.id) { group in
                         NavigationLink{
                             GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas, ideaType: $ideaType, grid: true)
                         } label: {

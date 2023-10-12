@@ -9,9 +9,13 @@ import Foundation
 import SwiftUI
 
 class IdeasViewModel: ObservableObject {
+    //MARK: Ideas data
     @Published var loadedData = IdeaSaver.getAllSavedIdeas()
     @Published var disposedData: [any Idea] = IdeaSaver.getAllSavedIdeas()
     @Published var filteredIdeas: [any Idea] = IdeaSaver.getAllSavedIdeas()
+    @Published var favoriteIdeas: [any Idea] = []
+    @Published var weekIdeas: [any Idea] = []
+    //MARK: Filters or Search
     @Published var filterType: IdeaType = .text
     @Published var isFiltered: Bool = false
     @Published var isSortedByAscendent: Bool = false
@@ -19,15 +23,21 @@ class IdeasViewModel: ObservableObject {
     @Published var isShowingCamera: Bool = false
     @Published var searchText: String = ""
     @Published var searchTag: String = ""
+    //MARK: Camera
     var cameraViewModel = CameraViewModel()
+    //MARK: Tags data
     @Published var tagsLoadedData: [Tag] = IdeaSaver.getAllSavedTags()
     @Published var tagsFiltered: [Tag] = IdeaSaver.getAllSavedTags()
-    @Published var groups: [GroupModel] = IdeaSaver.getAllSavedGroups().reversed()
-    static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
-    @Published var favoriteIdeas: [any Idea] = []
-    @Published var weekIdeas: [any Idea] = []
-    @Published var revealSectionDetails: Bool = false
+    //MARK: Group data
+    @Published var groupsLoadedData: [GroupModel] = IdeaSaver.getAllSavedGroups().reversed()
+    @Published var weekGroups: [GroupModel] = []
+    @Published var favoriteGroups: [GroupModel] = []
     @Published var selectedGroup: GroupModel? = nil
+    //MARK: Dates
+    static let dateFormatter = DateFormatter(format: "dd/MM/yyyy")
+    //MARK: Section
+    @Published var revealSectionDetails: Bool = false
+    
     
     func DismissKeyboard(){
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -123,10 +133,6 @@ class IdeasViewModel: ObservableObject {
         let calendar = Calendar.current
         
         if newOrderArray.isEmpty {
-            print(filteringNotFavoriteIdeas().filter { idea in
-                calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
-                calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
-            })
             return filteringNotFavoriteIdeas().filter { idea in
                 calendar.isDate(idea.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
                 calendar.isDate(idea.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
@@ -171,7 +177,7 @@ class IdeasViewModel: ObservableObject {
         
     func reloadLoadedData() {
         self.loadedData = IdeaSaver.getAllSavedIdeas()
-        self.groups = IdeaSaver.getAllSavedGroups().reversed()
+        self.groupsLoadedData = IdeaSaver.getAllSavedGroups().reversed()
         self.disposedData = loadedData
     }
     
