@@ -226,7 +226,7 @@ struct HomeGridView: View {
                             .padding(.bottom)
                     }
                     
-                    if ideasViewModel.filteredIdeas.count != 0 {
+                    if ideasViewModel.filteredIdeas.count != 0 || ideasViewModel.filteredGroups.count != 0 {
                         Text("prev")
                             .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("labelColor"))
