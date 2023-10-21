@@ -13,7 +13,7 @@ struct GroupModel : Codable, Hashable, Identifiable {
     var creationDate: Date
     var modifiedDate: Date
     var ideasIds: [UUID]
-//    var isFavorite: Bool = false
+    var isFavorite: Bool = false
     
     init(title: String, creationDate: Date, modifiedDate: Date, ideasIds: [UUID]) {
         self.title = title

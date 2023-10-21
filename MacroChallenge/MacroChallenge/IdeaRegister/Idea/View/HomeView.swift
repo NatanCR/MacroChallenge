@@ -130,6 +130,13 @@ struct HomeView: View {
 //                    ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas()
 //                    ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas()
 //                    ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas()
+                    
+                    ideasViewModel.weekGroups = ideasViewModel.weekCorrentlyGroups()
+                    ideasViewModel.favoriteGroups = ideasViewModel.filteringFavoriteGroups()
+                    ideasViewModel.filteredGroups = ideasViewModel.notWeekGroups()
+                    
+                    dump(ideasViewModel.weekGroups)
+                    
                     if !isAdding {
                         self.ideasViewModel.selectedGroup = nil
                     }
@@ -201,7 +208,7 @@ struct HomeGridView: View {
                     if ideasViewModel.favoriteIdeas.count != 0 {
                         //modo de expansão da grid de favoritos
                         DisclosureGroup(isExpanded: $ideasViewModel.revealSectionDetails) {
-                            GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas, selectedIdeas: $selectedIdeas)
+                            GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.favoriteIdeas, selectedIdeas: $selectedIdeas, groupType: $ideasViewModel.favoriteGroups)
                                 .padding(.bottom)
                         } label: {
                             Text("fav")
@@ -211,11 +218,11 @@ struct HomeGridView: View {
                                 .padding(.bottom)
                         }
                     }
-                    if ideasViewModel.weekIdeas.count != 0 {
+                    if ideasViewModel.weekIdeas.count != 0 || ideasViewModel.weekGroups.count != 0 {
                         Text("week")
                             .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("labelColor"))
-                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.weekIdeas, selectedIdeas: $selectedIdeas)
+                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.weekIdeas, selectedIdeas: $selectedIdeas, groupType: $ideasViewModel.weekGroups)
                             .padding(.bottom)
                     }
                     
@@ -225,7 +232,7 @@ struct HomeGridView: View {
                             .foregroundColor(Color("labelColor"))
                             .frame(width: screenSize.width * 0.22, height: screenSize.height * 0.015, alignment: .leading)
                             .padding(.bottom)
-                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas, selectedIdeas: $selectedIdeas)
+                        GridViewComponent(ideasViewModel: ideasViewModel, audioManager: audioManager, isAdding: $isAdding, ideaType: $ideasViewModel.filteredIdeas, selectedIdeas: $selectedIdeas, groupType: $ideasViewModel.filteredGroups)
                     }
                 }.padding()
             }

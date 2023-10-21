@@ -8,6 +8,27 @@
 import Foundation
 
 class LogicFilterBySearchComponent {
+    
+    static func filterGroupsBySearch(newOrderArray: [GroupModel], searchText: String) -> [GroupModel] {
+        return newOrderArray.filter { group in
+            let isMatchingTitle = group.title.localizedCaseInsensitiveContains(searchText)
+            
+            return isMatchingTitle
+        }
+        .sorted { group1, group2 in
+            let titleMatch1 = group1.title.localizedCaseInsensitiveContains(searchText)
+            let titleMatch2 = group2.title.localizedCaseInsensitiveContains(searchText)
+            
+            if titleMatch1 && !titleMatch2 {
+                return true
+            } else if !titleMatch1 && titleMatch2 {
+                return false
+            } else {
+                return group1.creationDate > group2.creationDate
+            }
+        }
+    }
+    
     static func filterBySearch(newOrderArray: [any Idea], searchText: String) -> [any Idea] {
         return newOrderArray.filter { idea in
             //filtra com o que tem em cada propriedade e guarda na variavel

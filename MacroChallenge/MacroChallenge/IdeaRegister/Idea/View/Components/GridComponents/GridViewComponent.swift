@@ -13,6 +13,7 @@ struct GridViewComponent: View {
     @Binding var isAdding: Bool
     @Binding var ideaType: [any Idea]
     @Binding var selectedIdeas: Set<UUID>
+    @Binding var groupType: [GroupModel]
     
     let columns = [
         GridItem(.flexible()),
@@ -23,7 +24,7 @@ struct GridViewComponent: View {
     var body: some View {
             LazyVGrid(columns: columns, spacing: 20) {
                 if isAdding == false {
-                    ForEach(ideasViewModel.groupsLoadedData, id: \.id) { group in
+                    ForEach(self.groupType, id: \.id) { group in
                         NavigationLink{
                             GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas, ideaType: $ideaType, grid: true)
                         } label: {
@@ -68,6 +69,11 @@ struct GridViewComponent: View {
                         }
                     }
                 }
+            }
+            .onAppear {
+                dump(groupType)
+                print("ZZZZZZZZZZZZZZZZZZ")
+                dump(ideasViewModel.weekGroups)
             }
     }
 }

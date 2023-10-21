@@ -29,10 +29,16 @@ struct SearchBarComponent: View {
                     .onChange(of: searchText) { _ in
                         self.resetSearchText(false)
                         let currentOrdenedIdeas = ideasViewModel.orderBy(byCreation: byCreation, sortedByAscendent: sortedByAscendent)
+                        let currentOrdenedGroups = ideasViewModel.groupsOrderBy(byCreation: byCreation, sortedByAscendent: sortedByAscendent)
                         
                         self.ideasViewModel.filteredIdeas = ideasViewModel.notWeekIdeas(newOrderArray: currentOrdenedIdeas, byCreation: byCreation)
                         self.ideasViewModel.favoriteIdeas = ideasViewModel.filteringFavoriteIdeas(newOrderArray: currentOrdenedIdeas, useCurrentArray: true)
                         self.ideasViewModel.weekIdeas = ideasViewModel.weekCorrentlyIdeas(newOrderArray: currentOrdenedIdeas, byCreation: byCreation)
+                        
+                        
+                        self.ideasViewModel.filteredGroups = ideasViewModel.notWeekGroups(newOrderArray: currentOrdenedGroups, byCreation: byCreation)
+                        self.ideasViewModel.favoriteGroups = ideasViewModel.filteringFavoriteGroups(newOrderArray: currentOrdenedGroups, useCurrentArray: true)
+                        self.ideasViewModel.weekGroups = ideasViewModel.weekCorrentlyGroups(newOrderArray: currentOrdenedGroups, byCreation: byCreation)
                     }
             }
             .onAppear(perform: { self.resetSearchText() })

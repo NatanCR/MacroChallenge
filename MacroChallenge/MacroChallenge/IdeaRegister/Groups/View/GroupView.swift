@@ -102,9 +102,9 @@ struct GroupView: View {
     }
     
     func removeIdea() {
-        let index = self.ideasViewModel.groupsLoadedData.firstIndex(where: {$0.id == group.id}) ?? -1
+        let index = self.ideasViewModel.groupsDisposedData.firstIndex(where: {$0.id == group.id}) ?? -1
         if index != -1 {
-            group.ideasIds = self.ideasViewModel.groupsLoadedData[index].ideasIds
+            group.ideasIds = self.ideasViewModel.groupsDisposedData[index].ideasIds
         } else {
             group.ideasIds = []
             dismiss()

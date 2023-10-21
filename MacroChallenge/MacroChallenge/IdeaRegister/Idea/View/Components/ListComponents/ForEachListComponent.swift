@@ -12,10 +12,11 @@ struct ForEachListComponent: View {
     @Binding var ideaType: [any Idea]
     @Binding var isAdding: Bool
     @Binding var selectedIdeas: Set<UUID>
+    @Binding var groupType: [GroupModel]
     
     var body: some View {
         if isAdding == false{
-            ForEach(ideasViewModel.groupsLoadedData, id: \.id) { group in
+            ForEach(groupType, id: \.id) { group in
                 NavigationLink{
                     GroupView(ideasViewModel: ideasViewModel, isAdding: $isAdding, group: group, isNewGroup: false, selectedIdeas: $selectedIdeas, ideaType: $ideaType, grid: false)
                 } label: {

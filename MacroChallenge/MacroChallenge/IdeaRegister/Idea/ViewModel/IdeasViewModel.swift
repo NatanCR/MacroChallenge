@@ -30,6 +30,8 @@ class IdeasViewModel: ObservableObject {
     @Published var tagsFiltered: [Tag] = IdeaSaver.getAllSavedTags()
     //MARK: Group data
     @Published var groupsLoadedData: [GroupModel] = IdeaSaver.getAllSavedGroups().reversed()
+    @Published var groupsDisposedData: [GroupModel] = IdeaSaver.getAllSavedGroups().reversed()
+    @Published var filteredGroups: [GroupModel] = []
     @Published var weekGroups: [GroupModel] = []
     @Published var favoriteGroups: [GroupModel] = []
     @Published var selectedGroup: GroupModel? = nil
@@ -59,25 +61,65 @@ class IdeasViewModel: ObservableObject {
             if byCreation {
                 //se true ordena do mais recente ao mais antigo - data de criação
                 sortedByAscendent ? disposedData.sort(by: { $0.creationDate < $1.creationDate }) : disposedData.sort(by: { $0.creationDate > $1.creationDate })
+                sortedByAscendent ? groupsDisposedData.sort(by: { $0.creationDate < $1.creationDate }) : groupsDisposedData.sort(by: { $0.creationDate > $1.creationDate })
                 
                 self.filteredIdeas = self.notWeekIdeas(newOrderArray: disposedData)
                 self.weekIdeas = self.weekCorrentlyIdeas(newOrderArray: disposedData)
+                
+                self.filteredGroups = self.notWeekGroups(newOrderArray: groupsDisposedData)
+                self.weekGroups = self.weekCorrentlyGroups(newOrderArray: groupsDisposedData)
+                
                                 
                 sortedByAscendent ? favoriteIdeas.sort(by: { $0.creationDate < $1.creationDate }) : favoriteIdeas.sort(by: { $0.creationDate > $1.creationDate })
+                
+                sortedByAscendent ? favoriteGroups.sort(by: { $0.creationDate < $1.creationDate }) : favoriteGroups.sort(by: { $0.creationDate > $1.creationDate })
                 
             } else {
                 //se true ordena do mais recente ao mais antigo - data de edição
                 sortedByAscendent ? disposedData.sort(by: { $0.modifiedDate < $1.modifiedDate }) : disposedData.sort(by: { $0.modifiedDate > $1.modifiedDate })
+                sortedByAscendent ? groupsDisposedData.sort(by: { $0.modifiedDate < $1.modifiedDate }) : groupsDisposedData.sort(by: { $0.modifiedDate > $1.modifiedDate })
                 
                 self.filteredIdeas = self.notWeekIdeas(newOrderArray: disposedData, byCreation: false)
                 self.weekIdeas = self.weekCorrentlyIdeas(newOrderArray: disposedData, byCreation: false)
+                
+                self.filteredGroups = self.notWeekGroups(newOrderArray: groupsDisposedData, byCreation: false)
+                self.weekGroups = self.weekCorrentlyGroups(newOrderArray: groupsDisposedData, byCreation: false)
                                 
                 sortedByAscendent ? favoriteIdeas.sort(by: { $0.modifiedDate < $1.modifiedDate }) : favoriteIdeas.sort(by: { $0.modifiedDate > $1.modifiedDate })
-                
+
+                sortedByAscendent ? favoriteGroups.sort(by: { $0.modifiedDate < $1.modifiedDate }) : favoriteGroups.sort(by: { $0.modifiedDate > $1.modifiedDate })
             }
         }
         
         return disposedData
+    }
+    
+    func groupsOrderBy(byCreation: Bool, sortedByAscendent: Bool) -> [GroupModel] {
+        DispatchQueue.main.async { [self] in
+            self.isSortedByAscendent = sortedByAscendent
+            self.isSortedByCreation = byCreation
+            
+            if byCreation {
+                //se true ordena do mais recente ao mais antigo - data de criação
+                sortedByAscendent ? groupsDisposedData.sort(by: { $0.creationDate < $1.creationDate }) : groupsDisposedData.sort(by: { $0.creationDate > $1.creationDate })
+                
+                self.filteredGroups = self.notWeekGroups(newOrderArray: groupsDisposedData)
+                self.weekGroups = self.weekCorrentlyGroups(newOrderArray: groupsDisposedData)
+                
+                sortedByAscendent ? favoriteGroups.sort(by: { $0.creationDate < $1.creationDate }) : favoriteGroups.sort(by: { $0.creationDate > $1.creationDate })
+                
+            } else {
+                //se true ordena do mais recente ao mais antigo - data de edição
+                sortedByAscendent ? groupsDisposedData.sort(by: { $0.modifiedDate < $1.modifiedDate }) : groupsDisposedData.sort(by: { $0.modifiedDate > $1.modifiedDate })
+                
+                self.filteredGroups = self.notWeekGroups(newOrderArray: groupsDisposedData, byCreation: false)
+                self.weekGroups = self.weekCorrentlyGroups(newOrderArray: groupsDisposedData, byCreation: false)
+
+                sortedByAscendent ? favoriteGroups.sort(by: { $0.modifiedDate < $1.modifiedDate }) : favoriteGroups.sort(by: { $0.modifiedDate > $1.modifiedDate })
+            }
+        }
+        
+        return groupsDisposedData
     }
     
     /**Função para filtrar TODAS as ideias de acordo com o tipo de ideia escolhido pelo usuário em todas as seções**/
@@ -86,6 +128,11 @@ class IdeasViewModel: ObservableObject {
         self.filteredIdeas = self.notWeekIdeas()
         self.favoriteIdeas = self.filteringFavoriteIdeas()
         self.weekIdeas = self.weekCorrentlyIdeas()
+        
+        self.groupsDisposedData = self.groupsLoadedData
+        self.filteredGroups = self.notWeekGroups()
+        self.favoriteGroups = self.filteringFavoriteGroups()
+        self.weekGroups = self.weekCorrentlyGroups()
         
         if (!isFiltered || (isFiltered && filterType != type)) {
             filterType = type
@@ -113,6 +160,18 @@ class IdeasViewModel: ObservableObject {
         }
     }
     
+    func filteringFavoriteGroups(newOrderArray: [GroupModel] = [], useCurrentArray: Bool = false) -> [GroupModel] {
+        if useCurrentArray {
+            return self.filteringGroups(newOrderArray: newOrderArray).filter { group in
+                return group.isFavorite == true
+            }
+        } else {
+            return self.filteringGroups().filter { group in
+                return group.isFavorite == true
+            }
+        }
+    }
+    
     /**Função que filtra e devolve as ideias não favoritadas pra serem exibidas na seção geral**/
     func filteringNotFavoriteIdeas(newOrderArray: [any Idea] = [], useCurrentArray: Bool = false) -> [any Idea] {
         if useCurrentArray {
@@ -123,6 +182,19 @@ class IdeasViewModel: ObservableObject {
             //utiliza o array que foi ordenado pelo filtro que o usuário escolheu
             return newOrderArray.filter { idea in
                 return idea.isFavorite == false
+            }
+        }
+    }
+    
+    /**Função que filtra e devolve as grupos não favoritadas pra serem exibidas na seção geral**/
+    func filteringNotFavoriteGroups(newOrderArray: [GroupModel] = [], useCurrentArray: Bool = false) -> [GroupModel] {
+        if useCurrentArray {
+            return self.filteringGroups(newOrderArray: newOrderArray).filter { group in
+                return group.isFavorite == false
+            }
+        } else {
+            return groupsDisposedData.filter { group in
+                return group.isFavorite == false
             }
         }
     }
@@ -151,6 +223,29 @@ class IdeasViewModel: ObservableObject {
         }
     }
     
+    /**Função que filtra e devolve as ideias da semana que não estão favoritadas.**/
+    func weekCorrentlyGroups(newOrderArray: [GroupModel] = [], byCreation: Bool = false) -> [GroupModel] {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        if newOrderArray.isEmpty {
+            return filteringNotFavoriteGroups().filter { group in
+                calendar.isDate(group.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
+                calendar.isDate(group.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
+            }
+        } else {
+            if byCreation {
+                return filteringNotFavoriteGroups(newOrderArray: newOrderArray, useCurrentArray: true).filter { group in
+                    calendar.isDate(group.creationDate, equalTo: currentDate, toGranularity: .weekOfYear)
+                }
+            } else {
+                return filteringNotFavoriteGroups(newOrderArray: newOrderArray, useCurrentArray: true).filter { group in
+                    calendar.isDate(group.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear)
+                }
+            }
+        }
+    }
+    
     /**Função que filtra e devolve as DEMAIS ideias que não estão favoritadas**/
     func notWeekIdeas(newOrderArray: [any Idea] = [], byCreation: Bool = true) -> [any Idea] {
         let currentDate = Date()
@@ -174,10 +269,33 @@ class IdeasViewModel: ObservableObject {
             }
         }
     }
+    
+    /**Função que filtra e devolve os DEMAIS grupos que não estão favoritadas**/
+    func notWeekGroups(newOrderArray: [GroupModel] = [], byCreation: Bool = true) -> [GroupModel] {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        if newOrderArray.isEmpty {
+            return filteringNotFavoriteGroups().filter { group in
+                !(calendar.isDate(group.creationDate, equalTo: currentDate, toGranularity: .weekOfYear) ||
+                  calendar.isDate(group.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear))
+            }
+        } else {
+            if byCreation {
+                return filteringNotFavoriteGroups(newOrderArray: newOrderArray, useCurrentArray: true).filter { group in
+                    !(calendar.isDate(group.creationDate, equalTo: currentDate, toGranularity: .weekOfYear))
+                }
+            } else {
+                return filteringNotFavoriteGroups(newOrderArray: newOrderArray, useCurrentArray: true).filter { group in
+                    !(calendar.isDate(group.modifiedDate, equalTo: currentDate, toGranularity: .weekOfYear))
+                }
+            }
+        }
+    }
         
     func reloadLoadedData() {
         self.loadedData = IdeaSaver.getAllSavedIdeas()
-        self.groupsLoadedData = IdeaSaver.getAllSavedGroups().reversed()
+        self.groupsDisposedData = IdeaSaver.getAllSavedGroups().reversed()
         self.disposedData = loadedData
     }
     
@@ -188,6 +306,10 @@ class IdeasViewModel: ObservableObject {
         self.favoriteIdeas = self.filteringFavoriteIdeas()
         self.filteredIdeas = self.notWeekIdeas()
         self.weekIdeas = self.weekCorrentlyIdeas()
+        
+        self.favoriteGroups = self.filteringFavoriteGroups()
+        self.filteredGroups = self.notWeekGroups()
+        self.weekGroups = self.weekCorrentlyGroups()
     }
     
     /**Variável que filtra TODAS as tags para serem exibidas em suas ideias ao realizar uma pesquisa*/
@@ -212,6 +334,19 @@ class IdeasViewModel: ObservableObject {
                 } else {
                     return tag1.name > tag2.name
                 }
+            }
+        }
+    }
+    
+    /**Variável que filtra TODAS os grupps  com certas prioridades para serem exibidas ao realizar uma pesquisa na Home**/
+    func filteringGroups(newOrderArray: [GroupModel] = [], useCurrentArray: Bool = false) -> [GroupModel] {
+        if searchText.isEmpty {
+            return groupsDisposedData
+        } else {
+            if useCurrentArray {
+                return LogicFilterBySearchComponent.filterGroupsBySearch(newOrderArray: newOrderArray, searchText: searchText)
+            } else {
+                return LogicFilterBySearchComponent.filterGroupsBySearch(newOrderArray: groupsDisposedData, searchText: searchText)
             }
         }
     }

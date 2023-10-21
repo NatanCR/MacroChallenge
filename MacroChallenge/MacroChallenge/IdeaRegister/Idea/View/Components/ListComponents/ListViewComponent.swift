@@ -18,7 +18,7 @@ struct ListViewComponent: View {
             //mostra apenas se houver ideias favoritadas
             if ideasViewModel.favoriteIdeas.count != 0 {
                 Section {
-                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.favoriteIdeas, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.favoriteIdeas, isAdding: $isAdding, selectedIdeas: $selectedIdeas, groupType: $ideasViewModel.favoriteGroups)
                 } header: {
                     Text("fav")
                         .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
@@ -30,7 +30,7 @@ struct ListViewComponent: View {
             //MARK: - SECTION WEEK DATE
             if ideasViewModel.weekIdeas.count != 0 {
                 Section {
-                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.weekIdeas, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.weekIdeas, isAdding: $isAdding, selectedIdeas: $selectedIdeas, groupType: $ideasViewModel.weekGroups)
                 } header: {
                     Text("week")
                         .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
@@ -42,7 +42,7 @@ struct ListViewComponent: View {
             //MARK: - SECTION ALL IDEAS
             if ideasViewModel.filteredIdeas.count != 0 {
                 Section {
-                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.filteredIdeas, isAdding: $isAdding, selectedIdeas: $selectedIdeas)
+                    ForEachListComponent(ideasViewModel: ideasViewModel, ideaType: $ideasViewModel.filteredIdeas, isAdding: $isAdding, selectedIdeas: $selectedIdeas, groupType: $ideasViewModel.filteredGroups)
                 } header: {
                     Text("prev")
                         .font(.custom("Sen-Bold", size: 17, relativeTo: .headline))
